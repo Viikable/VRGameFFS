@@ -312,7 +312,7 @@ namespace VRTK
                 newY = playArea.position.y;
                 newZ = (headsetPositionCompensation ? (tipPosition.z - (headset.position.z - playArea.position.z)) : tipPosition.z);
             }
-
+            gameObject.transform.parent = target.transform;
             return new Vector3(newX, newY, newZ);
         }
 

@@ -45,6 +45,7 @@ namespace VRTK
             {
                 basePosition.y = GetTeleportY(target, tipPosition);
             }
+            gameObject.transform.parent = target.transform;
             return basePosition;
         }
 
