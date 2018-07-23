@@ -1,8 +1,7 @@
-﻿namespace VRTK
-{
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using VRTK;
 
     public class PlayerFinding : MonoBehaviour
     {
@@ -23,4 +22,4 @@
 
         }
     }
-}
+
