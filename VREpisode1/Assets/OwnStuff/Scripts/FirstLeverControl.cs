@@ -4,12 +4,13 @@
     using UnityEngine.UI;
     using VRTK.Controllables;
 
-    public class ControllableReactor : MonoBehaviour
+    public class FirstLeverControl: MonoBehaviour
     {
         public VRTK_BaseControllable controllable;
         public Text displayText;
         public string outputOnMax = "Maximum Reached";
         public string outputOnMin = "Minimum Reached";
+        [Tooltip("Whether the consequence for this switch has already happened or not")]
         public bool AlreadyDid;
         GameObject LeverAudio;
         AudioSource LeverSource;
@@ -47,7 +48,7 @@
             if (displayText != null)
             {
                 displayText.text = e.value.ToString("F1");
-              
+
             }
         }
 
@@ -68,6 +69,4 @@
             }
         }
     }
-   
-   
 }
