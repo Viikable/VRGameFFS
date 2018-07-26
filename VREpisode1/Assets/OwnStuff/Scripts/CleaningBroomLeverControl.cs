@@ -30,20 +30,17 @@
 
         private void Update()                             //added by Taneli, basically controls what happens after the lever reaches a certain point
         {
-            if (displayText.text == "2.0" && AlreadyDid == false)
-            {
-                Debug.Log("We can do anything now!");
-                AlreadyDid = true;
-                LeverSource.Play();
-                MovingObject.transform.Translate(Vector3.forward);
-            }
-        
-            if (displayText.text == "3.0" || displayText.text == "0.0" && BroomSwings <= 5) //counts the broom swings from end to the other one at a time
+           
+            if (displayText.text == "3.0" && BroomSwings % 2 == 0) //counts the broom swings from end to the other one at a time
             {
                 BroomSwings += 1;
             }
-            if (BroomSwings == 5)
+            if (displayText.text == "0.0" && BroomSwings % 2 == 1)
             {
+                BroomSwings += 1;
+
+            }
+            if (BroomSwings == 5) { 
                 Debug.Log("Cleaning Complete!");
             }
         }

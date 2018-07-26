@@ -9925,12 +9925,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPopulateObjectReferences: 1
-  actualBoundaries: {fileID: 0}
-  actualHeadset: {fileID: 0}
-  actualLeftController: {fileID: 0}
-  actualRightController: {fileID: 0}
-  modelAliasLeftController: {fileID: 0}
-  modelAliasRightController: {fileID: 0}
+  actualBoundaries: {fileID: 684578274}
+  actualHeadset: {fileID: 684578273}
+  actualLeftController: {fileID: 684578272}
+  actualRightController: {fileID: 684578271}
+  modelAliasLeftController: {fileID: 684578270}
+  modelAliasRightController: {fileID: 684578269}
   cachedSystemSDKInfo:
     baseTypeName: VRTK.SDK_BaseSystem
     fallbackTypeName: VRTK.SDK_FallbackSystem
@@ -18448,8 +18448,8 @@ MonoBehaviour:
   connectedTo: {fileID: 0}
   hingePoint: {fileID: 1366160542}
   angleLimits:
-    minimum: -25
-    maximum: 65
+    minimum: -5
+    maximum: 50
   minMaxThresholdAngle: 1
   restingAngle: 0
   forceRestingAngleThreshold: 0
@@ -19225,6 +19225,36 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be540b97364be0a4890e39e62ac89ed1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &684578269 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1883185261795400, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578270 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1384746914293964, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578271 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1391022766006510, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578272 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1538727058887424, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578273 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1587602180963074, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578274 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013941130086, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
 --- !u!4 &686596320 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 06bddf078bc45eb4e89adbac1f66571d, type: 3}
@@ -25732,7 +25762,7 @@ MonoBehaviour:
   playAreaMovementThreshold: 0.00075
   standingHistorySamples: 5
   leanYThreshold: 0.5
-  stepUpYOffset: 0.15
+  stepUpYOffset: 0.3
   stepThicknessMultiplier: 0.5
   stepDropThreshold: 0.08
   customRaycast: {fileID: 0}
@@ -26894,7 +26924,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 976145584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.959, y: 1.316, z: -11.049}
+  m_LocalPosition: {x: 28.959, y: 1.322, z: -11.049}
   m_LocalScale: {x: 2.129236, y: 2.1292357, z: 1}
   m_Children:
   - {fileID: 1366369639}
