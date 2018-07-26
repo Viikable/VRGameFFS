@@ -31,18 +31,20 @@
         private void Update()                             //added by Taneli, basically controls what happens after the lever reaches a certain point
         {
            
-            if (displayText.text == "3.0" && BroomSwings % 2 == 0) //counts the broom swings from end to the other one at a time
+            if (displayText.text == "3.0" && BroomSwings % 2 == 0 && !AlreadyDid) //counts the broom swings from end to the other one at a time
             {
                 BroomSwings += 1;
             }
-            if (displayText.text == "0.0" && BroomSwings % 2 == 1)
+            if (displayText.text == "0.0" && BroomSwings % 2 == 1 && !AlreadyDid)
             {
                 BroomSwings += 1;
 
             }
             if (BroomSwings == 5) { 
                 Debug.Log("Cleaning Complete!");
+                AlreadyDid = true;
             }
+         
         }
         protected virtual void OnEnable()
         {
