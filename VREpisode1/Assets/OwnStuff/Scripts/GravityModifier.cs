@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GravityModifier : MonoBehaviour
 {
-    bool TouchedWater;
+    [Tooltip("Have we touched the water surface yet or not")]
+    public bool TouchedWater;
+    //The rigidbody which is created into this gameobject and which is used as the playerobject
     Rigidbody headsetbody;
-    // Use this for initialization
+    
     void Start()
     {
         headsetbody = this.GetComponent<Rigidbody>();
@@ -32,7 +34,7 @@ public class GravityModifier : MonoBehaviour
             headsetbody.useGravity = false;
 
             headsetbody.AddForce(Physics.gravity * headsetbody.mass/12);
-            //Physics.gravity = new Vector3(0, -0.5F, 0);
+           
         }
     }
 }
