@@ -59,7 +59,8 @@ namespace VRTK.Controllables.PhysicsBased
         public float angleTarget = 0f;
         [Tooltip("If this is checked then the rotator Rigidbody will have all rotations frozen.")]
         public bool isLocked = false;
-
+        [Tooltip("This static boolean value determines whether we want to freeze all of the switches or not, meaning it turns the isLocked to true")]
+        public static bool ThisNeedsToStop = false;
         [Header("Value Step Settings")]
 
         [Tooltip("The minimum and the maximum step values for the rotator to register along the `Operate Axis`.")]
@@ -265,6 +266,10 @@ namespace VRTK.Controllables.PhysicsBased
             ForceSnapToStep();
             SetJointLimits();
             EmitEvents();
+            if (ThisNeedsToStop)
+            {
+                isLocked = true;
+            }
         }
 
         protected override void EmitEvents()
