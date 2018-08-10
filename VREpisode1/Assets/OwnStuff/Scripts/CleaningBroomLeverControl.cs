@@ -1,5 +1,6 @@
 ﻿namespace VRTK.Examples
 {
+    using VRTK.Controllables.PhysicsBased;
     using UnityEngine;
     using UnityEngine.UI;
     using VRTK.Controllables;
@@ -16,13 +17,15 @@
         GameObject LeverAudio2;
         GameObject LeverAudio3;
         GameObject LeverAudio4;
-        AudioSource LeverSource;
-        AudioSource LeverSource2;
-        AudioSource LeverSource3;
-        AudioSource LeverSource4;
+        [Header("AudioSources")]
+        public AudioSource LeverSource;
+        public AudioSource LeverSource2;
+        public AudioSource LeverSource3;
+        public AudioSource LeverSource4;
+        [Header("Something else")]
         [Tooltip("The game object which happens to move when we flip the switch")]
         public GameObject MovingObject;
-        [Tooltip("The amount of times the broom has been moved from one end to")]
+        [Tooltip("The amount of times the broom has been moved from one end to the other")]
         public int BroomSwings;
 
         private void Awake()
@@ -40,8 +43,15 @@
             BroomSwings = 0;
         }
 
+     
+
         private void Update()                             //added by Taneli, basically controls what happens after the lever reaches a certain point
         {
+            VRTK_SDKManager sdkmanager = VRTK_SDKManager.instance;
+            sdkmanager.loadedSetup.modelAliasLeftController.transform.localPosition = Vector3.zero;
+            sdkmanager.loadedSetup.modelAliasRightController.transform.localPosition = Vector3.zero;
+
+
             int random = Random.Range(0, 2);
             if (displayText.text == "3.0" && BroomSwings % 2 == 0 && !AlreadyDid) //counts the broom swings from end to the other one at a time
             {
@@ -49,10 +59,12 @@
                 {
                     if (random == 0)
                     {
+                        Debug.Log("played0");
                         LeverSource.Play();
                     }
                     else
                     {
+                        Debug.Log("played2");
                         LeverSource2.Play();
                     }
                 }
@@ -87,6 +99,7 @@
                 {
                     if (random == 0)
                     {
+                        Debug.Log("played0");
                         LeverSource.Play();
                     }
                     else
@@ -109,7 +122,21 @@
                 BroomSwings += 1;
 
             }
-            if (BroomSwings == 5 && !AlreadyDid)
+            if (displayText.text == "1.5" && !AlreadyDid)
+            {
+                if (random == 0)
+                {
+                    LeverSource3.Play();
+                }
+                else
+                {
+                    LeverSource4.Play();
+                }
+
+            }
+
+
+                if (BroomSwings == 5 && !AlreadyDid)
             {
                 Debug.Log("Cleaning Complete!");
                 AlreadyDid = true;
@@ -123,8 +150,10 @@
                     LeverSource4.Play();
                     LeverSource2.Play();
                 }
+                VRTK_PhysicsRotator.ThisNeedsToStop = true;
             }
 
+               
         }
         protected virtual void OnEnable()
         {
