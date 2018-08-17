@@ -34,7 +34,7 @@ public class GravityModifier : MonoBehaviour
 
     private void OnTriggerEnter(Collider water)
     {
-       if (water.name == "Water")       //just to check which object the rigidbody attached to the camerarig collided with
+       if (water.name == "Grabbable water")       //just to check which object the rigidbody attached to the camerarig collided with
         {
             TouchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
             Debug.Log("Touched the water");
