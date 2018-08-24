@@ -112,6 +112,8 @@ namespace VRTK
 
         protected List<VRTK_InteractableObject> currentValidSnapInteractableObjects = new List<VRTK_InteractableObject>();
         protected VRTK_InteractableObject currentSnappedObject = null;
+        private Transform SnappedObjectTransform;                                     //added by TANELI
+        private bool changed = true;       //this detects whether we already changed the rotation of the prefab snapped or not
         protected GameObject objectToClone = null;
         protected bool[] clonedObjectColliderStates = new bool[0];
 
@@ -131,6 +133,8 @@ namespace VRTK
         protected const string HIGHLIGHT_CONTAINER_NAME = "HighlightContainer";
         protected const string HIGHLIGHT_OBJECT_NAME = "HighlightObject";
         protected const string HIGHLIGHT_EDITOR_OBJECT_NAME = "EditorHighlightObject";
+       
+        
 
         public virtual void OnObjectEnteredSnapDropZone(SnapDropZoneEventArgs e)
         {
@@ -197,6 +201,7 @@ namespace VRTK
         public virtual void ForceSnap(GameObject objectToSnap)
         {
             ForceSnap(objectToSnap.GetComponentInParent<VRTK_InteractableObject>());
+            
         }
 
         /// <summary>
@@ -401,6 +406,7 @@ namespace VRTK
             isSnapped = false;
             wasSnapped = false;
             isHighlighted = false;
+            changed = true;
 
 #pragma warning disable 618
             if (defaultSnappedObject != null && defaultSnappedInteractableObject == null)
@@ -445,12 +451,26 @@ namespace VRTK
 
         protected virtual void Update()
         {
+           if (currentSnappedObject.IsGrabbed())
+            {
+                changed = false;
+            }
+            SnappedObjectTransform = currentSnappedObject.transform;
+          
             CheckSnappedItemExists();
             CheckPrefabUpdate();
             CreateHighlightersInEditor();
             CheckCurrentValidSnapObjectStillValid();
             previousPrefab = highlightObjectPrefab;
             SetObjectHighlight();
+            if (currentSnappedObject.name == "Phone1.1" && isSnapped && changed)
+            {
+                SnappedObjectTransform.position = new Vector3(2.105272f, -0.09032462f, -6.560766f);
+                SnappedObjectTransform.rotation = Quaternion.Euler(-92.448f, 0f, 0f);
+
+
+            }
+
         }
 
         protected virtual void OnTriggerEnter(Collider collider)
@@ -684,6 +704,7 @@ namespace VRTK
 
         protected virtual void SnapObject(VRTK_InteractableObject interactableObjectCheck)
         {
+            
             //If the item is in a snappable position and this drop zone isn't snapped and the collider is a valid interactable object
             if (willSnap && !isSnapped && ValidSnapObject(interactableObjectCheck, false))
             {
@@ -704,6 +725,8 @@ namespace VRTK
 
                     isSnapped = true;
                     currentSnappedObject = interactableObjectCheck;
+                   
+
                     if (cloneNewOnUnsnap)
                     {
                         CreatePermanentClone();
