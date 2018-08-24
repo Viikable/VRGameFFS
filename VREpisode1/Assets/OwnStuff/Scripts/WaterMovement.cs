@@ -11,6 +11,6 @@ public class WaterMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.Translate(Vector3.up*0.02f);
+        this.transform.Translate(Vector3.up*0.01f);
 	}
 }
