@@ -53,7 +53,7 @@ namespace VRTK
             {
                 basePosition.y = GetTeleportY(target, tipPosition);
             }
-            gameObject.transform.parent = target.transform;
+            //gameObject.transform.parent = target.transform;          //added by Taneli
             return basePosition;
         }
 
