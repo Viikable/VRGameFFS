@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1942,7 +1942,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &146489643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2734,7 +2734,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &220710602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3141,7 +3141,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &258970024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4472,8 +4472,8 @@ MonoBehaviour:
   throwVelocityWithAttachDistance: 0
   throwMultiplier: 1
   onGrabCollisionDelay: 0
-  destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  destroyImmediatelyOnThrow: 0
+  breakForce: Infinity
 --- !u!114 &367113654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4552,12 +4552,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPopulateObjectReferences: 1
-  actualBoundaries: {fileID: 684578274}
-  actualHeadset: {fileID: 684578273}
-  actualLeftController: {fileID: 684578272}
-  actualRightController: {fileID: 684578271}
-  modelAliasLeftController: {fileID: 684578270}
-  modelAliasRightController: {fileID: 684578269}
+  actualBoundaries: {fileID: 0}
+  actualHeadset: {fileID: 0}
+  actualLeftController: {fileID: 0}
+  actualRightController: {fileID: 0}
+  modelAliasLeftController: {fileID: 0}
+  modelAliasRightController: {fileID: 0}
   cachedSystemSDKInfo:
     baseTypeName: VRTK.SDK_BaseSystem
     fallbackTypeName: VRTK.SDK_FallbackSystem
@@ -6087,7 +6087,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &594268185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6653,10 +6653,6 @@ MonoBehaviour:
   outputOnMax: Maximum Reached
   outputOnMin: Minimum Reached
   AlreadyDid: 0
-  LeverSource: {fileID: 0}
-  LeverSource2: {fileID: 0}
-  LeverSource3: {fileID: 0}
-  LeverSource4: {fileID: 0}
   MovingObject: {fileID: 0}
   BroomSwings: 0
 --- !u!54 &666469560
@@ -7100,31 +7096,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be540b97364be0a4890e39e62ac89ed1, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &684578269 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1883185261795400, guid: be540b97364be0a4890e39e62ac89ed1,
-    type: 2}
-  m_PrefabInternal: {fileID: 684578268}
---- !u!1 &684578270 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1384746914293964, guid: be540b97364be0a4890e39e62ac89ed1,
-    type: 2}
-  m_PrefabInternal: {fileID: 684578268}
---- !u!1 &684578271 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1391022766006510, guid: be540b97364be0a4890e39e62ac89ed1,
-    type: 2}
-  m_PrefabInternal: {fileID: 684578268}
---- !u!1 &684578272 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1538727058887424, guid: be540b97364be0a4890e39e62ac89ed1,
-    type: 2}
-  m_PrefabInternal: {fileID: 684578268}
---- !u!1 &684578273 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1587602180963074, guid: be540b97364be0a4890e39e62ac89ed1,
-    type: 2}
-  m_PrefabInternal: {fileID: 684578268}
 --- !u!1 &684578274 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000013941130086, guid: be540b97364be0a4890e39e62ac89ed1,
@@ -7142,11 +7113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchedWater: 0
-  WaterPiece1: {fileID: 1018793800}
-  WaterPiece2: {fileID: 2140251829}
-  WaterPiece3: {fileID: 1910831799}
-  WaterPiece4: {fileID: 1247420810}
-  Splash: {fileID: 828594631}
 --- !u!1 &686376945 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: b5a2dff26711b9a4a9273367c8c14de5, type: 3}
@@ -7715,11 +7681,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchedWater: 0
-  WaterPiece1: {fileID: 1155230943}
-  WaterPiece2: {fileID: 2130684367}
-  WaterPiece3: {fileID: 552684148}
-  WaterPiece4: {fileID: 490998571}
-  Splash: {fileID: 828594631}
 --- !u!1 &721634027
 GameObject:
   m_ObjectHideFlags: 0
@@ -9378,7 +9339,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &979649822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9703,7 +9664,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &1002395150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12630,7 +12591,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &1232419178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24489,7 +24450,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &1598489640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26206,7 +26167,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &1845052485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27313,7 +27274,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &1974332264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27693,7 +27654,7 @@ MonoBehaviour:
   throwMultiplier: 1
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
-  breakForce: 1500
+  breakForce: Infinity
 --- !u!114 &1995304838
 MonoBehaviour:
   m_ObjectHideFlags: 0
