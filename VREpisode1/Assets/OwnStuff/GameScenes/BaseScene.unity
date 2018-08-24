@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9637b5084404c6a48b0ae335f75cbae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: 951aab9a19f551f4385d0ceafdaf19b4, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!1 &29758019
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f348b4fd18a5134e9eab0f235a6359d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: a354bcb686ec6544bb340270e70b8f91, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!1 &61957550
 GameObject:
   m_ObjectHideFlags: 0
@@ -4552,12 +4552,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPopulateObjectReferences: 1
-  actualBoundaries: {fileID: 0}
-  actualHeadset: {fileID: 0}
-  actualLeftController: {fileID: 0}
-  actualRightController: {fileID: 0}
-  modelAliasLeftController: {fileID: 0}
-  modelAliasRightController: {fileID: 0}
+  actualBoundaries: {fileID: 684578274}
+  actualHeadset: {fileID: 684578273}
+  actualLeftController: {fileID: 684578272}
+  actualRightController: {fileID: 684578271}
+  modelAliasLeftController: {fileID: 684578270}
+  modelAliasRightController: {fileID: 684578269}
   cachedSystemSDKInfo:
     baseTypeName: VRTK.SDK_BaseSystem
     fallbackTypeName: VRTK.SDK_FallbackSystem
@@ -6653,6 +6653,10 @@ MonoBehaviour:
   outputOnMax: Maximum Reached
   outputOnMin: Minimum Reached
   AlreadyDid: 0
+  LeverSource: {fileID: 0}
+  LeverSource2: {fileID: 0}
+  LeverSource3: {fileID: 0}
+  LeverSource4: {fileID: 0}
   MovingObject: {fileID: 0}
   BroomSwings: 0
 --- !u!54 &666469560
@@ -7096,6 +7100,31 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be540b97364be0a4890e39e62ac89ed1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &684578269 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1883185261795400, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578270 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1384746914293964, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578271 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1391022766006510, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578272 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1538727058887424, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
+--- !u!1 &684578273 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1587602180963074, guid: be540b97364be0a4890e39e62ac89ed1,
+    type: 2}
+  m_PrefabInternal: {fileID: 684578268}
 --- !u!1 &684578274 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000013941130086, guid: be540b97364be0a4890e39e62ac89ed1,
@@ -7113,6 +7142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchedWater: 0
+  WaterPiece1: {fileID: 0}
+  WaterPiece2: {fileID: 0}
+  WaterPiece3: {fileID: 0}
+  WaterPiece4: {fileID: 0}
+  Splash: {fileID: 0}
 --- !u!1 &686376945 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: b5a2dff26711b9a4a9273367c8c14de5, type: 3}
@@ -7142,7 +7176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f348b4fd18a5134e9eab0f235a6359d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: a354bcb686ec6544bb340270e70b8f91, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!4 &686596320 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 06bddf078bc45eb4e89adbac1f66571d, type: 3}
@@ -7681,6 +7715,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchedWater: 0
+  WaterPiece1: {fileID: 0}
+  WaterPiece2: {fileID: 0}
+  WaterPiece3: {fileID: 0}
+  WaterPiece4: {fileID: 0}
+  Splash: {fileID: 0}
 --- !u!1 &721634027
 GameObject:
   m_ObjectHideFlags: 0
@@ -9419,7 +9458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0702c8e79fb9daf49bcf548f3ffa9af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: 55aa8af457d5bdb419c375b143edb6a5, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!1001 &1002395143
 Prefab:
   m_ObjectHideFlags: 0
@@ -10707,7 +10746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4004f9b70cf4f4a49b1c39eb527d400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: 5b834380674bf7e48ade2f253138543f, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!1001 &1097628943
 Prefab:
   m_ObjectHideFlags: 0
@@ -11890,7 +11929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9637b5084404c6a48b0ae335f75cbae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: 951aab9a19f551f4385d0ceafdaf19b4, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!1 &1201490299
 GameObject:
   m_ObjectHideFlags: 0
@@ -24718,7 +24757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4004f9b70cf4f4a49b1c39eb527d400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: 5b834380674bf7e48ade2f253138543f, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!1 &1663291422
 GameObject:
   m_ObjectHideFlags: 0
@@ -28429,7 +28468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0702c8e79fb9daf49bcf548f3ffa9af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharredBroom: {fileID: 2800000, guid: 55aa8af457d5bdb419c375b143edb6a5, type: 3}
+  CharredBroom: {fileID: 0}
 --- !u!1 &2088262513
 GameObject:
   m_ObjectHideFlags: 0
