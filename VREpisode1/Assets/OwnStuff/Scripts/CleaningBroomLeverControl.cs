@@ -10,6 +10,7 @@
         public Text displayText;
         public string outputOnMax = "Maximum Reached";
         public string outputOnMin = "Minimum Reached";
+        protected int random;
         [Tooltip("Whether the consequence for this switch has already happened or not")]
         public bool AlreadyDid;
         GameObject LeverAudio;                  //Sweeping sounds
@@ -38,11 +39,11 @@
             LeverSource4 = LeverAudio4.GetComponent<AudioSource>();
             MovingObject = GameObject.Find("MovingObject");
             BroomSwings = 0;
+            random = Random.Range(0, 2);
         }
 
         private void Update()                             //added by Taneli, basically controls what happens after the lever reaches a certain point
         {
-            int random = Random.Range(0, 2);
             if (displayText.text == "3.0" && BroomSwings % 2 == 0 && !AlreadyDid) //counts the broom swings from end to the other one at a time
             {
                 if (BroomSwings == 0)
@@ -83,6 +84,7 @@
             }
             if (displayText.text == "0.0" && BroomSwings % 2 == 1 && !AlreadyDid)
             {
+                Debug.Log("bch");
                 if (BroomSwings == 1)
                 {
                     if (random == 0)
