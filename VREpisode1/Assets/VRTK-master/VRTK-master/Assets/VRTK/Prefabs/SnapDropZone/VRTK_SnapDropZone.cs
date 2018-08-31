@@ -451,7 +451,7 @@ namespace VRTK
 
         protected virtual void Update()
         {
-           if (currentSnappedObject.IsGrabbed())
+           if (currentSnappedObject.IsGrabbed())                                       //these changes make the phone go to right rotation when snapped
             {
                 changed = false;
             }

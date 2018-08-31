@@ -2024,6 +2024,8 @@ MonoBehaviour:
   displayText: {fileID: 1085638135}
   outputOnMax: Button Pressed
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &76304218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4956,16 +4958,16 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 245984917}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.08, z: 1.5}
+  m_LocalRotation: {x: -0, y: -0.32235327, z: -0, w: -0.94661945}
+  m_LocalPosition: {x: 1.217, y: 8.039, z: 3.006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1824364727}
   - {fileID: 1329897716}
   - {fileID: 201855788}
-  m_Father: {fileID: 402015016}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: -322.389, z: 0}
 --- !u!1 &249344591
 GameObject:
   m_ObjectHideFlags: 0
@@ -5971,6 +5973,8 @@ MonoBehaviour:
   displayText: {fileID: 1577613479}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!54 &267037689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6172,7 +6176,7 @@ Transform:
   m_Children:
   - {fileID: 1869045882}
   m_Father: {fileID: 402015016}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &279869833
 GameObject:
@@ -6550,6 +6554,8 @@ MonoBehaviour:
   displayText: {fileID: 1255321489}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &295121679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9804,7 +9810,6 @@ Transform:
   - {fileID: 377378813}
   - {fileID: 1325121453}
   - {fileID: 2125079641}
-  - {fileID: 245984918}
   - {fileID: 1214300905}
   - {fileID: 278281855}
   - {fileID: 1423142335}
@@ -13588,6 +13593,8 @@ MonoBehaviour:
   displayText: {fileID: 0}
   outputOnMax: Button Pressed
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &538934091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14972,7 +14979,7 @@ Transform:
   - {fileID: 579043068}
   - {fileID: 323383498}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &597460414
 Prefab:
@@ -18378,7 +18385,7 @@ Transform:
   m_Children:
   - {fileID: 274477137}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &743734329
 GameObject:
@@ -18428,6 +18435,8 @@ MonoBehaviour:
   displayText: {fileID: 1166478119}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!54 &743734332
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19351,6 +19360,8 @@ MonoBehaviour:
   displayText: {fileID: 1314302297}
   outputOnMax: 
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &798424207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19541,7 +19552,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000014901156, y: -0.8333365, z: 0.0000007646343}
+  m_ConnectedAnchor: {x: 0.00000014901154, y: -0.8333364, z: 0.00000076463425}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -21134,6 +21145,8 @@ MonoBehaviour:
   displayText: {fileID: 1306882973}
   outputOnMax: Drawer Open
   outputOnMin: Drawer Closed
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &833147787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21945,6 +21958,8 @@ MonoBehaviour:
   displayText: {fileID: 367241240}
   outputOnMax: 
   outputOnMin: Door Closed
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!1 &858694832
 GameObject:
   m_ObjectHideFlags: 0
@@ -26002,6 +26017,8 @@ MonoBehaviour:
   displayText: {fileID: 1174545537}
   outputOnMax: 
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1027684394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28764,6 +28781,8 @@ MonoBehaviour:
   displayText: {fileID: 1693755925}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1097068787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35808,6 +35827,8 @@ MonoBehaviour:
   displayText: {fileID: 1725938203}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!54 &1174451456
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -37491,7 +37512,7 @@ Transform:
   m_Children:
   - {fileID: 1705588647}
   m_Father: {fileID: 402015016}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1217845470
 GameObject:
@@ -37551,7 +37572,7 @@ Transform:
   - {fileID: 1702836830}
   - {fileID: 145845839}
   m_Father: {fileID: 402015016}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
 --- !u!1 &1222151631
 GameObject:
@@ -37676,7 +37697,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000024835268, y: -1.0000035, z: -0.000003833152}
+  m_ConnectedAnchor: {x: 0.00000024835268, y: -1.0000033, z: -0.000003833152}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -41190,8 +41211,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1329897715}
-  m_LocalRotation: {x: -0, y: -0.000000119209275, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000000029802322}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 681676034}
@@ -41219,6 +41240,8 @@ MonoBehaviour:
   displayText: {fileID: 1353424985}
   outputOnMax: Chest Open
   outputOnMin: Chest Closed
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1329897718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42639,7 +42662,7 @@ Transform:
   - {fileID: 1779444835}
   - {fileID: 1163102349}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1375279443
 GameObject:
@@ -43435,6 +43458,8 @@ MonoBehaviour:
   displayText: {fileID: 1058091751}
   outputOnMax: Drawer Open
   outputOnMin: Drawer Closed
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!1 &1386591094
 GameObject:
   m_ObjectHideFlags: 0
@@ -43782,6 +43807,8 @@ MonoBehaviour:
   displayText: {fileID: 1854320790}
   outputOnMax: 
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1392071686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44588,7 +44615,7 @@ Transform:
   - {fileID: 141088036}
   - {fileID: 60368312}
   m_Father: {fileID: 402015016}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 60, z: 0}
 --- !u!1 &1423291972
 GameObject:
@@ -45785,7 +45812,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000024835268, y: -1.0000014, z: 0.000012061415}
+  m_ConnectedAnchor: {x: 0.00000024835268, y: -1.0000013, z: 0.000012061415}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -49655,6 +49682,8 @@ MonoBehaviour:
   displayText: {fileID: 1984208293}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1569884213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50300,6 +50329,8 @@ MonoBehaviour:
   displayText: {fileID: 1130603758}
   outputOnMax: Chest Open
   outputOnMin: Chest Closed
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1579544104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53490,6 +53521,8 @@ MonoBehaviour:
   displayText: {fileID: 2012555526}
   outputOnMax: 
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!1 &1706652028
 GameObject:
   m_ObjectHideFlags: 0
@@ -53832,7 +53865,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000002483526, y: -1.0000037, z: 0.000008228262}
+  m_ConnectedAnchor: {x: 0.0000002483526, y: -1.0000036, z: 0.000008228262}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -54705,6 +54738,8 @@ MonoBehaviour:
   displayText: {fileID: 0}
   outputOnMax: Button Pressed
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1752762452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55082,6 +55117,8 @@ MonoBehaviour:
   displayText: {fileID: 1923256217}
   outputOnMax: 
   outputOnMin: Door Closed
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1787103569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57488,6 +57525,8 @@ MonoBehaviour:
   displayText: {fileID: 1191448196}
   outputOnMax: 
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!1 &1845917744
 GameObject:
   m_ObjectHideFlags: 0
@@ -58624,6 +58663,8 @@ MonoBehaviour:
   displayText: {fileID: 1469964179}
   outputOnMax: 
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1869045884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60684,6 +60725,8 @@ MonoBehaviour:
   displayText: {fileID: 18334365}
   outputOnMax: Button Pressed
   outputOnMin: 
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!1 &1943967722 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000010066341254, guid: 5d323709f0cbd454196647d9d8f2dd84,
@@ -62013,6 +62056,8 @@ MonoBehaviour:
   displayText: {fileID: 1259679412}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &1979556428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64329,6 +64374,8 @@ MonoBehaviour:
   displayText: {fileID: 1154570239}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &2043204373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64726,6 +64773,8 @@ MonoBehaviour:
   displayText: {fileID: 1104002406}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &2050007237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66008,6 +66057,8 @@ MonoBehaviour:
   displayText: {fileID: 1112777243}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
+  AlreadyDid: 0
+  MovingObject: {fileID: 0}
 --- !u!114 &2092914673
 MonoBehaviour:
   m_ObjectHideFlags: 0
