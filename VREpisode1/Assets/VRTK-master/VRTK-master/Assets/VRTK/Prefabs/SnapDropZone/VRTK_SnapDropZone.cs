@@ -451,26 +451,35 @@ namespace VRTK
 
         protected virtual void Update()
         {
-           if (currentSnappedObject.IsGrabbed())                                       //these changes make the phone go to right rotation when snapped
-            {
-                changed = false;
-            }
-            SnappedObjectTransform = currentSnappedObject.transform;
-          
             CheckSnappedItemExists();
             CheckPrefabUpdate();
             CreateHighlightersInEditor();
             CheckCurrentValidSnapObjectStillValid();
             previousPrefab = highlightObjectPrefab;
             SetObjectHighlight();
-            if (currentSnappedObject.name == "Phone1.1" && isSnapped && changed)
+            if (currentSnappedObject != null)
             {
-                SnappedObjectTransform.position = new Vector3(2.105272f, -0.09032462f, -6.560766f);
-                SnappedObjectTransform.rotation = Quaternion.Euler(-92.448f, 0f, 0f);
-
-
+                SnappedObjectTransform = currentSnappedObject.transform;
+                if (currentSnappedObject.IsGrabbed())                                       //these changes make the phone go to right rotation when snapped
+                {
+                    Debug.Log("GRABBED PHONE");
+                    changed = false;
+                }
             }
 
+
+       
+            if (currentSnappedObject != null)
+            {
+                if (currentSnappedObject.name == "Phone1.1" && isSnapped && changed)
+                {
+                    SnappedObjectTransform.position = new Vector3(2.105272f, -0.09032462f, -6.560766f);
+                    SnappedObjectTransform.rotation = Quaternion.Euler(-92.448f, 0f, 0f);
+
+
+                }
+
+            }
         }
 
         protected virtual void OnTriggerEnter(Collider collider)
