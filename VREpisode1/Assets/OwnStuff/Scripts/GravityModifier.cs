@@ -26,9 +26,9 @@ public class GravityModifier : MonoBehaviour
         headsetbody = this.GetComponent<Rigidbody>();
         TouchedWater = false;
         rend1 = WaterPiece1.GetComponent<MeshRenderer>();
-        rend2 = WaterPiece1.GetComponent<MeshRenderer>();
-        rend3 = WaterPiece1.GetComponent<MeshRenderer>();
-        rend4 = WaterPiece1.GetComponent<MeshRenderer>();
+        rend2 = WaterPiece2.GetComponent<MeshRenderer>();
+        rend3 = WaterPiece3.GetComponent<MeshRenderer>();
+        rend4 = WaterPiece4.GetComponent<MeshRenderer>();
 
     }
 
