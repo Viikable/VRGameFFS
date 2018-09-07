@@ -406,7 +406,7 @@ namespace VRTK
             isSnapped = false;
             wasSnapped = false;
             isHighlighted = false;
-            changed = true;
+            //changed = true;
 
 #pragma warning disable 618
             if (defaultSnappedObject != null && defaultSnappedInteractableObject == null)
@@ -452,16 +452,23 @@ namespace VRTK
         protected virtual void Update()
         {
             
-            if (currentSnappedObject != null)
-            {
-                SnappedObjectTransform = currentSnappedObject.transform;
-                if (currentSnappedObject.IsGrabbed())                                       //these changes make the phone go to right rotation when snapped
-                {
-                    Debug.Log("GRABBED PHONE");
-                    changed = false;
-                }
-            }
-
+            //if (currentSnappedObject != null)
+            //{
+            //    SnappedObjectTransform = currentSnappedObject.transform;
+            //    if (currentSnappedObject.IsGrabbed())                                       //these changes make the phone go to right rotation when snapped
+            //    {
+            //        Debug.Log("GRABBED PHONE");
+            //        changed = false;
+            //    }
+            //}
+            //if (isSnapped)
+            //{
+            //    currentSnappedObject.GetComponent<Collider>().enabled = false;
+            //}
+            //else
+            //{
+            //    currentSnappedObject.GetComponent<Collider>().enabled = true;
+            //}
             CheckSnappedItemExists();
             CheckPrefabUpdate();
             CreateHighlightersInEditor();
@@ -469,17 +476,17 @@ namespace VRTK
             previousPrefab = highlightObjectPrefab;
             SetObjectHighlight();
 
-            if (currentSnappedObject != null)
-            {
-                if (currentSnappedObject.name == "Phone1.1" && isSnapped && changed)
-                {
-                    SnappedObjectTransform.position = new Vector3(2.105272f, -0.09032462f, -6.560766f);
-                    SnappedObjectTransform.rotation = Quaternion.Euler(-92.448f, 0f, 0f);
+        //    if (currentSnappedObject != null)
+        //    {
+        //        if (currentSnappedObject.name == "Phone1.1" && isSnapped && changed)
+        //        {
+        //            SnappedObjectTransform.position = new Vector3(2.105272f, -0.09032462f, -6.560766f);
+        //            SnappedObjectTransform.rotation = Quaternion.Euler(-92.448f, 0f, 0f);
 
 
-                }
+        //        }
 
-            }
+        //    }
         }
 
         protected virtual void OnTriggerEnter(Collider collider)
