@@ -451,12 +451,7 @@ namespace VRTK
 
         protected virtual void Update()
         {
-            CheckSnappedItemExists();
-            CheckPrefabUpdate();
-            CreateHighlightersInEditor();
-            CheckCurrentValidSnapObjectStillValid();
-            previousPrefab = highlightObjectPrefab;
-            SetObjectHighlight();
+            
             if (currentSnappedObject != null)
             {
                 SnappedObjectTransform = currentSnappedObject.transform;
@@ -467,8 +462,13 @@ namespace VRTK
                 }
             }
 
+            CheckSnappedItemExists();
+            CheckPrefabUpdate();
+            CreateHighlightersInEditor();
+            CheckCurrentValidSnapObjectStillValid();
+            previousPrefab = highlightObjectPrefab;
+            SetObjectHighlight();
 
-       
             if (currentSnappedObject != null)
             {
                 if (currentSnappedObject.name == "Phone1.1" && isSnapped && changed)
