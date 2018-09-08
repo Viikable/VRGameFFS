@@ -78,7 +78,7 @@ namespace VRTK
         protected VRTK_ControllerEvents.ButtonAlias savedGrabButton = VRTK_ControllerEvents.ButtonAlias.Undefined;
         protected bool grabPressed;
 
-        protected GameObject grabbedObject = null;
+        protected GameObject grabbedObject = null;           //taneli changed to public
         protected bool influencingGrabbedObject = false;
         protected int grabEnabledState = 0;
         protected float grabPrecognitionTimer = 0f;
@@ -167,8 +167,53 @@ namespace VRTK
             AttemptGrabObject();
         }
 
+        //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public GameObject Lantern;
+        public bool LanternIsGrabbed;
+        public bool LanternLightIsOn;
+
+        public void LightUpLantern()
+        {
+            if (LanternIsGrabbed && !LanternLightIsOn)
+            {
+                Lantern.GetComponent<Light>().enabled = true;
+                LanternLightIsOn = true;
+                Debug.Log("Light");
+            }
+            else if (LanternIsGrabbed && LanternLightIsOn)
+            {
+                Lantern.GetComponent<Light>().enabled = false;
+                LanternLightIsOn = false;
+                Debug.Log("Dark");
+            }
+            else
+            {
+                return;
+            }
+        }
+        public void IsObjectGrabbed()
+        {
+            //if (grabbedObject == Lantern)
+            //{
+            //    LanternIsGrabbed = true;
+            //    Debug.Log("grabbedLantern");
+            //}
+            //else
+            //{
+            //    Debug.Log("Grabbed else");
+            //    return;
+
+            //}
+        }
+        public void WhenObjectIsReleased()
+        {
+            //LanternIsGrabbed = false;
+        }
+
+        //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         /// <summary>
-        /// The GetGrabbedObject method returns the current Interactable Object being grabbed by the this Interact Grab.
+        /// The GetGrabbedObject method returns the current Interactable Object being grabbed by this Interact Grab.
         /// </summary>
         /// <returns>The game object of what is currently being grabbed by this controller.</returns>
         public virtual GameObject GetGrabbedObject()
@@ -188,6 +233,8 @@ namespace VRTK
 
         protected virtual void Awake()
         {
+            LanternIsGrabbed = false;
+            LanternLightIsOn = false;
             originalControllerAttachPoint = controllerAttachPoint;
             controllerEvents = (controllerEvents != null ? controllerEvents : GetComponentInParent<VRTK_ControllerEvents>());
             interactTouch = (interactTouch != null ? interactTouch : GetComponentInParent<VRTK_InteractTouch>());
@@ -232,6 +279,14 @@ namespace VRTK
 
         protected virtual void Update()
         {
+            if (grabbedObject == Lantern)
+            {
+                LanternIsGrabbed = true;
+            }
+            else
+            {
+                LanternIsGrabbed = false;
+            }
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
             CreateNonTouchingRigidbody();
