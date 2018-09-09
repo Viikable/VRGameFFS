@@ -171,18 +171,29 @@ namespace VRTK
         public GameObject Lantern;
         public bool LanternIsGrabbed;
         public bool LanternLightIsOn;
+        public UnityEngine.Events.UnityEvent WaterComes;
+        public GameObject EmergencySwitch;
+        public bool Invoked;
+
+
+        private void Start()
+        {
+            WaterComes.AddListener(WaterIsRising);
+            Invoked = true;
+        }
+
 
         public void LightUpLantern()
         {
             if (LanternIsGrabbed && !LanternLightIsOn)
             {
-                Lantern.GetComponent<Light>().enabled = true;
+                Lantern.GetComponentInChildren<Light>().enabled = true;
                 LanternLightIsOn = true;
                 Debug.Log("Light");
             }
             else if (LanternIsGrabbed && LanternLightIsOn)
             {
-                Lantern.GetComponent<Light>().enabled = false;
+                Lantern.GetComponentInChildren<Light>().enabled = false;
                 LanternLightIsOn = false;
                 Debug.Log("Dark");
             }
@@ -191,23 +202,10 @@ namespace VRTK
                 return;
             }
         }
-        public void IsObjectGrabbed()
+       private void WaterIsRising()
         {
-            //if (grabbedObject == Lantern)
-            //{
-            //    LanternIsGrabbed = true;
-            //    Debug.Log("grabbedLantern");
-            //}
-            //else
-            //{
-            //    Debug.Log("Grabbed else");
-            //    return;
-
-            //}
-        }
-        public void WhenObjectIsReleased()
-        {
-            //LanternIsGrabbed = false;
+            
+          WaterMovement.WaterRises = true;          
         }
 
         //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -279,14 +277,25 @@ namespace VRTK
 
         protected virtual void Update()
         {
-            if (grabbedObject == Lantern)
+            if (grabbedObject == Lantern)                                   //here we check if we grabbed lantern
             {
                 LanternIsGrabbed = true;
+                if (Invoked)
+                {
+                    WaterComes.Invoke();
+                    Invoked = false;
+                    Debug.Log("invoked");
+                }
             }
             else
             {
                 LanternIsGrabbed = false;
             }
+        if (grabbedObject == EmergencySwitch)
+            {
+                WaterMovement.WaterRises = false;
+            }
+            
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
             CreateNonTouchingRigidbody();

@@ -38,10 +38,10 @@ public class GravityModifier : MonoBehaviour
         {
             TouchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
             Debug.Log("Touched the water");
-            rend1.enabled = true;
-            rend2.enabled = true;
-            rend3.enabled = true;
-            rend4.enabled = true;
+            //rend1.enabled = true;
+            //rend2.enabled = true;
+            //rend3.enabled = true;
+            //rend4.enabled = true;
             Splash.Play();
 
         } 
