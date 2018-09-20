@@ -78,7 +78,7 @@ namespace VRTK
         protected VRTK_ControllerEvents.ButtonAlias savedGrabButton = VRTK_ControllerEvents.ButtonAlias.Undefined;
         protected bool grabPressed;
 
-        protected GameObject grabbedObject = null;
+        protected GameObject grabbedObject = null;           //taneli changed to public
         protected bool influencingGrabbedObject = false;
         protected int grabEnabledState = 0;
         protected float grabPrecognitionTimer = 0f;
@@ -167,8 +167,51 @@ namespace VRTK
             AttemptGrabObject();
         }
 
+        //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public GameObject Lantern;
+        public bool LanternIsGrabbed;
+        public bool LanternLightIsOn;
+        public UnityEngine.Events.UnityEvent WaterComes;
+        public GameObject EmergencySwitch;
+        public bool Invoked;
+
+
+        private void Start()
+        {
+            WaterComes.AddListener(WaterIsRising);
+            Invoked = true;
+        }
+
+
+        public void LightUpLantern()
+        {
+            if (LanternIsGrabbed && !LanternLightIsOn)
+            {
+                Lantern.GetComponentInChildren<Light>().enabled = true;
+                LanternLightIsOn = true;
+                Debug.Log("Light");
+            }
+            else if (LanternIsGrabbed && LanternLightIsOn)
+            {
+                Lantern.GetComponentInChildren<Light>().enabled = false;
+                LanternLightIsOn = false;
+                Debug.Log("Dark");
+            }
+            else
+            {
+                return;
+            }
+        }
+       private void WaterIsRising()
+        {
+            
+          WaterMovement.WaterRises = true;          
+        }
+
+        //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         /// <summary>
-        /// The GetGrabbedObject method returns the current Interactable Object being grabbed by the this Interact Grab.
+        /// The GetGrabbedObject method returns the current Interactable Object being grabbed by this Interact Grab.
         /// </summary>
         /// <returns>The game object of what is currently being grabbed by this controller.</returns>
         public virtual GameObject GetGrabbedObject()
@@ -188,6 +231,8 @@ namespace VRTK
 
         protected virtual void Awake()
         {
+            LanternIsGrabbed = false;
+            LanternLightIsOn = false;
             originalControllerAttachPoint = controllerAttachPoint;
             controllerEvents = (controllerEvents != null ? controllerEvents : GetComponentInParent<VRTK_ControllerEvents>());
             interactTouch = (interactTouch != null ? interactTouch : GetComponentInParent<VRTK_InteractTouch>());
@@ -232,6 +277,25 @@ namespace VRTK
 
         protected virtual void Update()
         {
+            if (grabbedObject == Lantern)                                   //here we check if we grabbed lantern
+            {
+                LanternIsGrabbed = true;
+                if (Invoked)
+                {
+                    WaterComes.Invoke();
+                    Invoked = false;
+                    Debug.Log("invoked");
+                }
+            }
+            else
+            {
+                LanternIsGrabbed = false;
+            }
+        if (grabbedObject == EmergencySwitch)
+            {
+                WaterMovement.WaterRises = false;
+            }
+            
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
             CreateNonTouchingRigidbody();
