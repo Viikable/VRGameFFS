@@ -39,6 +39,26 @@ public class MoltenTrigger : MonoBehaviour
             Debug.Log("collidedJanitor");
             JanitorBroomTransformer3.ChangeBroomColour3 = true;
         }
+        if (other.tag == "JanitorBroom4")
+        {
+            Debug.Log("collidedJanitor");
+            JanitorBroomTransformer4.ChangeBroomColour4 = true;
+        }
+        if (other.tag == "JanitorBroom5")
+        {
+            Debug.Log("collidedJanitor");
+            JanitorBroomTransformer5.ChangeBroomColour5 = true;
+        }
+        if (other.tag == "JanitorBroom6")
+        {
+            Debug.Log("collidedJanitor");
+            JanitorBroomTransformer6.ChangeBroomColour6 = true;
+        }
+        if (other.tag == "JanitorBroom3")
+        {
+            Debug.Log("collidedJanitor");
+            JanitorBroomTransformer7.ChangeBroomColour7 = true;
+        }
 
     }
 }
