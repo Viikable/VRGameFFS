@@ -11,6 +11,7 @@ using UnityEngine;
     {
         [Tooltip("Have we touched the water surface yet or not")]
         public bool TouchedWater;
+        public bool ExitedWater;
         [Header("The water which forms around the player")]
         GameObject WaterPiece1;
         GameObject WaterPiece2;
@@ -51,6 +52,14 @@ using UnityEngine;
 
             }
         }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.name == "Grabbable water")
+            {
+                ExitedWater = true;
+
+            }
+        }
         // Update is called once per frame
         void Update()
         {
@@ -65,6 +74,10 @@ using UnityEngine;
     
 
         }
+            if (ExitedWater)
+            {
+                headsetbody.useGravity = true;
+            }
         }
     }
 }
