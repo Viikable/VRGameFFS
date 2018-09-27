@@ -6,7 +6,7 @@ using VRTK;
 public class ControllerManager : MonoBehaviour
 {
     //    public GameObject Lantern;
-    //    public bool LanternIsGrabbed;
+    //    public bool LanternIsGrabbed;                        transfered to VRTK_InteractGrab!
     //    public bool LanternLightIsOn;
     //    public VRTK_InteractGrab Grab;
     //    // Use this for initialization

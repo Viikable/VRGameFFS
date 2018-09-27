@@ -13,8 +13,9 @@ public class WaterMovement : MonoBehaviour {
         Debug.Log("Lantern is touched, let the waters rise!");
         
     }
-	// Update is called once per frame
-	void Update () {
+  
+    // Update is called once per frame
+    void Update () {
         if (WaterRises)
         {
             this.transform.Translate(Vector3.up * 0.005f);

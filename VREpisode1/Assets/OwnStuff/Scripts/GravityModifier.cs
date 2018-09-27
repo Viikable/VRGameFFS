@@ -31,10 +31,7 @@ using UnityEngine;
         {
             headsetbody = this.GetComponent<Rigidbody>();
             TouchedWater = false;
-            //rend1 = WaterPiece1.GetComponent<MeshRenderer>();
-            //rend2 = WaterPiece2.GetComponent<MeshRenderer>();
-            //rend3 = WaterPiece3.GetComponent<MeshRenderer>();
-            //rend4 = WaterPiece4.GetComponent<MeshRenderer>();
+       
 
         }
 
@@ -44,10 +41,7 @@ using UnityEngine;
             {
                 TouchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
                 Debug.Log("Touched the water");
-                //rend1.enabled = true;
-                //rend2.enabled = true;
-                //rend3.enabled = true;
-                //rend4.enabled = true;
+                
                 Splash.Play();
 
             }
@@ -56,7 +50,7 @@ using UnityEngine;
         {
             if (other.name == "Grabbable water")
             {
-                ExitedWater = true;
+                TouchedWater = false;
 
             }
         }
@@ -74,7 +68,7 @@ using UnityEngine;
     
 
         }
-            if (ExitedWater)
+           else
             {
                 headsetbody.useGravity = true;
             }
