@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConveyorBeltController : MonoBehaviour {
     Animator anim;
-    public static bool PressedScreen1 = false;
+    public static bool PressedScreen1 = true;
     public static bool PressedScreen2 = false;
     public static bool PressedScreen3 = false;
     // Use this for initialization
