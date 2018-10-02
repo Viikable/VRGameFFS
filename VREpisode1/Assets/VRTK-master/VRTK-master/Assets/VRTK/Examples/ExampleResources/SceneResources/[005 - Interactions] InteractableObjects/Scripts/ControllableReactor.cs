@@ -10,7 +10,7 @@
         public Text displayText;
         public string outputOnMax = "Maximum Reached";
         public string outputOnMin = "Minimum Reached";
-        public bool AlreadyDid;
+        //public bool AlreadyDid;
         GameObject LeverAudio;
         AudioSource LeverSource;
         [Tooltip("The game object which happens to move when we flip the switch")]

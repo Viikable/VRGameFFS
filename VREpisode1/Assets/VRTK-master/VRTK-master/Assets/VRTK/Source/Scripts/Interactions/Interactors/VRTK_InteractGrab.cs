@@ -277,7 +277,7 @@ namespace VRTK
 
         protected virtual void Update()
         {
-            if (grabbedObject == Lantern)                                   //here we check if we grabbed lantern
+            if (grabbedObject == Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 LanternIsGrabbed = true;
                 if (Invoked)
@@ -291,10 +291,10 @@ namespace VRTK
             {
                 LanternIsGrabbed = false;
             }
-        if (grabbedObject == EmergencySwitch)
-            {
-                WaterMovement.WaterRises = false;
-            }
+        //if (grabbedObject.tag == "Rope")
+        //    {
+        //        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+        //    }
             
             ManageGrabListener(true);
             CheckControllerAttachPointSet();

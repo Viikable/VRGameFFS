@@ -11,13 +11,13 @@ public class ConveyorBeltController : MonoBehaviour {
     AudioSource ConveyorAudio3;
     Animator animDown;
     [Tooltip("Is the conveyor belt animation playing or not")]
-    public bool NotPlaying = true;
+    public static bool NotPlaying = true;
     [Tooltip("Has the player triggered the moving of the conveyor belts")]
-    public bool PressedScreen1 = false;
+    public static bool PressedScreen1 = false;
     [Tooltip("Has the player triggered the moving of the conveyor belt so it lowers down to the pool")]
-    public bool PressedScreen2 = false;
+    public static bool PressedScreen2 = false;
     [Tooltip("Has the player paused the movement of the conveyor belts")]
-    public bool PressedScreen3 = false;
+    public static bool PressedScreen3 = false;
     // Use this for initialization
     void Start () {
         ConveyorAudio = GameObject.Find("ConveyorAudio").GetComponent<AudioSource>();
@@ -28,7 +28,36 @@ public class ConveyorBeltController : MonoBehaviour {
         anim3 = GameObject.Find("Conveyor_belt_Animated3").GetComponent<Animator>();
         animDown = GameObject.Find("Conveyor_belt_AnimatedDown").GetComponent<Animator>();              
     }
-   
+    public bool GetNotPlaying()
+    {
+        return NotPlaying;
+    }
+    public void SetNotPlaying(bool wtf)
+    {
+        NotPlaying = wtf;
+    }
+    public void SetPressedScreen1On()
+    {
+        PressedScreen1 = true;
+    }
+    public bool GetPressedScreen1()
+    {
+        return PressedScreen1;
+    }
+    public void SetPressedScreen2On()
+    {
+        PressedScreen2 = true;
+    }
+    public bool GetPressedScreen3()
+    {
+        return PressedScreen1;
+    }
+    public void SetPressedScreen3On()
+    {
+        PressedScreen1 = true;
+    }
+    
+
     // Update is called once per frame
     void Update () {
 		if (PressedScreen1)

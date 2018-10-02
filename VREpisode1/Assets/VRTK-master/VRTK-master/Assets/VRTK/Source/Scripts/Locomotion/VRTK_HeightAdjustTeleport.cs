@@ -53,7 +53,7 @@ namespace VRTK
             {
                 basePosition.y = GetTeleportY(target, tipPosition);
             }
-            GameObject.Find("VRTKSDK").transform.parent = target.transform;          //added by Taneli
+            /*GameObject.Find("VRTKSDK").transform.parent = target.transform; */         //added by Taneli
             return basePosition;
         }
 
