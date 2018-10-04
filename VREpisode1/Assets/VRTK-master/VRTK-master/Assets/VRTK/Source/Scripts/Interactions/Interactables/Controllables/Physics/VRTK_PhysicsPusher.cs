@@ -220,7 +220,12 @@ namespace VRTK.Controllables.PhysicsBased
 
         protected virtual void CheckUnpress()
         {
-            if (!stayPressed && pressedDown)
+            if (this.name == "Screen1Button" || this.name == "Screen2Button" || this.name == "Screen3Button")             //TANELIMOD
+            {
+                positionTarget = previousPositionTarget;
+                Debug.Log("checkunpress");
+            }
+            else if (!stayPressed && pressedDown)
             {
                 SetRigidbodyConstraints(RigidbodyConstraints.FreezeRotation);
                 positionTarget = previousPositionTarget;
@@ -290,25 +295,29 @@ namespace VRTK.Controllables.PhysicsBased
                        
       //write here any code that needs to happen after the button is pressed and stays pressed              
             
-            if (stayPressed && this.name == "Screen1Button" && !pressedDown)
+            if (/*stayPressed && */this.name == "Screen1Button" && !pressedDown)
             {
                 Debug.Log("pressed1");
                 ConveyorBeltController.PressedScreen1 = true;
+
                 Screen1Button.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
                 Screen1Button.GetComponent<VRTK_PhysicsPusher>().pressedDown = true;
                 if (ConveyorBeltController.PressedScreen3)
                 {
                     Debug.Log("pressed1while3");
                     Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-                    Screen3Button.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.None);
+                    Screen3Button.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeRotation); 
                     Screen3Button.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
                 }
             }
-            else if (stayPressed && this.name == "Screen2Button")
+            else if (/*stayPressed && */this.name == "Screen2Button" && !pressedDown)
             {
+                Debug.Log("pressed2");
                 ConveyorBeltController.PressedScreen2 = true;
+                Screen2Button.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
+                Screen2Button.GetComponent<VRTK_PhysicsPusher>().pressedDown = true;
             }
-            else if (stayPressed && this.name == "Screen3Button" && !pressedDown)
+            else if (/*stayPressed && */this.name == "Screen3Button" && !pressedDown)
             {
                 Debug.Log("pressed3");
                 ConveyorBeltController.PressedScreen3 = true;
@@ -319,12 +328,13 @@ namespace VRTK.Controllables.PhysicsBased
                 {
                     Debug.Log("pressed3while1");
                     Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-                    Screen1Button.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.None);
+                    Screen1Button.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeRotation); 
                     Screen1Button.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
                 }
             }
             else if (stayPressed && this.name != "ScreenButton1" && this.name != "ScreenButton2" && this.name != "ScreenButton3")
             {
+                Debug.Log("defaulted?");
                 SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
                 pressedDown = true;
                 //default method              

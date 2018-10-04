@@ -154,7 +154,7 @@ namespace VRTK
         /// The ForceRelease method will force the Interact Grab to stop grabbing the currently grabbed Interactable Object.
         /// </summary>
         /// <param name="applyGrabbingObjectVelocity">If this is true then upon releasing the Interactable Object any velocity on the Interact Touch GameObject will be applied to the Interactable Object to essentiall throw it. Defaults to `false`.</param>
-        public virtual void ForceRelease(bool applyGrabbingObjectVelocity = false)
+        public virtual void ForceRelease(bool applyGrabbingObjectVelocity = true)
         {
             InitUngrabbedObject(applyGrabbingObjectVelocity);
         }
@@ -277,7 +277,7 @@ namespace VRTK
 
         protected virtual void Update()
         {
-            if (grabbedObject == Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (grabbedObject == Lantern && grabbedObject != null)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 LanternIsGrabbed = true;
                 if (Invoked)
@@ -291,10 +291,23 @@ namespace VRTK
             {
                 LanternIsGrabbed = false;
             }
-        //if (grabbedObject.tag == "Rope")
-        //    {
-        //        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-        //    }
+        //if (grabbedObject.tag == "Rope" && grabbedObject != null)                                             //checking if rope is pulled too hard
+        //   {
+        //        foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
+        //        {
+        //            if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
+        //            {
+        //                Debug.Log("FORCERELEASE");
+        //                //ForceRelease();
+        //                //break;
+        //            }
+                    //else
+                    //{
+                    //    return;
+                    //}
+            //    }
+             
+            //}
             
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
