@@ -4722,7 +4722,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.0103579145, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000036090998, y: 0.010210213, z: 0.036564555}
+  m_ConnectedAnchor: {x: 0.000072228024, y: 0.0114293145, z: 0.034420498}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -21842,7 +21842,7 @@ GameObject:
   - component: {fileID: 1235039066}
   - component: {fileID: 1235039065}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Hook for the rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26936,6 +26936,8 @@ MonoBehaviour:
   controllerEvents: {fileID: 1268412334}
   interactTouch: {fileID: 1268412332}
   Lantern: {fileID: 818605614}
+  GrabbableWater: {fileID: 1540174823}
+  Rope: {fileID: 100000, guid: 2cb5cc13c369f914ebb3db490a29f3b5, type: 3}
   LanternIsGrabbed: 0
   LanternLightIsOn: 0
   WaterComes:
@@ -28146,6 +28148,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1344307003}
   m_Mesh: {fileID: 4300014, guid: c61529f6bd5d918468b3a1eaf386b165, type: 3}
+--- !u!1001 &1354043787
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1663291427}
+    m_Modifications:
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114565802551670006, guid: 4d1167d703a49d941abfad70aebf1aa1,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114092201422708154, guid: 4d1167d703a49d941abfad70aebf1aa1,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1360386612 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1469220889570388, guid: afec65f27dcd2c74cba31fc61eea61e6,
@@ -32068,155 +32122,16 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1540174823
+--- !u!1 &1540174823 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1540174827}
-  - component: {fileID: 1540174826}
-  - component: {fileID: 1540174825}
-  - component: {fileID: 1540174824}
-  - component: {fileID: 1540174830}
-  - component: {fileID: 1540174829}
-  - component: {fileID: 1540174828}
-  m_Layer: 0
-  m_Name: Grabbable water
-  m_TagString: ExcludeTeleport
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &1540174824
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540174823}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0330558, z: 1.0076553}
-  m_Center: {x: 0, y: -0.013963255, z: 0.014619396}
---- !u!23 &1540174825
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540174823}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1540174826
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540174823}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1540174827
+  m_PrefabParentObject: {fileID: 1025755075275448, guid: 4d1167d703a49d941abfad70aebf1aa1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1354043787}
+--- !u!4 &1540174827 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540174823}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1655095, y: 1.0207818, z: 1.1169621}
-  m_Children: []
-  m_Father: {fileID: 1663291427}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1540174828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540174823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18055ba762aa3994f9c10208cd088bc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1540174829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540174823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f78bfdc928f59714794e1011d565aa49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  precisionGrab: 1
-  rightSnapHandle: {fileID: 0}
-  leftSnapHandle: {fileID: 0}
-  throwVelocityWithAttachDistance: 0
-  throwMultiplier: 1
-  onGrabCollisionDelay: 0
-  useObjectRotation: 0
---- !u!114 &1540174830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1540174823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3abaf4521bf2344ea21ed3020b98eb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  disableWhenIdle: 1
-  allowedNearTouchControllers: 0
-  allowedTouchControllers: 0
-  ignoredColliders: []
-  isGrabbable: 1
-  holdButtonToGrab: 1
-  stayGrabbedOnTeleport: 0
-  validDrop: 1
-  grabOverrideButton: 0
-  allowedGrabControllers: 0
-  grabAttachMechanicScript: {fileID: 1540174829}
-  secondaryGrabActionScript: {fileID: 1540174828}
-  isUsable: 0
-  holdButtonToUse: 1
-  useOnlyIfGrabbed: 0
-  pointerActivatesUseAction: 0
-  useOverrideButton: 0
-  allowedUseControllers: 0
-  objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  usingState: 0
+  m_PrefabParentObject: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1354043787}
 --- !u!1 &1548153744
 GameObject:
   m_ObjectHideFlags: 0
@@ -33022,7 +32937,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.0103579145, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0041204365, y: -0.022889886, z: 0.013250391}
+  m_ConnectedAnchor: {x: 0.004173499, y: -0.022903446, z: 0.013347549}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -33623,7 +33538,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.0103579145, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.001772252, y: 0.010482803, z: 0.047655568}
+  m_ConnectedAnchor: {x: 0.0017723814, y: 0.01047984, z: 0.034910172}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -33732,7 +33647,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.0103579145, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.023826385, y: -0.019930195, z: 0.04133729}
+  m_ConnectedAnchor: {x: 0.02358571, y: -0.01996564, z: 0.040994175}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -34253,7 +34168,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.0103579145, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00000008623888, y: 0.010262155, z: 0.038122926}
+  m_ConnectedAnchor: {x: -0.00000012935831, y: 0.010256774, z: 0.035044603}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -34497,7 +34412,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1663291422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -35.48, z: 5.5}
+  m_LocalPosition: {x: 2.5, y: -9.41, z: 5.5}
   m_LocalScale: {x: 12.114165, y: 65.37391, z: 11.153584}
   m_Children:
   - {fileID: 1266494172}
@@ -35803,7 +35718,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.0103579145, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00000012935841, y: 0.010160158, z: 0.03638014}
+  m_ConnectedAnchor: {x: 0.00068715186, y: 0.01373626, z: 0.03440784}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -45262,6 +45177,8 @@ MonoBehaviour:
   controllerEvents: {fileID: 2119627662}
   interactTouch: {fileID: 2119627660}
   Lantern: {fileID: 818605614}
+  GrabbableWater: {fileID: 1540174823}
+  Rope: {fileID: 100000, guid: 2cb5cc13c369f914ebb3db490a29f3b5, type: 3}
   LanternIsGrabbed: 0
   LanternLightIsOn: 0
   WaterComes:
