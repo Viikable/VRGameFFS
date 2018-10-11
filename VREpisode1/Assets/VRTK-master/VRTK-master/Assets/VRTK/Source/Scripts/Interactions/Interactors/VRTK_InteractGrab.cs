@@ -154,7 +154,7 @@ namespace VRTK
         /// The ForceRelease method will force the Interact Grab to stop grabbing the currently grabbed Interactable Object.
         /// </summary>
         /// <param name="applyGrabbingObjectVelocity">If this is true then upon releasing the Interactable Object any velocity on the Interact Touch GameObject will be applied to the Interactable Object to essentiall throw it. Defaults to `false`.</param>
-        public virtual void ForceRelease(bool applyGrabbingObjectVelocity = true)
+        public virtual void ForceRelease(bool applyGrabbingObjectVelocity = false)
         {
             InitUngrabbedObject(applyGrabbingObjectVelocity);
         }
