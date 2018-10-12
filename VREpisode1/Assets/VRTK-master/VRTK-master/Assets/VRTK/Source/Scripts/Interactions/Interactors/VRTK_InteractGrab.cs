@@ -301,7 +301,7 @@ namespace VRTK
             {
                 foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
                 {
-                    if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
+                    if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1500)
                     {
                         Debug.Log("FORCERELEASE");
                         StartCoroutine(ReleaseRope());
