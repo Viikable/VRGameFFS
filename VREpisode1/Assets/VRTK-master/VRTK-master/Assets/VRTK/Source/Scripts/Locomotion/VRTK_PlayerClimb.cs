@@ -3,6 +3,7 @@ namespace VRTK
 {
     using GrabAttachMechanics;
     using UnityEngine;
+    using System.Collections;
 
     /// <summary>
     /// Event Payload
@@ -124,14 +125,25 @@ namespace VRTK
             VRTK_SDKManager.AttemptRemoveBehaviourToToggleOnLoadedSetupChange(this);
         }
 
-        protected virtual void Update()
+        IEnumerator UngrabQuickly()
         {
-            if (isClimbing)
-            {
-                Vector3 controllerLocalOffset = GetScaledLocalPosition(grabbingController.transform) - startControllerScaledLocalPosition;
-                Vector3 grabPointWorldPosition = climbingObject.transform.TransformPoint(startGrabPointLocalPosition);
-                playArea.position = grabPointWorldPosition + startPlayAreaWorldOffset - controllerLocalOffset;
+            Debug.Log("beforewait");
+            print(Time.time);
+            yield return new WaitForSeconds(0.5f);
+            print(Time.time);
+            Debug.Log("afterwait");
+            OnDisable();
+        }
+    
+    protected virtual void Update()
+        {
+        if (isClimbing)
+        {
+            Vector3 controllerLocalOffset = GetScaledLocalPosition(grabbingController.transform) - startControllerScaledLocalPosition;
+            Vector3 grabPointWorldPosition = climbingObject.transform.TransformPoint(startGrabPointLocalPosition);
+            playArea.position = grabPointWorldPosition + startPlayAreaWorldOffset - controllerLocalOffset;
 
+          
                 if (useGrabbedObjectRotation)
                 {
                     Vector3 lastRotationVec = climbingObjectLastRotation * Vector3.forward;
@@ -146,6 +158,11 @@ namespace VRTK
                 if (positionRewind != null && !IsHeadsetColliding())
                 {
                     positionRewind.SetLastGoodPosition();
+                }
+                if (climbingObject.name == "GrabbableWater")
+                {
+                    StartCoroutine(UngrabQuickly());
+                    Debug.Log("grabbedwater");
                 }
             }
         }

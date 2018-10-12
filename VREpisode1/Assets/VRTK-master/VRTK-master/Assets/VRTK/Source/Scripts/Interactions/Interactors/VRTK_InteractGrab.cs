@@ -2,6 +2,7 @@
 namespace VRTK
 {
     using UnityEngine;
+    using System.Collections;
 
     /// <summary>
     /// Determines if the Interact Touch can initiate a grab with the touched Interactable Object.
@@ -169,6 +170,8 @@ namespace VRTK
 
         //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public GameObject Lantern;
+        public GameObject GrabbableWater;
+       
         public bool LanternIsGrabbed;
         public bool LanternLightIsOn;
         public UnityEngine.Events.UnityEvent WaterComes;
@@ -277,6 +280,7 @@ namespace VRTK
 
         protected virtual void Update()
         {
+
             if (grabbedObject == Lantern && grabbedObject != null)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 LanternIsGrabbed = true;
@@ -286,34 +290,61 @@ namespace VRTK
                     Invoked = false;
                     Debug.Log("invoked");
                 }
+
             }
             else
             {
                 LanternIsGrabbed = false;
             }
-        //if (grabbedObject.tag == "Rope" && grabbedObject != null)                                             //checking if rope is pulled too hard
-        //   {
-        //        foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
-        //        {
-        //            if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
-        //            {
-        //                Debug.Log("FORCERELEASE");
-        //                //ForceRelease();
-        //                //break;
-        //            }
-                    //else
-                    //{
-                    //    return;
-                    //}
-            //    }
-             
-            //}
-            
+            ////if (grabbedObject.tag == "Rope" && grabbedObject != null && grabbedObject == Rope)                                             //checking if rope is pulled too hard
+            ////{
+            ////    foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
+            ////    {
+            ////        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
+            ////        {
+            ////            Debug.Log("FORCERELEASE");
+            ////            //ForceRelease();
+            ////            //break;
+            ////        }
+            ////        else
+            ////        {
+            ////            return;
+            ////        }
+            ////    }
+
+            ////}
+            if (grabbedObject == GrabbableWater && grabbedObject != null)
+            {
+
+                Debug.Log("grabbedWater");
+                StartCoroutine(WaitForSecondsRealtime());
+
+            }
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
             CreateNonTouchingRigidbody();
             CheckPrecognitionGrab();
+
+
         }
+        IEnumerator WaitForSecondsRealtime()
+        {
+            yield return new WaitForSecondsRealtime(0.25f);
+            StartCoroutine(ReleaseOrNot());
+        }
+        IEnumerator ReleaseOrNot()
+        {
+            if (grabbedObject == GrabbableWater && grabbedObject != null)
+            {
+                Debug.Log("ReleasedWater");
+                ForceRelease();
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+
 
         protected virtual void DoControllerModelUpdate(object sender, ControllerInteractionEventArgs e)
         {
