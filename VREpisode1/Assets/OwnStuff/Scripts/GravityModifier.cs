@@ -11,19 +11,10 @@ using UnityEngine;
     {
         [Tooltip("Have we touched the water surface yet or not")]
         public bool TouchedWater;
-        public bool ExitedWater;
-        [Header("The water which forms around the player")]
-        GameObject WaterPiece1;
-        GameObject WaterPiece2;
-        GameObject WaterPiece3;
-        GameObject WaterPiece4;
+        public bool ExitedWater;      
         [Header("Water Hitting sound")]
         [Tooltip("The water hitting sound")]
         public AudioSource Splash;
-        Renderer rend1;
-        Renderer rend2;
-        Renderer rend3;
-        Renderer rend4;
         //The rigidbody which is created into this gameobject and which is used as the playerobject
         Rigidbody headsetbody;
 
@@ -63,7 +54,7 @@ using UnityEngine;
             {
                 headsetbody.useGravity = false;
 
-                headsetbody.AddForce(Physics.gravity * headsetbody.mass / 12);
+                headsetbody.AddForce(Physics.gravity * headsetbody.mass / 10);
                 //GameObject.Find("Either Controller - X Axis Slide - Y Axis Slide").GetComponent<VRTK_SlideObjectControlAction>().maximumSpeed = 0.5f;
     
 

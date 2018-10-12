@@ -277,11 +277,12 @@ namespace VRTK
         {
             VRTK_SDKManager.AttemptRemoveBehaviourToToggleOnLoadedSetupChange(this);
         }
-
+        
         protected virtual void Update()
         {
+            
 
-            if (grabbedObject == Lantern && grabbedObject != null)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (grabbedObject != null && grabbedObject == Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 LanternIsGrabbed = true;
                 if (Invoked)
@@ -296,24 +297,25 @@ namespace VRTK
             {
                 LanternIsGrabbed = false;
             }
-            ////if (grabbedObject.tag == "Rope" && grabbedObject != null && grabbedObject == Rope)                                             //checking if rope is pulled too hard
-            ////{
-            ////    foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
-            ////    {
-            ////        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
-            ////        {
-            ////            Debug.Log("FORCERELEASE");
-            ////            //ForceRelease();
-            ////            //break;
-            ////        }
-            ////        else
-            ////        {
-            ////            return;
-            ////        }
-            ////    }
+            if (grabbedObject != null && grabbedObject.tag == "Rope")                                             //checking if rope is pulled too hard
+            {
+                foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
+                {
+                    if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
+                    {
+                        Debug.Log("FORCERELEASE");
+                        StartCoroutine(ReleaseRope());
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("Checked another rope part");
+                        continue;
+                    }
+                }
 
-            ////}
-            if (grabbedObject == GrabbableWater && grabbedObject != null)
+            }
+            if (grabbedObject != null && grabbedObject == GrabbableWater)
             {
 
                 Debug.Log("grabbedWater");
@@ -329,14 +331,26 @@ namespace VRTK
         }
         IEnumerator WaitForSecondsRealtime()
         {
-            yield return new WaitForSecondsRealtime(0.25f);
+            yield return new WaitForSecondsRealtime(0.1f);
             StartCoroutine(ReleaseOrNot());
         }
         IEnumerator ReleaseOrNot()
         {
-            if (grabbedObject == GrabbableWater && grabbedObject != null)
+            if (grabbedObject != null && grabbedObject == GrabbableWater)
             {
                 Debug.Log("ReleasedWater");
+                ForceRelease();
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+        IEnumerator ReleaseRope()
+        {
+            if (grabbedObject != null && grabbedObject.tag == "Rope")
+            {
+                Debug.Log("RopeReleased");
                 ForceRelease();
             }
             else
