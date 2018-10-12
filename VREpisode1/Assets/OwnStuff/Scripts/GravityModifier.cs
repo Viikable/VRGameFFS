@@ -63,8 +63,8 @@ using UnityEngine;
             {
                 headsetbody.useGravity = false;
 
-                headsetbody.AddForce(Physics.gravity * headsetbody.mass / 24);
-                GameObject.Find("Either Controller - X Axis Slide - Y Axis Slide").GetComponent<VRTK_SlideObjectControlAction>().maximumSpeed = 0.5f;
+                headsetbody.AddForce(Physics.gravity * headsetbody.mass / 12);
+                //GameObject.Find("Either Controller - X Axis Slide - Y Axis Slide").GetComponent<VRTK_SlideObjectControlAction>().maximumSpeed = 0.5f;
     
 
         }

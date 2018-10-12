@@ -280,7 +280,7 @@ namespace VRTK
 
         protected virtual void Update()
         {
-           
+
             if (grabbedObject == Lantern && grabbedObject != null)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 LanternIsGrabbed = true;
@@ -290,35 +290,35 @@ namespace VRTK
                     Invoked = false;
                     Debug.Log("invoked");
                 }
-                
+
             }
             else
             {
                 LanternIsGrabbed = false;
             }
-            //if (grabbedObject.tag == "Rope" && grabbedObject != null && grabbedObject == Rope)                                             //checking if rope is pulled too hard
-            //{
-            //    foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
-            //    {
-            //        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
-            //        {
-            //            Debug.Log("FORCERELEASE");
-            //            //ForceRelease();
-            //            //break;
-            //        }
-            //        else
-            //        {
-            //            return;
-            //        }
-            //    }
+            ////if (grabbedObject.tag == "Rope" && grabbedObject != null && grabbedObject == Rope)                                             //checking if rope is pulled too hard
+            ////{
+            ////    foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
+            ////    {
+            ////        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 500)
+            ////        {
+            ////            Debug.Log("FORCERELEASE");
+            ////            //ForceRelease();
+            ////            //break;
+            ////        }
+            ////        else
+            ////        {
+            ////            return;
+            ////        }
+            ////    }
 
-            //}
+            ////}
             if (grabbedObject == GrabbableWater && grabbedObject != null)
             {
-                
+
                 Debug.Log("grabbedWater");
                 StartCoroutine(WaitForSecondsRealtime());
-                
+
             }
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
