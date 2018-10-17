@@ -297,24 +297,26 @@ namespace VRTK
             {
                 LanternIsGrabbed = false;
             }
-            if (grabbedObject != null && grabbedObject.tag == "Rope")                                             //checking if rope is pulled too hard
-            {
-                foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
-                {
-                    if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1500)
-                    {
-                        Debug.Log("FORCERELEASE");
-                        StartCoroutine(ReleaseRope());
-                        break;
-                    }
-                    else
-                    {
-                        Debug.Log("Checked another rope part");
-                        continue;
-                    }
-                }
+            //if (grabbedObject != null && grabbedObject.tag == "Rope")                                             //checking if rope is pulled too hard
+            //{
+            //    foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
+            //    {
+            //        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1000)
+            //        {
+                        
+            //            Debug.Log("FORCERELEASE");
+            //            ForceRelease();
+            //            //StartCoroutine(ReleaseRope());
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            Debug.Log("Checked another rope part");
+            //            continue;
+            //        }
+            //    }
 
-            }
+            //}
             if (grabbedObject != null && grabbedObject == GrabbableWater)
             {
 

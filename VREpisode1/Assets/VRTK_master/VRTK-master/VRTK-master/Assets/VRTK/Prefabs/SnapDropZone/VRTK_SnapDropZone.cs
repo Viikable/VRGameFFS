@@ -451,42 +451,44 @@ namespace VRTK
 
         protected virtual void Update()
         {
+
+
+            if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
+            {
+                int numberOfTheBroom;
+                if (currentSnappedObject.name == "BroomInTheJanitorHouse1")
+                {
+                    numberOfTheBroom = 1;
+                }
+                else if (currentSnappedObject.name == "BroomInTheJanitorHouse2")
+                {
+                    numberOfTheBroom = 2;
+                }
+                else if (currentSnappedObject.name == "BroomInTheJanitorHouse3")
+                {
+                    numberOfTheBroom = 3;
+                }
+                else if (currentSnappedObject.name == "BroomInTheJanitorHouse4")
+                {
+                    numberOfTheBroom = 4;
+                }
+                else
+                {
+                    numberOfTheBroom = 0;
+                }
+
+                Game_Manager.instance.SetBroomSnapped(numberOfTheBroom, true);            //checking that Broom is snapped
+                Debug.Log("Broom" + numberOfTheBroom + "was snapped");
+            }
+                CheckSnappedItemExists();
+                CheckPrefabUpdate();
+                CreateHighlightersInEditor();
+                CheckCurrentValidSnapObjectStillValid();
+                previousPrefab = highlightObjectPrefab;
+                SetObjectHighlight();
+
+
             
-            //if (currentSnappedObject != null)
-            //{
-            //    SnappedObjectTransform = currentSnappedObject.transform;
-            //    if (currentSnappedObject.IsGrabbed())                                       //these changes make the phone go to right rotation when snapped
-            //    {
-            //        Debug.Log("GRABBED PHONE");
-            //        changed = false;
-            //    }
-            //}
-            //if (isSnapped)
-            //{
-            //    currentSnappedObject.GetComponent<Collider>().enabled = false;
-            //}
-            //else
-            //{
-            //    currentSnappedObject.GetComponent<Collider>().enabled = true;
-            //}
-            CheckSnappedItemExists();
-            CheckPrefabUpdate();
-            CreateHighlightersInEditor();
-            CheckCurrentValidSnapObjectStillValid();
-            previousPrefab = highlightObjectPrefab;
-            SetObjectHighlight();
-
-        //    if (currentSnappedObject != null)
-        //    {
-        //        if (currentSnappedObject.name == "Phone1.1" && isSnapped && changed)
-        //        {
-        //            SnappedObjectTransform.position = new Vector3(2.105272f, -0.09032462f, -6.560766f);
-        //            SnappedObjectTransform.rotation = Quaternion.Euler(-92.448f, 0f, 0f);
-
-
-        //        }
-
-        //    }
         }
 
         protected virtual void OnTriggerEnter(Collider collider)
