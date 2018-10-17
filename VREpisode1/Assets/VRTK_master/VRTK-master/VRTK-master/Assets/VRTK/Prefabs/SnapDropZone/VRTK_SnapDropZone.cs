@@ -479,16 +479,22 @@ namespace VRTK
 
                 Game_Manager.instance.SetBroomSnapped(numberOfTheBroom, true);            //checking that Broom is snapped
                 Debug.Log("Broom" + numberOfTheBroom + "was snapped");
+
+                if (Game_Manager.instance.GetIsBroomMetallic(numberOfTheBroom) && Game_Manager.instance.GetIsBroomSnapped(numberOfTheBroom))
+                {
+                    Game_Manager.instance.StartBroomAnimation(numberOfTheBroom);
+                }
+                else if (!Game_Manager.instance.GetIsBroomMetallic(numberOfTheBroom) && Game_Manager.instance.GetIsBroomSnapped(numberOfTheBroom))
+                {
+                    Game_Manager.instance.StartBroomBrokenAnimation(numberOfTheBroom);
+                }
             }
                 CheckSnappedItemExists();
                 CheckPrefabUpdate();
                 CreateHighlightersInEditor();
                 CheckCurrentValidSnapObjectStillValid();
                 previousPrefab = highlightObjectPrefab;
-                SetObjectHighlight();
-
-
-            
+                SetObjectHighlight();            
         }
 
         protected virtual void OnTriggerEnter(Collider collider)

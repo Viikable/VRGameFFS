@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game_Manager : MonoBehaviour {
+public class Game_Manager : MonoBehaviour
+{
     //just gonna collect loads of static variables here pm
 
     [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
@@ -28,6 +29,17 @@ public class Game_Manager : MonoBehaviour {
 
     [Tooltip("checks if broom is still wood or not")]
     public bool IsBroom4Metallic;
+
+    [Tooltip("checks if broom is ready to start the door cracking animation")]
+    public bool PlayBroomAnimation;
+
+    public GameObject Broom1;
+
+    public GameObject Broom2;
+
+    public GameObject Broom3;
+
+    public GameObject Broom4;
 
     public static Game_Manager instance = null;
 
@@ -58,17 +70,28 @@ public class Game_Manager : MonoBehaviour {
         IsBroom3Metallic = false;
 
         IsBroom4Metallic = false;
+
+        PlayBroomAnimation = false;
+
+        Broom1 = GameObject.Find("BroomInTheJanitorHouse1");
+
+        Broom2 = GameObject.Find("BroomInTheJanitorHouse2");
+
+        Broom3 = GameObject.Find("BroomInTheJanitorHouse3");
+
+        Broom4 = GameObject.Find("BroomInTheJanitorHouse4");
     }
-   
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     public bool GetIsBroomSnapped(int numberOfTheBroom)
     {
         if (numberOfTheBroom == 1)
         {
-           return IsBroom1Snapped;
+            return IsBroom1Snapped;
         }
         else if (numberOfTheBroom == 2)
         {
@@ -160,5 +183,59 @@ public class Game_Manager : MonoBehaviour {
             return;
         }
     }
+    public bool GetPlayBroomAnimation(int numberOfTheBroom)
+    {
+        return PlayBroomAnimation;
+    }
+    public void StartBroomAnimation(int numberOfTheBroom)
+    {
+        if (PlayBroomAnimation)
+        {
+            switch (numberOfTheBroom)
+            {
+                case 1:
+                    Destroy(Broom1);
+                    break;
+                case 2:
+                    Destroy(Broom2);
+                    break;
+                case 3:
+                    Destroy(Broom2);
+                    break;
+                case 4:
+                    Destroy(Broom2);
+                    break;
+                default:
+                    Debug.Log("NoBroomhere");
+                    break;
+            }
+        //play the animation that opens the door with the broom;
+
+        }
+    }
+    public void StartBroomBrokenAnimation(int numberOfTheBroom)
+    {
+        //play the animation that breaks the broom;
+        switch (numberOfTheBroom)
+        {
+            case 1:
+                Destroy(Broom1);
+                break;
+            case 2:
+                Destroy(Broom2);
+                break;
+            case 3:
+                Destroy(Broom2);
+                break;
+            case 4:
+                Destroy(Broom2);
+                break;
+            default:
+                Debug.Log("NoBroomhere");
+                break;
+        }
+
+    }
+
 }
 
