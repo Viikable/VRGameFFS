@@ -5,6 +5,13 @@ using UnityEngine;
 public class Game_Manager : MonoBehaviour
 {
     //just gonna collect loads of static variables here pm
+    [Header("Events")]
+
+
+    [Tooltip("an event which takes care of water movement starting")]
+    public UnityEngine.Events.UnityEvent WaterComes;
+
+    [Header("Booleans")]
 
     [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
     public bool IsBroom1Snapped;
@@ -33,6 +40,21 @@ public class Game_Manager : MonoBehaviour
     [Tooltip("checks if broom is ready to start the door cracking animation")]
     public bool PlayBroomAnimation;
 
+    [Tooltip("checks if the water has started moving or not")]
+    public bool Invoked;
+
+    [Tooltip("checks if the lantern is grabbed by the player or not")]
+    public bool LanternIsGrabbed;
+
+    [Tooltip("checks if the lantern light is on or not")]
+    public bool LanternLightIsOn;
+
+    [Header("Gameobjects")]
+
+    public GameObject Lantern;
+
+    public GameObject GrabbableWater;
+
     public GameObject Broom1;
 
     public GameObject Broom2;
@@ -55,6 +77,8 @@ public class Game_Manager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
 
+        WaterComes.AddListener(WaterIsRising);
+
         IsBroom1Snapped = false;
 
         IsBroom2Snapped = false;
@@ -73,6 +97,10 @@ public class Game_Manager : MonoBehaviour
 
         PlayBroomAnimation = false;
 
+        LanternIsGrabbed = false;
+
+        LanternLightIsOn = false;
+
         Broom1 = GameObject.Find("BroomInTheJanitorHouse1");
 
         Broom2 = GameObject.Find("BroomInTheJanitorHouse2");
@@ -80,12 +108,78 @@ public class Game_Manager : MonoBehaviour
         Broom3 = GameObject.Find("BroomInTheJanitorHouse3");
 
         Broom4 = GameObject.Find("BroomInTheJanitorHouse4");
+
+        Invoked = false;
+
+        Lantern = GameObject.Find("Lantern");
+
+        GrabbableWater = GameObject.Find("GrabbableWater");
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
+
+
+    private void WaterIsRising()            //water starts moving via WaterMovement script
+    {
+
+        WaterMovement.WaterRises = true;
+    }
+
+    public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
+    {
+        if (LanternIsGrabbed && !LanternLightIsOn)
+        {
+            Lantern.GetComponentInChildren<Light>().enabled = true;
+            LanternLightIsOn = true;
+            Debug.Log("Light");
+        }
+        else if (LanternIsGrabbed && LanternLightIsOn)
+        {
+            Lantern.GetComponentInChildren<Light>().enabled = false;
+            LanternLightIsOn = false;
+            Debug.Log("Dark");
+        }
+        else
+        {
+            return;
+        }
+    }
+
+
+    //GETTERS AND SETTERS PART BELOW HERE!
+
+    public bool GetLanternIsGrabbed()
+    {
+        return LanternIsGrabbed;
+    }
+    public void SetLanternIsGrabbed(bool setter)
+    {
+        LanternIsGrabbed = setter;
+    }
+    public bool GetLanternLightIsOn()
+    {
+        return LanternLightIsOn;
+    }
+    public void SetLanternLightIsOn(bool setter)
+    {
+        LanternLightIsOn = setter;
+    }
+
+
+
+    public bool GetInvoked()
+    {
+        return Invoked;
+    }
+    public void SetInvoked(bool setter)
+    {
+        Invoked = setter;
     }
     public bool GetIsBroomSnapped(int numberOfTheBroom)
     {
@@ -187,6 +281,10 @@ public class Game_Manager : MonoBehaviour
     {
         return PlayBroomAnimation;
     }
+
+
+//ANIMATION METHODS
+
     public void StartBroomAnimation(int numberOfTheBroom)
     {
         if (PlayBroomAnimation)
@@ -194,16 +292,16 @@ public class Game_Manager : MonoBehaviour
             switch (numberOfTheBroom)
             {
                 case 1:
-                    Destroy(Broom1);
+                    Debug.Log("Broom1AnimationHere");
                     break;
                 case 2:
-                    Destroy(Broom2);
+                    Debug.Log("Broom2AnimationHere");
                     break;
                 case 3:
-                    Destroy(Broom2);
+                    Debug.Log("Broom3AnimationHere");
                     break;
                 case 4:
-                    Destroy(Broom2);
+                    Debug.Log("Broom4AnimationHere");
                     break;
                 default:
                     Debug.Log("NoBroomhere");
@@ -219,16 +317,16 @@ public class Game_Manager : MonoBehaviour
         switch (numberOfTheBroom)
         {
             case 1:
-                Destroy(Broom1);
+                Debug.Log("Broom1BreakAnimationHere");
                 break;
             case 2:
-                Destroy(Broom2);
+                Debug.Log("Broom2BreakAnimationHere");
                 break;
             case 3:
-                Destroy(Broom2);
+                Debug.Log("Broom3BreakAnimationHere");
                 break;
             case 4:
-                Destroy(Broom2);
+                Debug.Log("Broom4BreakAnimationHere");
                 break;
             default:
                 Debug.Log("NoBroomhere");

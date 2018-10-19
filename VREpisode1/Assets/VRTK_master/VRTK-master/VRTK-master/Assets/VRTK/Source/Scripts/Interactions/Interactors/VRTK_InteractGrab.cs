@@ -167,52 +167,6 @@ namespace VRTK
         {
             AttemptGrabObject();
         }
-
-        //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        public GameObject Lantern;
-        public GameObject GrabbableWater;
-       
-        public bool LanternIsGrabbed;
-        public bool LanternLightIsOn;
-        public UnityEngine.Events.UnityEvent WaterComes;
-        public GameObject EmergencySwitch;
-        public bool Invoked;
-
-
-        private void Start()
-        {
-            WaterComes.AddListener(WaterIsRising);
-            Invoked = true;
-        }
-
-
-        public void LightUpLantern()
-        {
-            if (LanternIsGrabbed && !LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = true;
-                LanternLightIsOn = true;
-                Debug.Log("Light");
-            }
-            else if (LanternIsGrabbed && LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = false;
-                LanternLightIsOn = false;
-                Debug.Log("Dark");
-            }
-            else
-            {
-                return;
-            }
-        }
-       private void WaterIsRising()
-        {
-            
-          WaterMovement.WaterRises = true;          
-        }
-
-        //TANELISPACE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         /// <summary>
         /// The GetGrabbedObject method returns the current Interactable Object being grabbed by this Interact Grab.
         /// </summary>
@@ -233,9 +187,7 @@ namespace VRTK
         }
 
         protected virtual void Awake()
-        {
-            LanternIsGrabbed = false;
-            LanternLightIsOn = false;
+        {           
             originalControllerAttachPoint = controllerAttachPoint;
             controllerEvents = (controllerEvents != null ? controllerEvents : GetComponentInParent<VRTK_ControllerEvents>());
             interactTouch = (interactTouch != null ? interactTouch : GetComponentInParent<VRTK_InteractTouch>());
@@ -282,20 +234,20 @@ namespace VRTK
         {
             
 
-            if (grabbedObject != null && grabbedObject == Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
-                LanternIsGrabbed = true;
-                if (Invoked)
+                Game_Manager.instance.SetLanternIsGrabbed(true); 
+                if (!Game_Manager.instance.GetInvoked())
                 {
-                    WaterComes.Invoke();
-                    Invoked = false;
+                    Game_Manager.instance.WaterComes.Invoke();
+                    Game_Manager.instance.SetInvoked(true);
                     Debug.Log("invoked");
                 }
 
             }
             else
             {
-                LanternIsGrabbed = false;
+                Game_Manager.instance.SetLanternIsGrabbed(false);
             }
             //if (grabbedObject != null && grabbedObject.tag == "Rope")                                             //checking if rope is pulled too hard
             //{
@@ -317,7 +269,7 @@ namespace VRTK
             //    }
 
             //}
-            if (grabbedObject != null && grabbedObject == GrabbableWater)
+            if (grabbedObject != null && grabbedObject == Game_Manager.instance.GrabbableWater)
             {
 
                 Debug.Log("grabbedWater");
@@ -333,12 +285,12 @@ namespace VRTK
         }
         IEnumerator WaitForSecondsRealtime()
         {
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.25f);
             StartCoroutine(ReleaseOrNot());
         }
         IEnumerator ReleaseOrNot()
         {
-            if (grabbedObject != null && grabbedObject == GrabbableWater)
+            if (grabbedObject != null && grabbedObject == Game_Manager.instance.GrabbableWater)
             {
                 Debug.Log("ReleasedWater");
                 ForceRelease();

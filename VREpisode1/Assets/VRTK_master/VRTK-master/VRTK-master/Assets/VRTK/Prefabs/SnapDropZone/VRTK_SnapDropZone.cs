@@ -133,8 +133,8 @@ namespace VRTK
         protected const string HIGHLIGHT_CONTAINER_NAME = "HighlightContainer";
         protected const string HIGHLIGHT_OBJECT_NAME = "HighlightObject";
         protected const string HIGHLIGHT_EDITOR_OBJECT_NAME = "EditorHighlightObject";
-       
-        
+
+
 
         public virtual void OnObjectEnteredSnapDropZone(SnapDropZoneEventArgs e)
         {
@@ -201,7 +201,7 @@ namespace VRTK
         public virtual void ForceSnap(GameObject objectToSnap)
         {
             ForceSnap(objectToSnap.GetComponentInParent<VRTK_InteractableObject>());
-            
+
         }
 
         /// <summary>
@@ -439,7 +439,7 @@ namespace VRTK
                 StopCoroutine(checkCanSnapRoutine);
             }
 
-            if(overridePreviousStateAtEndOfFrameRoutine != null)
+            if (overridePreviousStateAtEndOfFrameRoutine != null)
             {
                 StopCoroutine(overridePreviousStateAtEndOfFrameRoutine);
             }
@@ -489,12 +489,12 @@ namespace VRTK
                     Game_Manager.instance.StartBroomBrokenAnimation(numberOfTheBroom);
                 }
             }
-                CheckSnappedItemExists();
-                CheckPrefabUpdate();
-                CreateHighlightersInEditor();
-                CheckCurrentValidSnapObjectStillValid();
-                previousPrefab = highlightObjectPrefab;
-                SetObjectHighlight();            
+            CheckSnappedItemExists();
+            CheckPrefabUpdate();
+            CreateHighlightersInEditor();
+            CheckCurrentValidSnapObjectStillValid();
+            previousPrefab = highlightObjectPrefab;
+            SetObjectHighlight();
         }
 
         protected virtual void OnTriggerEnter(Collider collider)
@@ -728,7 +728,7 @@ namespace VRTK
 
         protected virtual void SnapObject(VRTK_InteractableObject interactableObjectCheck)
         {
-            
+
             //If the item is in a snappable position and this drop zone isn't snapped and the collider is a valid interactable object
             if (willSnap && !isSnapped && ValidSnapObject(interactableObjectCheck, false))
             {
@@ -749,7 +749,7 @@ namespace VRTK
 
                     isSnapped = true;
                     currentSnappedObject = interactableObjectCheck;
-                   
+
 
                     if (cloneNewOnUnsnap)
                     {

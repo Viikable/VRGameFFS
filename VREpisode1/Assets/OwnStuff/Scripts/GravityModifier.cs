@@ -11,7 +11,10 @@ using UnityEngine;
     {
         [Tooltip("Have we touched the water surface yet or not")]
         public bool TouchedWater;
-        public bool ExitedWater;      
+
+        [Tooltip("Have we left the water or not")]
+        public bool ExitedWater;
+
         [Header("Water Hitting sound")]
         [Tooltip("The water hitting sound")]
         public AudioSource Splash;
@@ -28,7 +31,7 @@ using UnityEngine;
 
         private void OnTriggerEnter(Collider water)
         {
-            if (water.name == "Grabbable water")       //just to check which object the rigidbody attached to the camerarig collided with
+            if (water.name == "GrabbableWater")       //just to check which object the rigidbody attached to the camerarig collided with
             {
                 TouchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
                 Debug.Log("Touched the water");
@@ -39,7 +42,7 @@ using UnityEngine;
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.name == "Grabbable water")
+            if (other.name == "GrabbableWater")
             {
                 TouchedWater = false;
 
@@ -56,7 +59,10 @@ using UnityEngine;
 
                 headsetbody.AddForce(Physics.gravity * headsetbody.mass / 10);
                 //GameObject.Find("Either Controller - X Axis Slide - Y Axis Slide").GetComponent<VRTK_SlideObjectControlAction>().maximumSpeed = 0.5f;
-    
+                if (headsetbody.velocity.y >= 0)
+                {
+                    headsetbody.AddForce(Vector3.down * headsetbody.mass * 0.25f);
+                }
 
         }
            else

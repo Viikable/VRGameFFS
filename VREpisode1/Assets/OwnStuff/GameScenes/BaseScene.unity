@@ -3660,7 +3660,7 @@ MonoBehaviour:
   leftSnapHandle: {fileID: 0}
   throwVelocityWithAttachDistance: 1
   throwMultiplier: 0.25
-  onGrabCollisionDelay: 0
+  onGrabCollisionDelay: 0.25
   detachDistance: 1
   velocityLimit: Infinity
   angularVelocityLimit: Infinity
@@ -4531,7 +4531,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 182921672}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26296f7e1e9e9c4eb6d02a53d564302, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eace370d1d6c204c92c1bc422fb9cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &182921674
@@ -8636,7 +8636,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 384070308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26296f7e1e9e9c4eb6d02a53d564302, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eace370d1d6c204c92c1bc422fb9cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &384070310
@@ -9063,7 +9063,7 @@ MonoBehaviour:
   leftSnapHandle: {fileID: 0}
   throwVelocityWithAttachDistance: 1
   throwMultiplier: 0.75
-  onGrabCollisionDelay: 0
+  onGrabCollisionDelay: 0.25
   destroyImmediatelyOnThrow: 1
   breakForce: 1500
 --- !u!54 &395497240
@@ -11389,6 +11389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 614756423}
   - component: {fileID: 614756424}
+  - component: {fileID: 614756425}
   m_Layer: 0
   m_Name: VRSimulatorCameraRig
   m_TagString: Untagged
@@ -11463,6 +11464,20 @@ MonoBehaviour:
   startMenuAlias: 102
   touchModifier: 116
   hairTouchModifier: 104
+--- !u!114 &614756425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 614756422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3f6b67d63de11479fa2baa4aaf6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TouchedWater: 0
+  ExitedWater: 0
+  Splash: {fileID: 828594631}
 --- !u!1 &618119152 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1082851542621378, guid: 5191d37cda4297540bfeaf0d181dd05a,
@@ -14308,7 +14323,7 @@ MonoBehaviour:
   leftSnapHandle: {fileID: 0}
   throwVelocityWithAttachDistance: 0
   throwMultiplier: 1.25
-  onGrabCollisionDelay: 0
+  onGrabCollisionDelay: 0.25
   destroyImmediatelyOnThrow: 1
   breakForce: 1500
 --- !u!114 &818605623
@@ -18163,7 +18178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1043608975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26296f7e1e9e9c4eb6d02a53d564302, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eace370d1d6c204c92c1bc422fb9cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1043608977
@@ -20099,7 +20114,7 @@ MonoBehaviour:
   leftSnapHandle: {fileID: 0}
   throwVelocityWithAttachDistance: 1
   throwMultiplier: 0.25
-  onGrabCollisionDelay: 0
+  onGrabCollisionDelay: 0.25
   detachDistance: 1
   velocityLimit: Infinity
   angularVelocityLimit: Infinity
@@ -20599,6 +20614,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114531555929404932, guid: ea6d5c9830d04f44eb205b4b1a503843,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4001563477218998, guid: ea6d5c9830d04f44eb205b4b1a503843, type: 2}
       propertyPath: m_LocalPosition.x
       value: 8.530515
@@ -20631,6 +20651,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 41
       objectReference: {fileID: 0}
+    - target: {fileID: 114531555929404932, guid: ea6d5c9830d04f44eb205b4b1a503843,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114531555929404932, guid: ea6d5c9830d04f44eb205b4b1a503843,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114531555929404932, guid: ea6d5c9830d04f44eb205b4b1a503843,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1540174823}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea6d5c9830d04f44eb205b4b1a503843, type: 2}
   m_IsPrefabParent: 0
@@ -28099,28 +28134,6 @@ MonoBehaviour:
   controllerAttachPoint: {fileID: 0}
   controllerEvents: {fileID: 1268412334}
   interactTouch: {fileID: 1268412332}
-  Lantern: {fileID: 818605614}
-  GrabbableWater: {fileID: 1540174823}
-  LanternIsGrabbed: 0
-  LanternLightIsOn: 0
-  WaterComes:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1663291423}
-        m_MethodName: TouchedLantern
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  EmergencySwitch: {fileID: 622093603}
-  Invoked: 0
 --- !u!114 &1268412332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28254,7 +28267,7 @@ MonoBehaviour:
   OnTriggerPressed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1268412331}
+      - m_Target: {fileID: 1791911831}
         m_MethodName: LightUpLantern
         m_Mode: 1
         m_Arguments:
@@ -29142,50 +29155,40 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1663291427}
     m_Modifications:
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+    - target: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1, type: 2}
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114565802551670006, guid: 4d1167d703a49d941abfad70aebf1aa1,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114092201422708154, guid: 4d1167d703a49d941abfad70aebf1aa1,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 4d1167d703a49d941abfad70aebf1aa1, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: b65573c54da45094888be467a2f922c1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1359886498
 GameObject:
@@ -33178,7 +33181,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1530742169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26296f7e1e9e9c4eb6d02a53d564302, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eace370d1d6c204c92c1bc422fb9cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1530742171
@@ -33394,12 +33397,12 @@ Canvas:
   m_TargetDisplay: 0
 --- !u!1 &1540174823 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1025755075275448, guid: 4d1167d703a49d941abfad70aebf1aa1,
+  m_PrefabParentObject: {fileID: 1251344357654114, guid: b65573c54da45094888be467a2f922c1,
     type: 2}
   m_PrefabInternal: {fileID: 1354043787}
 --- !u!4 &1540174827 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4873025958209426, guid: 4d1167d703a49d941abfad70aebf1aa1,
+  m_PrefabParentObject: {fileID: 4580790353243706, guid: b65573c54da45094888be467a2f922c1,
     type: 2}
   m_PrefabInternal: {fileID: 1354043787}
 --- !u!1001 &1545150380
@@ -34013,7 +34016,7 @@ MonoBehaviour:
   leftSnapHandle: {fileID: 0}
   throwVelocityWithAttachDistance: 1
   throwMultiplier: 2
-  onGrabCollisionDelay: 0
+  onGrabCollisionDelay: 0.25
   destroyImmediatelyOnThrow: 1
   breakForce: 1500
 --- !u!114 &1581603185
@@ -37196,6 +37199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18055ba762aa3994f9c10208cd088bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1791911831 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114531555929404932, guid: ea6d5c9830d04f44eb205b4b1a503843,
+    type: 2}
+  m_PrefabInternal: {fileID: 1139490695}
+  m_Script: {fileID: 11500000, guid: 2d78d7d93591f5c43836b89af5ce304a, type: 3}
 --- !u!4 &1793388902 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4246269313552860, guid: 0b1ff3c62cf77c847b667f2e1cf42a8a,
@@ -37921,7 +37930,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -38206,7 +38215,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1880790130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.703, y: 1.85, z: 3.141}
+  m_LocalPosition: {x: 2.28, y: 24.446, z: 3.141}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1107519341}
@@ -38392,6 +38401,15 @@ Prefab:
     - target: {fileID: 4952877586130404, guid: b3500dbdc96191f4f8167c41e7acff01, type: 2}
       propertyPath: m_RootOrder
       value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 114099241722061854, guid: b3500dbdc96191f4f8167c41e7acff01,
+        type: 2}
+      propertyPath: highlightAlwaysActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200104156103872, guid: b3500dbdc96191f4f8167c41e7acff01, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3500dbdc96191f4f8167c41e7acff01, type: 2}
@@ -47411,28 +47429,6 @@ MonoBehaviour:
   controllerAttachPoint: {fileID: 0}
   controllerEvents: {fileID: 2119627662}
   interactTouch: {fileID: 2119627660}
-  Lantern: {fileID: 818605614}
-  GrabbableWater: {fileID: 1540174823}
-  LanternIsGrabbed: 0
-  LanternLightIsOn: 0
-  WaterComes:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1663291423}
-        m_MethodName: TouchedLantern
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  EmergencySwitch: {fileID: 622093603}
-  Invoked: 0
 --- !u!114 &2119627660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47566,7 +47562,7 @@ MonoBehaviour:
   OnTriggerPressed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2119627659}
+      - m_Target: {fileID: 1791911831}
         m_MethodName: LightUpLantern
         m_Mode: 1
         m_Arguments:
