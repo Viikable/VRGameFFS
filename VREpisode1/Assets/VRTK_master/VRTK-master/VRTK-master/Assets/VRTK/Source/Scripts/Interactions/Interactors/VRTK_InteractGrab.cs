@@ -285,7 +285,7 @@ namespace VRTK
         }
         IEnumerator WaitForSecondsRealtime()
         {
-            yield return new WaitForSecondsRealtime(0.25f);
+            yield return new WaitForSecondsRealtime(0.5f);
             StartCoroutine(ReleaseOrNot());
         }
         IEnumerator ReleaseOrNot()
