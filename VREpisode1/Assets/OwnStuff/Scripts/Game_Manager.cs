@@ -209,7 +209,7 @@ public class Game_Manager : MonoBehaviour
                     Debug.Log("NoBroomhere");
                     break;
             }
-        //play the animation that opens the door with the broom;
+            //play the animation that opens the door with the broom;
 
         }
     }
