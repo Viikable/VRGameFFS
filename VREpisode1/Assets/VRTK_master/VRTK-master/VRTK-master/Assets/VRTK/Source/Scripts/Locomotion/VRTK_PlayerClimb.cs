@@ -159,11 +159,11 @@ namespace VRTK
                 {
                     positionRewind.SetLastGoodPosition();
                 }
-                if (climbingObject.name == "GrabbableWater")
-                {
-                    StartCoroutine(UngrabQuickly());
-                    Debug.Log("grabbedwater");
-                }
+                //if (climbingObject.name == "GrabbableWater")
+                //{
+                //    StartCoroutine(UngrabQuickly());
+                //    Debug.Log("grabbedwater");
+                //}
             }
         }
 
