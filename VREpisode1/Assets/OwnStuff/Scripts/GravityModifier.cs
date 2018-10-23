@@ -40,15 +40,15 @@ using UnityEngine;
 
             }
         }
-        //private void OnTriggerExit(Collider other)
-        //{
-        //    if (other.name == "GrabbableWater")
-        //    {
-        //        TouchedWater = false;
-        //        Debug.Log("exited water");
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.name == "GrabbableWater")
+            {
+                TouchedWater = false;
+                Debug.Log("exited water");
 
-        //    }
-        //}
+            }
+        }
         // Update is called once per frame
         void Update()
         {
@@ -60,7 +60,7 @@ using UnityEngine;
 
                 headsetbody.AddForce(Physics.gravity * headsetbody.mass / 10);
                 //GameObject.Find("Either Controller - X Axis Slide - Y Axis Slide").GetComponent<VRTK_SlideObjectControlAction>().maximumSpeed = 0.5f;
-                if (headsetbody.velocity.y >= 0)
+                if (headsetbody.velocity.y >= 1)
                 {
                     headsetbody.AddForce(Vector3.down*5f);
                 }
