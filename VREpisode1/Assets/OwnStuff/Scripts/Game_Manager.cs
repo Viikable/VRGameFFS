@@ -117,9 +117,9 @@ public class Game_Manager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        Debug.Log(LanternIsGrabbed);
     }
 
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
@@ -133,6 +133,7 @@ public class Game_Manager : MonoBehaviour
 
     public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
     {
+        Debug.Log("lightedLantern");
         if (LanternIsGrabbed && !LanternLightIsOn)
         {
             Lantern.GetComponentInChildren<Light>().enabled = true;
@@ -160,6 +161,7 @@ public class Game_Manager : MonoBehaviour
     }
     public void SetLanternIsGrabbed(bool setter)
     {
+        Debug.Log("settrue");
         LanternIsGrabbed = setter;
     }
     public bool GetLanternLightIsOn()

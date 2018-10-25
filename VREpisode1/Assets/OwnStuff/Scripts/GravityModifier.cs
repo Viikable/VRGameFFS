@@ -50,21 +50,22 @@ using UnityEngine;
             }
         }
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
-            Debug.Log(headsetbody.velocity.y);
-
-
+            //Debug.Log(headsetbody.velocity.y+ "Y");
+            //Debug.Log(headsetbody.velocity.x +"X");
+            //Debug.Log(headsetbody.velocity.z+ "Z");
+           
             if (TouchedWater)
             {
                 headsetbody.useGravity = false;
 
                 headsetbody.AddForce(Physics.gravity * headsetbody.mass / 10);
                 //GameObject.Find("Either Controller - X Axis Slide - Y Axis Slide").GetComponent<VRTK_SlideObjectControlAction>().maximumSpeed = 0.5f;
-                if (headsetbody.velocity.y >= 1)
+                if (headsetbody.velocity.y >= 0)
                 {
                     Debug.Log("now changes");
-                    headsetbody.AddForce(new Vector3(0,5,0));
+                    headsetbody.AddForce(new Vector3(0,3,0));
                 }
                 else
                 {

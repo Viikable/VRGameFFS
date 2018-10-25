@@ -16719,7 +16719,7 @@ MonoBehaviour:
   playAreaMovementThreshold: 0.00075
   standingHistorySamples: 5
   leanYThreshold: 0.5
-  stepUpYOffset: 0.4
+  stepUpYOffset: 0.45
   stepThicknessMultiplier: 0.1
   stepDropThreshold: 0.08
   customRaycast: {fileID: 0}
@@ -16738,7 +16738,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928306991}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04101513ece37524797428a93f9acdc3, type: 3}
   m_Name: 
@@ -28786,8 +28786,8 @@ MonoBehaviour:
   throwMultiplier: 1
   createRigidBodyWhenNotTouching: 1
   controllerAttachPoint: {fileID: 0}
-  controllerEvents: {fileID: 1268412334}
-  interactTouch: {fileID: 1268412332}
+  controllerEvents: {fileID: 0}
+  interactTouch: {fileID: 0}
 --- !u!114 &1268412332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47620,8 +47620,8 @@ MonoBehaviour:
   throwMultiplier: 1
   createRigidBodyWhenNotTouching: 1
   controllerAttachPoint: {fileID: 0}
-  controllerEvents: {fileID: 2119627662}
-  interactTouch: {fileID: 2119627660}
+  controllerEvents: {fileID: 0}
+  interactTouch: {fileID: 0}
 --- !u!114 &2119627660
 MonoBehaviour:
   m_ObjectHideFlags: 0

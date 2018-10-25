@@ -234,41 +234,42 @@ namespace VRTK
         {
             
 
-            if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            {
-                Game_Manager.instance.SetLanternIsGrabbed(true); 
-                if (!Game_Manager.instance.GetInvoked())
-                {
-                    Game_Manager.instance.WaterComes.Invoke();
-                    Game_Manager.instance.SetInvoked(true);
-                    Debug.Log("invoked");
-                }
+            //if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //{
+            //    Game_Manager.instance.SetLanternIsGrabbed(true); 
+            //    if (!Game_Manager.instance.GetInvoked())
+            //    {
+            //        Game_Manager.instance.WaterComes.Invoke();
+            //        Game_Manager.instance.SetInvoked(true);
+            //        Debug.Log("invoked");
+            //    }
 
-            }
-            else
-            {
-                Game_Manager.instance.SetLanternIsGrabbed(false);
-            }
-            if (grabbedObject != null && grabbedObject.tag == "Rope")                                             //checking if rope is pulled too hard
-            {
-                foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
-                {
-                    if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1000)
-                    {
+            //}
+            //else if (Game_Manager.instance.GetLanternIsGrabbed() == true)
+            //{
+            //    Debug.Log("setfalse");
+            //    Game_Manager.instance.SetLanternIsGrabbed(false);
+            //}
+            //if (grabbedObject != null && grabbedObject.tag == "Rope")                                             //checking if rope is pulled too hard
+            //{
+            //    foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
+            //    {
+            //        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1000)
+            //        {
 
-                        Debug.Log("FORCERELEASE");
-                        //ForceRelease();
-                        StartCoroutine(ReleaseRope());
-                        break;
-                    }
-                    else
-                    {
-                        Debug.Log("Checked another rope part");
-                        continue;
-                    }
-                }
+            //            Debug.Log("FORCERELEASE");
+            //            //ForceRelease();
+            //            StartCoroutine(ReleaseRope());
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            Debug.Log("Checked another rope part");
+            //            continue;
+            //        }
+            //    }
 
-            }
+            //}
             if (grabbedObject != null && grabbedObject == Game_Manager.instance.GrabbableWater)
             {
 
@@ -281,6 +282,27 @@ namespace VRTK
             CreateNonTouchingRigidbody();
             CheckPrecognitionGrab();
 
+
+        }
+
+        public void FixedUpdate()
+        {
+            if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            {
+                Game_Manager.instance.SetLanternIsGrabbed(true);
+                if (!Game_Manager.instance.GetInvoked())
+                {
+                    Game_Manager.instance.WaterComes.Invoke();
+                    Game_Manager.instance.SetInvoked(true);
+                    Debug.Log("invoked");
+                }
+
+            }
+            else if (grabbedObject != Game_Manager.instance.Lantern)
+            {
+                Debug.Log("setfalse");
+                Game_Manager.instance.SetLanternIsGrabbed(false);
+            }
 
         }
         IEnumerator WaitForSecondsRealtime()
