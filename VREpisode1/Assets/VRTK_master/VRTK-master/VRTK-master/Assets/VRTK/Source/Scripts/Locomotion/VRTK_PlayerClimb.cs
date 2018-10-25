@@ -132,7 +132,7 @@ namespace VRTK
             yield return new WaitForSeconds(0.5f);
             print(Time.time);
             Debug.Log("afterwait");
-            OnDisable();
+            
         }
     
     protected virtual void Update()

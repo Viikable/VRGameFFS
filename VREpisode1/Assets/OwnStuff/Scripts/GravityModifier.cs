@@ -19,7 +19,7 @@ using UnityEngine;
         [Tooltip("The water hitting sound")]
         public AudioSource Splash;
         //The rigidbody which is created into this gameobject and which is used as the playerobject
-        Rigidbody headsetbody;
+        public Rigidbody headsetbody;
 
         void Start()
         {
@@ -52,6 +52,7 @@ using UnityEngine;
         // Update is called once per frame
         void Update()
         {
+            Debug.Log(headsetbody.velocity.y);
 
 
             if (TouchedWater)
@@ -62,7 +63,8 @@ using UnityEngine;
                 //GameObject.Find("Either Controller - X Axis Slide - Y Axis Slide").GetComponent<VRTK_SlideObjectControlAction>().maximumSpeed = 0.5f;
                 if (headsetbody.velocity.y >= 1)
                 {
-                    headsetbody.AddForce(Vector3.down*5f);
+                    Debug.Log("now changes");
+                    headsetbody.AddForce(new Vector3(0,5,0));
                 }
                 else
                 {
