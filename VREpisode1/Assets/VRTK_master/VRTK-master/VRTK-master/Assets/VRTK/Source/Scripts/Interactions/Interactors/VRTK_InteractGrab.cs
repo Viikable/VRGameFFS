@@ -255,7 +255,7 @@ namespace VRTK
             //    {
             //        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1000)
             //        {
-                        
+
             //            Debug.Log("FORCERELEASE");
             //            ForceRelease();
             //            //StartCoroutine(ReleaseRope());

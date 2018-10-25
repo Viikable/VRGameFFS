@@ -11,7 +11,7 @@ public class RopeController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1100) {
+        if(GetComponent<ConfigurableJoint>().currentForce.magnitude >= 900) {
             GetComponent<ConfigurableJoint>().breakForce = 0;
         }
 	}
