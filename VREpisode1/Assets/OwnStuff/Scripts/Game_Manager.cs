@@ -8,8 +8,8 @@ public class Game_Manager : MonoBehaviour
     [Header("Events")]
 
 
-    [Tooltip("an event which takes care of water movement starting")]
-    public UnityEngine.Events.UnityEvent WaterComes;
+    //[Tooltip("an event which takes care of water movement starting")]
+    //public UnityEngine.Events.UnityEvent WaterComes;
 
     [Header("Booleans")]
 
@@ -49,6 +49,9 @@ public class Game_Manager : MonoBehaviour
     [Tooltip("checks if the lantern light is on or not")]
     public bool LanternLightIsOn;
 
+    [Tooltip("checks if rope is currently attatched to the manual or not")]
+    public bool RopeIsAttatchedToManual;
+
     [Header("Gameobjects")]
 
     public GameObject Lantern;
@@ -63,6 +66,8 @@ public class Game_Manager : MonoBehaviour
 
     public GameObject Broom4;
 
+    public GameObject AttachedRopeToManual;
+
     public static Game_Manager instance = null;
 
     private void Awake()
@@ -75,9 +80,9 @@ public class Game_Manager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
 
-        WaterComes.AddListener(WaterIsRising);
+        //WaterComes.AddListener(WaterIsRising);
 
         IsBroom1Snapped = false;
 
@@ -100,6 +105,8 @@ public class Game_Manager : MonoBehaviour
         LanternIsGrabbed = false;
 
         LanternLightIsOn = false;
+
+        RopeIsAttatchedToManual = false;
 
         Broom1 = GameObject.Find("BroomInTheJanitorHouse1");
 
@@ -131,26 +138,26 @@ public class Game_Manager : MonoBehaviour
         WaterMovement.WaterRises = true;
     }
 
-    public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
-    {
-        Debug.Log("lightedLantern");
-        if (LanternIsGrabbed && !LanternLightIsOn)
-        {
-            Lantern.GetComponentInChildren<Light>().enabled = true;
-            LanternLightIsOn = true;
-            Debug.Log("Light");
-        }
-        else if (LanternIsGrabbed && LanternLightIsOn)
-        {
-            Lantern.GetComponentInChildren<Light>().enabled = false;
-            LanternLightIsOn = false;
-            Debug.Log("Dark");
-        }
-        else
-        {
-            return;
-        }
-    }
+    //public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
+    //{
+    //    Debug.Log("lightedLantern");
+    //    if (LanternIsGrabbed && !LanternLightIsOn)
+    //    {
+    //        Lantern.GetComponentInChildren<Light>().enabled = true;
+    //        LanternLightIsOn = true;
+    //        Debug.Log("Light");
+    //    }
+    //    else if (LanternIsGrabbed && LanternLightIsOn)
+    //    {
+    //        Lantern.GetComponentInChildren<Light>().enabled = false;
+    //        LanternLightIsOn = false;
+    //        Debug.Log("Dark");
+    //    }
+    //    else
+    //    {
+    //        return;
+    //    }
+    //}
 
 
     //GETTERS AND SETTERS PART BELOW HERE!

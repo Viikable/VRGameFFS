@@ -112,8 +112,7 @@ namespace VRTK
 
         protected List<VRTK_InteractableObject> currentValidSnapInteractableObjects = new List<VRTK_InteractableObject>();
         protected VRTK_InteractableObject currentSnappedObject = null;
-        private Transform SnappedObjectTransform;                                     //added by TANELI
-        private bool changed = true;       //this detects whether we already changed the rotation of the prefab snapped or not
+        private Transform SnappedObjectTransform;                                     
         protected GameObject objectToClone = null;
         protected bool[] clonedObjectColliderStates = new bool[0];
 
@@ -451,6 +450,17 @@ namespace VRTK
 
         protected virtual void Update()
         {
+            if (currentSnappedObject != null && currentSnappedObject.GetComponent<KeyRope>() != null)
+            {
+                Debug.Log("setropeSnapOn");
+                Game_Manager.instance.AttachedRopeToManual.SetActive(true);
+                Game_Manager.instance.RopeIsAttatchedToManual = true;
+            }
+            if (!Game_Manager.instance.RopeIsAttatchedToManual)
+            {
+                Debug.Log("setropeSnapOff");
+                Game_Manager.instance.AttachedRopeToManual.SetActive(false);
+            }
 
 
             if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
@@ -823,11 +833,18 @@ namespace VRTK
 
         protected virtual void UnsnapObject()
         {
+            if (currentSnappedObject.GetComponent<KeyRope>() != null)
+            {
+                Game_Manager.instance.RopeIsAttatchedToManual = false;                       //here we check if we unsnap the rope from manual thus making the collider disappear
+            }
+
+
             if (currentSnappedObject != null)
             {
                 ResetPermanentCloneColliders(currentSnappedObject.gameObject);
                 RemoveCurrentValidSnapObject(currentSnappedObject);
             }
+          
 
             isSnapped = false;
             wasSnapped = true;
