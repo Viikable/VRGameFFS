@@ -4604,17 +4604,16 @@ Prefab:
       propertyPath: OnTriggerPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1791911831}
+    - target: {fileID: 1605485781010698, guid: 9e052098237f79f448af7f2e5ee3284e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e052098237f79f448af7f2e5ee3284e, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &202592736 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4297629015649262, guid: 9e052098237f79f448af7f2e5ee3284e,
-    type: 2}
-  m_PrefabInternal: {fileID: 202592735}
---- !u!1 &202592737 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1605485781010698, guid: 9e052098237f79f448af7f2e5ee3284e,
     type: 2}
   m_PrefabInternal: {fileID: 202592735}
 --- !u!1 &217024996
@@ -6182,7 +6181,7 @@ Prefab:
         type: 2}
       propertyPath: scriptAliasRightController
       value: 
-      objectReference: {fileID: 202592737}
+      objectReference: {fileID: 1268412329}
     - target: {fileID: 114898653355690898, guid: c81f16b76b34f8045991368a6aa26ec2,
         type: 2}
       propertyPath: Splash
@@ -6516,6 +6515,11 @@ Prefab:
     - target: {fileID: 224927374987244356, guid: c81f16b76b34f8045991368a6aa26ec2,
         type: 2}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224682393760529064, guid: c81f16b76b34f8045991368a6aa26ec2,
+        type: 2}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -18537,6 +18541,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114970811766248204, guid: ee048566a248dbf4fab0762b94282a35,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee048566a248dbf4fab0762b94282a35, type: 2}
   m_IsPrefabParent: 0
@@ -27537,7 +27546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1268412330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27595,6 +27604,27 @@ MonoBehaviour:
   controllerAttachPoint: {fileID: 0}
   controllerEvents: {fileID: 0}
   interactTouch: {fileID: 0}
+  Lantern: {fileID: 818605614}
+  GrabbableWater: {fileID: 1354043788}
+  LanternIsGrabbed: 0
+  LanternLightIsOn: 0
+  WaterComes:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1663291423}
+        m_MethodName: TouchedLantern
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  Invoked: 0
 --- !u!114 &1268412332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27728,7 +27758,7 @@ MonoBehaviour:
   OnTriggerPressed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1791911831}
+      - m_Target: {fileID: 1268412331}
         m_MethodName: LightUpLantern
         m_Mode: 1
         m_Arguments:
@@ -28658,9 +28688,34 @@ Prefab:
       propertyPath: holdButtonToUse
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 65779030543339134, guid: b65573c54da45094888be467a2f922c1,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 1.0194436
+      objectReference: {fileID: 0}
+    - target: {fileID: 65779030543339134, guid: b65573c54da45094888be467a2f922c1,
+        type: 2}
+      propertyPath: m_Center.y
+      value: -0.02076986
+      objectReference: {fileID: 0}
+    - target: {fileID: 65779030543339134, guid: b65573c54da45094888be467a2f922c1,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.85911894
+      objectReference: {fileID: 0}
+    - target: {fileID: 65779030543339134, guid: b65573c54da45094888be467a2f922c1,
+        type: 2}
+      propertyPath: m_Center.x
+      value: -0.007975906
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b65573c54da45094888be467a2f922c1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1354043788 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1251344357654114, guid: b65573c54da45094888be467a2f922c1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1354043787}
 --- !u!1 &1360386612 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1311334035495574, guid: 992e3f368334c7749af4430677afb5c4,
@@ -37855,6 +37910,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1728667704}
     m_Modifications:
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4738482407822586, guid: 992e3f368334c7749af4430677afb5c4, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -37891,7 +37951,47 @@ Prefab:
         type: 2}
       propertyPath: OnTriggerPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1791911831}
+      objectReference: {fileID: 2119627664}
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1663291423}
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TouchedLantern
+      objectReference: {fileID: 0}
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: WaterComes.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: Lantern
+      value: 
+      objectReference: {fileID: 818605614}
+    - target: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: GrabbableWater
+      value: 
+      objectReference: {fileID: 1354043788}
+    - target: {fileID: 114931486333762332, guid: 992e3f368334c7749af4430677afb5c4,
+        type: 2}
+      propertyPath: OnTriggerPressed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LightUpLantern
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 992e3f368334c7749af4430677afb5c4, type: 2}
   m_IsPrefabParent: 0
@@ -45313,6 +45413,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4738482407822586, guid: 992e3f368334c7749af4430677afb5c4,
     type: 2}
   m_PrefabInternal: {fileID: 1954260061}
+--- !u!114 &2119627664 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114784057771351966, guid: 992e3f368334c7749af4430677afb5c4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1954260061}
+  m_Script: {fileID: 11500000, guid: 947b27445602ed640b885db7e667dfc1, type: 3}
 --- !u!1001 &2121869596
 Prefab:
   m_ObjectHideFlags: 0

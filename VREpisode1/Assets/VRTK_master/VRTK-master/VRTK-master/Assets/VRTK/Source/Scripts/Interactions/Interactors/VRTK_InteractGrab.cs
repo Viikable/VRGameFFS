@@ -186,8 +186,51 @@ namespace VRTK
             controllerAttachPoint = forcedAttachPoint;
         }
 
+        public GameObject Lantern;
+        public GameObject GrabbableWater;
+
+        public bool LanternIsGrabbed;
+        public bool LanternLightIsOn;
+        public UnityEngine.Events.UnityEvent WaterComes;
+
+        public bool Invoked;
+
+
+        private void Start()
+        {
+            WaterComes.AddListener(WaterIsRising);
+            Invoked = true;
+        }
+
+
+        public void LightUpLantern()
+        {
+            if (LanternIsGrabbed && !Game_Manager.instance.LanternLightIsOn)
+            {
+                Lantern.GetComponentInChildren<Light>().enabled = true;
+                Game_Manager.instance.LanternLightIsOn = true;
+                Debug.Log("Light");
+            }
+            else if (LanternIsGrabbed && Game_Manager.instance.LanternLightIsOn)
+            {
+                Lantern.GetComponentInChildren<Light>().enabled = false;
+                Game_Manager.instance.LanternLightIsOn = false;
+                Debug.Log("Dark");
+            }
+            else
+            {
+                return;
+            }
+        }
+        private void WaterIsRising()
+        {
+
+            WaterMovement.WaterRises = true;
+        }
+
         protected virtual void Awake()
-        {           
+        {
+            LanternIsGrabbed = false;            
             originalControllerAttachPoint = controllerAttachPoint;
             controllerEvents = (controllerEvents != null ? controllerEvents : GetComponentInParent<VRTK_ControllerEvents>());
             interactTouch = (interactTouch != null ? interactTouch : GetComponentInParent<VRTK_InteractTouch>());
@@ -229,9 +272,26 @@ namespace VRTK
         {
             VRTK_SDKManager.AttemptRemoveBehaviourToToggleOnLoadedSetupChange(this);
         }
-        
+
         protected virtual void Update()
         {
+
+
+            if (grabbedObject != null && grabbedObject == Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            {
+                LanternIsGrabbed = true;
+                if (Invoked)
+                {
+                    WaterComes.Invoke();
+                    Invoked = false;
+                    Debug.Log("invoked");
+                }
+
+            }
+            else
+            {
+                LanternIsGrabbed = false;
+            }
 
 
             //if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -245,10 +305,11 @@ namespace VRTK
             //    }
 
             //}
-            //else if (Game_Manager.instance.GetLanternIsGrabbed() == true)
+            //else 
             //{
             //    Debug.Log("setfalse");
             //    Game_Manager.instance.SetLanternIsGrabbed(false);
+            //    grabbedObject = null;
             //}
             //else
             //{
@@ -275,7 +336,7 @@ namespace VRTK
             //    }
 
             //}
-            if (grabbedObject != null && grabbedObject == Game_Manager.instance.GrabbableWater)
+            if (grabbedObject != null && grabbedObject == GrabbableWater)
             {
 
                 Debug.Log("grabbedWater");
@@ -294,26 +355,26 @@ namespace VRTK
 
         }
 
-        public void FixedUpdate()
-        {
-            if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            {
-                Game_Manager.instance.SetLanternIsGrabbed(true);
-                if (!Game_Manager.instance.GetInvoked())
-                {
-                    Game_Manager.instance.WaterComes.Invoke();
-                    Game_Manager.instance.SetInvoked(true);
-                    Debug.Log("invoked");
-                }
+        //public void FixedUpdate()
+        //{
+        //    if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //    {
+        //        Game_Manager.instance.SetLanternIsGrabbed(true);
+        //        if (!Game_Manager.instance.GetInvoked())
+        //        {
+        //            Game_Manager.instance.WaterComes.Invoke();
+        //            Game_Manager.instance.SetInvoked(true);
+        //            Debug.Log("invoked");
+        //        }
 
-            }
-            else if (grabbedObject != Game_Manager.instance.Lantern)
-            {
-                Debug.Log("setfalse");
-                Game_Manager.instance.SetLanternIsGrabbed(false);
-            }
+        //    }
+        //    else if (grabbedObject != Game_Manager.instance.Lantern)
+        //    {
+        //        Debug.Log("setfalse");
+        //        Game_Manager.instance.SetLanternIsGrabbed(false);
+        //    }
 
-        }
+        //}
         IEnumerator WaitForSecondsRealtime()
         {
             yield return new WaitForSecondsRealtime(0.5f);
@@ -321,7 +382,7 @@ namespace VRTK
         }
         IEnumerator ReleaseOrNot()
         {
-            if (grabbedObject != null && grabbedObject == Game_Manager.instance.GrabbableWater)
+            if (grabbedObject != null && grabbedObject == GrabbableWater)
             {
                 Debug.Log("ReleasedWater");
                 ForceRelease();
