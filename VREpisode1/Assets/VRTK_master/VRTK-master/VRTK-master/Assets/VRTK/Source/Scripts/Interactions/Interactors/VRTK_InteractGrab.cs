@@ -190,7 +190,7 @@ namespace VRTK
 
         protected virtual void Awake()
         {
-                      
+            LanternIsGrabbed = false; 
             originalControllerAttachPoint = controllerAttachPoint;
             controllerEvents = (controllerEvents != null ? controllerEvents : GetComponentInParent<VRTK_ControllerEvents>());
             interactTouch = (interactTouch != null ? interactTouch : GetComponentInParent<VRTK_InteractTouch>());
@@ -255,13 +255,13 @@ namespace VRTK
 
         public void LightUpLantern()
         {
-            if (Game_Manager.instance.LanternIsGrabbed && !Game_Manager.instance.LanternLightIsOn)
+            if (LanternIsGrabbed && !Game_Manager.instance.LanternLightIsOn)
             {
                 Lantern.GetComponentInChildren<Light>().enabled = true;
                 Game_Manager.instance.LanternLightIsOn = true;
                 Debug.Log("Light");
             }
-            else if (Game_Manager.instance.LanternIsGrabbed && Game_Manager.instance.LanternLightIsOn)
+            else if (LanternIsGrabbed && Game_Manager.instance.LanternLightIsOn)
             {
                 Lantern.GetComponentInChildren<Light>().enabled = false;
                 Game_Manager.instance.LanternLightIsOn = false;
@@ -284,7 +284,7 @@ namespace VRTK
 
             if (grabbedObject != null && grabbedObject == Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
-                Game_Manager.instance.LanternIsGrabbed = true;
+                LanternIsGrabbed = true;
                 if (Invoked)
                 {
                     WaterComes.Invoke();
@@ -295,7 +295,7 @@ namespace VRTK
             }
             else
             {
-                Game_Manager.instance.LanternIsGrabbed = false;
+                LanternIsGrabbed = false;
             }
 
 

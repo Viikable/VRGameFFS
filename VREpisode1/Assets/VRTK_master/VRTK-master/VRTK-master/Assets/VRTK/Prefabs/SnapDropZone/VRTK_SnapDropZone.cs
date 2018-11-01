@@ -459,7 +459,7 @@ namespace VRTK
             if (!Game_Manager.instance.RopeIsAttatchedToManual)
             {
                 Debug.Log("setropeSnapOff");
-                Game_Manager.instance.AttachedRopeToManual.SetActive(false);
+                //Game_Manager.instance.AttachedRopeToManual.SetActive(false);
             }
 
 
