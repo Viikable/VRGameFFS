@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: NoisePostProcessing
-  m_Shader: {fileID: 4800000, guid: b04d8cad3ead8b8408ee3cde72f95f34, type: 3}
+  m_Name: FogMaterial
+  m_Shader: {fileID: 4800000, guid: e7197e17a971d084b8b0359cacf7d636, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -23,10 +23,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _DepthDistance: 440.2
-    - _DepthStart: 100
-    - _NoiseFrequency: 4.96
-    - _NoiseScale: 2.2
-    - _NoiseSpeed: 6.8
+    - _DepthDistance: 427.29
+    - _DepthStart: 3.49
+    - _NoiseFrequency: 1
+    - _NoiseScale: 1
+    - _NoiseSpeed: 1
     - _PixelOffset: 0.005
-    m_Colors: []
+    m_Colors:
+    - _FogColor: {r: 0.054245293, g: 0.43990186, b: 0.5, a: 0}
