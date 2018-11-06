@@ -456,11 +456,11 @@ namespace VRTK
                 Game_Manager.instance.AttachedRopeToManual.SetActive(true);
                 Game_Manager.instance.RopeIsAttatchedToManual = true;
             }
-            if (!Game_Manager.instance.RopeIsAttatchedToManual)
-            {
-                Debug.Log("setropeSnapOff");
-                //Game_Manager.instance.AttachedRopeToManual.SetActive(false);
-            }
+            //if (!Game_Manager.instance.RopeIsAttatchedToManual)
+            //{
+            //    Debug.Log("setropeSnapOff");
+            //    //Game_Manager.instance.AttachedRopeToManual.SetActive(false);
+            //}
 
 
             if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
