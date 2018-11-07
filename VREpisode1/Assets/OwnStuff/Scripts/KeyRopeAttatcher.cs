@@ -14,7 +14,7 @@ public class KeyRopeAttatcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //    if (Game_Manager.instance.RopeIsAttatchedToManual)
+        //    if (Game_Manager.instance.ropeIsAttatchedToManual)
         //    {
         //        //this.transform.parent = GameObject.Find("KeyRope").transform;
         //        GetComponent<SpringJoint>().connectedBody = GameObject.Find("KeyRope").GetComponent<Rigidbody>();

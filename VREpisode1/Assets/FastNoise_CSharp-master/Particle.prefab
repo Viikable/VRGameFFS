@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33590134963358834}
   - component: {fileID: 23983342891442454}
   - component: {fileID: 65418534219924028}
-  - component: {fileID: 114869264999837062}
+  - component: {fileID: 114538882712386064}
   m_Layer: 0
   m_Name: Particle
   m_TagString: Untagged
@@ -97,7 +97,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114869264999837062
+--- !u!114 &114538882712386064
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1024335493799732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f008b03dd533884a9f34d8d1b796d10, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dcc99f19fa3cb04d9d5a5188a18fffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 100

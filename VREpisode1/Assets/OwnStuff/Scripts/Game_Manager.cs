@@ -2,55 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Game_Manager : MonoBehaviour
 {
     //just gonna collect loads of static variables here pm
     [Header("Events")]
-
+    
 
     //[Tooltip("an event which takes care of water movement starting")]
     //public UnityEngine.Events.UnityEvent WaterComes;
 
     [Header("Booleans")]
-
+    [SerializeField]
     [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-    public bool IsBroom1Snapped;
+    private bool isBroom1Snapped;
 
+    [SerializeField]
     [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-    public bool IsBroom2Snapped;
+    private bool isBroom2Snapped;
 
+    [SerializeField]
     [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-    public bool IsBroom3Snapped;
+    private bool isBroom3Snapped;
 
+    [SerializeField]
     [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-    public bool IsBroom4Snapped;
+    private bool isBroom4Snapped;
 
+    [SerializeField]
     [Tooltip("checks if broom is still wood or not")]
-    public bool IsBroom1Metallic;
+    private bool isBroom1Metallic;
 
+    [SerializeField]
     [Tooltip("checks if broom is still wood or not")]
-    public bool IsBroom2Metallic;
+    private bool isBroom2Metallic;
 
+    [SerializeField]
     [Tooltip("checks if broom is still wood or not")]
-    public bool IsBroom3Metallic;
+    private bool isBroom3Metallic;
 
+    [SerializeField]
     [Tooltip("checks if broom is still wood or not")]
-    public bool IsBroom4Metallic;
+    private bool isBroom4Metallic;
 
+    [SerializeField]
     [Tooltip("checks if broom is ready to start the door cracking animation")]
-    public bool PlayBroomAnimation;
+    private bool playBroomAnimation;
 
+    [SerializeField]
     [Tooltip("checks if the water has started moving or not")]
-    public bool Invoked;
+    private bool invoked;
 
+    [SerializeField]
     [Tooltip("checks if the lantern is grabbed by the player or not")]
-    public bool LanternIsGrabbed;
+    private bool lanternIsGrabbed;
 
+    [SerializeField]
     [Tooltip("checks if the lantern light is on or not")]
-    public bool LanternLightIsOn;
+    private bool lanternLightIsOn;
 
+    [SerializeField]
     [Tooltip("checks if rope is currently attatched to the manual or not")]
-    public bool RopeIsAttatchedToManual;
+    private bool ropeIsAttatchedToManual;
+
+    [SerializeField]
+    private int numberOfTheBroom;
 
     [Header("Gameobjects")]
 
@@ -84,29 +101,31 @@ public class Game_Manager : MonoBehaviour
 
         //WaterComes.AddListener(WaterIsRising);
 
-        IsBroom1Snapped = false;
+        isBroom1Snapped = false;
 
-        IsBroom2Snapped = false;
+        isBroom2Snapped = false;
 
-        IsBroom3Snapped = false;
+        isBroom3Snapped = false;
 
-        IsBroom4Snapped = false;
+        isBroom4Snapped = false;
 
-        IsBroom1Metallic = false;
+        isBroom1Metallic = false;
 
-        IsBroom2Metallic = false;
+        isBroom2Metallic = false;
 
-        IsBroom3Metallic = false;
+        isBroom3Metallic = false;
 
-        IsBroom4Metallic = false;
+        isBroom4Metallic = false;
 
-        PlayBroomAnimation = false;
+        playBroomAnimation = false;
 
-        LanternIsGrabbed = false;
+        lanternIsGrabbed = false;
 
-        LanternLightIsOn = false;
+        lanternLightIsOn = false;
 
-        RopeIsAttatchedToManual = false;
+        ropeIsAttatchedToManual = false;
+
+        numberOfTheBroom = 0;
 
         Broom1 = GameObject.Find("BroomInTheJanitorHouse1");
 
@@ -116,7 +135,7 @@ public class Game_Manager : MonoBehaviour
 
         Broom4 = GameObject.Find("BroomInTheJanitorHouse4");
 
-        Invoked = false;
+        invoked = false;
 
         Lantern = GameObject.Find("Lantern");
 
@@ -126,7 +145,7 @@ public class Game_Manager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(LanternIsGrabbed);
+        Debug.Log(lanternIsGrabbed);
     }
 
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
@@ -141,16 +160,16 @@ public class Game_Manager : MonoBehaviour
     //public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
     //{
     //    Debug.Log("lightedLantern");
-    //    if (LanternIsGrabbed && !LanternLightIsOn)
+    //    if (lanternIsGrabbed && !lanternLightIsOn)
     //    {
     //        Lantern.GetComponentInChildren<Light>().enabled = true;
-    //        LanternLightIsOn = true;
+    //        lanternLightIsOn = true;
     //        Debug.Log("Light");
     //    }
-    //    else if (LanternIsGrabbed && LanternLightIsOn)
+    //    else if (lanternIsGrabbed && lanternLightIsOn)
     //    {
     //        Lantern.GetComponentInChildren<Light>().enabled = false;
-    //        LanternLightIsOn = false;
+    //        lanternLightIsOn = false;
     //        Debug.Log("Dark");
     //    }
     //    else
@@ -159,136 +178,153 @@ public class Game_Manager : MonoBehaviour
     //    }
     //}
 
-
     //GETTERS AND SETTERS PART BELOW HERE!
 
-    public bool GetLanternIsGrabbed()
+    public bool IsLanternGrabbed
     {
-        return LanternIsGrabbed;
-    }
-    public void SetLanternIsGrabbed(bool setter)
-    {
-        Debug.Log("settrue");
-        LanternIsGrabbed = setter;
-    }
-    public bool GetLanternLightIsOn()
-    {
-        return LanternLightIsOn;
-    }
-    public void SetLanternLightIsOn(bool setter)
-    {
-        LanternLightIsOn = setter;
+        get { return lanternIsGrabbed;  }
+        
+        set { lanternIsGrabbed = value;  }
     }
 
+    public bool LanternLightIsOn
+    {
+        get { return lanternLightIsOn; }
 
+        set { LanternLightIsOn = value; }
+    }
+   
+    public bool Invoked
+    {
+        get { return invoked;  }
 
-    public bool GetInvoked()
-    {
-        return Invoked;
+        set { invoked = value; }
     }
-    public void SetInvoked(bool setter)
+
+    public int NumberOfTheBroom
     {
-        Invoked = setter;
+        get { return numberOfTheBroom;  }
+
+        set { numberOfTheBroom = value;  }
     }
-    public bool GetIsBroomSnapped(int numberOfTheBroom)
+
+    
+    public bool IsBroomSnapped
     {
-        if (numberOfTheBroom == 1)
+        get
         {
-            return IsBroom1Snapped;
+            if (numberOfTheBroom == 1)
+            {
+                return isBroom1Snapped;
+            }
+            else if (numberOfTheBroom == 2)
+            {
+                return isBroom2Snapped;
+            }
+            else if (numberOfTheBroom == 3)
+            {
+                return isBroom3Snapped;
+            }
+            else if (numberOfTheBroom == 4)
+            {
+                return isBroom4Snapped;
+            }
+            else
+            {
+                Debug.Log("No Broom with this number exists");
+                throw new System.Exception("Invalid broom ID");
+            }
         }
-        else if (numberOfTheBroom == 2)
-        {
-            return IsBroom2Snapped;
-        }
-        else if (numberOfTheBroom == 3)
-        {
-            return IsBroom3Snapped;
-        }
-        else if (numberOfTheBroom == 4)
-        {
-            return IsBroom4Snapped;
-        }
-        else
-        {
-            Debug.Log("No Broom with this number exists");
-            return false;
-        }
-    }
-    public bool GetIsBroomMetallic(int numberOfTheBroom)
-    {
-        if (numberOfTheBroom == 1)
-        {
-            return IsBroom1Metallic;
-        }
-        else if (numberOfTheBroom == 2)
-        {
-            return IsBroom2Metallic;
-        }
-        else if (numberOfTheBroom == 3)
-        {
-            return IsBroom3Metallic;
-        }
-        else if (numberOfTheBroom == 4)
-        {
-            return IsBroom4Metallic;
-        }
-        else
-        {
-            Debug.Log("No Broom with this number exists");
-            return false;
-        }
-    }
-    public void SetBroomSnapped(int numberOfTheBroom, bool SnappedOrNot)
-    {
-        if (numberOfTheBroom == 1)
-        {
-            IsBroom1Snapped = SnappedOrNot;
-        }
-        else if (numberOfTheBroom == 2)
-        {
-            IsBroom2Snapped = SnappedOrNot;
-        }
-        else if (numberOfTheBroom == 3)
-        {
-            IsBroom3Snapped = SnappedOrNot;
-        }
-        else if (numberOfTheBroom == 4)
-        {
-            IsBroom4Snapped = SnappedOrNot;
-        }
-        else
-        {
-            Debug.Log("No Broom with this number exists");
-            return;
+        set {
+            if (numberOfTheBroom == 1)
+            {
+                isBroom1Snapped = value;
+            }
+            else if (numberOfTheBroom == 2)
+            {
+                isBroom2Snapped = value;
+            }
+            else if (numberOfTheBroom == 3)
+            {
+                isBroom3Snapped = value;
+            }
+            else if (numberOfTheBroom == 4)
+            {
+                isBroom4Snapped = value;
+            }
+            else
+            {
+                Debug.Log("No Broom with this number exists");
+                throw new System.Exception("Invalid broom ID");               
+            }
         }
     }
-    public void SetBroomMetallic(int numberOfTheBroom, bool MetallicOrNot)
+    public bool IsBroomMetallic
     {
-        if (numberOfTheBroom == 1)
+        get
         {
-            IsBroom1Metallic = MetallicOrNot;
+
+            if (numberOfTheBroom == 1)
+            {
+                return isBroom1Metallic;
+            }
+            else if (numberOfTheBroom == 2)
+            {
+                return isBroom2Metallic;
+            }
+            else if (numberOfTheBroom == 3)
+            {
+                return isBroom3Metallic;
+            }
+            else if (numberOfTheBroom == 4)
+            {
+                return isBroom4Metallic;
+            }
+            else
+            {
+                Debug.Log("No Broom with this number exists");
+                throw new System.Exception("Invalid broom ID");
+            }
         }
-        else if (numberOfTheBroom == 2)
+        set
         {
-            IsBroom2Metallic = MetallicOrNot;
-        }
-        else if (numberOfTheBroom == 3)
-        {
-            IsBroom3Metallic = MetallicOrNot;
-        }
-        else if (numberOfTheBroom == 4)
-        {
-            IsBroom4Metallic = MetallicOrNot;
-        }
-        else
-        {
-            Debug.Log("No Broom with this number exists");
-            return;
+            if (numberOfTheBroom == 1)
+            {
+                isBroom1Metallic = value;
+            }
+            else if (numberOfTheBroom == 2)
+            {
+                isBroom2Metallic = value;
+            }
+            else if (numberOfTheBroom == 3)
+            {
+                isBroom3Metallic = value;
+            }
+            else if (numberOfTheBroom == 4)
+            {
+                isBroom4Metallic = value;
+            }
+            else
+            {
+                Debug.Log("No Broom with this number exists");
+                throw new System.Exception("Invalid broom ID");
+            }
+
         }
     }
-    public bool GetPlayBroomAnimation(int numberOfTheBroom)
+
+    public bool PlayBroomAnimation
     {
-        return PlayBroomAnimation;
+        get { return playBroomAnimation; }
+
+        set { playBroomAnimation = value; }
+    }
+
+    public bool RopeIsAttachedToManual
+    {
+        get { return ropeIsAttatchedToManual;  }
+
+        set { ropeIsAttatchedToManual = value;  }
     }
 
 
@@ -296,7 +332,7 @@ public class Game_Manager : MonoBehaviour
 
     public void StartBroomAnimation(int numberOfTheBroom)
     {
-        if (PlayBroomAnimation)
+        if (playBroomAnimation)
         {
             switch (numberOfTheBroom)
             {

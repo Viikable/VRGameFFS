@@ -9,17 +9,7 @@ public class JanitorBroomTransformer4 : MonoBehaviour {
     public Texture2D CharredBroom;
     public static bool ChangeBroomColour4 = false;
     Renderer rend;
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.name == "PoolOfMoltenMetal")
-    //    {
-    //        Debug.Log("Did touch the lava");
-    //        rend.material.SetTexture("_MainTex", CharredBroom);
-    //        rend.material.SetTexture("_BumpMap", CharredBroom);
-    //        rend.material.SetTexture("_MetallicGlossMap", CharredBroom);
-    //    }
-    //}
-    // Use this for initialization
+
     void Start () {
         rend = GetComponent<MeshRenderer>();
         rend.material.EnableKeyword("_NORMALMAP");
