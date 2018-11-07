@@ -6,7 +6,7 @@ public class Instantiate512Cubes : MonoBehaviour {
     public GameObject _sampleCubePrefab;
     GameObject[] _sampleCube = new GameObject[512];
     public float _maxScale;
-    private AudioPeer _ääniKaveri;
+    //private AudioPeer _ääniKaveri;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +28,7 @@ public class Instantiate512Cubes : MonoBehaviour {
         {
             if (_sampleCube != null)
             {
-                _sampleCube[i].transform.localScale = new Vector3(10, (_ääniKaveri.Samples[i] * _maxScale) + 2, 10);
+                _sampleCube[i].transform.localScale = new Vector3(10, (AudioPeer._samples[i] * _maxScale) + 2, 10);
             }
         }
 	}

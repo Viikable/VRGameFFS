@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent (typeof (AudioSource))]
 public class AudioPeer : MonoBehaviour {
     AudioSource _audioSource;
-    private float[] _samples = new float[512];  //samplesLeft
-    private float[] _samplesRight = new float[512];
+   public static float[] _samples = new float[512];  //samplesLeft
+   public static float[] _samplesRight = new float[512];
 
     public float[] _freqBand = new float[8];  //for 8 audio range parts
     public float[] _bandBuffer = new float[8];
@@ -19,7 +19,7 @@ public class AudioPeer : MonoBehaviour {
     private float[] _freqBandHighest64 = new float[64];
 
     [HideInInspector]
-    public float[] _audioBand, _audioBandBuffer;
+    public static float[] _audioBand, _audioBandBuffer;
 
 
     [HideInInspector]
@@ -34,24 +34,24 @@ public class AudioPeer : MonoBehaviour {
     public _channel channel = new _channel();
 
 
-    public float[] Samples
-    {
-        get { return _samples; }
-    }
+    //public float[] Samples
+    //{
+    //    get { return _samples; }
+    //}
 
-    public float[] AudioBand64
-    {
-        get { return _audioBand64;  }
+    //public float[] AudioBand64
+    //{
+    //    get { return _audioBand64;  }
 
-        set { _audioBand64 = value;  }
-    } 
+    //    set { _audioBand64 = value;  }
+    //} 
 
-    public float[] AudioBandBuffer64
-    {
-        get { return _audioBandBuffer64;  }
+    //public float[] AudioBandBuffer64
+    //{
+    //    get { return _audioBandBuffer64;  }
 
-        set { _audioBandBuffer64 = value;  }
-    }
+    //    set { _audioBandBuffer64 = value;  }
+    //}
 
     // Use this for initialization
     void Start () {
@@ -67,11 +67,12 @@ public class AudioPeer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         GetSpectrumAudioSource();
-        //MakeFrequencyBands();
-        MakeFrequencyBands64();
-        //BandBuffer();
-        BandBuffer64();
-        CreateAudioBands64();
+        MakeFrequencyBands();
+        //MakeFrequencyBands64();
+        BandBuffer();
+        //BandBuffer64();
+        CreateAudioBands();
+        //CreateAudioBands64();
         GetAmplitude();
 	}
 
