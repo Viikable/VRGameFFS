@@ -8,6 +8,7 @@ public class ParamCube : MonoBehaviour
     public float _startScale, _scaleMultiplier;
     public bool _useBuffer;
     Material _material;
+    AudioPeer _audioPeer;
 
     // Use this for initialization
     void Start()
@@ -18,16 +19,16 @@ public class ParamCube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_useBuffer && AudioPeer._audioBand[_band] > 0)
+        if (_useBuffer && _audioPeer._audioBand64[_band] > 0)
         {
-            transform.localScale = new Vector3(transform.localScale.x, (AudioPeer._audioBandBuffer[_band] * _scaleMultiplier) + _startScale, transform.localScale.z);
-            Color _color = new Color(AudioPeer._audioBandBuffer[_band], AudioPeer._audioBandBuffer[_band], AudioPeer._audioBandBuffer[_band]);
+            transform.localScale = new Vector3(transform.localScale.x, (_audioPeer._audioBandBuffer64[_band] * _scaleMultiplier) + _startScale, transform.localScale.z);
+            Color _color = new Color(_audioPeer._audioBandBuffer64[_band], _audioPeer._audioBandBuffer64[_band], _audioPeer._audioBandBuffer64[_band]);
             _material.SetColor("_EmissionColor", _color);
         }
-        if (!_useBuffer && AudioPeer._audioBand[_band] > 0)
+        if (!_useBuffer && _audioPeer._audioBand64[_band] > 0)
         {
-            transform.localScale = new Vector3(transform.localScale.x, (AudioPeer._audioBand[_band] * _scaleMultiplier) + _startScale, transform.localScale.z);
-            Color _color = new Color(AudioPeer._audioBand[_band], AudioPeer._audioBand[_band], AudioPeer._audioBand[_band]);
+            transform.localScale = new Vector3(transform.localScale.x, (_audioPeer._audioBand64[_band] * _scaleMultiplier) + _startScale, transform.localScale.z);
+            Color _color = new Color(_audioPeer._audioBand64[_band], _audioPeer._audioBand64[_band], _audioPeer._audioBand64[_band]);
             _material.SetColor("_EmissionColor", _color);
         }
     }

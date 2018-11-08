@@ -12,7 +12,7 @@ public class WaterStopper : MonoBehaviour {
     {
         if (other.name == "GrabbableWater")
         {
-            WaterMovement.WaterRises = false;
+            WaterMovement.waterRises = false;
         }
     }
     // Update is called once per frame

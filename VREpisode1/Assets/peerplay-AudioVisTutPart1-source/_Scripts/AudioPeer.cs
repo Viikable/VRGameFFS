@@ -8,9 +8,9 @@ public class AudioPeer : MonoBehaviour {
    public static float[] _samples = new float[512];  //samplesLeft
    public static float[] _samplesRight = new float[512];
 
-    public float[] _freqBand = new float[8];  //for 8 audio range parts
-    public float[] _bandBuffer = new float[8];
-    public float[] _bufferDecrease = new float[8];
+    private float[] _freqBand = new float[8];  //for 8 audio range parts
+    private float[] _bandBuffer = new float[8];
+    private float[] _bufferDecrease = new float[8];
     public float[] _freqBandHighest = new float[8];
 
     private float[] _freqBand64 = new float[64];     //for 64 audio range parts
@@ -19,14 +19,14 @@ public class AudioPeer : MonoBehaviour {
     private float[] _freqBandHighest64 = new float[64];
 
     [HideInInspector]
-    public static float[] _audioBand, _audioBandBuffer;
+    public float[] _audioBand, _audioBandBuffer;
 
 
     [HideInInspector]
     public float[] _audioBand64, _audioBandBuffer64;
    
 
-    public static float _Amplitude, _AmplitudeBuffer;
+    public float _Amplitude, _AmplitudeBuffer;
     float _AmplitudeHighest;
     public float _audioProfile;
 
@@ -34,24 +34,24 @@ public class AudioPeer : MonoBehaviour {
     public _channel channel = new _channel();
 
 
-    //public float[] Samples
-    //{
-    //    get { return _samples; }
-    //}
+    public float[] Samples
+    {
+        get { return _samples; }
+    }
 
-    //public float[] AudioBand64
-    //{
-    //    get { return _audioBand64;  }
+    public float[] AudioBand64
+    {
+        get { return _audioBand64; }
 
-    //    set { _audioBand64 = value;  }
-    //} 
+        set { _audioBand64 = value; }
+    }
 
-    //public float[] AudioBandBuffer64
-    //{
-    //    get { return _audioBandBuffer64;  }
+    public float[] AudioBandBuffer64
+    {
+        get { return _audioBandBuffer64; }
 
-    //    set { _audioBandBuffer64 = value;  }
-    //}
+        set { _audioBandBuffer64 = value; }
+    }
 
     // Use this for initialization
     void Start () {
@@ -67,12 +67,12 @@ public class AudioPeer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         GetSpectrumAudioSource();
-        MakeFrequencyBands();
-        //MakeFrequencyBands64();
-        BandBuffer();
-        //BandBuffer64();
-        CreateAudioBands();
-        //CreateAudioBands64();
+        //MakeFrequencyBands();
+        MakeFrequencyBands64();
+       /* BandBuffer()*/;
+        BandBuffer64();
+        //CreateAudioBands();
+        CreateAudioBands64();
         GetAmplitude();
 	}
 
@@ -89,10 +89,10 @@ public class AudioPeer : MonoBehaviour {
     {
         float _CurrentAmplitude = 0;
         float _CurrentAmplitudeBuffer = 0;
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 64; i++)
         {
-            _CurrentAmplitude += _audioBand[i];
-            _CurrentAmplitudeBuffer += _audioBandBuffer[i];
+            _CurrentAmplitude += _audioBand64[i];
+            _CurrentAmplitudeBuffer += _audioBandBuffer64[i];
         }
         if (_CurrentAmplitude > _AmplitudeHighest)
         {
@@ -232,7 +232,7 @@ public class AudioPeer : MonoBehaviour {
         int sampleCount = 1;
         int power = 0;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 64; i++)
         {
             float average = 0;
             //int sampleCount = (int)Mathf.Pow(2, i) * 2;
@@ -266,7 +266,7 @@ public class AudioPeer : MonoBehaviour {
             }
             average /= count;
 
-            _freqBand[i] = average * 80;
+            _freqBand64[i] = average * 80;
         }
 
     }

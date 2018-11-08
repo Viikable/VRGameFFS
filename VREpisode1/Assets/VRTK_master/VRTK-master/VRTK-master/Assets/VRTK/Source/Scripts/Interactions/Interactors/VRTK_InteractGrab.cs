@@ -275,7 +275,7 @@ namespace VRTK
         private void WaterIsRising()
         {
 
-            WaterMovement.WaterRises = true;
+            WaterMovement.waterRises = true;
         }
 
         protected virtual void Update()

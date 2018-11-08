@@ -154,7 +154,7 @@ public class Game_Manager : MonoBehaviour
     private void WaterIsRising()            //water starts moving via WaterMovement script
     {
 
-        WaterMovement.WaterRises = true;
+        WaterMovement.waterRises = true;
     }
 
     //public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
