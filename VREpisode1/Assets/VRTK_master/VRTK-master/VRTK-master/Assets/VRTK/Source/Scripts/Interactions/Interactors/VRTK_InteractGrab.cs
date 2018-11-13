@@ -186,11 +186,11 @@ namespace VRTK
             controllerAttachPoint = forcedAttachPoint;
         }
 
-       
+
 
         protected virtual void Awake()
         {
-            LanternIsGrabbed = false; 
+            LanternIsGrabbed = false;
             originalControllerAttachPoint = controllerAttachPoint;
             controllerEvents = (controllerEvents != null ? controllerEvents : GetComponentInParent<VRTK_ControllerEvents>());
             interactTouch = (interactTouch != null ? interactTouch : GetComponentInParent<VRTK_InteractTouch>());
@@ -235,7 +235,7 @@ namespace VRTK
         /// <summary>
         /// //////////////////////////////////////////////////////////////////////////////////////////////
         /// </summary>
-    
+
         public GameObject Lantern;
         public GameObject GrabbableWater;
 
@@ -298,49 +298,14 @@ namespace VRTK
                 LanternIsGrabbed = false;
             }
 
+            if (grabbedObject != null && grabbedObject.name == "KeyRope")           //this checks to see if we want to change rope from grabbable to climbable
+            {
+                Game_Manager.instance.RopeClimb = true;
+                ForceRelease();
+            }
 
-            //if (grabbedObject != null && grabbedObject == Game_Manager.instance.Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //{
-            //    Game_Manager.instance.SetLanternIsGrabbed(true);
-            //    if (!Game_Manager.instance.GetInvoked())
-            //    {
-            //        Game_Manager.instance.WaterComes.Invoke();
-            //        Game_Manager.instance.SetInvoked(true);
-            //        Debug.Log("invoked");
-            //    }
 
-            //}
-            //else 
-            //{
-            //    Debug.Log("setfalse");
-            //    Game_Manager.instance.SetLanternIsGrabbed(false);
-            //    grabbedObject = null;
-            //}
-            //else
-            //{
-            //    Debug.Log("wtf");
-            //    return;
-            //}
-            //if (grabbedObject != null && grabbedObject.tag == "Rope")                                             //checking if rope is pulled too hard
-            //{
-            //    foreach (GameObject Ropepiece in GameObject.FindGameObjectsWithTag("Rope"))
-            //    {
-            //        if (Ropepiece.GetComponent<ConfigurableJoint>().currentForce.magnitude >= 1000)
-            //        {
 
-            //            Debug.Log("FORCERELEASE");
-            //            //ForceRelease();
-            //            StartCoroutine(ReleaseRope());
-            //            break;
-            //        }
-            //        else
-            //        {
-            //            Debug.Log("Checked another rope part");
-            //            continue;
-            //        }
-            //    }
-
-            //}
             if (grabbedObject != null && grabbedObject == GrabbableWater)
             {
 
@@ -376,19 +341,6 @@ namespace VRTK
                 yield return null;
             }
         }
-        IEnumerator ReleaseRope()
-        {
-            if (grabbedObject != null && grabbedObject.tag == "Rope")
-            {
-                Debug.Log("RopeReleased");
-                ForceRelease();
-            }
-            else
-            {
-                yield return null;
-            }
-        }
-
 
         protected virtual void DoControllerModelUpdate(object sender, ControllerInteractionEventArgs e)
         {

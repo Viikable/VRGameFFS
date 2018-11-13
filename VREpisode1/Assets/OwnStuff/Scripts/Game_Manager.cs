@@ -67,6 +67,10 @@ public class Game_Manager : MonoBehaviour
     private bool ropeIsAttatchedToManual;
 
     [SerializeField]
+    [Tooltip("Toggles between climbable rope and grabbable rope")]
+    private bool ropeClimb;
+
+    [SerializeField]
     private int numberOfTheBroom;
 
     [Header("Gameobjects")]
@@ -100,6 +104,8 @@ public class Game_Manager : MonoBehaviour
         //DontDestroyOnLoad(this);
 
         //WaterComes.AddListener(WaterIsRising);
+
+        ropeClimb = false;
 
         isBroom1Snapped = false;
 
@@ -179,6 +185,14 @@ public class Game_Manager : MonoBehaviour
     //}
 
     //GETTERS AND SETTERS PART BELOW HERE!
+
+    public bool RopeClimb
+    {
+        get { return ropeClimb; }
+
+        set { ropeClimb = value; }
+    }
+
 
     public bool IsLanternGrabbed
     {
