@@ -12,12 +12,31 @@ public class FlowFieldParticle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.position += transform.forward * _moveSpeed * Time.deltaTime;
-	}
+        if (this.GetComponent<RightHauki>() != null)
+        {
+            this.transform.position += transform.up * _moveSpeed * Time.deltaTime;
+            this.transform.rotation = Quaternion.Euler(-90, 0, 90);
+        }
+        else
+        {
+            this.transform.rotation = Quaternion.Euler(-90, 0, -90);
+            this.transform.position += transform.up * _moveSpeed * Time.deltaTime;
+        }
+        
+        //if (transform.rotation.x <= -140)
+        //{
+        //    transform.rotation = Quaternion.Euler(-110, 0, -90);
+        //}
+        //if (transform.rotation.x >= -30)
+        //{
+        //    transform.rotation = Quaternion.Euler(-60, 0, -90);
+        //}
+    }
 
     public void ApplyRotation(Vector3 rotation, float rotateSpeed)
     {
         Quaternion targetRotation = Quaternion.LookRotation(rotation.normalized);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+        
     }
 }
