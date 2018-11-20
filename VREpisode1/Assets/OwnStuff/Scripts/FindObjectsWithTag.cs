@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR 
 public class FindObjectsWithTag : ScriptableWizard {
 
     public string searchTag = "Your tag here";
@@ -19,4 +19,5 @@ public class FindObjectsWithTag : ScriptableWizard {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(searchTag);
         Selection.objects = gameObjects;
     }
-}
+ }
+#endif

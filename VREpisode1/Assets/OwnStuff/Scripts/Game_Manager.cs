@@ -101,7 +101,7 @@ public class Game_Manager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        //DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
 
         //WaterComes.AddListener(WaterIsRising);
 
@@ -151,7 +151,17 @@ public class Game_Manager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(lanternIsGrabbed);
+        Debug.Log(ropeIsAttatchedToManual);
+        if (RopeIsAttachedToManual == true)
+        {
+            AttachedRopeToManual.SetActive(true);
+            Debug.Log("active");
+        }
+        else
+        {
+            AttachedRopeToManual.SetActive(false);
+            Debug.Log("inactive");
+        }
     }
 
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!

@@ -12,15 +12,21 @@ public class FlowFieldParticle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (this.GetComponent<RightHauki>() != null)
+        if (this.GetComponent<RightHauki>() != null && _moveSpeed > 0)
         {
             this.transform.position += transform.up * _moveSpeed * Time.deltaTime;
             this.transform.rotation = Quaternion.Euler(-90, 0, 90);
         }
+        else if (_moveSpeed > 0)
+        {
+            this.transform.position += transform.up * _moveSpeed * Time.deltaTime;
+            this.transform.rotation = Quaternion.Euler(-90, 0, -90);
+            
+        }
         else
         {
-            this.transform.rotation = Quaternion.Euler(-90, 0, -90);
-            this.transform.position += transform.up * _moveSpeed * Time.deltaTime;
+            Debug.Log("zeromvspd");
+            return;
         }
         
         //if (transform.rotation.x <= -140)

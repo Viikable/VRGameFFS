@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 public class MeshCombine : ScriptableWizard {
 
     public GameObject meshToCombine;
@@ -55,3 +55,4 @@ public class MeshCombine : ScriptableWizard {
 
 
 }
+#endif

@@ -453,14 +453,14 @@ namespace VRTK
             if (currentSnappedObject != null && currentSnappedObject.GetComponent<KeyRope>() != null)
             {
                 Debug.Log("setropeSnapOn");
-                //Game_Manager.instance.AttachedRopeToManual.SetActive(true);
-                //Game_Manager.instance.ropeIsAttatchedToManual = true;
+
+                Game_Manager.instance.RopeIsAttachedToManual = true;
             }
-            //if (!Game_Manager.instance.ropeIsAttatchedToManual)
-            //{
-            //    Debug.Log("setropeSnapOff");
-            //    //Game_Manager.instance.AttachedRopeToManual.SetActive(false);
-            //}
+            else
+            {
+                Game_Manager.instance.RopeIsAttachedToManual = false;
+            }
+
 
 
             if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
