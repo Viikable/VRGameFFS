@@ -151,16 +151,15 @@ public class Game_Manager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(ropeIsAttatchedToManual);
-        if (RopeIsAttachedToManual == true)
-        {
+        //Debug.Log(ropeIsAttatchedToManual);
+        if (RopeIsAttachedToManual == true) {
             AttachedRopeToManual.SetActive(true);
-            Debug.Log("active");
+            //Debug.Log("active");
         }
         else
         {
             AttachedRopeToManual.SetActive(false);
-            Debug.Log("inactive");
+            //Debug.Log("inactive");
         }
     }
 

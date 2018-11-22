@@ -223,7 +223,7 @@ namespace VRTK.Controllables.PhysicsBased
             if (this.name == "Screen1Button" || this.name == "Screen2Button" || this.name == "Screen3Button")             //TANELIMOD
             {
                 positionTarget = previousPositionTarget;
-                Debug.Log("checkunpress");
+                //Debug.Log("checkunpress");
             }
             else if (!stayPressed && pressedDown)
             {
