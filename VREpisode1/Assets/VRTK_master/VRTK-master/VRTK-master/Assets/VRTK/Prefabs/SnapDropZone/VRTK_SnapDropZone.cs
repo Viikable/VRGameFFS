@@ -112,8 +112,7 @@ namespace VRTK
 
         protected List<VRTK_InteractableObject> currentValidSnapInteractableObjects = new List<VRTK_InteractableObject>();
         protected VRTK_InteractableObject currentSnappedObject = null;
-        private Transform SnappedObjectTransform;                                     //added by TANELI
-        private bool changed = true;       //this detects whether we already changed the rotation of the prefab snapped or not
+        private Transform SnappedObjectTransform;                                     
         protected GameObject objectToClone = null;
         protected bool[] clonedObjectColliderStates = new bool[0];
 
@@ -406,7 +405,7 @@ namespace VRTK
             isSnapped = false;
             wasSnapped = false;
             isHighlighted = false;
-            //changed = true;
+            
 
 #pragma warning disable 618
             if (defaultSnappedObject != null && defaultSnappedInteractableObject == null)
@@ -451,42 +450,53 @@ namespace VRTK
 
         protected virtual void Update()
         {
+            if (currentSnappedObject != null && currentSnappedObject.GetComponent<KeyRope>() != null)
+            {
+                Debug.Log("setropeSnapOn");
+
+                Game_Manager.instance.RopeIsAttachedToManual = true;
+            }
+            else
+            {
+                Game_Manager.instance.RopeIsAttachedToManual = false;
+            }
+
 
 
             if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
             {
-                int numberOfTheBroom;
+                //int numberOfTheBroom;
                 if (currentSnappedObject.name == "BroomInTheJanitorHouse1")
                 {
-                    numberOfTheBroom = 1;
+                    Game_Manager.instance.NumberOfTheBroom = 1;
                 }
                 else if (currentSnappedObject.name == "BroomInTheJanitorHouse2")
                 {
-                    numberOfTheBroom = 2;
+                    Game_Manager.instance.NumberOfTheBroom = 2;
                 }
                 else if (currentSnappedObject.name == "BroomInTheJanitorHouse3")
                 {
-                    numberOfTheBroom = 3;
+                    Game_Manager.instance.NumberOfTheBroom = 3;
                 }
                 else if (currentSnappedObject.name == "BroomInTheJanitorHouse4")
                 {
-                    numberOfTheBroom = 4;
+                    Game_Manager.instance.NumberOfTheBroom = 4;
                 }
                 else
                 {
-                    numberOfTheBroom = 0;
+                    Game_Manager.instance.NumberOfTheBroom = 0;
                 }
 
-                Game_Manager.instance.SetBroomSnapped(numberOfTheBroom, true);            //checking that Broom is snapped
-                Debug.Log("Broom" + numberOfTheBroom + "was snapped");
+                Game_Manager.instance.IsBroomSnapped = true;            //checking that Broom is snapped
+                Debug.Log("Broom" + Game_Manager.instance.NumberOfTheBroom + "was snapped");
 
-                if (Game_Manager.instance.GetIsBroomMetallic(numberOfTheBroom) && Game_Manager.instance.GetIsBroomSnapped(numberOfTheBroom))
+                if (Game_Manager.instance.IsBroomMetallic && Game_Manager.instance.IsBroomSnapped)
                 {
-                    Game_Manager.instance.StartBroomAnimation(numberOfTheBroom);
+                    Game_Manager.instance.StartBroomAnimation(Game_Manager.instance.NumberOfTheBroom);
                 }
-                else if (!Game_Manager.instance.GetIsBroomMetallic(numberOfTheBroom) && Game_Manager.instance.GetIsBroomSnapped(numberOfTheBroom))
+                else if (!Game_Manager.instance.IsBroomMetallic && Game_Manager.instance.IsBroomSnapped)
                 {
-                    Game_Manager.instance.StartBroomBrokenAnimation(numberOfTheBroom);
+                    Game_Manager.instance.StartBroomBrokenAnimation(Game_Manager.instance.NumberOfTheBroom);
                 }
             }
             CheckSnappedItemExists();
@@ -823,11 +833,18 @@ namespace VRTK
 
         protected virtual void UnsnapObject()
         {
+            if (currentSnappedObject.GetComponent<KeyRope>() != null)
+            {
+                Game_Manager.instance.RopeIsAttachedToManual = false;                       //here we check if we unsnap the rope from manual thus making the collider disappear
+            }
+
+
             if (currentSnappedObject != null)
             {
                 ResetPermanentCloneColliders(currentSnappedObject.gameObject);
                 RemoveCurrentValidSnapObject(currentSnappedObject);
             }
+          
 
             isSnapped = false;
             wasSnapped = true;
