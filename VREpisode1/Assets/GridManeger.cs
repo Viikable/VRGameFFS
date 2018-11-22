@@ -11,7 +11,7 @@ public class GridManeger : MonoBehaviour {
 	void Start () {
         RectTransform rt = GetComponent<RectTransform>();
 
-        rt.sizeDelta = new Vector2(gridSize, gridSize);
+        rt.sizeDelta = new Vector2(gridSize * 2, gridSize * 2);
 	}
 	
 	void Update () {
