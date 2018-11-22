@@ -25,21 +25,21 @@ public class ElevatorMovement : MonoBehaviour {
 		if (Game_Manager.instance.ElevatorMoving == 1 && canMoveDown)
         {
             Debug.Log("elevatorMovingdown");
-            this.transform.Translate(Vector3.down * 0.25f);
+            this.transform.Translate(Vector3.down * 0.5f * Time.deltaTime, Space.World);
             canGoUp = true;
+            positionChecked = false;
         }
         if (Game_Manager.instance.ElevatorMoving == 2 && canGoUp)
         {
             Debug.Log("elevatorMovingUp");
-            this.transform.Translate(Vector3.left * 0.25f);
+            this.transform.Translate(Vector3.up * 0.5f * Time.deltaTime, Space.World);
             canMoveDown = false;
+            positionChecked = false;
             
         }
-        if (Game_Manager.instance.ElevatorMoving == 0)
+        if (Game_Manager.instance.ElevatorMoving == 0 && !positionChecked)
         {
             Debug.Log("elevatorStill");
-            while (!positionChecked)
-            {
                 if (canMoveDown)
                 {
                     canMoveDown = false;
@@ -60,7 +60,6 @@ public class ElevatorMovement : MonoBehaviour {
                 positionChecked = true;
             }
         }
-	}
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "ElevatorStopper"){
@@ -68,4 +67,5 @@ public class ElevatorMovement : MonoBehaviour {
             Debug.Log("stopped");
         }
     }
-}
+ }
+

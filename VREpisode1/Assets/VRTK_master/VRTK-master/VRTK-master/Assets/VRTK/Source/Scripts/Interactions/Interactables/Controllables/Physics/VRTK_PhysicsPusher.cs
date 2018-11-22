@@ -220,12 +220,13 @@ namespace VRTK.Controllables.PhysicsBased
 
         protected virtual void CheckUnpress()
         {
-            if (this.name == "Screen1Button" || this.name == "Screen2Button" || this.name == "Screen3Button")             //TANELIMOD
+            if (this.name == "Screen1Button" || this.name == "Screen2Button" || this.name == "Screen3Button"
+                || this.name == "ElevatorButton1" || this.name == "ElevatorButton2")             //TANELIMOD
             {
                 positionTarget = previousPositionTarget;
                 Debug.Log("checkunpress");
             }
-            else if (!stayPressed && pressedDown)
+            if (!stayPressed && pressedDown)
             {
                 SetRigidbodyConstraints(RigidbodyConstraints.FreezeRotation);
                 positionTarget = previousPositionTarget;
@@ -307,7 +308,7 @@ namespace VRTK.Controllables.PhysicsBased
                     {
                         Debug.Log("elevator1when2");
                         ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-                        ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeRotation);
+                        ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX, RigidbodyConstraints.FreezePositionZ);
                         ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
                     }
             }
@@ -321,7 +322,7 @@ namespace VRTK.Controllables.PhysicsBased
                     {
                         Debug.Log("elevator2when1");
                         ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-                        ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeRotation);
+                        ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX, RigidbodyConstraints.FreezePositionZ);
                         ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
                     }
             }
