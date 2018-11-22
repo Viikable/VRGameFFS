@@ -456,10 +456,10 @@ namespace VRTK
 
                 Game_Manager.instance.RopeIsAttachedToManual = true;
             }
-            else
-            {
-                Game_Manager.instance.RopeIsAttachedToManual = false;
-            }
+            //else
+            //{
+            //    Game_Manager.instance.RopeIsAttachedToManual = false;
+            //}
 
 
 

@@ -73,6 +73,9 @@ public class Game_Manager : MonoBehaviour
     [SerializeField]
     private int numberOfTheBroom;
 
+    //[SerializeField]
+    //private WaterMovement water;
+
     [Header("Gameobjects")]
 
     public GameObject Lantern;
@@ -152,7 +155,7 @@ public class Game_Manager : MonoBehaviour
     void FixedUpdate()
     {
         Debug.Log(ropeIsAttatchedToManual);
-        if (RopeIsAttachedToManual == true)
+        if (RopeIsAttachedToManual)
         {
             AttachedRopeToManual.SetActive(true);
             Debug.Log("active");
@@ -167,11 +170,11 @@ public class Game_Manager : MonoBehaviour
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
 
 
-    private void WaterIsRising()            //water starts moving via WaterMovement script
-    {
+    //private void WaterIsRising()            //water starts moving via WaterMovement script
+    //{
 
-        WaterMovement.waterRises = true;
-    }
+    //    water.WaterRises = true;
+    //}
 
     //public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
     //{

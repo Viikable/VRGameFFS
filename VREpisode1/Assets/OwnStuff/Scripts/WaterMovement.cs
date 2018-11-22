@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterMovement : MonoBehaviour {
-    public static bool waterRises;
-	// Use this for initialization
+    [SerializeField]
+    [Tooltip("Is the water rising right now")]
+    private bool waterRises;
+
 	void Start () {
         waterRises = false;
 	}
@@ -23,9 +25,15 @@ public class WaterMovement : MonoBehaviour {
   
     // Update is called once per frame
     void Update () {
-        if (waterRises)
+        if (WaterRises)
         {
             this.transform.Translate(Vector3.up * 0.005f);
+            Debug.Log("waterup");
+        }
+        else
+        {
+            this.transform.Translate(Vector3.up * 0f);
+            Debug.Log("waterdown");
         }
         
 	}
