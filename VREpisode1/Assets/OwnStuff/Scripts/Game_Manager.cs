@@ -70,8 +70,14 @@ public class Game_Manager : MonoBehaviour
     [Tooltip("Toggles between climbable rope and grabbable rope")]
     private bool ropeClimb;
 
+    [Header("ints")]
     [SerializeField]
     private int numberOfTheBroom;
+
+    [SerializeField]
+    [Tooltip("Toggles between climbable rope and grabbable rope")]
+    private int elevatorMoving;
+
 
     //[SerializeField]
     //private WaterMovement water;
@@ -133,6 +139,8 @@ public class Game_Manager : MonoBehaviour
         lanternLightIsOn = false;
 
         ropeIsAttatchedToManual = false;
+
+        elevatorMoving = 0;
 
         numberOfTheBroom = 0;
 
@@ -198,6 +206,13 @@ public class Game_Manager : MonoBehaviour
     //}
 
     //GETTERS AND SETTERS PART BELOW HERE!
+
+    public int ElevatorMoving
+    {
+        get { return elevatorMoving;  }
+
+        set { elevatorMoving = value; }
+    }
 
     public bool RopeClimb
     {
