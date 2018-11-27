@@ -18,7 +18,9 @@ public class ElevatorMovement : MonoBehaviour {
     void Start () {
         canGoUp = false;
         canMoveDown = true;
-	}
+        positionChecked = true;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

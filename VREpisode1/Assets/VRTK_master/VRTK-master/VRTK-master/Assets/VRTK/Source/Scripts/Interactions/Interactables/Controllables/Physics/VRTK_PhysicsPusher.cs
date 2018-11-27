@@ -298,7 +298,7 @@ namespace VRTK.Controllables.PhysicsBased
 
         protected virtual void StayPressed()
         {
-               if (this.name == "ElevatorButton1" && !pressedDown)       //if we press the button which reads "2" as in 2nd floor elevator moves down
+               if (this.name == "ElevatorButton1" && !ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().pressedDown)       //if we press the button which reads "2" as in 2nd floor elevator moves down
             {
                 Game_Manager.instance.ElevatorMoving = 2;
                 ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
@@ -313,7 +313,7 @@ namespace VRTK.Controllables.PhysicsBased
                     ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
                 }
             }
-            if (this.name == "ElevatorButton2" && !pressedDown)       //if we press the button which reads "1" as in 1st floor elevator moves back up or does nothing?
+            if (this.name == "ElevatorButton2" && !ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().pressedDown)       //if we press the button which reads "1" as in 1st floor elevator moves back up or does nothing?
             {
                 Game_Manager.instance.ElevatorMoving = 1;
                 Debug.Log("elevator2");
@@ -331,7 +331,7 @@ namespace VRTK.Controllables.PhysicsBased
 
             //write here any code that needs to happen after the button is pressed and stays pressed              
 
-            if (/*stayPressed && */this.name == "Screen1Button" && !pressedDown)
+            if (/*stayPressed && */this.name == "Screen1Button" && !Screen1Button.GetComponent<VRTK_PhysicsPusher>().pressedDown)
             {
                 Debug.Log("pressed1");
                 ConveyorBeltController.PressedScreen1 = true;
@@ -347,14 +347,14 @@ namespace VRTK.Controllables.PhysicsBased
                     Screen3Button.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
                 }
             }
-            else if (/*stayPressed && */this.name == "Screen2Button" && !pressedDown)
+            else if (/*stayPressed && */this.name == "Screen2Button" && !Screen2Button.GetComponent<VRTK_PhysicsPusher>().pressedDown)
             {
                 Debug.Log("pressed2");
                 ConveyorBeltController.PressedScreen2 = true;
                 Screen2Button.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
                 Screen2Button.GetComponent<VRTK_PhysicsPusher>().pressedDown = true;
             }
-            else if (/*stayPressed && */this.name == "Screen3Button" && !pressedDown)
+            else if (/*stayPressed && */this.name == "Screen3Button" && !Screen3Button.GetComponent<VRTK_PhysicsPusher>().pressedDown)
             {
                 Debug.Log("pressed3");
                 ConveyorBeltController.PressedScreen3 = true;
