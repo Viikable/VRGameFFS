@@ -129,7 +129,7 @@ namespace VRTK.Controllables.PhysicsBased
         {
             if (controlRigidbody != null)
             {
-                controlRigidbody.constraints = newConstraints | newConstraints1| newConstraints2;
+                controlRigidbody.constraints = newConstraints | newConstraints1 | newConstraints2;
             }
         }
 
