@@ -50,9 +50,15 @@
         private void Update()                             //added by Taneli, basically controls what happens after the lever reaches a certain point
         {
 
+<<<<<<< HEAD
             VRTK_SDKManager sdkmanager = VRTK_SDKManager.instance;
             sdkmanager.loadedSetup.modelAliasLeftController.transform.localPosition = Vector3.zero;
             sdkmanager.loadedSetup.modelAliasRightController.transform.localPosition = Vector3.zero;
+=======
+            //VRTK_SDKManager sdkmanager = VRTK_SDKManager.instance;
+            //sdkmanager.loadedSetup.modelAliasLeftController.transform.localPosition = Vector3.zero;
+            //sdkmanager.loadedSetup.modelAliasRightController.transform.localPosition = Vector3.zero;
+>>>>>>> 7ad8228db9665294832f741dae0c99bc21950061
 
 
             int random = Random.Range(0, 2);

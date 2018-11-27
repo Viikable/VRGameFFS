@@ -1,0 +1,31 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class JanitorBroomTransformer4 : MonoBehaviour {
+
+    [Header("Textures for changing the broom into")]
+    [Tooltip("Texture we will change the broom into")]
+    public Texture2D CharredBroom;
+    public static bool ChangeBroomColour4 = false;
+    Renderer rend;
+
+    void Start () {
+        rend = GetComponent<MeshRenderer>();
+        rend.material.EnableKeyword("_NORMALMAP");
+        rend.material.EnableKeyword("_METALLICGLOSSMAP");
+        
+	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (ChangeBroomColour4)
+        {
+            rend.material.SetTexture("_MainTex", CharredBroom);
+            rend.material.SetTexture("_BumpMap", CharredBroom);
+            rend.material.SetTexture("_MetallicGlossMap", CharredBroom);
+            ChangeBroomColour4 = false;
+        }
+    }
+}
