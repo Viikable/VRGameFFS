@@ -1790,7 +1790,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 73589887}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2024,7 +2024,6 @@ MonoBehaviour:
   displayText: {fileID: 1085638135}
   outputOnMax: Button Pressed
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &76304218
 MonoBehaviour:
@@ -2589,6 +2588,16 @@ MonoBehaviour:
   controllerAttachPoint: {fileID: 0}
   controllerEvents: {fileID: 0}
   interactTouch: {fileID: 0}
+  Lantern: {fileID: 0}
+  GrabbableWater: {fileID: 0}
+  LanternIsGrabbed: 0
+  LanternLightIsOn: 0
+  WaterComes:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  Invoked: 0
 --- !u!114 &109582319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5973,7 +5982,6 @@ MonoBehaviour:
   displayText: {fileID: 1577613479}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!54 &267037689
 Rigidbody:
@@ -6554,7 +6562,6 @@ MonoBehaviour:
   displayText: {fileID: 1255321489}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &295121679
 MonoBehaviour:
@@ -13593,7 +13600,6 @@ MonoBehaviour:
   displayText: {fileID: 0}
   outputOnMax: Button Pressed
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &538934091
 MonoBehaviour:
@@ -18435,7 +18441,6 @@ MonoBehaviour:
   displayText: {fileID: 1166478119}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!54 &743734332
 Rigidbody:
@@ -19360,7 +19365,6 @@ MonoBehaviour:
   displayText: {fileID: 1314302297}
   outputOnMax: 
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &798424207
 MonoBehaviour:
@@ -21145,7 +21149,6 @@ MonoBehaviour:
   displayText: {fileID: 1306882973}
   outputOnMax: Drawer Open
   outputOnMin: Drawer Closed
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &833147787
 MonoBehaviour:
@@ -21958,7 +21961,6 @@ MonoBehaviour:
   displayText: {fileID: 367241240}
   outputOnMax: 
   outputOnMin: Door Closed
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!1 &858694832
 GameObject:
@@ -26017,7 +26019,6 @@ MonoBehaviour:
   displayText: {fileID: 1174545537}
   outputOnMax: 
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1027684394
 MonoBehaviour:
@@ -28781,7 +28782,6 @@ MonoBehaviour:
   displayText: {fileID: 1693755925}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1097068787
 MonoBehaviour:
@@ -35827,7 +35827,6 @@ MonoBehaviour:
   displayText: {fileID: 1725938203}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!54 &1174451456
 Rigidbody:
@@ -41240,7 +41239,6 @@ MonoBehaviour:
   displayText: {fileID: 1353424985}
   outputOnMax: Chest Open
   outputOnMin: Chest Closed
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1329897718
 MonoBehaviour:
@@ -43458,7 +43456,6 @@ MonoBehaviour:
   displayText: {fileID: 1058091751}
   outputOnMax: Drawer Open
   outputOnMin: Drawer Closed
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!1 &1386591094
 GameObject:
@@ -43807,7 +43804,6 @@ MonoBehaviour:
   displayText: {fileID: 1854320790}
   outputOnMax: 
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1392071686
 MonoBehaviour:
@@ -44262,6 +44258,16 @@ MonoBehaviour:
   controllerAttachPoint: {fileID: 0}
   controllerEvents: {fileID: 0}
   interactTouch: {fileID: 0}
+  Lantern: {fileID: 0}
+  GrabbableWater: {fileID: 0}
+  LanternIsGrabbed: 0
+  LanternLightIsOn: 0
+  WaterComes:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  Invoked: 0
 --- !u!114 &1408711856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49682,7 +49688,6 @@ MonoBehaviour:
   displayText: {fileID: 1984208293}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1569884213
 MonoBehaviour:
@@ -50329,7 +50334,6 @@ MonoBehaviour:
   displayText: {fileID: 1130603758}
   outputOnMax: Chest Open
   outputOnMin: Chest Closed
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1579544104
 MonoBehaviour:
@@ -53521,7 +53525,6 @@ MonoBehaviour:
   displayText: {fileID: 2012555526}
   outputOnMax: 
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!1 &1706652028
 GameObject:
@@ -54738,7 +54741,6 @@ MonoBehaviour:
   displayText: {fileID: 0}
   outputOnMax: Button Pressed
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1752762452
 MonoBehaviour:
@@ -55117,7 +55119,6 @@ MonoBehaviour:
   displayText: {fileID: 1923256217}
   outputOnMax: 
   outputOnMin: Door Closed
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1787103569
 MonoBehaviour:
@@ -57525,7 +57526,6 @@ MonoBehaviour:
   displayText: {fileID: 1191448196}
   outputOnMax: 
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!1 &1845917744
 GameObject:
@@ -58663,7 +58663,6 @@ MonoBehaviour:
   displayText: {fileID: 1469964179}
   outputOnMax: 
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1869045884
 MonoBehaviour:
@@ -60725,7 +60724,6 @@ MonoBehaviour:
   displayText: {fileID: 18334365}
   outputOnMax: Button Pressed
   outputOnMin: 
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!1 &1943967722 stripped
 GameObject:
@@ -62056,7 +62054,6 @@ MonoBehaviour:
   displayText: {fileID: 1259679412}
   outputOnMax: Slider Maximum Reached
   outputOnMin: Slider Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &1979556428
 MonoBehaviour:
@@ -64374,7 +64371,6 @@ MonoBehaviour:
   displayText: {fileID: 1154570239}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &2043204373
 MonoBehaviour:
@@ -64773,7 +64769,6 @@ MonoBehaviour:
   displayText: {fileID: 1104002406}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &2050007237
 MonoBehaviour:
@@ -66057,7 +66052,6 @@ MonoBehaviour:
   displayText: {fileID: 1112777243}
   outputOnMax: Lever Maximum Reached
   outputOnMin: Lever Minimum Reached
-  AlreadyDid: 0
   MovingObject: {fileID: 0}
 --- !u!114 &2092914673
 MonoBehaviour:
