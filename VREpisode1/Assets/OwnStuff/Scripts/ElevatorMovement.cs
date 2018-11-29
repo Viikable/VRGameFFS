@@ -21,17 +21,24 @@ public class ElevatorMovement : MonoBehaviour {
         positionChecked = true;
 
     }
-	
+	public bool CanGoUp
+    {
+        get { return canGoUp; }
+        set { canGoUp = value; }
+    }
+    public bool CanMoveDown
+    {
+        get { return canMoveDown;  }
+    }
 	// Update is called once per frame
 	void Update () {
 		if (Game_Manager.instance.ElevatorMoving == 1 && canMoveDown)
         {
             Debug.Log("elevatorMovingdown");
             this.transform.Translate(Vector3.down * 0.5f * Time.deltaTime, Space.World);
-            canGoUp = true;
             positionChecked = false;
         }
-        if (Game_Manager.instance.ElevatorMoving == 2 && canGoUp)
+        else if (Game_Manager.instance.ElevatorMoving == 2 && canGoUp)
         {
             Debug.Log("elevatorMovingUp");
             this.transform.Translate(Vector3.up * 0.5f * Time.deltaTime, Space.World);
@@ -39,7 +46,7 @@ public class ElevatorMovement : MonoBehaviour {
             positionChecked = false;
             
         }
-        if (Game_Manager.instance.ElevatorMoving == 0 && !positionChecked)
+        else if (Game_Manager.instance.ElevatorMoving == 0 && !positionChecked)
         {
             Debug.Log("elevatorStill");
                 if (canMoveDown)
@@ -61,6 +68,11 @@ public class ElevatorMovement : MonoBehaviour {
                 }
                 positionChecked = true;
             }
+        else
+        {
+            Debug.Log("no checks for elevator");
+            return;
+        }
         }
     private void OnTriggerEnter(Collider other)
     {

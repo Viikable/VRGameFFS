@@ -25,7 +25,7 @@ public class FlowFieldParticle : MonoBehaviour {
         }
         else
         {
-            Debug.Log("zeromvspd");
+            //Debug.Log("zeromvspd");
             return;
         }
         

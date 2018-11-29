@@ -33,7 +33,7 @@ public class WaterMovement : MonoBehaviour {
         else
         {
             this.transform.Translate(Vector3.up * 0f);
-            Debug.Log("waterdown");
+            //Debug.Log("waterdown");
         }
         
 	}

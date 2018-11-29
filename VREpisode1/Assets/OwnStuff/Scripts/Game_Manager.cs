@@ -166,12 +166,12 @@ public class Game_Manager : MonoBehaviour
         if (RopeIsAttachedToManual)
         {
             AttachedRopeToManual.SetActive(true);
-            Debug.Log("active");
+            //Debug.Log("active");
         }
         else
         {
             AttachedRopeToManual.SetActive(false);
-            Debug.Log("inactive");
+            //Debug.Log("inactive");
         }
     }
 
