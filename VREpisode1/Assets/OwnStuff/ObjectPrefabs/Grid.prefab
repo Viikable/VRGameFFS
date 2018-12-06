@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114747767660245922}
   m_Layer: 0
   m_Name: SnapDropZone2
-  m_TagString: Untagged
+  m_TagString: SnapZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 114542148698172462}
   m_Layer: 0
   m_Name: SnapDropZone4
-  m_TagString: Untagged
+  m_TagString: SnapZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,6 +215,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4334491757177464}
+  - component: {fileID: 114614913509071524}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -268,7 +269,7 @@ GameObject:
   - component: {fileID: 114580620115414564}
   m_Layer: 0
   m_Name: SnapDropZone
-  m_TagString: Untagged
+  m_TagString: SnapZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,7 +643,7 @@ GameObject:
   - component: {fileID: 114860216097612692}
   m_Layer: 0
   m_Name: SnapDropZone3
-  m_TagString: Untagged
+  m_TagString: SnapZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3113,6 +3114,23 @@ MonoBehaviour:
   objectToHighlight: {fileID: 0}
   objectHighlighter: {fileID: 0}
   objectToAffect: {fileID: 0}
+--- !u!114 &114614913509071524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410316627571770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedede8078d0c8142b0de0b33e7a04c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstNodeRightObject: {fileID: 1981208745154764}
+  secondNodeRightObject: {fileID: 1276729992784390}
+  thirdNodeRightObject: {fileID: 1697745909142736}
+  Node1CurrentObject: {fileID: 0}
+  Node2CurrentObject: {fileID: 0}
+  Node3CurrentObject: {fileID: 0}
 --- !u!114 &114747767660245922
 MonoBehaviour:
   m_ObjectHideFlags: 1
