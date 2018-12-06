@@ -111,6 +111,7 @@ namespace VRTK
         protected GameObject highlightEditorObject = null;
 
         protected List<VRTK_InteractableObject> currentValidSnapInteractableObjects = new List<VRTK_InteractableObject>();
+        [SerializeField]
         protected VRTK_InteractableObject currentSnappedObject = null;
         private Transform SnappedObjectTransform;                                     
         protected GameObject objectToClone = null;
@@ -139,6 +140,7 @@ namespace VRTK
         {
             if (ObjectEnteredSnapDropZone != null)
             {
+                Debug.Log("Enter snap zone");
                 ObjectEnteredSnapDropZone(this, e);
             }
         }
@@ -155,6 +157,7 @@ namespace VRTK
         {
             if (ObjectSnappedToDropZone != null)
             {
+                Debug.Log("On snap zone");
                 ObjectSnappedToDropZone(this, e);
             }
         }
@@ -460,8 +463,6 @@ namespace VRTK
             {
                 Game_Manager.instance.RopeIsAttachedToManual = false;
             }
-
-
 
             if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
             {
