@@ -18,7 +18,7 @@ public class MoltenTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collided");
+        
         if (other.tag == "JanitorBroom")
         {
             Debug.Log("collidedJanitor");

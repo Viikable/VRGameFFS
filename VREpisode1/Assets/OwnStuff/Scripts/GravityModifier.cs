@@ -37,6 +37,7 @@ using UnityEngine;
                 Debug.Log("Touched the water");
                 
                 Splash.Play();
+                this.GetComponentInChildren<UnderWaterEffect>().enabled = true;
 
             }
         }
@@ -46,7 +47,7 @@ using UnityEngine;
             {
                 TouchedWater = false;
                 Debug.Log("exited water");
-
+                this.GetComponentInChildren<UnderWaterEffect>().enabled = false;
             }
         }
         // Update is called once per frame
