@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevatorMovement : MonoBehaviour {
+    [Header("Elevator Sounds")]
+    public AudioSource elevatorStops;
+    public AudioSource elevatorUp;
+    public AudioSource elevatorDown;
+    public AudioSource elevatorOpens;
+    public AudioSource elevatorCloses;
+
     [SerializeField]
     [Tooltip("can we move up with elevator or not atm")]
     private bool canGoUp;
@@ -35,12 +42,14 @@ public class ElevatorMovement : MonoBehaviour {
 		if (Game_Manager.instance.ElevatorMoving == 1 && canMoveDown)
         {
             Debug.Log("elevatorMovingdown");
+            elevatorDown.Play();
             this.transform.Translate(Vector3.down * 1f * Time.deltaTime, Space.World);
             positionChecked = false;
         }
         else if (Game_Manager.instance.ElevatorMoving == 2 && canGoUp)
         {
             Debug.Log("elevatorMovingUp");
+            elevatorUp.Play();
             this.transform.Translate(Vector3.up * 1f * Time.deltaTime, Space.World);
             canMoveDown = false;
             positionChecked = false;
@@ -78,6 +87,7 @@ public class ElevatorMovement : MonoBehaviour {
     {
         if (other.name == "ElevatorStopper" && Game_Manager.instance.ElevatorMoving != 0){
             Game_Manager.instance.ElevatorMoving = 0;
+            elevatorStops.Play();
             Debug.Log("stopped");
         }
     }
