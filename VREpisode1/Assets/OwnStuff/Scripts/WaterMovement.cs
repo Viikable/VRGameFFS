@@ -7,19 +7,26 @@ public class WaterMovement : MonoBehaviour
     [SerializeField]
     [Tooltip("Is the water rising right now")]
     private bool waterRises;
-    [Tooltip("Have we touched the water surface yet or not")]
-    public bool TouchedWater;
 
+    [SerializeField]
+    [Tooltip("Have we touched the water surface yet or not")]
+    private bool TouchedWater;
+
+    [SerializeField]
     [Tooltip("Have we left the water or not")]
-    public bool ExitedWater;
+    private bool ExitedWater;
+
+    [SerializeField]
+    [Tooltip("Is player's head underwater currently")]
+    private bool headIsUnderWater;
 
     [SerializeField]
     [Tooltip("Time when player enters the water")]
-    float timeWhenGotUnderwater;
+    private float timeWhenGotUnderwater;
 
     [SerializeField]
     [Tooltip("How much oxygen the player has left")]
-    float oxygenTimer;
+    private float oxygenTimer;
 
     [Header("Water Hitting sound")]
     [Tooltip("The water hitting sound")]
@@ -30,20 +37,19 @@ public class WaterMovement : MonoBehaviour
     public Collider feet;
     public Collider head;
 
+    
+
     void Start()
     {
         TouchedWater = false;
         oxygenTimer = 30f;
         waterRises = false;
+        headIsUnderWater = false;
         headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         headsetbody = null;
         feet = null;
         head = null;
     }
-
-    //   void Start () {
-    //       waterRises = false;
-    //}
     public void TouchedLantern()
     {
         Debug.Log("Lantern is touched, let the waters rise!");
@@ -57,13 +63,14 @@ public class WaterMovement : MonoBehaviour
             TouchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
             Debug.Log("feet entered water");
             Splash.Play();
-            headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
-
         }
-        if (hitCollider = head)
+        if (hitCollider == head)
         {
+            headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+            TouchedWater = true;
             Debug.Log("head entered water");
             timeWhenGotUnderwater = Time.time;
+            headIsUnderWater = true;
             Debug.Log(timeWhenGotUnderwater);
         }
     }
@@ -72,25 +79,26 @@ public class WaterMovement : MonoBehaviour
         if (hitCollider == feet)
         {           
             Debug.Log("feet exited water");
-            headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
         }
         if (hitCollider == head)
         {
+            headIsUnderWater = false;
             Debug.Log("head exited water");
+            headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
             TouchedWater = false;
         }
     }
     void Update()
     {
-        if (Time.time >= 0.5f)
+        if (Time.time >= 0.5f)   //this because the first check gives error as the colliders are created at runtime
         {
             feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
-            head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();    //finds the collider child for head
+            head = headSet.transform.GetChild(2).GetChild(2).GetComponent<Collider>();    //finds the collider child for head
         }
         headsetbody = headSet.GetComponent<Rigidbody>();
         if (TouchedWater)
         {
-            if (oxygenTimer < Time.time - timeWhenGotUnderwater)
+            if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater)
             {
                 Debug.Log("drowned");
                 Debug.Log(Time.time);
