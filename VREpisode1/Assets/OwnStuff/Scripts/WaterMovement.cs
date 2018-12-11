@@ -96,12 +96,17 @@ public class WaterMovement : MonoBehaviour
     }
     void Update()
     {
-        if (Time.time >= 0.5f)   //this because the first check gives error as the colliders are created at runtime
+        
+        if (Time.time >= 0.25f)   //this because the first check gives error as the colliders are created at runtime
         {
             feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
             head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();    //finds the collider child for head
+            headsetbody = headSet.GetComponent<Rigidbody>();
+            if (headsetbody.velocity.y > 0.5) {
+                Debug.Log(headsetbody.velocity.y);
+            }
         }
-        headsetbody = headSet.GetComponent<Rigidbody>();
+       
         if (TouchedWater)
         {
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer*3/4 && headIsUnderWater)
@@ -122,25 +127,31 @@ public class WaterMovement : MonoBehaviour
                 Debug.Log("drowned");
                 Debug.Log(Time.time);
                 GameObject.Find("LeftController").GetComponent<VRTK_InteractGrab>().enabled = false;
+                GameObject.Find("LeftController").GetComponent<VRTK_ControllerEvents>().enabled = false;
                 GameObject.Find("RightController").GetComponent<VRTK_InteractGrab>().enabled = false;
+                GameObject.Find("RightController").GetComponent<VRTK_ControllerEvents>().enabled = false;
                 headSet.transform.GetChild(2).GetChild(3).GetComponent<Rigidbody>().isKinematic = false;
                 //player dies here, lose control, sink to bottom, fade to black
-
+                Light [] lights = FindObjectsOfType<Light>();
+                for (int i = 0; i < lights.Length; i++)
+                {
+                    lights[i].enabled = false;
+                }
             }
 
             headsetbody.useGravity = false;
 
             headsetbody.AddForce(Physics.gravity * headsetbody.mass / 10);
 
-            if (headsetbody.velocity.y >= 0)
-            {
-                Debug.Log("now changes");
-                headsetbody.AddForce(new Vector3(0, -3, 0));
-            }
-            else
-            {
-                return;
-            }
+            //if (headsetbody.velocity.y >= 0)
+            //{
+            //    Debug.Log("now changes");
+            //    headsetbody.AddForce(new Vector3(0, -9, 0));
+            //}
+            //else
+            //{
+            //    return;
+            //}
         }
         else if (headsetbody != null)
         {
@@ -165,18 +176,5 @@ public class WaterMovement : MonoBehaviour
         set { waterRises = value; }
     }
 }
-    // Update is called once per frame
- //   void Update () {
- //       if (WaterRises)
- //       {
- //           this.transform.Translate(Vector3.up * 0.005f);
- //           Debug.Log("waterup");
- //       }
- //       else
- //       {
- //           this.transform.Translate(Vector3.up * 0f);
- //           //Debug.Log("waterdown");
- //       }
-        
-	//}
+    
 
