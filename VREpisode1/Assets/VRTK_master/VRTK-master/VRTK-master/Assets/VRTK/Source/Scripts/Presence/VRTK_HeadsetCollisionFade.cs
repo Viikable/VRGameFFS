@@ -88,6 +88,7 @@ namespace VRTK
         protected virtual void StartFade()
         {
             headsetFade.Fade(fadeColor, blinkTransitionSpeed);
+            
         }
 
         protected virtual bool ValidTarget(Collider target)

@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class WaterMovement : MonoBehaviour
 {
+    VRTK_HeadsetFade fader;  //this is used to create drowning effect when the headset slowly gets darker
+
     [SerializeField]
     [Tooltip("Is the water rising right now")]
     private bool waterRises;
@@ -49,6 +52,7 @@ public class WaterMovement : MonoBehaviour
         headsetbody = null;
         feet = null;
         head = null;
+        fader = GameObject.Find("PlayArea").GetComponent<VRTK_HeadsetFade>();
     }
     public void TouchedLantern()
     {
@@ -72,6 +76,7 @@ public class WaterMovement : MonoBehaviour
             timeWhenGotUnderwater = Time.time;
             headIsUnderWater = true;
             Debug.Log(timeWhenGotUnderwater);
+            fader.Fade(Color.black, 70f);
         }
     }
     private void OnTriggerExit(Collider hitCollider)
@@ -86,6 +91,7 @@ public class WaterMovement : MonoBehaviour
             Debug.Log("head exited water");
             headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
             TouchedWater = false;
+            fader.Unfade(5f);
         }
     }
     void Update()
@@ -93,15 +99,31 @@ public class WaterMovement : MonoBehaviour
         if (Time.time >= 0.5f)   //this because the first check gives error as the colliders are created at runtime
         {
             feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
-            head = headSet.transform.GetChild(2).GetChild(2).GetComponent<Collider>();    //finds the collider child for head
+            head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();    //finds the collider child for head
         }
         headsetbody = headSet.GetComponent<Rigidbody>();
         if (TouchedWater)
         {
+            if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer*3/4 && headIsUnderWater)
+            {
+                Debug.Log("3/4 oxygen left");
+            }
+            if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer/2 && headIsUnderWater)
+            {
+                Debug.Log("half oxygen left");
+            }
+            if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer*1/4 && headIsUnderWater)
+            {
+                Debug.Log("1/4 oxygen left");
+            }
+
             if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater)
             {
                 Debug.Log("drowned");
                 Debug.Log(Time.time);
+                GameObject.Find("LeftController").GetComponent<VRTK_InteractGrab>().enabled = false;
+                GameObject.Find("RightController").GetComponent<VRTK_InteractGrab>().enabled = false;
+                headSet.transform.GetChild(2).GetChild(3).GetComponent<Rigidbody>().isKinematic = false;
                 //player dies here, lose control, sink to bottom, fade to black
 
             }
@@ -109,6 +131,16 @@ public class WaterMovement : MonoBehaviour
             headsetbody.useGravity = false;
 
             headsetbody.AddForce(Physics.gravity * headsetbody.mass / 10);
+
+            if (headsetbody.velocity.y >= 0)
+            {
+                Debug.Log("now changes");
+                headsetbody.AddForce(new Vector3(0, -3, 0));
+            }
+            else
+            {
+                return;
+            }
         }
         else if (headsetbody != null)
         {
