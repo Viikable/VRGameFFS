@@ -46,7 +46,7 @@ public class WaterMovement : MonoBehaviour
     {
         TouchedWater = false;
         oxygenTimer = 30f;
-        waterRises = false;
+        waterRises = true;
         headIsUnderWater = false;
         headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         headsetbody = null;
@@ -75,7 +75,7 @@ public class WaterMovement : MonoBehaviour
             Debug.Log("head entered water");
             timeWhenGotUnderwater = Time.time;
             headIsUnderWater = true;
-            Debug.Log(timeWhenGotUnderwater);
+            //Debug.Log(timeWhenGotUnderwater);
             fader.Fade(Color.black, 70f);
         }
     }
@@ -84,13 +84,14 @@ public class WaterMovement : MonoBehaviour
         if (hitCollider == feet)
         {           
             Debug.Log("feet exited water");
+            TouchedWater = false;
         }
         if (hitCollider == head)
         {
             headIsUnderWater = false;
             Debug.Log("head exited water");
             headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
-            TouchedWater = false;
+            //TouchedWater = false;
             fader.Unfade(5f);
         }
     }
@@ -125,7 +126,7 @@ public class WaterMovement : MonoBehaviour
             if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater)
             {
                 Debug.Log("drowned");
-                Debug.Log(Time.time);
+                //Debug.Log(Time.time);
                 GameObject.Find("LeftController").GetComponent<VRTK_InteractGrab>().enabled = false;
                 GameObject.Find("LeftController").GetComponent<VRTK_ControllerEvents>().enabled = false;
                 GameObject.Find("RightController").GetComponent<VRTK_InteractGrab>().enabled = false;
@@ -138,11 +139,11 @@ public class WaterMovement : MonoBehaviour
                     lights[i].enabled = false;
                 }
             }
-
-            headsetbody.useGravity = false;
-
-            headsetbody.AddForce(Physics.gravity * headsetbody.mass / 10);
-
+            Debug.Log("nogravity");
+            //headsetbody.useGravity = false;
+            Physics.gravity = new Vector3(0, -3, 0);
+            //headsetbody.AddForce(Physics.gravity * headsetbody.mass / 4);
+            
             //if (headsetbody.velocity.y >= 0)
             //{
             //    Debug.Log("now changes");
@@ -155,7 +156,9 @@ public class WaterMovement : MonoBehaviour
         }
         else if (headsetbody != null)
         {
+            Physics.gravity.Set(0, -9.81f, 0);
             headsetbody.useGravity = true;
+            Debug.Log("gravity");
         }
 
         if (WaterRises)
