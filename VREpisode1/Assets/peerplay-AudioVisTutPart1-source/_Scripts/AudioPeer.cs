@@ -235,7 +235,6 @@ public class AudioPeer : MonoBehaviour {
         for (int i = 0; i < 64; i++)
         {
             float average = 0;
-            //int sampleCount = (int)Mathf.Pow(2, i) * 2;
 
             if (i == 16 || i == 32 || i == 40 || i == 48 || i == 56)           
             {

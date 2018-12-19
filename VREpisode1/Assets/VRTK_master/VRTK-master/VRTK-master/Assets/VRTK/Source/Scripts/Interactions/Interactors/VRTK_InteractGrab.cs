@@ -235,21 +235,26 @@ namespace VRTK
         /// <summary>
         /// //////////////////////////////////////////////////////////////////////////////////////////////
         /// </summary>
+        [SerializeField]
+        private GameObject Lantern;
+        [SerializeField]
+        private GameObject GrabbableWater;
 
-        public GameObject Lantern;
-        public GameObject GrabbableWater;
-
-        public bool LanternIsGrabbed;
-        public bool LanternLightIsOn;
+        private bool LanternIsGrabbed;
+        private bool LanternLightIsOn;
         public UnityEngine.Events.UnityEvent WaterComes;
 
-        public bool Invoked;
+        private bool Invoked;
+        private WaterMovement water;
 
 
         private void Start()
         {
             WaterComes.AddListener(WaterIsRising);
             Invoked = true;
+            water = GameObject.Find("Water").GetComponent<WaterMovement>();
+            Lantern = GameObject.Find("Lantern");
+            GrabbableWater = GameObject.Find("GrabbableWater");
         }
 
 
@@ -275,7 +280,7 @@ namespace VRTK
         private void WaterIsRising()
         {
 
-            WaterMovement.waterRises = true;
+            water.WaterRises = true;
         }
 
         protected virtual void Update()

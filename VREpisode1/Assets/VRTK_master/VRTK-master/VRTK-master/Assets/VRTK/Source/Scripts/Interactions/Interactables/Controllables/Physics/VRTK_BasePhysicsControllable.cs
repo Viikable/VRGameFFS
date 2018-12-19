@@ -125,6 +125,13 @@ namespace VRTK.Controllables.PhysicsBased
                 controlRigidbody.constraints = newConstraints;
             }
         }
+        protected virtual void SetRigidbodyConstraintsPlus(RigidbodyConstraints newConstraints, RigidbodyConstraints newConstraints1, RigidbodyConstraints newConstraints2)
+        {
+            if (controlRigidbody != null)
+            {
+                controlRigidbody.constraints = newConstraints | newConstraints1 | newConstraints2;
+            }
+        }
 
         protected virtual void SetRigidbodyCollisionDetectionMode(CollisionDetectionMode newDetectionMode)
         {

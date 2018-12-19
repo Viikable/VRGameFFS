@@ -70,8 +70,17 @@ public class Game_Manager : MonoBehaviour
     [Tooltip("Toggles between climbable rope and grabbable rope")]
     private bool ropeClimb;
 
+    [Header("ints")]
     [SerializeField]
     private int numberOfTheBroom;
+
+    [SerializeField]
+    [Tooltip("Toggles between climbable rope and grabbable rope")]
+    private int elevatorMoving;
+
+
+    //[SerializeField]
+    //private WaterMovement water;
 
     [Header("Gameobjects")]
 
@@ -131,6 +140,8 @@ public class Game_Manager : MonoBehaviour
 
         ropeIsAttatchedToManual = false;
 
+        elevatorMoving = 0;
+
         numberOfTheBroom = 0;
 
         Broom1 = GameObject.Find("BroomInTheJanitorHouse1");
@@ -152,7 +163,8 @@ public class Game_Manager : MonoBehaviour
     void FixedUpdate()
     {
         //Debug.Log(ropeIsAttatchedToManual);
-        if (RopeIsAttachedToManual == true) {
+        if (RopeIsAttachedToManual)
+        {
             AttachedRopeToManual.SetActive(true);
             //Debug.Log("active");
         }
@@ -166,11 +178,11 @@ public class Game_Manager : MonoBehaviour
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
 
 
-    private void WaterIsRising()            //water starts moving via WaterMovement script
-    {
+    //private void WaterIsRising()            //water starts moving via WaterMovement script
+    //{
 
-        WaterMovement.waterRises = true;
-    }
+    //    water.WaterRises = true;
+    //}
 
     //public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
     //{
@@ -194,6 +206,13 @@ public class Game_Manager : MonoBehaviour
     //}
 
     //GETTERS AND SETTERS PART BELOW HERE!
+
+    public int ElevatorMoving
+    {
+        get { return elevatorMoving;  }
+
+        set { elevatorMoving = value; }
+    }
 
     public bool RopeClimb
     {
