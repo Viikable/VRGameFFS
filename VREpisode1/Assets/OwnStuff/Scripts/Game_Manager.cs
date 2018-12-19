@@ -178,32 +178,7 @@ public class Game_Manager : MonoBehaviour
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
 
 
-    //private void WaterIsRising()            //water starts moving via WaterMovement script
-    //{
-
-    //    water.WaterRises = true;
-    //}
-
-    //public void LightUpLantern()                             //lantern is turned on when user presses the trigger button
-    //{
-    //    Debug.Log("lightedLantern");
-    //    if (lanternIsGrabbed && !lanternLightIsOn)
-    //    {
-    //        Lantern.GetComponentInChildren<Light>().enabled = true;
-    //        lanternLightIsOn = true;
-    //        Debug.Log("Light");
-    //    }
-    //    else if (lanternIsGrabbed && lanternLightIsOn)
-    //    {
-    //        Lantern.GetComponentInChildren<Light>().enabled = false;
-    //        lanternLightIsOn = false;
-    //        Debug.Log("Dark");
-    //    }
-    //    else
-    //    {
-    //        return;
-    //    }
-    //}
+    
 
     //GETTERS AND SETTERS PART BELOW HERE!
 

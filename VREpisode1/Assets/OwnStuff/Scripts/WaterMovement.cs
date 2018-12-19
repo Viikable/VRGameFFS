@@ -46,7 +46,7 @@ public class WaterMovement : MonoBehaviour
     {
         TouchedWater = false;
         oxygenTimer = 30f;
-        waterRises = true;
+        waterRises = false;
         headIsUnderWater = false;
         headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         headsetbody = null;
@@ -100,11 +100,14 @@ public class WaterMovement : MonoBehaviour
         
         if (Time.time >= 0.25f)   //this because the first check gives error as the colliders are created at runtime
         {
-            feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
-            head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();    //finds the collider child for head
+            if (feet == null && head == null)   //to prevent error when system button is pressed
+            {
+                feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
+                head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();    //finds the collider child for head
+            }
             headsetbody = headSet.GetComponent<Rigidbody>();
             if (headsetbody.velocity.y > 0.5) {
-                Debug.Log(headsetbody.velocity.y);
+                //Debug.Log(headsetbody.velocity.y);
             }
         }
        
@@ -158,7 +161,7 @@ public class WaterMovement : MonoBehaviour
         {
             Physics.gravity.Set(0, -9.81f, 0);
             headsetbody.useGravity = true;
-            Debug.Log("gravity");
+            //Debug.Log("gravity");
         }
 
         if (WaterRises)

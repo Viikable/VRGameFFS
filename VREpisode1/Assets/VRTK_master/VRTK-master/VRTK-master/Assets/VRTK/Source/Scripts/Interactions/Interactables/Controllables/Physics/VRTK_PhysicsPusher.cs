@@ -2,6 +2,7 @@
 namespace VRTK.Controllables.PhysicsBased
 {
     using UnityEngine;
+    using System.Collections;
 
     /// <summary>
     /// A physics based pushable pusher.
@@ -25,6 +26,7 @@ namespace VRTK.Controllables.PhysicsBased
     {
         [Header("Pusher Settings")]
 
+        
         [Tooltip("The local space distance along the `Operate Axis` until the pusher reaches the pressed position.")]
         public float pressedDistance = 0.1f;
         [Tooltip("If this is checked then the pusher will stay in the pressed position when it reaches the maximum position.")]
@@ -136,12 +138,24 @@ namespace VRTK.Controllables.PhysicsBased
         //private int firstTimeError = 0;
         protected virtual void Update()
         {
+            if (elev.Set1ToFreezeOnly)
+            {
+                ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);
+                ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().positionTarget = 0f;
+                elev.Set1ToFreezeOnly = false;
+            }
+            if (elev.Set2ToFreezeOnly)
+            {
+                ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);
+                ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().positionTarget = 0f;
+                elev.Set2ToFreezeOnly = false;
+            }
             CheckUnpress();
             SetTargetPosition();
             EmitEvents();
             if (!pressedDown && stayPressed && AtMaxLimit())
             {
-                Debug.Log("maxlimit?");
+                //Debug.Log("maxlimit?");
                 StayPressed();
             }
         }
@@ -171,7 +185,7 @@ namespace VRTK.Controllables.PhysicsBased
 
             if (positionChanged)
             {
-                Debug.Log("position changed");
+                //Debug.Log("position changed");
                 float currentPosition = GetNormalizedValue();
                 ControllableEventArgs payload = EventPayload();
                 OnValueChanged(payload);
@@ -182,12 +196,12 @@ namespace VRTK.Controllables.PhysicsBased
                 {
                     atMaxLimit = true;
                     OnMaxLimitReached(payload);
-                    Debug.Log("currpos greater than maxThreshhold");
+                    //Debug.Log("currpos greater than maxThreshhold");
                     StayPressed();
                 }
                 else if (currentPosition <= minThreshold && !AtMinLimit())
                 {
-                    Debug.Log("minlimit");
+                    //Debug.Log("minlimit");
                     atMinLimit = true;
                     OnMinLimitReached(payload);
                 }
@@ -225,9 +239,9 @@ namespace VRTK.Controllables.PhysicsBased
         protected virtual void CheckUnpress()
         {
             if (this.name == "Screen1Button" || this.name == "Screen2Button" || this.name == "Screen3Button"
-                || this.name == "ElevatorButton1" || this.name == "ElevatorButton2")             //TANELIMOD
+                || this.name == "ElevatorButton1" || this.name == "ElevatorButton2" && !stayPressed)             //TANELIMOD
             {
-                //positionTarget = previousPositionTarget;
+                positionTarget = 0f;
             }
             else if (!stayPressed && pressedDown)
             {
@@ -292,17 +306,21 @@ namespace VRTK.Controllables.PhysicsBased
             Screen3Button = GameObject.Find("Screen3Button");
             ElevatorButton1 = GameObject.Find("ElevatorButton1");
             ElevatorButton2 = GameObject.Find("ElevatorButton2");
-            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezePositionY);
-            ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezePositionY);
+            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);
+            ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);
             elev = GameObject.Find("ELEVATOR2.0").GetComponent<ElevatorMovement>();
+            ElevatorButton1.GetComponent<ConfigurableJoint>().connectedBody = elev.GetComponent<Rigidbody>();
+            ElevatorButton2.GetComponent<ConfigurableJoint>().connectedBody = elev.GetComponent<Rigidbody>();
 
         }
+
+        private ElevatorMovement elev;
         GameObject Screen1Button;
         GameObject Screen2Button;
         GameObject Screen3Button;
-        GameObject ElevatorButton1;
-        GameObject ElevatorButton2;
-        private ElevatorMovement elev;
+        public GameObject ElevatorButton1;
+        public GameObject ElevatorButton2;
+        
 
         protected virtual void StayPressed()
         {
@@ -312,7 +330,7 @@ namespace VRTK.Controllables.PhysicsBased
                 {
                     if (elev.CanGoUp)
                     {
-                        Game_Manager.instance.ElevatorMoving = 2;         //moves UP
+                        Game_Manager.instance.ElevatorMoving = 2;        //moves UP
                         ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
                         ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
                         ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().pressedDown = true;
@@ -321,13 +339,14 @@ namespace VRTK.Controllables.PhysicsBased
                         {
                             Debug.Log("elevator1when2");
                             ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-                            ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);                           
                             ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
+                            ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().positionTarget = 0f;
+                            ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);
                         }
                     }
                     else
                     {
-                        Debug.Log("can't go up");
+                        //Debug.Log("can't go up");
                     }
                 }
                 if (this.name == "ElevatorButton2" && !ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().pressedDown && Game_Manager.instance.ElevatorMoving == 0)
@@ -342,21 +361,17 @@ namespace VRTK.Controllables.PhysicsBased
                         if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().pressedDown)
                         {
                             Debug.Log("elevator2when1");
-                            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-                            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);
+                            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;                           
                             ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().pressedDown = false;
+                            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().positionTarget = 0f;
+                            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().SetRigidbodyConstraintsPlus(RigidbodyConstraints.FreezePositionY, RigidbodyConstraints.FreezeRotation, RigidbodyConstraints.FreezePositionX);
                         }
                     }
                     else
                     {
-                        Debug.Log("can't move down");
+                        //Debug.Log("can't move down");
                     }
-                }
-                else 
-                {
-                    Debug.Log("you tried to press an inactive button, this results to nothing");
-                    return;
-                }
+                }               
             }
 
             //write here any code that needs to happen after the button is pressed and stays pressed              
@@ -407,7 +422,7 @@ namespace VRTK.Controllables.PhysicsBased
             //    pressedDown = true;
             //    //default method              
             //}
-            else if (this.name != "ElevatorButton1" || this.name != "ElevatorButton2")
+            else if (this.name != "ElevatorButton1" && this.name != "ElevatorButton2")
             {
                 Debug.Log("wtfhappened");
                 return;               
