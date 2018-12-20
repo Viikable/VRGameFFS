@@ -79,7 +79,7 @@ namespace VRTK
         protected VRTK_ControllerEvents.ButtonAlias savedGrabButton = VRTK_ControllerEvents.ButtonAlias.Undefined;
         protected bool grabPressed;
 
-        protected GameObject grabbedObject = null;           //taneli changed to public
+        protected GameObject grabbedObject = null;           
         protected bool influencingGrabbedObject = false;
         protected int grabEnabledState = 0;
         protected float grabPrecognitionTimer = 0f;
