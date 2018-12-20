@@ -1,43 +1,65 @@
 ﻿
-        namespace VRTK
+namespace VRTK
+{
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using VRTK.Controllables.PhysicsBased;
+
+    public class OpeningSounds : MonoBehaviour
     {
-        using System.Collections;
-        using System.Collections.Generic;
-        using UnityEngine;
-        using VRTK.Controllables.PhysicsBased;
+        GameObject Crate;
+        GameObject DoorLid;
+        GameObject LeftController;
+        GameObject RightController;
+        bool doorActivator;
+        public AudioSource crateSound;
+        public AudioSource doorSlam;
 
-        public class OpeningSounds : MonoBehaviour {
-            GameObject Crate;
-            GameObject DoorLid;
-            public AudioSource crateSound;
-            public AudioSource doorSlam;
+        // Use this for initialization
+        void Start()
+        {
+            Crate = GameObject.Find("CrateContainer");
+            DoorLid = GameObject.Find("Lid2");
+            crateSound = GameObject.Find("CrateSound").GetComponent<AudioSource>();
+            doorSlam = GameObject.Find("DoorSlam").GetComponent<AudioSource>();
+            LeftController = GameObject.Find("LeftController");
+            RightController = GameObject.Find("RightController");
+            doorActivator = false;
+        }
 
-            // Use this for initialization
-            void Start() {
-                Crate = GameObject.Find("CrateContainer");
-                DoorLid = GameObject.Find("Lid2");
-                crateSound = GameObject.Find("CrateSound").GetComponent<AudioSource>();
-                doorSlam = GameObject.Find("DoorSlam").GetComponent<AudioSource>();
-            }
+        // Update is called once per frame
+        void Update()
+        {
 
-            // Update is called once per frame
-            void Update() {
-                if (GameObject.Find("LeftController").GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Crate
-                    || GameObject.Find("RightController").GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Crate)
+            if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            {
+
+                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Crate && !crateSound.isPlaying)
                 {
                     crateSound.Play();
                 }
-                else
+                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == DoorLid)
                 {
-                    crateSound.Stop();
+                    doorActivator = true;
                 }
-                if (GameObject.Find("LeftController").GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == DoorLid
-                    || GameObject.Find("RightController").GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == DoorLid
-                    && DoorLid.GetComponent<VRTK_PhysicsRotator>().IsResting())
+                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
                 {
+                    if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Crate && !crateSound.isPlaying)
+                    {
+                        crateSound.Play();
+                    }
+                    if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == DoorLid)
+                    {
+                        doorActivator = true;
+                    }
+                }
+            }
+            if (doorActivator && DoorLid.GetComponent<VRTK_PhysicsRotator>().IsResting() && !doorSlam.isPlaying)
+            {
                 doorSlam.Play();
-                }
-
+                doorActivator = false;
             }
         }
     }
+}
