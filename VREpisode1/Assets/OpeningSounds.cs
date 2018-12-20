@@ -38,25 +38,28 @@ namespace VRTK
                 if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Crate && !crateSound.isPlaying)
                 {
                     crateSound.Play();
+                    Debug.Log("cratesoundleft");
                 }
                 if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == DoorLid)
                 {
                     doorActivator = true;
                 }
+            }
                 if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
                 {
                     if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Crate && !crateSound.isPlaying)
                     {
                         crateSound.Play();
-                    }
+                        Debug.Log("cratesoundright");
+                }
                     if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == DoorLid)
                     {
                         doorActivator = true;
                     }
                 }
-            }
             if (doorActivator && DoorLid.GetComponent<VRTK_PhysicsRotator>().IsResting() && !doorSlam.isPlaying)
             {
+                Debug.Log("doorslam");
                 doorSlam.Play();
                 doorActivator = false;
             }
