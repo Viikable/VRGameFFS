@@ -292,7 +292,6 @@ namespace VRTK.Controllables.PhysicsBased
         {
             if (stayPressed)
             {
-                Debug.Log("defaulted?");
                 SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
                 pressedDown = true;
                 //default method              

@@ -190,7 +190,7 @@ namespace VRTK
 
         protected virtual void Awake()
         {
-            LanternIsGrabbed = false;
+            //lanternIsGrabbed = false;
             originalControllerAttachPoint = controllerAttachPoint;
             controllerEvents = (controllerEvents != null ? controllerEvents : GetComponentInParent<VRTK_ControllerEvents>());
             interactTouch = (interactTouch != null ? interactTouch : GetComponentInParent<VRTK_InteractTouch>());
@@ -235,116 +235,16 @@ namespace VRTK
         /// <summary>
         /// //////////////////////////////////////////////////////////////////////////////////////////////
         /// </summary>
-        [SerializeField]
-        private GameObject Lantern;
-        [SerializeField]
-        private GameObject GrabbableWater;
-
-        private bool LanternIsGrabbed;
-        private bool LanternLightIsOn;
-        public UnityEngine.Events.UnityEvent WaterComes;
-
-        private bool Invoked;
-        private WaterMovement water;
-
-
-        private void Start()
-        {
-            WaterComes.AddListener(WaterIsRising);
-            Invoked = true;
-            water = GameObject.Find("Water").GetComponent<WaterMovement>();
-            Lantern = GameObject.Find("Lantern");
-            GrabbableWater = GameObject.Find("GrabbableWater");
-        }
-
-
-        public void LightUpLantern()
-        {
-            if (LanternIsGrabbed && !Game_Manager.instance.LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = true;
-                Game_Manager.instance.LanternLightIsOn = true;
-                Debug.Log("Light");
-            }
-            else if (LanternIsGrabbed && Game_Manager.instance.LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = false;
-                Game_Manager.instance.LanternLightIsOn = false;
-                Debug.Log("Dark");
-            }
-            else
-            {
-                return;
-            }
-        }
-        private void WaterIsRising()
-        {
-
-            water.WaterRises = true;
-        }
-
+        
         protected virtual void Update()
         {
 
-
-            if (grabbedObject != null && grabbedObject == Lantern)                                   //here we check if we grabbed lantern !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            {
-                LanternIsGrabbed = true;
-                if (Invoked)
-                {
-                    WaterComes.Invoke();
-                    Invoked = false;
-                    Debug.Log("invoked");
-                }
-
-            }
-            else
-            {
-                LanternIsGrabbed = false;
-            }
-
-            if (grabbedObject != null && grabbedObject.name == "KeyRope")           //this checks to see if we want to change rope from grabbable to climbable
-            {
-                Game_Manager.instance.RopeClimb = true;
-                ForceRelease();
-            }
-
-
-
-            if (grabbedObject != null && grabbedObject == GrabbableWater)
-            {
-
-                Debug.Log("grabbedWater");
-                StartCoroutine(WaitForSecondsRealtime());
-
-            }
-            else
-            {
-                return;
-            }
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
             CreateNonTouchingRigidbody();
             CheckPrecognitionGrab();
 
 
-        }
-        IEnumerator WaitForSecondsRealtime()
-        {
-            yield return new WaitForSecondsRealtime(0.5f);
-            StartCoroutine(ReleaseOrNot());
-        }
-        IEnumerator ReleaseOrNot()
-        {
-            if (grabbedObject != null && grabbedObject == GrabbableWater)
-            {
-                Debug.Log("ReleasedWater");
-                ForceRelease();
-            }
-            else
-            {
-                yield return null;
-            }
         }
 
         protected virtual void DoControllerModelUpdate(object sender, ControllerInteractionEventArgs e)
