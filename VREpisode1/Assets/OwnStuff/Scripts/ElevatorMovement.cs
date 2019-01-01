@@ -1,49 +1,84 @@
 ﻿
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using VRTK.Controllables.PhysicsBased;
 
 
-    public class ElevatorMovement : MonoBehaviour
+public class ElevatorMovement : MonoBehaviour
     {
-        [Header("Elevator Sounds")]
-        public AudioSource elevatorStops;
-        public AudioSource elevatorUp;
-        public AudioSource elevatorDown;
-        public AudioSource elevatorOpens;
-        public AudioSource elevatorCloses;
 
-        private Animator elevAnim;
+    [Header("Elevator Sounds")]
 
-        bool set1ToFreezeOnly;
+    public AudioSource elevatorStops;
 
-        bool set2ToFreezeOnly;
+    public AudioSource elevatorUp;
 
-        [SerializeField]
-        [Tooltip("is Octocode correct")]
-        private bool codeIsCorrect;
+    public AudioSource elevatorDown;
 
-        [SerializeField]
-        [Tooltip("is door animation finished")]
-        private bool doorHasOpened;
+    public AudioSource elevatorOpens;
 
-        [SerializeField]
-        [Tooltip("do we wanna go back to octoroom")]
-        private bool weWannaGoBackUp;
+    public AudioSource elevatorCloses;
 
-        [SerializeField]
-        [Tooltip("can we move up with elevator or not atm")]
-        private bool canGoUp;
+    private Animator elevAnim;
 
-        [SerializeField]
-        [Tooltip("can we move down with elevator or not atm")]
-        private bool canMoveDown;
+    [SerializeField]
+    [Tooltip("is Octocode correct")]
+    private bool codeIsCorrect;
 
-        [SerializeField]
-        [Tooltip("are we up or down")]
-        private bool positionChecked;
-        // Use this for initialization
-        void Start()
+    [SerializeField]
+    [Tooltip("is door animation finished")]
+    private bool doorHasOpened;
+
+    [SerializeField]
+    [Tooltip("do we wanna go back to octoroom")]
+    private bool weWannaGoBackUp;
+
+    [SerializeField]
+    [Tooltip("can we move up with elevator or not atm")]
+    private bool canGoUp;
+
+    [SerializeField]
+    [Tooltip("can we move down with elevator or not atm")]
+    private bool canMoveDown;
+
+    [SerializeField]
+    [Tooltip("are we up or down")]
+    private bool positionChecked;
+    
+    public GameObject ElevatorButton1;
+
+    public GameObject ElevatorButton2;
+
+    public void CheckButtonPress()
+    {
+        if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().PressedDown && Game_Manager.instance.ElevatorMoving == 0)
+        {
+            if (canGoUp)
+            {
+                Game_Manager.instance.ElevatorMoving = 2;        //moves UP
+            }
+            if (ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+            {
+                ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                Debug.Log("elevator1when2");
+            }
+        }
+        if (ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().PressedDown && Game_Manager.instance.ElevatorMoving == 0)
+        {
+            if (canMoveDown)
+            {
+                Game_Manager.instance.ElevatorMoving = 1;      //moves DOWN
+                Debug.Log("elevator2");
+            }
+            if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+            {
+                ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            }
+        }
+    }
+
+    void Start()
         {
             canGoUp = false;
             canMoveDown = true;
@@ -52,10 +87,10 @@
             weWannaGoBackUp = false;
             codeIsCorrect = true;
             doorHasOpened = false;
-            set1ToFreezeOnly = false;
-            set2ToFreezeOnly = false;
+            ElevatorButton1 = GameObject.Find("ElevatorButton1");
+            ElevatorButton2 = GameObject.Find("ElevatorButton2");
 
-        }
+    }
         public bool CanGoUp
         {
             get { return canGoUp; }
@@ -65,21 +100,11 @@
         {
             get { return canMoveDown; }
         }
-
-        public bool Set1ToFreezeOnly
-        {
-            get { return set1ToFreezeOnly; }
-            set { set1ToFreezeOnly = value; }
-    }
-
-        public bool Set2ToFreezeOnly
-        {
-            get { return set2ToFreezeOnly; }
-            set { set2ToFreezeOnly = value; }
-        }
-        // Update is called once per frame
+     
         void Update()
         {
+            CheckButtonPress();      //checks whether the buttons are currently being pressed or not
+
             if (Game_Manager.instance.ElevatorMoving == 1 && canMoveDown)
             {
                 //Debug.Log("elevatorMovingdown");
@@ -160,18 +185,14 @@
                 Debug.Log("stopped");
                 if (canMoveDown)
                 {
-                    Debug.Log("Backdoor opens");
-                    set2ToFreezeOnly = false;           //these set the button to be not frozen still when we hit the destination and can move UP next
-                    set1ToFreezeOnly = true;
+                    Debug.Log("Backdoor opens");                  
                     elevAnim.SetBool("BackClose", false);
                     elevAnim.SetBool("BackOpen", true);
                     //StartCoroutine("WaitForDoor");
                 }
                 else if (canGoUp)
                 {
-                    Debug.Log("Front door opens");
-                    set1ToFreezeOnly = false;
-                    set2ToFreezeOnly = true;
+                    Debug.Log("Front door opens");                   
                     elevAnim.SetBool("Close", false);
                     elevAnim.SetBool("Open", true);
                     //StartCoroutine("WaitForDoor");

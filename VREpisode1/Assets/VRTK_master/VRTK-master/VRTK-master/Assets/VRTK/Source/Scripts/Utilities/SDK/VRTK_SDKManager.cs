@@ -139,7 +139,7 @@ namespace VRTK
         /// <summary>
         /// The singleton instance to access the SDK Manager variables from.
         /// </summary>
-        public static VRTK_SDKManager instance
+        public static VRTK_SDKManager instance          //was not capitalized
         {
             get
             {

@@ -1,15 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK.Controllables.PhysicsBased;
 
 public class ConveyorBeltController : MonoBehaviour {
     Animator anim;
+
     Animator anim2;
+
     Animator anim3;
+
     AudioSource ConveyorAudio;
+
     AudioSource ConveyorAudio2;
+
     AudioSource ConveyorAudio3;
+
     Animator animDown;
+
+    GameObject Screen1Button;
+
+    GameObject Screen2Button;
+
+    GameObject Screen3Button;
+
     [Tooltip("Is the conveyor belt animation playing or not")]
     public static bool NotPlaying = true;
     [Tooltip("Has the player triggered the moving of the conveyor belts")]
@@ -26,7 +40,10 @@ public class ConveyorBeltController : MonoBehaviour {
         anim = GameObject.Find("Conveyor_belt_Animated").GetComponent<Animator>();
         anim2 = GameObject.Find("Conveyor_belt_Animated2").GetComponent<Animator>();
         anim3 = GameObject.Find("Conveyor_belt_Animated3").GetComponent<Animator>();
-        animDown = GameObject.Find("Conveyor_belt_AnimatedDown").GetComponent<Animator>();              
+        animDown = GameObject.Find("Conveyor_belt_AnimatedDown").GetComponent<Animator>();
+        Screen1Button = GameObject.Find("Screen1Button");
+        Screen2Button = GameObject.Find("Screen2Button");
+        Screen3Button = GameObject.Find("Screen3Button");
     }
     public bool GetNotPlaying()
     {
@@ -56,10 +73,41 @@ public class ConveyorBeltController : MonoBehaviour {
     {
         PressedScreen3 = true;
     }
-    
 
+    public void CheckButtonPress()    //to see when the buttons controlling the conveyor belts are pressed down
+    {
+        if (Screen1Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        {
+            Debug.Log("pressed1");
+            PressedScreen1 = true;
+            if (PressedScreen3)
+            {
+                Debug.Log("pressed1while3");
+                Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            }
+        }
+        else if (Screen2Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        {
+            Debug.Log("pressed2");
+            PressedScreen2 = true;
+        }
+        else if (Screen3Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        {
+            Debug.Log("pressed3");
+            PressedScreen3 = true;
+
+            if (PressedScreen1)
+            {
+                Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                Debug.Log("pressed3while1");
+            }
+        }
+    }
     // Update is called once per frame
     void Update () {
+
+        CheckButtonPress();
+
 		if (PressedScreen1)
         {
             //starts the sound and movement for all normal conveyorbelts

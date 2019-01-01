@@ -13,11 +13,11 @@ public class WaterMovement : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Have we touched the water surface yet or not")]
-    private bool TouchedWater;
+    private bool touchedWater;
 
     [SerializeField]
     [Tooltip("Have we left the water or not")]
-    private bool ExitedWater;
+    private bool exitedWater;
 
     [SerializeField]
     [Tooltip("Is player's head underwater currently")]
@@ -35,6 +35,10 @@ public class WaterMovement : MonoBehaviour
     [Tooltip("The water hitting sound")]
     public AudioSource Splash;
 
+    //[SerializeField]
+    //[Tooltip("VRTK_SDK manager in scene")]
+    //private VRTK_SDKManager sManager;
+
     public GameObject headSet;
     public Rigidbody headsetbody;
     public Collider feet;
@@ -44,7 +48,7 @@ public class WaterMovement : MonoBehaviour
 
     void Start()
     {
-        TouchedWater = false;
+        touchedWater = false;
         oxygenTimer = 30f;
         waterRises = false;
         headIsUnderWater = false;
@@ -53,6 +57,7 @@ public class WaterMovement : MonoBehaviour
         feet = null;
         head = null;
         fader = GameObject.Find("PlayArea").GetComponent<VRTK_HeadsetFade>();
+        //sManager = GameObject.Find("[VRTK_SDKManager]").GetComponent<VRTK_SDKManager>();
     }
     public void TouchedLantern()
     {
@@ -64,14 +69,14 @@ public class WaterMovement : MonoBehaviour
         
         if (hitCollider == feet)       //just to check which object the rigidbody attached to the camerarig collided with
         {          
-            TouchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
+            touchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
             Debug.Log("feet entered water");
             Splash.Play();
         }
         if (hitCollider == head)
         {
             headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
-            TouchedWater = true;
+            touchedWater = true;
             Debug.Log("head entered water");
             timeWhenGotUnderwater = Time.time;
             headIsUnderWater = true;
@@ -84,21 +89,21 @@ public class WaterMovement : MonoBehaviour
         if (hitCollider == feet)
         {           
             Debug.Log("feet exited water");
-            TouchedWater = false;
+            touchedWater = false;
         }
         if (hitCollider == head)
         {
             headIsUnderWater = false;
             Debug.Log("head exited water");
             headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
-            //TouchedWater = false;
+            //touchedWater = false;
             fader.Unfade(5f);
         }
     }
     void Update()
     {
         
-        if (Time.time >= 0.25f)   //this because the first check gives error as the colliders are created at runtime
+        if (Time.time >= 0.25f && GameObject.Find("SteamVR") != null && VRTK_SDKManager.GetLoadedSDKSetup() == GameObject.Find("SteamVR").GetComponent<VRTK_SDKSetup>())   //this because the first check gives error as the colliders are created at runtime + don't wanna use this in the simulator
         {
             if (feet == null && head == null)   //to prevent error when system button is pressed
             {
@@ -111,7 +116,7 @@ public class WaterMovement : MonoBehaviour
             }
         }
        
-        if (TouchedWater)
+        if (touchedWater)
         {
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer*3/4 && headIsUnderWater)
             {
@@ -160,7 +165,7 @@ public class WaterMovement : MonoBehaviour
         else if (headsetbody != null)
         {
             Physics.gravity.Set(0, -9.81f, 0);
-            headsetbody.useGravity = true;
+            //headsetbody.useGravity = true;
             //Debug.Log("gravity");
         }
 
