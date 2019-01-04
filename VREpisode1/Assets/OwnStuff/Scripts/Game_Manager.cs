@@ -188,7 +188,7 @@
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
         private void Update()
         {
-
+            StopAllCoroutines();
             CheckGrabbedObjects();
         }
         private void WaterIsRising()
@@ -210,11 +210,7 @@
                 Lantern.GetComponentInChildren<Light>().enabled = false;
                 LanternLightIsOn = false;
                 Debug.Log("Dark");
-            }
-            else
-            {
-                return;
-            }
+            }           
         }
 
         public void CheckGrabbedObjects()
@@ -241,19 +237,17 @@
                 lanternIsGrabbed = false;
             }
 
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
-                {           //this checks to see if we want to change rope from grabbable to climbable
-                    RopeClimb = true;
-                    RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-                }
-                else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
-                {
-                    RopeClimb = true;
-                    LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-                }
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
+            {           //this checks to see if we want to change rope from grabbable to climbable
+                RopeClimb = true;
+                RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
             }
+            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
+            {
+                RopeClimb = true;
+                LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
+            }
+            
             if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
                 if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
