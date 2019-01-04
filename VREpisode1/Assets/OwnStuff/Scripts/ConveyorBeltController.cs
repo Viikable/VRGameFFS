@@ -24,14 +24,18 @@ public class ConveyorBeltController : MonoBehaviour {
 
     GameObject Screen3Button;
 
+    [SerializeField]
     [Tooltip("Is the conveyor belt animation playing or not")]
-    public static bool NotPlaying = true;
+    private bool NotPlaying = true;
+    [SerializeField]
     [Tooltip("Has the player triggered the moving of the conveyor belts")]
-    public static bool PressedScreen1 = false;
+    private bool PressedScreen1 = false;
+    [SerializeField]
     [Tooltip("Has the player triggered the moving of the conveyor belt so it lowers down to the pool")]
-    public static bool PressedScreen2 = false;
+    private bool PressedScreen2 = false;
+    [SerializeField]
     [Tooltip("Has the player paused the movement of the conveyor belts")]
-    public static bool PressedScreen3 = false;
+    private bool PressedScreen3 = false;
     // Use this for initialization
     void Start () {
         ConveyorAudio = GameObject.Find("ConveyorAudio").GetComponent<AudioSource>();
@@ -76,27 +80,30 @@ public class ConveyorBeltController : MonoBehaviour {
 
     public void CheckButtonPress()    //to see when the buttons controlling the conveyor belts are pressed down
     {
-        if (Screen1Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        if (Screen1Button.GetComponent<VRTK_PhysicsPusher>().PressedDown && !PressedScreen1)
         {
             Debug.Log("pressed1");
             PressedScreen1 = true;
-            if (PressedScreen3)
+            //PressedScreen3 = false;
+            Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+            if (Screen3Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
             {
                 Debug.Log("pressed1while3");
                 Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             }
         }
-        else if (Screen2Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        if (Screen2Button.GetComponent<VRTK_PhysicsPusher>().PressedDown && !PressedScreen2)
         {
             Debug.Log("pressed2");
             PressedScreen2 = true;
         }
-        else if (Screen3Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        if (Screen3Button.GetComponent<VRTK_PhysicsPusher>().PressedDown && !PressedScreen3)
         {
             Debug.Log("pressed3");
             PressedScreen3 = true;
-
-            if (PressedScreen1)
+            //PressedScreen1 = false;
+            Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+            if (Screen1Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
             {
                 Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
                 Debug.Log("pressed3while1");
@@ -105,10 +112,10 @@ public class ConveyorBeltController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-
+        //StopAllCoroutines();
         CheckButtonPress();
 
-		if (PressedScreen1)
+        if (PressedScreen1)
         {
             //starts the sound and movement for all normal conveyorbelts
             if (NotPlaying)
@@ -125,7 +132,8 @@ public class ConveyorBeltController : MonoBehaviour {
                 anim2.speed = 2f;
                 anim3.speed = 2f;
                 animDown.speed = 2f;
-                PressedScreen3 = false;
+                StartCoroutine("JustASec");
+                PressedScreen3 = false;                
             }
         }
         
@@ -149,15 +157,23 @@ public class ConveyorBeltController : MonoBehaviour {
                 ConveyorAudio2.Stop();
                 ConveyorAudio3.Stop();
                 NotPlaying = true;
-                PressedScreen1 = false;
-            }
-           
-            
+                StartCoroutine("JustASec");
+                PressedScreen1 = false;                
+            }            
         }
-        if (PressedScreen3)
-        {
-           //melt the metal animation
+        
+        //if (PressedScreen3)
+        //{
+        //   //melt the metal animation
 
-        }
+        //}
+    }
+    IEnumerator JustASec()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("wait");
+        Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+        Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+        yield break;
     }
 }
