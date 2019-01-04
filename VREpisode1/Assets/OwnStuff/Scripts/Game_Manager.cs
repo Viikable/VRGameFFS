@@ -1,9 +1,9 @@
 ﻿namespace VRTK
 {
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
 
     public class Game_Manager : MonoBehaviour
     {
@@ -169,24 +169,28 @@ using UnityEngine;
             water = GameObject.Find("Water").GetComponent<WaterMovement>();
         }
 
-        
-        void FixedUpdate()          //currently not in use
-        {
-            //Debug.Log(ropeIsAttatchedToManual);
-            if (RopeIsAttachedToManual)
-            {
-                AttachedRopeToManual.SetActive(true);
-                //Debug.Log("active");
-            }
-            else
-            {
-                AttachedRopeToManual.SetActive(false);
-                //Debug.Log("inactive");
-            }
-        }
+
+        //void FixedUpdate()          //currently not in use
+        //{
+        //    //Debug.Log(ropeIsAttatchedToManual);
+        //    if (RopeIsAttachedToManual)
+        //    {
+        //        AttachedRopeToManual.SetActive(true);
+        //        //Debug.Log("active");
+        //    }
+        //    else
+        //    {
+        //        AttachedRopeToManual.SetActive(false);
+        //        //Debug.Log("inactive");
+        //    }
+        //}
 
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
+        private void Update()
+        {
 
+            CheckGrabbedObjects();
+        }
         private void WaterIsRising()
         {
 
@@ -215,7 +219,7 @@ using UnityEngine;
 
         public void CheckGrabbedObjects()
         {
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
                 if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
                 {
@@ -232,8 +236,12 @@ using UnityEngine;
                     lanternIsGrabbed = false;
                 }
             }
+            else
+            {
+                lanternIsGrabbed = false;
+            }
 
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
                 if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
                 {           //this checks to see if we want to change rope from grabbable to climbable
@@ -246,7 +254,7 @@ using UnityEngine;
                     LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
                 }
             }
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
                 if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
                 {

@@ -58,6 +58,7 @@ public class ElevatorMovement : MonoBehaviour
             if (canGoUp)
             {
                 Game_Manager.instance.ElevatorMoving = 2;        //moves UP
+                ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
             }
             if (ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().PressedDown)
             {
@@ -71,12 +72,13 @@ public class ElevatorMovement : MonoBehaviour
             {
                 Game_Manager.instance.ElevatorMoving = 1;      //moves DOWN
                 Debug.Log("elevator2");
+                ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
             }
             if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().PressedDown)
             {
                 ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             }
-        }
+         }           
     }
 
     void Start()
@@ -104,25 +106,48 @@ public class ElevatorMovement : MonoBehaviour
      
         void Update()
         {
-            CheckButtonPress();      //checks whether the buttons are currently being pressed or not
 
-            if (Game_Manager.instance.ElevatorMoving == 1 && canMoveDown)
+        if (Game_Manager.instance.ElevatorMoving == 0 && !positionChecked)
+        {
+            Debug.Log("elevatorStill");
+            if (canMoveDown)
             {
-                //Debug.Log("elevatorMovingdown");
+                canMoveDown = false;
+            }
+            else
+            {
+                canMoveDown = true;
+            }
+
+            if (canGoUp)
+            {
+                canGoUp = false;
+            }
+            else
+            {
+                canGoUp = true;
+            }
+            positionChecked = true;
+            doorHasOpened = false;
+        }
+        else if (Game_Manager.instance.ElevatorMoving == 1 && canMoveDown)
+            {
+                Debug.Log("elevatorMovingdown");
                 elevAnim.SetBool("Open", false);
                 elevAnim.SetBool("Close", true);          //door opens with the code and closes when button pressed inside
                 StartCoroutine("WaitForDoor");
                 if (doorHasOpened)
                 {
                     elevatorDown.Play();
-                    this.transform.Translate(Vector3.down * 1f * Time.deltaTime, Space.World);
+                    this.transform.Translate(Vector3.down * 1.5f * Time.deltaTime, Space.World);
                     positionChecked = false;
+                    StopAllCoroutines();
                 }
             }
-            else if (Game_Manager.instance.ElevatorMoving == 2 && canGoUp)
+        else if (Game_Manager.instance.ElevatorMoving == 2 && canGoUp)
             {
 
-                //Debug.Log("elevatorMovingUp");
+                Debug.Log("elevatorMovingUp");
                 elevAnim.SetBool("Open", false);
                 elevAnim.SetBool("BackClose", true);
                 elevAnim.SetBool("Close", false);
@@ -130,44 +155,15 @@ public class ElevatorMovement : MonoBehaviour
                 if (doorHasOpened)
                 {
                     elevatorUp.Play();
-                    this.transform.Translate(Vector3.up * 1f * Time.deltaTime, Space.World);
-                    canMoveDown = false;
+                    this.transform.Translate(Vector3.up * 1.5f * Time.deltaTime, Space.World);                    
                     positionChecked = false;
+                    StopAllCoroutines();
                 }
-
             }
-            else if (Game_Manager.instance.ElevatorMoving == 0 && !positionChecked)
-            {
-                //Debug.Log("elevatorStill");
-                if (canMoveDown)
-                {
-                    canMoveDown = false;
-                }
-                else
-                {
-                    canMoveDown = true;
-                }
-
-                if (canGoUp)
-                {
-                    canGoUp = false;                 
-                }
-                else
-                {
-                    canGoUp = true;
-                }
-                positionChecked = true;
-                doorHasOpened = false;
-            }
-            else
-            {
-                //Debug.Log("no checks for elevator");
-                return;
-            }
-
+            
             if (codeIsCorrect)
             {
-            Debug.Log("koodi oikein");
+                Debug.Log("koodi oikein");
                 elevAnim.SetBool("Open", true);
                 codeIsCorrect = false;
             }
@@ -176,6 +172,8 @@ public class ElevatorMovement : MonoBehaviour
                 elevAnim.SetBool("BackOpen", true);
                 weWannaGoBackUp = false;
             }
+
+            CheckButtonPress();      //checks whether the buttons are currently being pressed or not
 
         }
         private void OnTriggerEnter(Collider other)
@@ -186,18 +184,22 @@ public class ElevatorMovement : MonoBehaviour
                 Debug.Log("stopped");
                 if (canMoveDown)
                 {
+                    ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
                     Debug.Log("Backdoor opens");                  
                     elevAnim.SetBool("BackClose", false);
                     elevAnim.SetBool("BackOpen", true);
+                    elevAnim.SetBool("Open", false);
                     //StartCoroutine("WaitForDoor");
                 }
                 else if (canGoUp)
                 {
+                    ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
                     Debug.Log("Front door opens");                   
                     elevAnim.SetBool("Close", false);
                     elevAnim.SetBool("Open", true);
+                    elevAnim.SetBool("BackOpen", false);
                     //StartCoroutine("WaitForDoor");
-                }
+            }
                 Game_Manager.instance.ElevatorMoving = 0;
             }
         }
@@ -205,6 +207,7 @@ public class ElevatorMovement : MonoBehaviour
         {
             yield return new WaitForSeconds(4);
             doorHasOpened = true;
+            yield break;
         }
     }
 
