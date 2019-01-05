@@ -10,8 +10,8 @@
         //just gonna collect loads of static variables here pm
         [Header("Events")]
 
-        [Tooltip("an event which takes care of water movement starting")]
-        public UnityEngine.Events.UnityEvent WaterComes;
+        //[Tooltip("an event which takes care of water movement starting")]
+        //public UnityEngine.Events.UnityEvent WaterComes;
 
         [Header("Booleans")]
         [SerializeField]
@@ -116,7 +116,7 @@
             }
             DontDestroyOnLoad(this);
 
-            WaterComes.AddListener(WaterIsRising);
+            //WaterComes.AddListener(WaterIsRising);
 
             ropeClimb = false;
 
@@ -188,54 +188,67 @@
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
         private void Update()
         {
-            StopAllCoroutines();
+            //StopAllCoroutines();
             CheckGrabbedObjects();
         }
-        private void WaterIsRising()
-        {
+        //private void WaterIsRising()
+        //{
 
-            water.WaterRises = true;
-        }
+        //    water.WaterRises = true;
+        //}
 
-        public void LightUpLantern()
-        {
-            if (lanternIsGrabbed && !LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = true;
-                LanternLightIsOn = true;
-                Debug.Log("Light");
-            }
-            else if (lanternIsGrabbed && LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = false;
-                LanternLightIsOn = false;
-                Debug.Log("Dark");
-            }           
-        }
+        //public void LightUpLantern()
+        //{
+        //    if (lanternIsGrabbed && !LanternLightIsOn)
+        //    {
+        //        Lantern.GetComponentInChildren<Light>().enabled = true;
+        //        LanternLightIsOn = true;
+        //        Debug.Log("Light");
+        //    }
+        //    else if (lanternIsGrabbed && LanternLightIsOn)
+        //    {
+        //        Lantern.GetComponentInChildren<Light>().enabled = false;
+        //        LanternLightIsOn = false;
+        //        Debug.Log("Dark");
+        //    }           
+        //}
 
         public void CheckGrabbedObjects()
         {
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
+                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
                 {
                     lanternIsGrabbed = true;
                     if (invoked)
                     {
-                        WaterComes.Invoke();
+                        water.WaterRises = true;
                         invoked = false;
                         Debug.Log("invoked");
                     }
-                }
-                else
-                {
-                    lanternIsGrabbed = false;
                 }
             }
             else
             {
                 lanternIsGrabbed = false;
             }
+            if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            {
+                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
+                {
+                    lanternIsGrabbed = true;
+                    if (invoked)
+                    {
+                        water.WaterRises = true;
+                        invoked = false;
+                        Debug.Log("invoked");
+                    }
+                }
+            }        
+            else
+            {
+                lanternIsGrabbed = false;
+            }           
 
             if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
             {           //this checks to see if we want to change rope from grabbable to climbable
@@ -247,21 +260,30 @@
                 RopeClimb = true;
                 LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
             }
-            
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater) 
                 {
 
                     Debug.Log("grabbedWater");
                     StartCoroutine(WaitForSecondsRealtime());
                 }
-                else
+            }
+            else
+            {
+                return;
+            }
+            if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            {
+                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
                 {
-                    return;
+                    Debug.Log("grabbedWater");
+                    StartCoroutine(WaitForSecondsRealtime());
                 }
             }
-        }
+        }       
+
         IEnumerator WaitForSecondsRealtime()
         {
             yield return new WaitForSecondsRealtime(0.5f);

@@ -100,9 +100,9 @@ public class WaterMovement : MonoBehaviour
             fader.Unfade(5f);
         }
     }
+   
     void Update()
-    {
-        
+    {        
         if (Time.time >= 0.25f && GameObject.Find("SteamVR") != null && VRTK_SDKManager.GetLoadedSDKSetup() == GameObject.Find("SteamVR").GetComponent<VRTK_SDKSetup>())   //this because the first check gives error as the colliders are created at runtime + don't wanna use this in the simulator
         {
             if (feet == null && head == null)   //to prevent error when system button is pressed

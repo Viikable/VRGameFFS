@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK.Controllables.PhysicsBased;
 
-public class ConveyorBeltController : MonoBehaviour {
+public class ConveyorBeltController : MonoBehaviour
+{
     Animator anim;
 
     Animator anim2;
 
     Animator anim3;
+
+    Animator anim4;
 
     AudioSource ConveyorAudio;
 
@@ -16,38 +19,56 @@ public class ConveyorBeltController : MonoBehaviour {
 
     AudioSource ConveyorAudio3;
 
+    AudioSource ConveyorAudio4;
+
     Animator animDown;
 
-    GameObject Screen1Button;
+    GameObject ConveyorStartButton;
 
-    GameObject Screen2Button;
+    GameObject ConveyorDownButton;
 
-    GameObject Screen3Button;
+    GameObject ConveyorStopButton;
 
     [SerializeField]
     [Tooltip("Is the conveyor belt animation playing or not")]
-    private bool NotPlaying = true;
+    private bool NotPlaying;
     [SerializeField]
     [Tooltip("Has the player triggered the moving of the conveyor belts")]
-    private bool PressedScreen1 = false;
+    private bool Beltsmoving;
     [SerializeField]
     [Tooltip("Has the player triggered the moving of the conveyor belt so it lowers down to the pool")]
-    private bool PressedScreen2 = false;
+    private bool BeltMovingDown;
     [SerializeField]
     [Tooltip("Has the player paused the movement of the conveyor belts")]
-    private bool PressedScreen3 = false;
+    private bool BeltsPaused;
+    private bool runCoRoutine;
+    private bool checkStart;
+    private bool check;
+    private bool runCoRoutineStart;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        runCoRoutineStart = false;
+        check = false;
+        checkStart = false;
+        runCoRoutine = false;
+        NotPlaying = true;
+        Beltsmoving = false;
+        BeltMovingDown = false;
+        BeltsPaused = false;
+        //StartCoroutine("JustASec");
         ConveyorAudio = GameObject.Find("ConveyorAudio").GetComponent<AudioSource>();
         ConveyorAudio2 = GameObject.Find("ConveyorAudio2").GetComponent<AudioSource>();
         ConveyorAudio3 = GameObject.Find("ConveyorAudio3").GetComponent<AudioSource>();
+        ConveyorAudio4 = GameObject.Find("ConveyorAudio3").GetComponent<AudioSource>();
         anim = GameObject.Find("Conveyor_belt_Animated").GetComponent<Animator>();
         anim2 = GameObject.Find("Conveyor_belt_Animated2").GetComponent<Animator>();
         anim3 = GameObject.Find("Conveyor_belt_Animated3").GetComponent<Animator>();
+        anim4 = GameObject.Find("Conveyor_belt_Animated4").GetComponent<Animator>();
         animDown = GameObject.Find("Conveyor_belt_AnimatedDown").GetComponent<Animator>();
-        Screen1Button = GameObject.Find("Screen1Button");
-        Screen2Button = GameObject.Find("Screen2Button");
-        Screen3Button = GameObject.Find("Screen3Button");
+        ConveyorStartButton = GameObject.Find("ConveyorStartButton");
+        ConveyorDownButton = GameObject.Find("ConveyorDownButton");
+        ConveyorStopButton = GameObject.Find("ConveyorStopButton");
     }
     public bool GetNotPlaying()
     {
@@ -59,64 +80,69 @@ public class ConveyorBeltController : MonoBehaviour {
     }
     public void SetPressedScreen1On()
     {
-        PressedScreen1 = true;
+        Beltsmoving = true;
     }
     public bool GetPressedScreen1()
     {
-        return PressedScreen1;
+        return Beltsmoving;
     }
     public void SetPressedScreen2On()
     {
-        PressedScreen2 = true;
+        BeltMovingDown = true;
     }
     public bool GetPressedScreen3()
     {
-        return PressedScreen3;
+        return BeltsPaused;
     }
     public void SetPressedScreen3On()
     {
-        PressedScreen3 = true;
+        BeltsPaused = true;
     }
-
     public void CheckButtonPress()    //to see when the buttons controlling the conveyor belts are pressed down
     {
-        if (Screen1Button.GetComponent<VRTK_PhysicsPusher>().PressedDown && !PressedScreen1)
+        if (!Beltsmoving && ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
         {
+            
             Debug.Log("pressed1");
-            PressedScreen1 = true;
-            //PressedScreen3 = false;
-            Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (Screen3Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+            Beltsmoving = true;
+            ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+            if (ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
             {
                 Debug.Log("pressed1while3");
-                Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             }
         }
-        if (Screen2Button.GetComponent<VRTK_PhysicsPusher>().PressedDown && !PressedScreen2)
+        else if (!BeltsPaused && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
         {
-            Debug.Log("pressed2");
-            PressedScreen2 = true;
-        }
-        if (Screen3Button.GetComponent<VRTK_PhysicsPusher>().PressedDown && !PressedScreen3)
-        {
+           
             Debug.Log("pressed3");
-            PressedScreen3 = true;
-            //PressedScreen1 = false;
-            Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (Screen1Button.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+            BeltsPaused = true;
+            ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+            if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
             {
-                Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
                 Debug.Log("pressed3while1");
             }
         }
-    }
-    // Update is called once per frame
-    void Update () {
-        //StopAllCoroutines();
-        CheckButtonPress();
-
-        if (PressedScreen1)
+        if (!BeltMovingDown && ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
         {
+            Debug.Log("pressed2");
+            if (Beltsmoving)
+            {
+                BeltMovingDown = true;
+            }
+        }
+    }    
+    void Update()
+    {       
+        CheckButtonPress();
+       
+    
+
+        if (Beltsmoving)
+        {
+
+            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
             //starts the sound and movement for all normal conveyorbelts
             if (NotPlaying)
             {
@@ -124,56 +150,108 @@ public class ConveyorBeltController : MonoBehaviour {
                 ConveyorAudio.Play();
                 ConveyorAudio2.Play();
                 ConveyorAudio3.Play();
+                ConveyorAudio4.Play();
 
                 anim.SetBool("Start", true);
                 anim2.SetBool("Start", true);
                 anim3.SetBool("Start", true);
+                anim4.SetBool("Start", true);
                 anim.speed = 2f;
                 anim2.speed = 2f;
                 anim3.speed = 2f;
+                anim4.speed = 2f;
                 animDown.speed = 2f;
-                StartCoroutine("JustASec");
-                PressedScreen3 = false;                
+                BeltsPaused = false;
+                
+                Debug.Log("changedxptrue");
             }
         }
-        
-        if (PressedScreen2)
+
+        if (BeltMovingDown && Beltsmoving)
         {
             //makes the middle conveyor belt go down 
             anim.SetBool("Open", true);
             animDown.SetBool("Open", true);
-            
+
         }
-        if (PressedScreen3)
-        {
+        if (BeltsPaused)
+        {            
             //stops the sound and movement of all conveyorbelts
             if (!NotPlaying)
             {
+                Debug.Log("changedxdtrue");
                 anim.speed = 0f;
                 anim2.speed = 0f;
                 anim3.speed = 0f;
+                anim4.speed = 0f;
                 animDown.speed = 0f;
                 ConveyorAudio.Stop();
                 ConveyorAudio2.Stop();
                 ConveyorAudio3.Stop();
+                ConveyorAudio4.Stop();
                 NotPlaying = true;
-                StartCoroutine("JustASec");
-                PressedScreen1 = false;                
-            }            
+                Beltsmoving = false;
+               
+            }
         }
-        
+        //CheckButtonPress();
+        //if (Beltsmoving && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed == false)
+        //{
+        //    runCoRoutine = true;
+        //    StartCoroutine("Check");           
+        //}
+        //else if (BeltsPaused && ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed == false)
+        //{
+        //    runCoRoutineStart = true;
+        //    StartCoroutine("CheckStart");           
+        //}
+
+        //if (checkStart)
+        //{
+        //    checkStart = false;
+        //    ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+        //    runCoRoutineStart = false;
+        //}
+
+        //if (check)
+        //{
+        //    check = false;
+        //    ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+        //    runCoRoutine = false;
+        //}
         //if (PressedScreen3)
         //{
         //   //melt the metal animation
 
         //}
-    }
-    IEnumerator JustASec()
-    {
-        yield return new WaitForSeconds(1.5f);
-        Debug.Log("wait");
-        Screen1Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-        Screen3Button.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-        yield break;
-    }
+    } 
+    //IEnumerator Check()
+    //{
+    //    if (runCoRoutine)
+    //    {
+    //        yield return new WaitForSeconds(1);
+    //        check = true;
+    //        Debug.Log("waited");
+    //        yield return null;
+    //    }
+    //    else
+    //    {
+    //        yield return null;
+    //    }
+    //}
+    //IEnumerator CheckStart()
+    //{
+    //    if (runCoRoutineStart)
+    //    {
+    //        yield return new WaitForSeconds(1);
+    //        checkStart = true;
+    //        Debug.Log("waited");
+    //        yield return null;
+    //    }
+    //    else
+    //    {
+    //        yield return null;
+    //    }
+    //}
 }
+
