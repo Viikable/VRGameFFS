@@ -153,13 +153,15 @@ public class ConveyorBeltController : MonoBehaviour
             {
                 if (oddPress)
                 {
-                    beltMovingUp = false;
+                    Debug.Log("Oddpress");
+                    //beltMovingUp = false;
                     beltMovingDown = true;
                     oddPress = false;                    
                 }
                 if (evenPress)
                 {
-                    beltMovingDown = false;
+                    Debug.Log("evenpress");
+                    //beltMovingDown = false;
                     beltMovingUp = true;
                     evenPress = false;                   
                 }
@@ -172,9 +174,8 @@ public class ConveyorBeltController : MonoBehaviour
         if (beltMovingDown && beltsMoving)
         {
             time++;
-            Debug.Log(time);
         }
-        if (time > 200)
+        if (time > 188)
         {
             beltHasMovedDown = true;
             time = 0f;
@@ -188,7 +189,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             timeUp++;
         }
-        if (timeUp > 200)
+        if (timeUp > 230)
         {
             Debug.Log("belt has moved up");
             beltHasMovedUp = true;
@@ -201,45 +202,15 @@ public class ConveyorBeltController : MonoBehaviour
         CheckButtonPress();
         BeltDownCheck();
         BeltUpCheck();
-
-        if (beltMovingUp)
-            {
-            Debug.Log("backwards animation");
-            animDown.SetBool("Up", true);
-            animVino.SetBool("Disappear", true);
-            }
-        if (beltMovingDown)
-            {
-            Debug.Log("forwards animation");
-            animDown.SetBool("Up", false);           
-            }
-        if (beltHasMovedDown)
-        {
-            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            evenPress = true;
-            animVino.SetBool("Disappear", false);
-            animVino.SetBool("Start", true);
-        }
-        if (beltHasMovedUp)
-        {
-            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            oddPress = true;
-            anim.SetBool("Disappear", false);
-        }
-
         if (beltsMoving)
         {
-            if (!beltHasMovedDown && !beltHasMovedUp)
-            {
-                ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            }
             //starts the sound and movement for all normal conveyorbelts
             if (notPlaying)
             {
                 notPlaying = false;
                 ConveyorAudio.Play();
                 ConveyorAudio2.Play();
-                ConveyorAudio3.Play();                
+                ConveyorAudio3.Play();
                 anim.SetBool("Start", true);
                 anim2.SetBool("Start", true);
                 anim3.SetBool("Start", true);
@@ -258,8 +229,8 @@ public class ConveyorBeltController : MonoBehaviour
                     animDown.speed = -1f;
                 }
                 beltsPaused = false;
-                
-                Debug.Log("changedxptrue");
+
+                Debug.Log("belt movement continues");
             }
         }
 
@@ -276,7 +247,7 @@ public class ConveyorBeltController : MonoBehaviour
             ConveyorAudio4.Stop();
         }
         if (beltsPaused)
-        {            
+        {
             //stops the sound and movement of all conveyorbelts
             if (!notPlaying)
             {
@@ -292,9 +263,41 @@ public class ConveyorBeltController : MonoBehaviour
                 ConveyorAudio3.Stop();
                 ConveyorAudio4.Stop();
                 notPlaying = true;
-                beltsMoving = false;               
+                beltsMoving = false;
             }
-        }        
+        }
+
+        if (beltMovingUp)
+            {
+            //beltHasMovedDown = false;
+            Debug.Log("backwards animation");
+            animDown.SetBool("Up", true);
+            animVino.SetBool("Disappear", true);
+            }
+        if (beltMovingDown)
+            {
+            animDown.SetBool("Disappear", false);
+            //beltHasMovedUp = false;
+            Debug.Log("forwards animation");
+            animDown.SetBool("Disappear", false);
+        }
+        if (beltHasMovedDown)
+        {            
+            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            evenPress = true;
+            animVino.SetBool("Start", true);
+            animVino.SetBool("Disappear", false);
+            beltHasMovedDown = false;
+        }
+        if (beltHasMovedUp)
+        {
+            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            oddPress = true;
+            anim.SetBool("Disappear", false);
+            animDown.SetBool("Disappear", true);
+            animDown.SetBool("Up", false);
+            beltHasMovedUp = false;
+        }       
     }     
 }
 
