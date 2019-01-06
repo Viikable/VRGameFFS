@@ -13,8 +13,8 @@
         //public bool AlreadyDid;
         GameObject LeverAudio;
         AudioSource LeverSource;
-        [Tooltip("The game object which happens to move when we flip the switch")]
-        public GameObject MovingObject;
+        
+        
 
         //private void Awake()
         //{
