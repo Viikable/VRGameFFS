@@ -189,7 +189,7 @@
         private void Update()
         {
             //StopAllCoroutines();
-            CheckGrabbedObjects();
+            //CheckGrabbedObjects();
         }
         //private void WaterIsRising()
         //{

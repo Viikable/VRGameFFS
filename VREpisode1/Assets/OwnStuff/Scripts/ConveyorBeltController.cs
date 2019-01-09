@@ -61,6 +61,9 @@ public class ConveyorBeltController : MonoBehaviour
     private bool runCoRoutineStart;
     private bool oddPress;
     private bool evenPress;
+    private GameObject MiddleConveyorBelt;
+    private GameObject VinoConveyorBelt;
+    private GameObject DownConveyorBelt;
 
     void Start()
     {
@@ -82,12 +85,15 @@ public class ConveyorBeltController : MonoBehaviour
         ConveyorAudio2 = GameObject.Find("ConveyorAudio2").GetComponent<AudioSource>();
         ConveyorAudio3 = GameObject.Find("ConveyorAudio3").GetComponent<AudioSource>();
         ConveyorAudio4 = GameObject.Find("ConveyorAudio3").GetComponent<AudioSource>();
-        anim = GameObject.Find("Conveyor_belt_Animated").GetComponent<Animator>();
+        MiddleConveyorBelt = GameObject.Find("Conveyor_belt_Animated");
+        anim = MiddleConveyorBelt.GetComponent<Animator>();
+        DownConveyorBelt = GameObject.Find("Conveyor_belt_AnimatedDown");
+        animDown = DownConveyorBelt.GetComponent<Animator>();
+        VinoConveyorBelt = GameObject.Find("Conveyor_belt_AnimatedVino");
+        animVino = VinoConveyorBelt.GetComponent<Animator>();
         anim2 = GameObject.Find("Conveyor_belt_Animated2").GetComponent<Animator>();
         anim3 = GameObject.Find("Conveyor_belt_Animated3").GetComponent<Animator>();
         anim4 = GameObject.Find("Conveyor_belt_Animated4").GetComponent<Animator>();
-        animDown = GameObject.Find("Conveyor_belt_AnimatedDown").GetComponent<Animator>();
-        animVino = GameObject.Find("Conveyor_belt_AnimatedVino").GetComponent<Animator>();
         ConveyorStartButton = GameObject.Find("ConveyorStartButton");
         ConveyorDownButton = GameObject.Find("ConveyorDownButton");
         ConveyorStopButton = GameObject.Find("ConveyorStopButton");
@@ -158,7 +164,7 @@ public class ConveyorBeltController : MonoBehaviour
                     beltMovingDown = true;
                     oddPress = false;                    
                 }
-                if (evenPress)
+                else if (evenPress)
                 {
                     Debug.Log("evenpress");
                     //beltMovingDown = false;
@@ -175,7 +181,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             time++;
         }
-        if (time > 188)
+        if (time > 305)
         {
             beltHasMovedDown = true;
             time = 0f;
@@ -189,7 +195,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             timeUp++;
         }
-        if (timeUp > 230)
+        if (timeUp > 335)
         {
             Debug.Log("belt has moved up");
             beltHasMovedUp = true;
@@ -219,15 +225,9 @@ public class ConveyorBeltController : MonoBehaviour
                 anim2.speed = 2f;
                 anim3.speed = 2f;
                 anim4.speed = 2f;
-                animVino.speed = 2f;
-                if (beltMovingDown)
-                {
-                    animDown.speed = 1f;
-                }
-                if (beltMovingUp)
-                {
-                    animDown.speed = -1f;
-                }
+                animVino.speed = 2f;                                   
+                animDown.speed = 1f;
+                
                 beltsPaused = false;
 
                 Debug.Log("belt movement continues");
@@ -237,10 +237,8 @@ public class ConveyorBeltController : MonoBehaviour
         if (beltMovingDown && beltsMoving)
         {
             ConveyorAudio4.Play();
-            //makes the middle conveyor belt go down 
-            anim.SetBool("Disappear", true);
+            //makes the middle conveyor belt go down            
             animDown.SetBool("Open", true);
-
         }
         else
         {
@@ -271,31 +269,69 @@ public class ConveyorBeltController : MonoBehaviour
             {
             //beltHasMovedDown = false;
             Debug.Log("backwards animation");
-            animDown.SetBool("Up", true);
-            animVino.SetBool("Disappear", true);
+            animDown.SetBool("Up", true);                      
+            foreach (Collider col in VinoConveyorBelt.GetComponentsInChildren<Collider>()) {
+                col.enabled = false;
+            }
+            foreach (MeshRenderer rend in VinoConveyorBelt.GetComponentsInChildren<MeshRenderer>())
+            {
+                rend.enabled = false;
+            }
+            animVino.SetBool("Start", false);
+            //animVino.SetBool("Disappear", true);      //replaced
             }
         if (beltMovingDown)
             {
-            animDown.SetBool("Disappear", false);
-            //beltHasMovedUp = false;
-            Debug.Log("forwards animation");
-            animDown.SetBool("Disappear", false);
+            foreach (Collider col in MiddleConveyorBelt.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = false;
+            }
+            foreach (MeshRenderer rend in MiddleConveyorBelt.GetComponentsInChildren<MeshRenderer>())
+            {
+                rend.enabled = false;
+            }                                            
         }
         if (beltHasMovedDown)
         {            
             ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             evenPress = true;
             animVino.SetBool("Start", true);
-            animVino.SetBool("Disappear", false);
+            foreach (Collider col in VinoConveyorBelt.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = true;
+            }
+            foreach (MeshRenderer rend in VinoConveyorBelt.GetComponentsInChildren<MeshRenderer>())
+            {
+                rend.enabled = true;
+            }
+
+            
             beltHasMovedDown = false;
         }
         if (beltHasMovedUp)
         {
             ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             oddPress = true;
-            anim.SetBool("Disappear", false);
-            animDown.SetBool("Disappear", true);
+            anim.SetBool("Start", true);
+            foreach (Collider col in MiddleConveyorBelt.GetComponentsInChildren<Collider>())     
+            {
+                col.enabled = true;
+            }
+            foreach (MeshRenderer rend in MiddleConveyorBelt.GetComponentsInChildren<MeshRenderer>())
+            {
+                rend.enabled = true;
+            }
+
+            foreach (Collider col in DownConveyorBelt.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = false;
+            }
+            foreach (MeshRenderer rend in DownConveyorBelt.GetComponentsInChildren<MeshRenderer>())
+            {
+                rend.enabled = false;
+            }
             animDown.SetBool("Up", false);
+            animDown.SetBool("Open", false);
             beltHasMovedUp = false;
         }       
     }     
