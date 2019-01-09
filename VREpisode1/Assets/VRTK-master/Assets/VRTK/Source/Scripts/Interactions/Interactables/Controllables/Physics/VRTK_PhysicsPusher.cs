@@ -296,12 +296,7 @@ namespace VRTK.Controllables.PhysicsBased
                 pressedDown = true;
                 Debug.Log("pressed");
                 //default method              
-            }
-            else
-            {                
-                return;
-            }
-            
+            }                        
         }
     }
 }
