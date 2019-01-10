@@ -136,31 +136,31 @@ public class ConveyorBeltController : MonoBehaviour
     }
     public void CheckButtonPress()    //to see when the buttons controlling the conveyor belts are pressed down
     {
-        if (!beltsMoving && ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        if (!beltsMoving && ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
         {
 
             Debug.Log("pressed1");
             beltsMoving = true;
             ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+            if (ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f )
             {
                 Debug.Log("pressed1while3");
                 ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             }
         }
-        else if (!beltsPaused && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        else if (!beltsPaused && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
         {
 
             Debug.Log("pressed3");
             beltsPaused = true;
             ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+            if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f )
             {
                 ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
                 Debug.Log("pressed3while1");
             }
         }
-        if (ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().PressedDown)
+        if (ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f && ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
         {            
            
             if (beltsMoving)
