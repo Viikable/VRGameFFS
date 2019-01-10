@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MelterEnterTrigger : MonoBehaviour {
     [SerializeField]
     private int amountOfMeltedObjects;
+    private TextMeshPro melterText;
 
     private void Start()
     {
+        melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
         amountOfMeltedObjects = 0;
     }
 
@@ -16,6 +20,7 @@ public class MelterEnterTrigger : MonoBehaviour {
         if (other.CompareTag("ConveyorBeltMetal"))
         {
             amountOfMeltedObjects += 1;
+            melterText.text = amountOfMeltedObjects.ToString();
         }
     }
     private void OnTriggerExit(Collider other)
@@ -23,6 +28,7 @@ public class MelterEnterTrigger : MonoBehaviour {
         if (other.CompareTag("ConveyorBeltMetal"))
         {
             amountOfMeltedObjects -= 1;
+            melterText.text = amountOfMeltedObjects.ToString();
         }
     }
     private void Update()
