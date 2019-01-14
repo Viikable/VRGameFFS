@@ -10,6 +10,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds5;
     AudioSource MetalSounds6;
     int randomizer;
+    bool insideTheMelter;
 
     private void Awake()
     {
@@ -20,6 +21,13 @@ public class MetalHitsTheFan : MonoBehaviour {
         MetalSounds5 = GameObject.Find("MetalSounds5").GetComponent<AudioSource>();
         MetalSounds6 = GameObject.Find("MetalSounds6").GetComponent<AudioSource>();
         randomizer = 0;
+        insideTheMelter = false;
+    }
+
+    public bool InsideTheMelter
+    {
+        get { return insideTheMelter; }
+        set { insideTheMelter = value; }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,8 +60,17 @@ public class MetalHitsTheFan : MonoBehaviour {
             }
         }
     }
+   
     private void Update()
     {
+        var newScale = Mathf.Lerp(1, 0.5f, Time.deltaTime / 10);
         randomizer = Random.Range(1,7);      //so between 1-6
+
+        if (insideTheMelter)
+        {
+            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
+            
+            transform.localScale = new Vector3(newScale, newScale, newScale);
+        }
     }
 }

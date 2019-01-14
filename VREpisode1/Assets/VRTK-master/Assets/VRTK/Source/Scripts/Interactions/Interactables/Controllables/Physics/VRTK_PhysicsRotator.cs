@@ -268,6 +268,7 @@ namespace VRTK.Controllables.PhysicsBased
             EmitEvents();
             if (ThisNeedsToStop)
             {
+                Debug.Log("Locked");
                 isLocked = true;
             }
         }
@@ -392,6 +393,7 @@ namespace VRTK.Controllables.PhysicsBased
                     break;
                 case GrabMechanic.RotatorTrack:
                     controlGrabAttach = controlInteractableObject.gameObject.AddComponent<VRTK_RotatorTrackGrabAttach>();
+                    controlGrabAttach.GetComponent<VRTK_RotatorTrackGrabAttach>().onGrabCollisionDelay = 0.5f;
                     break;
             }
             SetGrabMechanicParameters();

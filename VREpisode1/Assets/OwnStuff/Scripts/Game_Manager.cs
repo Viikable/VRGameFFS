@@ -213,104 +213,104 @@
         //    }           
         //}
 
-        public void CheckGrabbedObjects()
-        {
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
-                {
-                    lanternIsGrabbed = true;
-                    if (invoked)
-                    {
-                        water.WaterRises = true;
-                        invoked = false;
-                        Debug.Log("invoked");
-                    }
-                }
-            }
-            else
-            {
-                lanternIsGrabbed = false;
-            }
-            if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
-                {
-                    lanternIsGrabbed = true;
-                    if (invoked)
-                    {
-                        water.WaterRises = true;
-                        invoked = false;
-                        Debug.Log("invoked");
-                    }
-                }
-            }        
-            else
-            {
-                lanternIsGrabbed = false;
-            }           
+        //public void CheckGrabbedObjects()
+        //{
+        //    if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+        //    {
+        //        if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
+        //        {
+        //            lanternIsGrabbed = true;
+        //            if (invoked)
+        //            {
+        //                water.WaterRises = true;
+        //                invoked = false;
+        //                Debug.Log("invoked");
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        lanternIsGrabbed = false;
+        //    }
+        //    if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+        //    {
+        //        if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
+        //        {
+        //            lanternIsGrabbed = true;
+        //            if (invoked)
+        //            {
+        //                water.WaterRises = true;
+        //                invoked = false;
+        //                Debug.Log("invoked");
+        //            }
+        //        }
+        //    }        
+        //    else
+        //    {
+        //        lanternIsGrabbed = false;
+        //    }           
 
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
-            {           //this checks to see if we want to change rope from grabbable to climbable
-                RopeClimb = true;
-                RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-            }
-            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
-            {
-                RopeClimb = true;
-                LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-            }
+        //    if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
+        //    {           //this checks to see if we want to change rope from grabbable to climbable
+        //        RopeClimb = true;
+        //        RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
+        //    }
+        //    else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
+        //    {
+        //        RopeClimb = true;
+        //        LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
+        //    }
 
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater) 
-                {
+        //    if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+        //    {
+        //        if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater) 
+        //        {
 
-                    Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtime());
-                }
-            }
-            else
-            {
-                return;
-            }
-            if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
-                {
-                    Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtime());
-                }
-            }
-        }       
+        //            Debug.Log("grabbedWater");
+        //            StartCoroutine(WaitForSecondsRealtime());
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //    if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+        //    {
+        //        if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+        //        {
+        //            Debug.Log("grabbedWater");
+        //            StartCoroutine(WaitForSecondsRealtime());
+        //        }
+        //    }
+        //}       
 
-        IEnumerator WaitForSecondsRealtime()
-        {
-            yield return new WaitForSecondsRealtime(0.5f);
-            StartCoroutine(ReleaseOrNot());
-        }
-        IEnumerator ReleaseOrNot()
-        {
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
-                {
-                    Debug.Log("ReleasedWater");
-                    RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-                }
-            }
-            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
-                {
-                    LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-                }
-            }
-            else
-            {
-                yield return null;
-            }                
-        }
+        //IEnumerator WaitForSecondsRealtime()
+        //{
+        //    yield return new WaitForSecondsRealtime(0.5f);
+        //    StartCoroutine(ReleaseOrNot());
+        //}
+        //IEnumerator ReleaseOrNot()
+        //{
+        //    if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+        //    {
+        //        if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+        //        {
+        //            Debug.Log("ReleasedWater");
+        //            RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
+        //        }
+        //    }
+        //    else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+        //    {
+        //        if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+        //        {
+        //            LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        yield return null;
+        //    }                
+        //}
 
         //GETTERS AND SETTERS PART BELOW HERE!
 

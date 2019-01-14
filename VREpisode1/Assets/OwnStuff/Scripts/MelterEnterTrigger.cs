@@ -30,6 +30,7 @@ public class MelterEnterTrigger : MonoBehaviour {
         {
             amountOfMeltedObjects += 1;
             melterText.text = amountOfMeltedObjects.ToString();
+            other.GetComponent<MetalHitsTheFan>().InsideTheMelter = true;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -38,6 +39,7 @@ public class MelterEnterTrigger : MonoBehaviour {
         {
             amountOfMeltedObjects -= 1;
             melterText.text = amountOfMeltedObjects.ToString();
+            other.GetComponent<MetalHitsTheFan>().InsideTheMelter = false;
         }
     }
     private void Update()
