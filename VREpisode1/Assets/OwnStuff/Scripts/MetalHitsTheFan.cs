@@ -22,7 +22,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     bool goingBig;
     bool goingSmall;
     static float meltingTime = 0.0f;
-    public static bool melterIsReady = true;
+    public static bool melterIsReady = false;
    
     private void Awake()
     {       
@@ -40,7 +40,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         lavaMizer = 0.7f;
         lavaFrequencyMizer = 0.7f;
         lavaIncrement = 0.025f;
-        insideTheMelter = true;
+        insideTheMelter = false;
         Lava = GameObject.Find("LavaSurface");
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
     }
@@ -85,7 +85,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     {
         
         randomizer = Random.Range(1,7);      //so between 1-6
-        float newScale = Mathf.Lerp(1, 0.1f, meltingTime);
+        float newScale = Mathf.Lerp(1, 0f, meltingTime);
         if (insideTheMelter && melterIsReady)
         {
             LavaAnim.SetBool("Rise", true);
@@ -120,7 +120,7 @@ public class MetalHitsTheFan : MonoBehaviour {
             //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
 
             transform.localScale = new Vector3(newScale, newScale, newScale);
-            meltingTime += 0.1f * Time.deltaTime;
+            meltingTime += 0.01f * Time.deltaTime;
         }
     }
 }

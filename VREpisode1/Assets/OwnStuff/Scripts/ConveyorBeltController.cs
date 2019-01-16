@@ -190,7 +190,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             time++;
         }
-        if (time > 180)
+        if (time > 170)
         {
             beltHasMovedDown = true;
             time = 0f;
