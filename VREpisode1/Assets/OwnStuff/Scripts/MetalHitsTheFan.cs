@@ -120,7 +120,7 @@ public class MetalHitsTheFan : MonoBehaviour {
             //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
 
             transform.localScale = new Vector3(newScale, newScale, newScale);
-            meltingTime += 0.01f * Time.deltaTime;
+            meltingTime += 0.1f * Time.deltaTime;       //makes the object disappear
         }
     }
 }
