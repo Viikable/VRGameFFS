@@ -3355,31 +3355,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.1630098
+      value: -0.18972246
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.59038705
+      value: -0.32105586
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.123253
+      value: 0.06581348
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.78081983
+      value: -0.92552537
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -101.318184
+      value: -99.07815
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.7432876
+      value: -4.1969028
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 31.685005
+      value: 24.869637
       objectReference: {fileID: 0}
     - target: {fileID: 20578162349973822, guid: 7bf453afdb0030d41b5c9bc2936ce6e7,
         type: 2}
@@ -10477,6 +10477,7 @@ Transform:
   - {fileID: 495553772}
   - {fileID: 436181491}
   - {fileID: 1308139025}
+  - {fileID: 1400690298}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28128,11 +28129,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1621467454117862, guid: eb7ea054465137a478723d71d4230fef, type: 2}
       propertyPath: m_Name
-      value: MelterDeActivatorContainer
+      value: MelterPresserDeActivatorContainer
       objectReference: {fileID: 0}
     - target: {fileID: 1425835761352038, guid: eb7ea054465137a478723d71d4230fef, type: 2}
       propertyPath: m_Name
-      value: MelterDeActivatorButton
+      value: MelterPresserDeActivatorButton
       objectReference: {fileID: 0}
     - target: {fileID: 114570919860264544, guid: eb7ea054465137a478723d71d4230fef,
         type: 2}
@@ -31535,6 +31536,88 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300030, guid: 83c11802cb9a3094abf8ac7dcac76489, type: 3}
+--- !u!1001 &1400690297
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 416999040}
+    m_Modifications:
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -3.144
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.6176004
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.556
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 114570919860264544, guid: eb7ea054465137a478723d71d4230fef,
+        type: 2}
+      propertyPath: ignoreCollisionsWith.Array.data[1]
+      value: 
+      objectReference: {fileID: 131045067}
+    - target: {fileID: 114570919860264544, guid: eb7ea054465137a478723d71d4230fef,
+        type: 2}
+      propertyPath: ignoreCollisionsWith.Array.data[2]
+      value: 
+      objectReference: {fileID: 1582903451}
+    - target: {fileID: 114570919860264544, guid: eb7ea054465137a478723d71d4230fef,
+        type: 2}
+      propertyPath: connectedTo
+      value: 
+      objectReference: {fileID: 1582903456}
+    - target: {fileID: 1425835761352038, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_Name
+      value: MelterActivatorButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.06758345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.038972892
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.06758358
+      objectReference: {fileID: 0}
+    - target: {fileID: 1621467454117862, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_Name
+      value: MelterActivatorContainer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1400690298 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4463195510237638, guid: eb7ea054465137a478723d71d4230fef,
+    type: 2}
+  m_PrefabInternal: {fileID: 1400690297}
 --- !u!4 &1400693982 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4891850830335346, guid: 15568208488862242a8e0c78e54aa65d,
@@ -36370,6 +36453,14 @@ Prefab:
       propertyPath: connectedTo
       value: 
       objectReference: {fileID: 1582903456}
+    - target: {fileID: 1425835761352038, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_Name
+      value: MelterPresserActivatorButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1621467454117862, guid: eb7ea054465137a478723d71d4230fef, type: 2}
+      propertyPath: m_Name
+      value: MelterPresserActivatorContainer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb7ea054465137a478723d71d4230fef, type: 2}
   m_IsPrefabParent: 0

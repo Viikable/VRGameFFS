@@ -7,21 +7,37 @@ using VRTK.Controllables.PhysicsBased;
 
 public class MelterEnterTrigger : MonoBehaviour {
     [SerializeField]
+    [Tooltip("The amount of metal objects currently inside the melter")]
     private int amountOfMeltedObjects;
+
+    [Tooltip("Displays the amount of melted objects on the screen")]
     private TextMeshPro melterText;
+
+    [SerializeField]
+    [Tooltip("Has the lid gone down yet?")]
     private bool notMeltedYet;
+
     Animator PoolLid;
-    GameObject MelterActivatorButton;
-    GameObject MelterDeActivatorButton;
+
+    [SerializeField]
+    [Tooltip("Shuts the melter lid")]
+    GameObject MelterPresserActivatorButton;
+    [SerializeField]
+    [Tooltip("Lifts the melter lid")]
+    GameObject MelterPresserDeActivatorButton;
+    [SerializeField]
+    [Tooltip("Starts the metal inside the melter scaling down")]
+    GameObject MelterActivatorButton;     
 
     private void Start()
     {
         notMeltedYet = true;
-        MelterDeActivatorButton = GameObject.Find("MelterDeActivatorButton");
+        MelterPresserDeActivatorButton = GameObject.Find("MelterPresserDeActivatorButton");
+        MelterPresserActivatorButton = GameObject.Find("MelterPresserActivatorButton");
         MelterActivatorButton = GameObject.Find("MelterActivatorButton");
         PoolLid = GameObject.Find("PoolLidAnimated").GetComponent<Animator>();
         melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
-        amountOfMeltedObjects = 5;
+        amountOfMeltedObjects = 0;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,15 +60,19 @@ public class MelterEnterTrigger : MonoBehaviour {
     }
     private void Update()
     {
-        if (amountOfMeltedObjects >= 5 && MelterActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f  && notMeltedYet)
+        if (amountOfMeltedObjects >= 5 && MelterActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
         {
+            MetalHitsTheFan.melterIsReady = true;
+        }
+        if (amountOfMeltedObjects >= 5 && MelterPresserActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f  && notMeltedYet)
+        {            
             notMeltedYet = false;
             PoolLid.SetBool("Melt", true);            
             StartCoroutine("WaitForAnimation");            
             //the press goes down
         }
-        if (MelterDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed
-            && MelterDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
+        if (MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed
+            && MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
         {
             PoolLid.SetBool("Melt", false);
             //the press goes back up
@@ -61,10 +81,10 @@ public class MelterEnterTrigger : MonoBehaviour {
     IEnumerator WaitForAnimation()
     {
         yield return new WaitForSecondsRealtime(10);  //animation takes 5 seconds, then add press sounds for 5 secs
-        if (!MelterDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
+        if (!MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
         {
             Debug.Log("stayPressedMelter");
-            MelterDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+            MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
         }
     }
 }

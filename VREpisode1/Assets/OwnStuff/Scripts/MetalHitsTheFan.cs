@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK.Controllables.PhysicsBased;
 
 public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds1;
@@ -11,9 +12,11 @@ public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds6;
     int randomizer;
     bool insideTheMelter;
-
+    static float meltingTime = 0.0f;
+    public static bool melterIsReady = false;
+   
     private void Awake()
-    {
+    {       
         MetalSounds1 = transform.Find("MetalSounds1").GetComponent<AudioSource>();
         MetalSounds2 = transform.Find("MetalSounds2").GetComponent<AudioSource>();
         MetalSounds3 = transform.Find("MetalSounds3").GetComponent<AudioSource>();
@@ -59,20 +62,18 @@ public class MetalHitsTheFan : MonoBehaviour {
                 MetalSounds6.Play();
             }
         }
-    }
-
-    static float t = 0.0f;
-       
+    }      
     private void Update()
-    {       
+    {
+       
         randomizer = Random.Range(1,7);      //so between 1-6
-        float newScale = Mathf.Lerp(1, 0.1f, t);
-        if (insideTheMelter)
+        float newScale = Mathf.Lerp(1, 0.1f, meltingTime);
+        if (insideTheMelter && melterIsReady)
         {
             //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
             
             transform.localScale = new Vector3(newScale, newScale, newScale);
-            t += 0.1f * Time.deltaTime;
+            meltingTime += 0.1f * Time.deltaTime;
         }
     }
 }
