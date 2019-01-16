@@ -10,10 +10,19 @@ public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds4;
     AudioSource MetalSounds5;
     AudioSource MetalSounds6;
+    Animator LavaAnim;
+    GameObject Lava;
     int randomizer;
+    int lavaWaiter;
+    int lavaWaiter2;
+    float lavaMizer;
+    float lavaFrequencyMizer;
+    float lavaIncrement;
     bool insideTheMelter;
+    bool goingBig;
+    bool goingSmall;
     static float meltingTime = 0.0f;
-    public static bool melterIsReady = false;
+    public static bool melterIsReady = true;
    
     private void Awake()
     {       
@@ -23,8 +32,17 @@ public class MetalHitsTheFan : MonoBehaviour {
         MetalSounds4 = transform.Find("MetalSounds4").GetComponent<AudioSource>();
         MetalSounds5 = transform.Find("MetalSounds5").GetComponent<AudioSource>();
         MetalSounds6 = transform.Find("MetalSounds6").GetComponent<AudioSource>();
+        goingBig = true;
+        goingSmall = false;
         randomizer = 0;
-        insideTheMelter = false;
+        lavaWaiter = 0;
+        lavaWaiter2 = 0;
+        lavaMizer = 0.7f;
+        lavaFrequencyMizer = 0.7f;
+        lavaIncrement = 0.025f;
+        insideTheMelter = true;
+        Lava = GameObject.Find("LavaSurface");
+        LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
     }
 
     public bool InsideTheMelter
@@ -64,14 +82,38 @@ public class MetalHitsTheFan : MonoBehaviour {
         }
     }      
     private void Update()
-    {
-       
+    {       
         randomizer = Random.Range(1,7);      //so between 1-6
         float newScale = Mathf.Lerp(1, 0.1f, meltingTime);
         if (insideTheMelter && melterIsReady)
         {
-            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
+            LavaAnim.SetBool("Rise", true);
+            Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseScale", lavaMizer);
+            Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseFrequency", lavaFrequencyMizer);
+            //Debug.Log("lavachange");
+            lavaMizer += lavaIncrement/2;
+            lavaFrequencyMizer += lavaIncrement / 8;
+            if (lavaMizer >= 0.9f && goingBig && lavaWaiter >= 40)
+            {
+                Debug.Log("going bigger");
+                lavaIncrement = -0.025f;
+                goingBig = false;
+                goingSmall = true;
+                lavaWaiter = 0;
+            }
+            else if (lavaMizer <= 0.5f && goingSmall && lavaWaiter >= 40)
+            {
+                Debug.Log("going smaller");
+                lavaIncrement = 0.025f;
+                goingBig = true;
+                goingSmall = false;
+                lavaWaiter = 0;
+            }            
             
+            lavaWaiter++;
+            //lavaWaiter2++;
+            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
+
             transform.localScale = new Vector3(newScale, newScale, newScale);
             meltingTime += 0.1f * Time.deltaTime;
         }
