@@ -191,27 +191,27 @@
             //StopAllCoroutines();
             CheckGrabbedObjects();
         }
-        //private void WaterIsRising()
-        //{
+        private void WaterIsRising()
+        {
 
-        //    water.WaterRises = true;
-        //}
+            water.WaterRises = true;
+        }
 
-        //public void LightUpLantern()
-        //{
-        //    if (lanternIsGrabbed && !LanternLightIsOn)
-        //    {
-        //        Lantern.GetComponentInChildren<Light>().enabled = true;
-        //        LanternLightIsOn = true;
-        //        Debug.Log("Light");
-        //    }
-        //    else if (lanternIsGrabbed && LanternLightIsOn)
-        //    {
-        //        Lantern.GetComponentInChildren<Light>().enabled = false;
-        //        LanternLightIsOn = false;
-        //        Debug.Log("Dark");
-        //    }           
-        //}
+        public void LightUpLantern()
+        {
+            if (lanternIsGrabbed && !LanternLightIsOn)
+            {
+                Lantern.GetComponentInChildren<Light>().enabled = true;
+                LanternLightIsOn = true;
+                Debug.Log("Light");
+            }
+            else if (lanternIsGrabbed && LanternLightIsOn)
+            {
+                Lantern.GetComponentInChildren<Light>().enabled = false;
+                LanternLightIsOn = false;
+                Debug.Log("Dark");
+            }
+        }
 
         public void CheckGrabbedObjects()
         {
@@ -244,11 +244,11 @@
                         Debug.Log("invoked");
                     }
                 }
-            }        
+            }
             else
             {
                 lanternIsGrabbed = false;
-            }           
+            }
 
             if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
             {           //this checks to see if we want to change rope from grabbable to climbable
@@ -263,7 +263,7 @@
 
             if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater) 
+                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
                 {
 
                     Debug.Log("grabbedWater");
@@ -282,7 +282,7 @@
                     StartCoroutine(WaitForSecondsRealtime());
                 }
             }
-        }       
+        }
 
         IEnumerator WaitForSecondsRealtime()
         {
@@ -309,7 +309,7 @@
             else
             {
                 yield return null;
-            }                
+            }
         }
 
         //GETTERS AND SETTERS PART BELOW HERE!

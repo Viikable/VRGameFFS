@@ -281,27 +281,16 @@ namespace VRTK.Controllables.PhysicsBased
                 controlJoint.linearLimit = linearLimit;
                 controlJoint.connectedBody = connectedTo;
             }
-        }
-        public bool PressedDown
-        {
-            get { return pressedDown; }
-            set { pressedDown = value; }
-        }
-
+        }       
         protected virtual void StayPressed()
         {
-            if (stayPressed)
+            if (stayPressed && !pressedDown)
             {
                 SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
                 pressedDown = true;
                 Debug.Log("pressed");
                 //default method              
-            }
-            else
-            {                
-                return;
-            }
-            
+            }                        
         }
     }
 }

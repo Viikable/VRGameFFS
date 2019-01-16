@@ -18,7 +18,8 @@ public class WaterDispenserButton : MonoBehaviour {
     }
 
     void Update () {
-		if (this.GetComponent<VRTK_PhysicsPusher>().PressedDown && timeNotSet)
+		if (this.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f 
+            && this.GetComponent<VRTK_PhysicsPusher>().stayPressed && timeNotSet)
         {
             Debug.Log("time set");
             time = Time.time;

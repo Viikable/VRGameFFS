@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK.Controllables.PhysicsBased;
 
 public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds1;
@@ -10,16 +11,26 @@ public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds5;
     AudioSource MetalSounds6;
     int randomizer;
-
+    bool insideTheMelter;
+    static float meltingTime = 0.0f;
+    public static bool melterIsReady = false;
+   
     private void Awake()
-    {
-        MetalSounds1 = GameObject.Find("MetalSounds1").GetComponent<AudioSource>();
-        MetalSounds2 = GameObject.Find("MetalSounds2").GetComponent<AudioSource>();
-        MetalSounds3 = GameObject.Find("MetalSounds3").GetComponent<AudioSource>();
-        MetalSounds4 = GameObject.Find("MetalSounds4").GetComponent<AudioSource>();
-        MetalSounds5 = GameObject.Find("MetalSounds5").GetComponent<AudioSource>();
-        MetalSounds6 = GameObject.Find("MetalSounds6").GetComponent<AudioSource>();
+    {       
+        MetalSounds1 = transform.Find("MetalSounds1").GetComponent<AudioSource>();
+        MetalSounds2 = transform.Find("MetalSounds2").GetComponent<AudioSource>();
+        MetalSounds3 = transform.Find("MetalSounds3").GetComponent<AudioSource>();
+        MetalSounds4 = transform.Find("MetalSounds4").GetComponent<AudioSource>();
+        MetalSounds5 = transform.Find("MetalSounds5").GetComponent<AudioSource>();
+        MetalSounds6 = transform.Find("MetalSounds6").GetComponent<AudioSource>();
         randomizer = 0;
+        insideTheMelter = false;
+    }
+
+    public bool InsideTheMelter
+    {
+        get { return insideTheMelter; }
+        set { insideTheMelter = value; }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,9 +62,18 @@ public class MetalHitsTheFan : MonoBehaviour {
                 MetalSounds6.Play();
             }
         }
-    }
+    }      
     private void Update()
     {
+       
         randomizer = Random.Range(1,7);      //so between 1-6
+        float newScale = Mathf.Lerp(1, 0.1f, meltingTime);
+        if (insideTheMelter && melterIsReady)
+        {
+            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
+            
+            transform.localScale = new Vector3(newScale, newScale, newScale);
+            meltingTime += 0.1f * Time.deltaTime;
+        }
     }
 }
