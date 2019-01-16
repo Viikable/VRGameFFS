@@ -30,8 +30,21 @@ public class MelterEnterTrigger : MonoBehaviour
     [Tooltip("Starts the metal inside the melter scaling down")]
     GameObject MelterPressPressActivatorButton;
 
+    GameObject PressedMetal1;
+    GameObject PressedMetal2;
+    GameObject PressedMetal3;
+    GameObject PressedMetal4;
+    GameObject PressedMetal5;
+    GameObject PressedMetal6;
+
     private void Start()
     {
+        PressedMetal1 = GameObject.Find("PressedMetal1");
+        PressedMetal1 = GameObject.Find("PressedMetal2");
+        PressedMetal1 = GameObject.Find("PressedMetal3");
+        PressedMetal1 = GameObject.Find("PressedMetal4");
+        PressedMetal1 = GameObject.Find("PressedMetal5");
+        PressedMetal1 = GameObject.Find("PressedMetal6");
         notMeltedYet = true;
         MelterPresserDeActivatorButton = GameObject.Find("MelterPresserDeActivatorButton");
         MelterMeltPressActivatorButton = GameObject.Find("MelterMeltPressActivatorButton");
@@ -81,7 +94,15 @@ public class MelterEnterTrigger : MonoBehaviour
             PoolLid.SetBool("Melt", true);
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             notMeltedYet = true;
-            
+            PressedMetal1.GetComponent<Collider>().enabled = true;    //makes the pressed metal visible and touchable
+            PressedMetal2.GetComponent<Collider>().enabled = true;
+            PressedMetal3.GetComponent<Collider>().enabled = true;
+            PressedMetal1.GetComponent<MeshRenderer>().enabled = true;
+            PressedMetal2.GetComponent<MeshRenderer>().enabled = true;
+            PressedMetal3.GetComponent<MeshRenderer>().enabled = true;
+            PressedMetal1.GetComponent<Rigidbody>().useGravity = true;
+            PressedMetal2.GetComponent<Rigidbody>().useGravity = true;
+            PressedMetal3.GetComponent<Rigidbody>().useGravity = true;
             StartCoroutine("WaitForPressing");
         }
         else if (amountOfMeltedObjects == 2 && MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f
@@ -91,7 +112,13 @@ public class MelterEnterTrigger : MonoBehaviour
             PoolLid.SetBool("Melt", true);
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             notMeltedYet = true;
-            
+            PressedMetal1.GetComponent<Collider>().enabled = true;    //makes the pressed metal visible and touchable
+            PressedMetal2.GetComponent<Collider>().enabled = true;            
+            PressedMetal1.GetComponent<MeshRenderer>().enabled = true;
+            PressedMetal2.GetComponent<MeshRenderer>().enabled = true;           
+            PressedMetal1.GetComponent<Rigidbody>().useGravity = true;
+            PressedMetal2.GetComponent<Rigidbody>().useGravity = true;
+           
             StartCoroutine("WaitForPressing");
         }
         else if (amountOfMeltedObjects == 1 && MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f
@@ -101,7 +128,9 @@ public class MelterEnterTrigger : MonoBehaviour
             PoolLid.SetBool("Melt", true);
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             notMeltedYet = true;
-            
+            PressedMetal1.GetComponent<Collider>().enabled = true;    //makes the pressed metal visible and touchable           
+            PressedMetal1.GetComponent<MeshRenderer>().enabled = true;          
+            PressedMetal1.GetComponent<Rigidbody>().useGravity = true;         
             StartCoroutine("WaitForPressing");
         }
         else if (amountOfMeltedObjects == 0 && MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f
