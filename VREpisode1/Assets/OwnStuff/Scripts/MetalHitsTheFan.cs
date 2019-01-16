@@ -14,7 +14,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     GameObject Lava;
     int randomizer;
     int lavaWaiter;
-    int lavaWaiter2;
+    int randomLavaValue;
     float lavaMizer;
     float lavaFrequencyMizer;
     float lavaIncrement;
@@ -36,7 +36,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         goingSmall = false;
         randomizer = 0;
         lavaWaiter = 0;
-        lavaWaiter2 = 0;
+        randomLavaValue = 0;
         lavaMizer = 0.7f;
         lavaFrequencyMizer = 0.7f;
         lavaIncrement = 0.025f;
@@ -82,7 +82,8 @@ public class MetalHitsTheFan : MonoBehaviour {
         }
     }      
     private void Update()
-    {       
+    {
+        
         randomizer = Random.Range(1,7);      //so between 1-6
         float newScale = Mathf.Lerp(1, 0.1f, meltingTime);
         if (insideTheMelter && melterIsReady)
@@ -90,28 +91,32 @@ public class MetalHitsTheFan : MonoBehaviour {
             LavaAnim.SetBool("Rise", true);
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseScale", lavaMizer);
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseFrequency", lavaFrequencyMizer);
+            //Lava.GetComponent<MeshRenderer>().material.SetVector("_NoiseOffset", new Vector4(lavaFrequencyMizer, lavaFrequencyMizer, lavaFrequencyMizer, 0));
             //Debug.Log("lavachange");
-            lavaMizer += lavaIncrement/2;
+            lavaMizer += lavaIncrement / 2;
             lavaFrequencyMizer += lavaIncrement / 8;
-            if (lavaMizer >= 0.9f && goingBig && lavaWaiter >= 40)
+            if (lavaMizer >= 0.9f && goingBig && lavaWaiter >= 20)
             {
                 Debug.Log("going bigger");
-                lavaIncrement = -0.025f;
+                
+                lavaIncrement = -0.01f;
+                
                 goingBig = false;
                 goingSmall = true;
-                lavaWaiter = 0;
+                lavaWaiter = 0;                
             }
-            else if (lavaMizer <= 0.5f && goingSmall && lavaWaiter >= 40)
+            else if (lavaMizer <= 0.5f && goingSmall && lavaWaiter >= 20)
             {
                 Debug.Log("going smaller");
-                lavaIncrement = 0.025f;
+               
+                lavaIncrement = 0.01f;                
                 goingBig = true;
                 goingSmall = false;
-                lavaWaiter = 0;
+                lavaWaiter = 0;               
             }            
             
             lavaWaiter++;
-            //lavaWaiter2++;
+            
             //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
 
             transform.localScale = new Vector3(newScale, newScale, newScale);
