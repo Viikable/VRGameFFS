@@ -25,7 +25,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     public static bool melterIsReady = false;
    
     private void Awake()
-    {       
+    {              
         MetalSounds1 = transform.Find("MetalSounds1").GetComponent<AudioSource>();
         MetalSounds2 = transform.Find("MetalSounds2").GetComponent<AudioSource>();
         MetalSounds3 = transform.Find("MetalSounds3").GetComponent<AudioSource>();
@@ -85,8 +85,8 @@ public class MetalHitsTheFan : MonoBehaviour {
     {
         
         randomizer = Random.Range(1,7);      //so between 1-6
-        float newScale = Mathf.Lerp(1, 0f, meltingTime);
-        if (insideTheMelter && melterIsReady)
+        float newScale = Mathf.Lerp(1, 0f, meltingTime); //kinda unnecessary but left here for practice reasons
+        if (insideTheMelter && melterIsReady) //check if the  insidethemelter is true after scaling the first ones
         {
             LavaAnim.SetBool("Rise", true);
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseScale", lavaMizer);
@@ -116,11 +116,14 @@ public class MetalHitsTheFan : MonoBehaviour {
             }            
             
             lavaWaiter++;
-            
-            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
 
-            transform.localScale = new Vector3(newScale, newScale, newScale);
-            meltingTime += 0.1f * Time.deltaTime;       //makes the object disappear
+            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
+            if (this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3" || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6")
+            {
+                transform.localScale = new Vector3(newScale, newScale, newScale);
+                meltingTime += 0.1f * Time.deltaTime;       //makes the object disappear
+                insideTheMelter = false;
+            }
         }
     }
 }
