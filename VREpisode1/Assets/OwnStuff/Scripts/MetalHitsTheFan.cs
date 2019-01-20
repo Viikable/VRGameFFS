@@ -88,7 +88,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         float newScale = Mathf.Lerp(1, 0f, meltingTime); //kinda unnecessary but left here for practice reasons
         if (insideTheMelter && melterIsReady) //check if the  insidethemelter is true after scaling the first ones
         {
-            LavaAnim.SetBool("Rise", true);
+            //LavaAnim.SetBool("Rise", true);
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseScale", lavaMizer);
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseFrequency", lavaFrequencyMizer);
             //Lava.GetComponent<MeshRenderer>().material.SetVector("_NoiseOffset", new Vector4(lavaFrequencyMizer, lavaFrequencyMizer, lavaFrequencyMizer, 0));

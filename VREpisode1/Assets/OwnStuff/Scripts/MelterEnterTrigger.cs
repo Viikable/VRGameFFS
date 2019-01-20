@@ -18,7 +18,13 @@ public class MelterEnterTrigger : MonoBehaviour
     [Tooltip("Has the lid gone down yet?")]
     private bool notMeltedYet;
 
+    [SerializeField]
+    [Tooltip("can we lift the lid now?")]
+    private bool liftable;
+
     Animator PoolLid;
+
+    Animator LavaAnim;
 
     [SerializeField]
     [Tooltip("Shuts the melter lid")]
@@ -68,11 +74,11 @@ public class MelterEnterTrigger : MonoBehaviour
         metalTransforms.Add(PressedMetalTrans5);
         metalTransforms.Add(PressedMetalTrans6);
         PressedMetal1 = GameObject.Find("PressedMetal1");
-        PressedMetal1 = GameObject.Find("PressedMetal2");
-        PressedMetal1 = GameObject.Find("PressedMetal3");
-        PressedMetal1 = GameObject.Find("PressedMetal4");
-        PressedMetal1 = GameObject.Find("PressedMetal5");
-        PressedMetal1 = GameObject.Find("PressedMetal6");
+        PressedMetal2 = GameObject.Find("PressedMetal2");
+        PressedMetal3 = GameObject.Find("PressedMetal3");
+        PressedMetal4 = GameObject.Find("PressedMetal4");
+        PressedMetal5 = GameObject.Find("PressedMetal5");
+        PressedMetal6 = GameObject.Find("PressedMetal6");
         PressedMetalTrans1 = PressedMetal1.transform;             //so we can easily reset the picked up compressed boxes back into the correct positions when remelting
         PressedMetalTrans2 = PressedMetal2.transform;
         PressedMetalTrans3 = PressedMetal3.transform;
@@ -80,10 +86,12 @@ public class MelterEnterTrigger : MonoBehaviour
         PressedMetalTrans5 = PressedMetal5.transform;
         PressedMetalTrans6 = PressedMetal6.transform;
         notMeltedYet = true;
+        liftable = false;
         MelterPresserDeActivatorButton = GameObject.Find("MelterPresserDeActivatorButton");
         MelterMeltPressActivatorButton = GameObject.Find("MelterMeltPressActivatorButton");
         MelterPressPressActivatorButton = GameObject.Find("MelterPressPressActivatorButton");
         PoolLid = GameObject.Find("PoolLidAnimated").GetComponent<Animator>();
+        LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
         melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
         amountOfMeltedObjects = 0;
     }
@@ -112,7 +120,7 @@ public class MelterEnterTrigger : MonoBehaviour
         if (amountOfMeltedObjects >= 6 && MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f
             && MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && !notMeltedYet)
         {
-            MetalHitsTheFan.melterIsReady = true;      //causes the press to go down after melting to compress metal
+                 //causes the press to go down after melting to compress metal
             PoolLid.SetBool("Press", true);
             PoolLid.SetBool("Melt", true);
             PoolLid.speed = 1f;
@@ -144,8 +152,10 @@ public class MelterEnterTrigger : MonoBehaviour
             && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
         {
             notMeltedYet = false;
+            MetalHitsTheFan.melterIsReady = true;   //melter is ready
+            LavaAnim.SetBool("Rise", true);
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            PoolLid.speed = 1f;
+            LavaAnim.speed = 1f;
             if (PoolLid.GetBool("Melt") == false)
             {
                 PoolLid.SetBool("Melt", true);            //causes press to go down to melt metal into lava
@@ -161,7 +171,8 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             notMeltedYet = false;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            PoolLid.speed = 1f;
+            LavaAnim.SetBool("Rise", true);
+            LavaAnim.speed = 1f;
             if (PoolLid.GetBool("Melt") == false)
             {
                 PoolLid.SetBool("Melt", true);            //causes press to go down to melt metal into lava
@@ -178,7 +189,8 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             notMeltedYet = false;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            PoolLid.speed = 1f;
+            LavaAnim.SetBool("Rise", true);
+            LavaAnim.speed = 1f;
             if (PoolLid.GetBool("Melt") == false)
             {
                 PoolLid.SetBool("Melt", true);            //causes press to go down to melt metal into lava
@@ -195,7 +207,8 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             notMeltedYet = false;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            PoolLid.speed = 1f;
+            LavaAnim.SetBool("Rise", true);
+            LavaAnim.speed = 1f;
             if (PoolLid.GetBool("Melt") == false)
             {
                 PoolLid.SetBool("Melt", true);            //causes press to go down to melt metal into lava
@@ -212,7 +225,8 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             notMeltedYet = false;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            PoolLid.speed = 1f;
+            LavaAnim.SetBool("Rise", true);
+            LavaAnim.speed = 1f;
             if (PoolLid.GetBool("Melt") == false)
             {
                 PoolLid.SetBool("Melt", true);            //causes press to go down to melt metal into lava
@@ -229,7 +243,8 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             notMeltedYet = false;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            PoolLid.speed = 1f;
+            LavaAnim.SetBool("Rise", true);
+            LavaAnim.speed = 1f;
             if (PoolLid.GetBool("Melt") == false)
             {
                 PoolLid.SetBool("Melt", true);            //causes press to go down to melt metal into lava
@@ -249,11 +264,11 @@ public class MelterEnterTrigger : MonoBehaviour
         }
         //What happens when the melterlifterbutton is pressed
         if (MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed
-            && MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
+            && MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f && liftable)
         {
-            PoolLid.SetBool("Melt", false);
-            PoolLid.speed = 1f;
+            PoolLid.SetBool("Melt", false);           
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            liftable = false;
             //the press goes back up
         }
 
@@ -269,6 +284,7 @@ public class MelterEnterTrigger : MonoBehaviour
             {
                 Debug.Log("stayPressedMelter");
                 MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+                liftable = true;
             }
         }
         else
@@ -286,69 +302,70 @@ public class MelterEnterTrigger : MonoBehaviour
             {
                 MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
                 Debug.Log("ReadyToReMelt");
+                liftable = true;
+                LavaAnim.SetBool("Rise", false);
+                int amount = 1;     //this helps with the iteration of the objects
 
+                foreach (GameObject metalPart in GameObject.FindGameObjectsWithTag("ConveyorBeltMetal"))
+                {
+                    if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 1)
+                    {
+
+                        metalPart.transform.position = metalTransforms[index1].position;
+                        metalPart.transform.rotation = metalTransforms[index1].rotation;
+                        metalPart.GetComponent<Collider>().enabled = true;
+                        metalPart.GetComponent<MeshRenderer>().enabled = true;
+                        metalPart.GetComponent<Rigidbody>().useGravity = true;
+
+                    }
+                    if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 2)
+                    {
+
+                        metalPart.transform.position = metalTransforms[index2].position;
+                        metalPart.transform.rotation = metalTransforms[index2].rotation;
+                        metalPart.GetComponent<Collider>().enabled = true;
+                        metalPart.GetComponent<MeshRenderer>().enabled = true;
+                        metalPart.GetComponent<Rigidbody>().useGravity = true;
+                    }
+                    if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 3)
+                    {
+
+                        metalPart.transform.position = metalTransforms[index3].position;
+                        metalPart.transform.rotation = metalTransforms[index3].rotation;
+                        metalPart.GetComponent<Collider>().enabled = true;
+                        metalPart.GetComponent<MeshRenderer>().enabled = true;
+                        metalPart.GetComponent<Rigidbody>().useGravity = true;
+                    }
+                    if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 4)
+                    {
+
+                        metalPart.transform.position = metalTransforms[index4].position;
+                        metalPart.transform.rotation = metalTransforms[index4].rotation;
+                        metalPart.GetComponent<Collider>().enabled = true;
+                        metalPart.GetComponent<MeshRenderer>().enabled = true;
+                        metalPart.GetComponent<Rigidbody>().useGravity = true;
+                    }
+                    if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 5)
+                    {
+
+                        metalPart.transform.position = metalTransforms[index5].position;
+                        metalPart.transform.rotation = metalTransforms[index5].rotation;
+                        metalPart.GetComponent<Collider>().enabled = true;
+                        metalPart.GetComponent<MeshRenderer>().enabled = true;
+                        metalPart.GetComponent<Rigidbody>().useGravity = true;
+                    }
+                    if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 6)
+                    {
+
+                        metalPart.transform.position = metalTransforms[index6].position;
+                        metalPart.transform.rotation = metalTransforms[index6].rotation;
+                        metalPart.GetComponent<Collider>().enabled = true;
+                        metalPart.GetComponent<MeshRenderer>().enabled = true;
+                        metalPart.GetComponent<Rigidbody>().useGravity = true;
+                    }
+                    amount++;
+                }
             }
-            int amount = 1;     //this helps with the iteration of the objects
-
-            foreach (GameObject metalPart in GameObject.FindGameObjectsWithTag("ConveyorBeltMetal"))
-            {
-                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 1)
-                {
-
-                    metalPart.transform.position = metalTransforms[index1].position;
-                    metalPart.transform.rotation = metalTransforms[index1].rotation;
-                    metalPart.GetComponent<Collider>().enabled = true;
-                    metalPart.GetComponent<MeshRenderer>().enabled = true;
-                    metalPart.GetComponent<Rigidbody>().useGravity = true;
-
-                }
-                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 2)
-                {
-
-                    metalPart.transform.position = metalTransforms[index2].position;
-                    metalPart.transform.rotation = metalTransforms[index2].rotation;
-                    metalPart.GetComponent<Collider>().enabled = true;
-                    metalPart.GetComponent<MeshRenderer>().enabled = true;
-                    metalPart.GetComponent<Rigidbody>().useGravity = true;
-                }
-                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 3)
-                {
-
-                    metalPart.transform.position = metalTransforms[index3].position;
-                    metalPart.transform.rotation = metalTransforms[index3].rotation;
-                    metalPart.GetComponent<Collider>().enabled = true;
-                    metalPart.GetComponent<MeshRenderer>().enabled = true;
-                    metalPart.GetComponent<Rigidbody>().useGravity = true;
-                }
-                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 4)
-                {
-
-                    metalPart.transform.position = metalTransforms[index4].position;
-                    metalPart.transform.rotation = metalTransforms[index4].rotation;
-                    metalPart.GetComponent<Collider>().enabled = true;
-                    metalPart.GetComponent<MeshRenderer>().enabled = true;
-                    metalPart.GetComponent<Rigidbody>().useGravity = true;
-                }
-                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 4)
-                {
-
-                    metalPart.transform.position = metalTransforms[index5].position;
-                    metalPart.transform.rotation = metalTransforms[index5].rotation;
-                    metalPart.GetComponent<Collider>().enabled = true;
-                    metalPart.GetComponent<MeshRenderer>().enabled = true;
-                    metalPart.GetComponent<Rigidbody>().useGravity = true;
-                }
-                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 4)
-                {
-
-                    metalPart.transform.position = metalTransforms[index6].position;
-                    metalPart.transform.rotation = metalTransforms[index6].rotation;
-                    metalPart.GetComponent<Collider>().enabled = true;
-                    metalPart.GetComponent<MeshRenderer>().enabled = true;
-                    metalPart.GetComponent<Rigidbody>().useGravity = true;
-                }
-                amount++;
-            }                             
         }
         else
         {
@@ -360,7 +377,7 @@ public class MelterEnterTrigger : MonoBehaviour
     IEnumerator AdjustLavaHeight(float animationTime)     //this stops the animation at a certain height
     {
         yield return new WaitForSecondsRealtime(animationTime);
-        PoolLid.speed = 0f;
+        LavaAnim.speed = 0f;
     }
  }
 
