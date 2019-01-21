@@ -43,6 +43,10 @@ public class MetalHitsTheFan : MonoBehaviour {
         insideTheMelter = false;
         Lava = GameObject.Find("LavaSurface");
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
+        if (this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6")
+        {
+            insideTheMelter = true;
+        }
     }
 
     public bool InsideTheMelter
@@ -86,9 +90,8 @@ public class MetalHitsTheFan : MonoBehaviour {
         
         randomizer = Random.Range(1,7);      //so between 1-6
         float newScale = Mathf.Lerp(1, 0f, meltingTime); //kinda unnecessary but left here for practice reasons
-        if (insideTheMelter && melterIsReady) //check if the  insidethemelter is true after scaling the first ones
+        if (melterIsReady) 
         {
-            //LavaAnim.SetBool("Rise", true);
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseScale", lavaMizer);
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseFrequency", lavaFrequencyMizer);
             //Lava.GetComponent<MeshRenderer>().material.SetVector("_NoiseOffset", new Vector4(lavaFrequencyMizer, lavaFrequencyMizer, lavaFrequencyMizer, 0));
@@ -118,11 +121,11 @@ public class MetalHitsTheFan : MonoBehaviour {
             lavaWaiter++;
 
             //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
-            if (this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3" || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6")
+            if (insideTheMelter && this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3" || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6")
             {
                 transform.localScale = new Vector3(newScale, newScale, newScale);
                 meltingTime += 0.1f * Time.deltaTime;       //makes the object disappear
-                insideTheMelter = false;
+                insideTheMelter = false;   ///HUOM, KATSO ETTÄ AINAKIN JOKU OSA ON insideTheMelter jotta menee läpi
             }
         }
     }
