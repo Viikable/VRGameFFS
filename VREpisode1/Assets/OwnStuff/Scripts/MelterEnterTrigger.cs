@@ -59,6 +59,12 @@ public class MelterEnterTrigger : MonoBehaviour
     int index5;
     int index6;
 
+    GameObject MetalPiece1;
+    GameObject MetalPiece2;
+    GameObject MetalPiece3;
+    GameObject MetalPiece4;
+    GameObject MetalPiece5;
+    GameObject MetalPiece6;
     List<Vector3> metalTransforms = new List<Vector3>();
     
     private void Start()
@@ -96,6 +102,12 @@ public class MelterEnterTrigger : MonoBehaviour
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
         melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
         amountOfMeltedObjects = 0;
+        MetalPiece1 = GameObject.Find("MetalPiece1");
+        MetalPiece1 = GameObject.Find("MetalPiece2");
+        MetalPiece1 = GameObject.Find("MetalPiece3");
+        MetalPiece1 = GameObject.Find("MetalPiece4");
+        MetalPiece1 = GameObject.Find("MetalPiece5");
+        MetalPiece1 = GameObject.Find("MetalPiece6");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -285,13 +297,14 @@ public class MelterEnterTrigger : MonoBehaviour
             yield return new WaitForSecondsRealtime(10);  //animation takes 5 seconds, then add press sounds for 5 secs           
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;           
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            liftable = true;           
-            GameObject.Find("MetalPiece1").SetActive(false);
-            GameObject.Find("MetalPiece2").SetActive(false);
-            GameObject.Find("MetalPiece3").SetActive(false);
-            GameObject.Find("MetalPiece4").SetActive(false);
-            GameObject.Find("MetalPiece5").SetActive(false);
-            GameObject.Find("MetalPiece6").SetActive(false);
+            liftable = true; 
+            if (MetalPiece1 != null && MetalPiece2 != null && MetalPiece3 != null && MetalPiece4 != null && MetalPiece5 != null && MetalPiece6 != null)
+            MetalPiece1.SetActive(false);
+            MetalPiece2.SetActive(false);
+            MetalPiece3.SetActive(false);
+            MetalPiece4.SetActive(false);
+            MetalPiece5.SetActive(false);
+            MetalPiece6.SetActive(false);
             int amount = 1;
             foreach (GameObject metalPart in GameObject.FindGameObjectsWithTag("ConveyorBeltMetal"))
             {

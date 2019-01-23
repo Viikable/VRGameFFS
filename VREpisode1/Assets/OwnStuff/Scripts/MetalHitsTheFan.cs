@@ -46,6 +46,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         Lava = GameObject.Find("LavaSurface");
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
         trigger = GameObject.Find("MelterObjectRegistererCollider").GetComponent<MelterEnterTrigger>();
+        begone = false;
     }
 
     public bool InsideTheMelter
@@ -87,7 +88,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     private void Update()
     {
         Debug.Log(begone);
-        if (trigger.notMeltedYet)
+        if (trigger.notMeltedYet == false)
         {
             begone = true;
         }
@@ -128,8 +129,8 @@ public class MetalHitsTheFan : MonoBehaviour {
                 insideTheMelter = false;
             }
             //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
-            if (this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3"
-            || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6" && begone)
+            if ((this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3"
+            || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6") && begone == true)
             {
                 Debug.Log("Useless");
                 transform.localScale = new Vector3(newScale, newScale, newScale);                

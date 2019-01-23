@@ -190,7 +190,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             time++;
         }
-        if (time > 160)
+        if (time > 130)
         {
             beltHasMovedDown = true;
             time = 0f;
@@ -204,7 +204,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             timeUp++;
         }
-        if (timeUp > 190)
+        if (timeUp > 180)
         {
             Debug.Log("belt has moved up");
             beltHasMovedUp = true;
