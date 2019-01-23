@@ -12,6 +12,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds6;
     Animator LavaAnim;
     GameObject Lava;
+    MelterEnterTrigger trigger;
     int randomizer;
     int lavaWaiter;
     int randomLavaValue;
@@ -23,6 +24,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     bool goingSmall;
     static float meltingTime = 0.0f;
     public static bool melterIsReady = false;
+    public bool begone = false; //indicates when we get rid of the original metal
    
     private void Awake()
     {              
@@ -43,10 +45,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         insideTheMelter = false;
         Lava = GameObject.Find("LavaSurface");
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
-        if (this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6")
-        {
-            insideTheMelter = true;
-        }
+        trigger = GameObject.Find("MelterObjectRegistererCollider").GetComponent<MelterEnterTrigger>();
     }
 
     public bool InsideTheMelter
@@ -87,9 +86,13 @@ public class MetalHitsTheFan : MonoBehaviour {
     }      
     private void Update()
     {
-        
+        Debug.Log(begone);
+        if (trigger.notMeltedYet)
+        {
+            begone = true;
+        }
         randomizer = Random.Range(1,7);      //so between 1-6
-        float newScale = Mathf.Lerp(1, 0f, meltingTime); //kinda unnecessary but left here for practice reasons
+        float newScale = Mathf.Lerp(0.23f, 0f, meltingTime); //kinda unnecessary but left here for practice reasons
         if (melterIsReady) 
         {
             Lava.GetComponent<MeshRenderer>().material.SetFloat("_NoiseScale", lavaMizer);
@@ -119,13 +122,23 @@ public class MetalHitsTheFan : MonoBehaviour {
             }            
             
             lavaWaiter++;
-
-            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
-            if (insideTheMelter && this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3" || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6")
+            if (insideTheMelter && this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3"
+                || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6")
             {
-                transform.localScale = new Vector3(newScale, newScale, newScale);
-                meltingTime += 0.1f * Time.deltaTime;       //makes the object disappear
-                insideTheMelter = false;   ///HUOM, KATSO ETTÄ AINAKIN JOKU OSA ON insideTheMelter jotta menee läpi
+                insideTheMelter = false;
+            }
+            //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
+            if (this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3"
+            || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6" && begone)
+            {
+                Debug.Log("Useless");
+                transform.localScale = new Vector3(newScale, newScale, newScale);                
+                meltingTime += 0.1f * Time.deltaTime;       //makes the object disappear 
+                this.tag = "Useless";
+            }
+            if (this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6")
+            {
+                insideTheMelter = true;
             }
         }
     }

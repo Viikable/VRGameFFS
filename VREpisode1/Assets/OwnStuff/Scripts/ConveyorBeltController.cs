@@ -11,7 +11,7 @@ public class ConveyorBeltController : MonoBehaviour
 
     Animator anim3;
 
-    Animator anim4;  
+    Animator anim4;
 
     AudioSource ConveyorAudio;
 
@@ -136,49 +136,49 @@ public class ConveyorBeltController : MonoBehaviour
     }
     public void CheckButtonPress()    //to see when the buttons controlling the conveyor belts are pressed down
     {
-        if (!beltsMoving && ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
+        if (!beltsMoving && ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
         {
 
             Debug.Log("pressed1");
             beltsMoving = true;
             ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f )
+            if (ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
             {
                 Debug.Log("pressed1while3");
                 ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             }
         }
-        else if (!beltsPaused && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f)
+        else if (!beltsPaused && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
         {
 
             Debug.Log("pressed3");
             beltsPaused = true;
             ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f )
+            if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
             {
                 ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
                 Debug.Log("pressed3while1");
             }
         }
-        if (ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f && ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
-        {            
-           
+        if (ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true && ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
+        {
+
             if (beltsMoving)
             {
-               
+
                 if (oddPress && !beltMovingUp)
                 {
                     Debug.Log("Oddpress");
                     beltMovingUp = false;
                     beltMovingDown = true;
-                    oddPress = false;                    
+                    oddPress = false;
                 }
                 else if (evenPress && !beltMovingDown)
                 {
                     Debug.Log("evenpress");
                     beltMovingDown = false;
                     beltMovingUp = true;
-                    evenPress = false;                   
+                    evenPress = false;
                 }
             }
         }
@@ -190,7 +190,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             time++;
         }
-        if (time > 170)
+        if (time > 160)
         {
             beltHasMovedDown = true;
             time = 0f;
@@ -204,7 +204,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             timeUp++;
         }
-        if (timeUp > 210)
+        if (timeUp > 190)
         {
             Debug.Log("belt has moved up");
             beltHasMovedUp = true;
@@ -234,9 +234,9 @@ public class ConveyorBeltController : MonoBehaviour
                 anim2.speed = 2f;
                 anim3.speed = 2f;
                 anim4.speed = 2f;
-                animVino.speed = 2f;                                   
+                animVino.speed = 2f;
                 animDown.speed = 1f;
-                
+
                 beltsPaused = false;
 
                 Debug.Log("belt movement continues");
@@ -267,7 +267,7 @@ public class ConveyorBeltController : MonoBehaviour
             //stops the sound and movement of all conveyorbelts
             if (!notPlaying)
             {
-               
+
                 anim.speed = 0f;
                 anim2.speed = 0f;
                 anim3.speed = 0f;
@@ -284,9 +284,9 @@ public class ConveyorBeltController : MonoBehaviour
         }
 
         if (beltMovingUp)
-            {
+        {
             //beltHasMovedDown = false;
-           
+
             animDown.SetBool("Up", true);
             foreach (Collider col in DownConveyorBelt.GetComponentsInChildren<Collider>())
             {
@@ -296,7 +296,8 @@ public class ConveyorBeltController : MonoBehaviour
             {
                 rend.enabled = true;
             }
-            foreach (Collider col in VinoConveyorBelt.GetComponentsInChildren<Collider>()) {
+            foreach (Collider col in VinoConveyorBelt.GetComponentsInChildren<Collider>())
+            {
                 col.enabled = false;
             }
             foreach (MeshRenderer rend in VinoConveyorBelt.GetComponentsInChildren<MeshRenderer>())
@@ -305,7 +306,7 @@ public class ConveyorBeltController : MonoBehaviour
             }
             animVino.SetBool("Start", false);
             //animVino.SetBool("Disappear", true);      //replaced
-            }                                                                
+        }
         if (beltHasMovedDown && pressedIt)
         {
             Debug.Log("DOWN");
@@ -329,9 +330,9 @@ public class ConveyorBeltController : MonoBehaviour
         if (beltHasMovedUp && pressedIt2)
         {
             Debug.Log("UP");
-            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;            
+            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             anim.SetBool("Start", true);
-            foreach (Collider col in MiddleConveyorBelt.GetComponentsInChildren<Collider>())     
+            foreach (Collider col in MiddleConveyorBelt.GetComponentsInChildren<Collider>())
             {
                 col.enabled = true;
             }
@@ -361,13 +362,14 @@ public class ConveyorBeltController : MonoBehaviour
     IEnumerator WaitDown()
     {
         Debug.Log("waitdowncor");
-        if (beltHasMovedDown) {            
-            yield return new WaitForSecondsRealtime(0.35f);
+        if (beltHasMovedDown)
+        {
+            yield return new WaitForSecondsRealtime(0.15f);
             evenPress = true;
             beltHasMovedDown = false;
             pressedIt = true;
-            
-           
+
+
 
             //StartCoroutine("OkayThen2");
         }
@@ -377,34 +379,14 @@ public class ConveyorBeltController : MonoBehaviour
         Debug.Log("waitupcor");
         if (beltHasMovedUp)
         {
-        yield return new WaitForSecondsRealtime(0.35f);
-           
+            yield return new WaitForSecondsRealtime(0.15f);
+
             oddPress = true;
             beltHasMovedUp = false;
             pressedIt2 = true;
-           
+
             //StartCoroutine("OkayThen");
         }
     }
-    IEnumerator OkayThen()
-    {
-        yield return new WaitForSecondsRealtime(0.25f);
-        if (yep)
-        {
-            Debug.Log("stayPressed");
-            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            yep = false;
-        }
-    }
-    IEnumerator OkayThen2()
-    {
-        yield return new WaitForSecondsRealtime(0.25f);
-        if (yep2)
-        {
-            Debug.Log("stayPressed");
-            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            yep2 = false;
-        }
-    }                      
 }
 
