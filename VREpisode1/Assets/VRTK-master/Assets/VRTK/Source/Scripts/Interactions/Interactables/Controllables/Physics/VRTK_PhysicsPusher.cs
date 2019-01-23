@@ -284,7 +284,7 @@ namespace VRTK.Controllables.PhysicsBased
         }       
         protected virtual void StayPressed()
         {
-            if (stayPressed && !pressedDown)
+            if (stayPressed)
             {
                 SetRigidbodyConstraints(RigidbodyConstraints.FreezeAll);
                 pressedDown = true;

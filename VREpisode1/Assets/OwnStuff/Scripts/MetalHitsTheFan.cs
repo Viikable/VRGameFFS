@@ -100,7 +100,7 @@ public class MetalHitsTheFan : MonoBehaviour {
             lavaFrequencyMizer += lavaIncrement / 8;
             if (lavaMizer >= 0.9f && goingBig && lavaWaiter >= 20)
             {
-                Debug.Log("going bigger");
+                //Debug.Log("going bigger");
                 
                 lavaIncrement = -0.01f;
                 
@@ -110,7 +110,7 @@ public class MetalHitsTheFan : MonoBehaviour {
             }
             else if (lavaMizer <= 0.5f && goingSmall && lavaWaiter >= 20)
             {
-                Debug.Log("going smaller");
+                //Debug.Log("going smaller");
                
                 lavaIncrement = 0.01f;                
                 goingBig = true;
