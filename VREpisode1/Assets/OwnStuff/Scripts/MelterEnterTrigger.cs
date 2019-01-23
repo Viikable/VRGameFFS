@@ -293,18 +293,19 @@ public class MelterEnterTrigger : MonoBehaviour
     {
         if (amountOfMeltedObjects != 0)  //sets it instaback if is 0
         {
-            MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;      
+            MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             yield return new WaitForSecondsRealtime(10);  //animation takes 5 seconds, then add press sounds for 5 secs           
-            MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;           
+            MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            liftable = true; 
-            if (MetalPiece1 != null && MetalPiece2 != null && MetalPiece3 != null && MetalPiece4 != null && MetalPiece5 != null && MetalPiece6 != null)
-            MetalPiece1.SetActive(false);
+            liftable = true;
+            if (MetalPiece1 != null && MetalPiece2 != null && MetalPiece3 != null && MetalPiece4 != null && MetalPiece5 != null && MetalPiece6 != null) { 
+             MetalPiece1.SetActive(false);
             MetalPiece2.SetActive(false);
             MetalPiece3.SetActive(false);
             MetalPiece4.SetActive(false);
             MetalPiece5.SetActive(false);
             MetalPiece6.SetActive(false);
+            }
             int amount = 1;
             foreach (GameObject metalPart in GameObject.FindGameObjectsWithTag("ConveyorBeltMetal"))
             {

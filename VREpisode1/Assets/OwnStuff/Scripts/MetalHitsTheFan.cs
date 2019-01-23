@@ -25,6 +25,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     static float meltingTime = 0.0f;
     public static bool melterIsReady = false;
     public bool begone = false; //indicates when we get rid of the original metal
+    bool fuck;
    
     private void Awake()
     {              
@@ -47,6 +48,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
         trigger = GameObject.Find("MelterObjectRegistererCollider").GetComponent<MelterEnterTrigger>();
         begone = false;
+        fuck = true;
     }
 
     public bool InsideTheMelter
@@ -134,12 +136,13 @@ public class MetalHitsTheFan : MonoBehaviour {
             {
                 Debug.Log("Useless");
                 transform.localScale = new Vector3(newScale, newScale, newScale);                
-                meltingTime += 0.1f * Time.deltaTime;       //makes the object disappear 
+                meltingTime += 0.2f * Time.deltaTime;       //makes the object disappear 
                 this.tag = "Useless";
             }
-            if (this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6")
+            if (this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6" && fuck)
             {
                 insideTheMelter = true;
+                fuck = false;
             }
         }
     }
