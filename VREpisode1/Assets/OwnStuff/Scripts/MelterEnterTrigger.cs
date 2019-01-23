@@ -103,11 +103,11 @@ public class MelterEnterTrigger : MonoBehaviour
         melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
         amountOfMeltedObjects = 0;
         MetalPiece1 = GameObject.Find("MetalPiece1");
-        MetalPiece1 = GameObject.Find("MetalPiece2");
-        MetalPiece1 = GameObject.Find("MetalPiece3");
-        MetalPiece1 = GameObject.Find("MetalPiece4");
-        MetalPiece1 = GameObject.Find("MetalPiece5");
-        MetalPiece1 = GameObject.Find("MetalPiece6");
+        MetalPiece2 = GameObject.Find("MetalPiece2");
+        MetalPiece3 = GameObject.Find("MetalPiece3");
+        MetalPiece4 = GameObject.Find("MetalPiece4");
+        MetalPiece5 = GameObject.Find("MetalPiece5");
+        MetalPiece6 = GameObject.Find("MetalPiece6");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -299,7 +299,7 @@ public class MelterEnterTrigger : MonoBehaviour
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             liftable = true;
             if (MetalPiece1 != null && MetalPiece2 != null && MetalPiece3 != null && MetalPiece4 != null && MetalPiece5 != null && MetalPiece6 != null) { 
-             MetalPiece1.SetActive(false);
+            MetalPiece1.SetActive(false);
             MetalPiece2.SetActive(false);
             MetalPiece3.SetActive(false);
             MetalPiece4.SetActive(false);
@@ -309,7 +309,7 @@ public class MelterEnterTrigger : MonoBehaviour
             int amount = 1;
             foreach (GameObject metalPart in GameObject.FindGameObjectsWithTag("ConveyorBeltMetal"))
             {
-                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter && amount == 1)
+                if (metalPart.GetComponent<MetalHitsTheFan>().InsideTheMelter == true && amount == 1)
                 {
                     metalPart.GetComponent<Rigidbody>().isKinematic = true;
                     metalPart.GetComponent<Rigidbody>().useGravity = false;
