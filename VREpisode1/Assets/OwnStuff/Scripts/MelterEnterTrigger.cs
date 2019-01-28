@@ -117,7 +117,7 @@ public class MelterEnterTrigger : MonoBehaviour
             amountOfMeltedObjects += 1;
             melterText.text = amountOfMeltedObjects.ToString();
             other.GetComponent<MetalHitsTheFan>().InsideTheMelter = true;
-            if (amountOfMeltedObjects == 6)
+            if (amountOfMeltedObjects == 6 && !MetalHitsTheFan.notCompletelyInsideMelter)
             {
                 melterText.color = Color.green;
                 MetalHitsTheFan.melterIsReady = true;   //melter is ready
@@ -177,7 +177,7 @@ public class MelterEnterTrigger : MonoBehaviour
 
         //MELTING CASES
         if (amountOfMeltedObjects >= 6 && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true
-            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady)
+            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady && !MetalHitsTheFan.notCompletelyInsideMelter)
         {
             Debug.Log("melt with 6");
             notMeltedYet = false;           
@@ -190,7 +190,7 @@ public class MelterEnterTrigger : MonoBehaviour
             StartCoroutine("WaitForMelting");
         }
         if (amountOfMeltedObjects == 5 && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true
-            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady)
+            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady && !MetalHitsTheFan.notCompletelyInsideMelter)
         {
             notMeltedYet = false;
             //MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
@@ -202,7 +202,7 @@ public class MelterEnterTrigger : MonoBehaviour
             StartCoroutine("WaitForMelting");
         }
         if (amountOfMeltedObjects == 4 && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true
-           && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady)
+           && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady && !MetalHitsTheFan.notCompletelyInsideMelter)
         {
             notMeltedYet = false;
             //MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
@@ -214,7 +214,7 @@ public class MelterEnterTrigger : MonoBehaviour
             StartCoroutine("WaitForMelting");
         }
         if (amountOfMeltedObjects == 3 && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true
-           && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady)
+           && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady && !MetalHitsTheFan.notCompletelyInsideMelter)
         {
             notMeltedYet = false;
             //MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
@@ -227,7 +227,7 @@ public class MelterEnterTrigger : MonoBehaviour
         }
 
         if (amountOfMeltedObjects == 2 && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true
-            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady)
+            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady && !MetalHitsTheFan.notCompletelyInsideMelter)
         {
             notMeltedYet = false;
             //MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
@@ -239,7 +239,7 @@ public class MelterEnterTrigger : MonoBehaviour
             StartCoroutine("WaitForMelting");
         }
         if (amountOfMeltedObjects == 1 && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true
-            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady)
+            && notMeltedYet && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed && MetalHitsTheFan.melterIsReady && !MetalHitsTheFan.notCompletelyInsideMelter)
         {
             notMeltedYet = false;
             //MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;

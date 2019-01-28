@@ -22,6 +22,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     bool insideTheMelter;
     bool goingBig;
     bool goingSmall;
+    public static bool notCompletelyInsideMelter;
     static float meltingTime = 0.0f;
     public static bool melterIsReady = false;
     public bool begone = false; //indicates when we get rid of the original metal
@@ -37,6 +38,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         MetalSounds6 = transform.Find("MetalSounds6").GetComponent<AudioSource>();
         goingBig = true;
         goingSmall = false;
+        notCompletelyInsideMelter = false;
         randomizer = 0;
         lavaWaiter = 0;
         randomLavaValue = 0;
