@@ -138,11 +138,17 @@ public class MetalHitsTheFan : MonoBehaviour {
                 transform.localScale = new Vector3(newScale, newScale, newScale);                
                 meltingTime += 0.2f * Time.deltaTime;       //makes the object disappear 
                 this.tag = "Useless";
+                if (newScale == 0f && this != null)
+                {
+                    this.gameObject.SetActive(false);
+                    Debug.Log("TurnedOFF");
+                }
             }
-            if (this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6" && fuck)
+            if ((this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6") && fuck)
             {
                 insideTheMelter = true;
                 fuck = false;
+                Debug.Log("fuck");
             }
         }
     }

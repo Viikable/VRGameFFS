@@ -298,14 +298,14 @@ public class MelterEnterTrigger : MonoBehaviour
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             liftable = true;
-            if (MetalPiece1 != null && MetalPiece2 != null && MetalPiece3 != null && MetalPiece4 != null && MetalPiece5 != null && MetalPiece6 != null) { 
-            MetalPiece1.SetActive(false);
-            MetalPiece2.SetActive(false);
-            MetalPiece3.SetActive(false);
-            MetalPiece4.SetActive(false);
-            MetalPiece5.SetActive(false);
-            MetalPiece6.SetActive(false);
-            }
+            //if (MetalPiece1 != null && MetalPiece2 != null && MetalPiece3 != null && MetalPiece4 != null && MetalPiece5 != null && MetalPiece6 != null) { 
+            //MetalPiece1.SetActive(false);
+            //MetalPiece2.SetActive(false);
+            //MetalPiece3.SetActive(false);
+            //MetalPiece4.SetActive(false);
+            //MetalPiece5.SetActive(false);
+            //MetalPiece6.SetActive(false);
+            //}
             int amount = 1;
             foreach (GameObject metalPart in GameObject.FindGameObjectsWithTag("ConveyorBeltMetal"))
             {
@@ -479,18 +479,21 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(1);    //this is so that when no metal in melter the button bounces back
             MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+            Debug.Log("MelterButton bounces back");
         }
     }
     IEnumerator MelterNotReady()
     {
         yield return new WaitForSecondsRealtime(1);    //this is so that when amountofmetal hasnt' reached 6 it bounces back
         MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+        Debug.Log("Not enough metal");
     }
 
     IEnumerator AdjustLavaHeight(float animationTime)     //this stops the animation at a certain height
     {
         yield return new WaitForSecondsRealtime(animationTime);
         LavaAnim.speed = 0f;
+        Debug.Log("adjusting lava height");
     }
  }
 
