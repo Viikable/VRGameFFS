@@ -457,7 +457,7 @@ namespace VRTK
         }
 
         protected virtual void FixedUpdate()
-        {
+        {           
             CheckBodyCollisionsSetting();
             ManageFalling();
             CalculateVelocity();
@@ -465,17 +465,31 @@ namespace VRTK
 
             lastPlayAreaPosition = (playArea != null ? playArea.position : Vector3.zero);
         }
-
         protected virtual void OnCollisionEnter(Collision collision)
         {
-            if (CheckValidCollision(collision.gameObject))
+            if (!collision.collider.CompareTag("ConveyorBeltMetal"))
             {
-                CheckStepUpCollision(collision);
-                currentCollidingObject = collision.gameObject;
-                OnStartColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
+                if (CheckValidCollision(collision.gameObject))
+                {
+                    CheckStepUpCollision(collision);
+                    currentCollidingObject = collision.gameObject;
+                    OnStartColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
+                }
+            }
+            else
+            {
+                if (collision.collider.GetComponent<Rigidbody>() != null)
+                {
+                    collision.collider.GetComponent<Rigidbody>().isKinematic = true;
+                    Debug.Log("setkinematic");
+                }
+                else
+                {
+                    collision.collider.GetComponentInParent<Rigidbody>().isKinematic = true;
+                    Debug.Log("setkinematic");
+                }
             }
         }
-
         protected virtual void OnTriggerEnter(Collider collider)
         {
             if (CheckValidCollision(collider.gameObject))
@@ -485,13 +499,25 @@ namespace VRTK
             }
 
         }
-
         protected virtual void OnCollisionExit(Collision collision)
         {
             if (CheckExistingCollision(collision.gameObject))
             {
                 OnStopColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
                 currentCollidingObject = null;
+            }
+            if (collision.collider.CompareTag("ConveyorBeltMetal"))
+            {
+                if (collision.collider.GetComponent<Rigidbody>() != null)
+                {
+                    collision.collider.GetComponent<Rigidbody>().isKinematic = false;
+                    Debug.Log("setnonkinematic");
+                }
+                else
+                {
+                    collision.collider.GetComponentInParent<Rigidbody>().isKinematic = false;
+                    Debug.Log("setnonkinematic");
+                }
             }
         }
 
@@ -944,11 +970,11 @@ namespace VRTK
         protected virtual void ManagePhysicsCollider(Collider collider, bool state)
         {
             if (bodyCollider != null)
-            {
+            {               
                 Physics.IgnoreCollision(bodyCollider, collider, state);
             }
             if (footCollider != null)
-            {
+            {                
                 Physics.IgnoreCollision(footCollider, collider, state);
             }
         }

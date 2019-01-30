@@ -7,7 +7,7 @@ public class JanitorBroomTransformer : MonoBehaviour {
     [Header("Textures for changing the broom into")]
     [Tooltip("Texture we will change the broom into")]
     public Texture2D CharredBroom;
-    public static bool ChangeBroomColour = false;
+    public bool ChangeBroomColour;
     Renderer rend;
     //private void OnTriggerEnter(Collider other)
     //{
@@ -24,7 +24,7 @@ public class JanitorBroomTransformer : MonoBehaviour {
         rend = GetComponent<MeshRenderer>();
         rend.material.EnableKeyword("_NORMALMAP");
         rend.material.EnableKeyword("_METALLICGLOSSMAP");
-        
+        ChangeBroomColour = false;
 	}
 
     // Update is called once per frame
