@@ -242,8 +242,7 @@ namespace VRTK
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
             CreateNonTouchingRigidbody();
-            CheckPrecognitionGrab();
-
+            CheckPrecognitionGrab();            
 
         }
 

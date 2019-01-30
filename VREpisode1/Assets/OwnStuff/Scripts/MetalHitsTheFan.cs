@@ -61,8 +61,8 @@ public class MetalHitsTheFan : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "ConveyorPart")
-        {
+        //if (other.tag == "ConveyorPart")
+        //{
             if (randomizer == 1)
             {
                 MetalSounds1.Play();
@@ -87,11 +87,10 @@ public class MetalHitsTheFan : MonoBehaviour {
             {
                 MetalSounds6.Play();
             }
-        }
+        //}
     }      
     private void Update()
     {
-        Debug.Log(begone);
         if (trigger.notMeltedYet == false)
         {
             begone = true;
