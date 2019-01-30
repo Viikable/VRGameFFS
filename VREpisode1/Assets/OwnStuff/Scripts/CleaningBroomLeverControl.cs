@@ -22,10 +22,7 @@
         public AudioSource LeverSource;
         public AudioSource LeverSource2;
         public AudioSource LeverSource3;
-        public AudioSource LeverSource4;
-        [Header("Something else")]
-        [Tooltip("The game object which happens to move when we flip the switch")]
-        public GameObject MovingObject;
+        public AudioSource LeverSource4;       
         [Tooltip("The amount of times the broom has been moved from one end to the other")]
         public int BroomSwings;
 
@@ -39,8 +36,7 @@
             LeverSource = LeverAudio.GetComponent<AudioSource>();
             LeverSource2 = LeverAudio2.GetComponent<AudioSource>();
             LeverSource3 = LeverAudio3.GetComponent<AudioSource>();
-            LeverSource4 = LeverAudio4.GetComponent<AudioSource>();
-            MovingObject = GameObject.Find("MovingObject");
+            LeverSource4 = LeverAudio4.GetComponent<AudioSource>();          
             BroomSwings = 0;
             random = Random.Range(0, 2);
         }

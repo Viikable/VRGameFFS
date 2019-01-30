@@ -18,10 +18,10 @@ public class MoltenTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {        
-        if (other.tag == "JanitorBroom")
+        if (other.CompareTag("JanitorBroom"))
         {
             Debug.Log("collidedJanitor");
-            other.GetComponent<JanitorBroomTransformer>().ChangeBroomColour = true;
+            other.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }        
 
     }
