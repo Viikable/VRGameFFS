@@ -480,55 +480,55 @@
 
         //ANIMATION METHODS
 
-        public void StartBroomAnimation(int numberOfTheBroom)
-        {
-            if (playBroomAnimation)
-            {
-                switch (numberOfTheBroom)
-                {
-                    case 1:
-                        Debug.Log("Broom1AnimationHere");
-                        break;
-                    case 2:
-                        Debug.Log("Broom2AnimationHere");
-                        break;
-                    case 3:
-                        Debug.Log("Broom3AnimationHere");
-                        break;
-                    case 4:
-                        Debug.Log("Broom4AnimationHere");
-                        break;
-                    default:
-                        Debug.Log("NoBroomhere");
-                        break;
-                }
-                //play the animation that opens the door with the broom;
+        //public void StartBroomAnimation(int numberOfTheBroom)
+        //{
+        //    if (playBroomAnimation)
+        //    {
+        //        switch (numberOfTheBroom)
+        //        {
+        //            case 1:
+        //                Debug.Log("Broom1AnimationHere");
+        //                break;
+        //            case 2:
+        //                Debug.Log("Broom2AnimationHere");
+        //                break;
+        //            case 3:
+        //                Debug.Log("Broom3AnimationHere");
+        //                break;
+        //            case 4:
+        //                Debug.Log("Broom4AnimationHere");
+        //                break;
+        //            default:
+        //                Debug.Log("NoBroomhere");
+        //                break;
+        //        }
+        //        //play the animation that opens the door with the broom;
 
-            }
-        }
-        public void StartBroomBrokenAnimation(int numberOfTheBroom)
-        {
-            //play the animation that breaks the broom;
-            switch (numberOfTheBroom)
-            {
-                case 1:
-                    Debug.Log("Broom1BreakAnimationHere");
-                    break;
-                case 2:
-                    Debug.Log("Broom2BreakAnimationHere");
-                    break;
-                case 3:
-                    Debug.Log("Broom3BreakAnimationHere");
-                    break;
-                case 4:
-                    Debug.Log("Broom4BreakAnimationHere");
-                    break;
-                default:
-                    Debug.Log("NoBroomhere");
-                    break;
-            }
+        //    }
+        //}
+    //    public void StartBroomBrokenAnimation(int numberOfTheBroom)
+    //    {
+    //        //play the animation that breaks the broom;
+    //        switch (numberOfTheBroom)
+    //        {
+    //            case 1:
+    //                Debug.Log("Broom1BreakAnimationHere");
+    //                break;
+    //            case 2:
+    //                Debug.Log("Broom2BreakAnimationHere");
+    //                break;
+    //            case 3:
+    //                Debug.Log("Broom3BreakAnimationHere");
+    //                break;
+    //            case 4:
+    //                Debug.Log("Broom4BreakAnimationHere");
+    //                break;
+    //            default:
+    //                Debug.Log("NoBroomhere");
+    //                break;
+    //        }
 
-        }
+    //    }
     }
 }
 

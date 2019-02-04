@@ -450,12 +450,12 @@ namespace VRTK
 
         protected virtual void Update()
         {
-            if (currentSnappedObject != null && currentSnappedObject.GetComponent<KeyRope>() != null)
-            {
-                Debug.Log("setropeSnapOn");
+            //if (currentSnappedObject != null && currentSnappedObject.GetComponent<KeyRope>() != null)
+            //{
+            //    Debug.Log("setropeSnapOn");
 
-                Game_Manager.instance.RopeIsAttachedToManual = true;
-            }
+            //    Game_Manager.instance.RopeIsAttachedToManual = true;
+            //}
             //else
             //{
             //    Game_Manager.instance.RopeIsAttachedToManual = false;
@@ -463,42 +463,42 @@ namespace VRTK
 
 
 
-            if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
-            {
-                //int numberOfTheBroom;
-                if (currentSnappedObject.name == "BroomInTheJanitorHouse1")
-                {
-                    Game_Manager.instance.NumberOfTheBroom = 1;
-                }
-                else if (currentSnappedObject.name == "BroomInTheJanitorHouse2")
-                {
-                    Game_Manager.instance.NumberOfTheBroom = 2;
-                }
-                else if (currentSnappedObject.name == "BroomInTheJanitorHouse3")
-                {
-                    Game_Manager.instance.NumberOfTheBroom = 3;
-                }
-                else if (currentSnappedObject.name == "BroomInTheJanitorHouse4")
-                {
-                    Game_Manager.instance.NumberOfTheBroom = 4;
-                }
-                else
-                {
-                    Game_Manager.instance.NumberOfTheBroom = 0;
-                }
+            //if (currentSnappedObject != null && currentSnappedObject.GetComponent<Broom>() != null)
+            //{
+            //    //int numberOfTheBroom;
+            //    if (currentSnappedObject.name == "BroomInTheJanitorHouse1")
+            //    {
+            //        Game_Manager.instance.NumberOfTheBroom = 1;
+            //    }
+            //    else if (currentSnappedObject.name == "BroomInTheJanitorHouse2")
+            //    {
+            //        Game_Manager.instance.NumberOfTheBroom = 2;
+            //    }
+            //    else if (currentSnappedObject.name == "BroomInTheJanitorHouse3")
+            //    {
+            //        Game_Manager.instance.NumberOfTheBroom = 3;
+            //    }
+            //    else if (currentSnappedObject.name == "BroomInTheJanitorHouse4")
+            //    {
+            //        Game_Manager.instance.NumberOfTheBroom = 4;
+            //    }
+            //    else
+            //    {
+            //        Game_Manager.instance.NumberOfTheBroom = 0;
+            //    }
 
-                Game_Manager.instance.IsBroomSnapped = true;            //checking that Broom is snapped
-                Debug.Log("Broom" + Game_Manager.instance.NumberOfTheBroom + "was snapped");
+            //    Game_Manager.instance.IsBroomSnapped = true;            //checking that Broom is snapped
+            //    Debug.Log("Broom" + Game_Manager.instance.NumberOfTheBroom + "was snapped");
 
-                if (Game_Manager.instance.IsBroomMetallic && Game_Manager.instance.IsBroomSnapped)
-                {
-                    Game_Manager.instance.StartBroomAnimation(Game_Manager.instance.NumberOfTheBroom);
-                }
-                else if (!Game_Manager.instance.IsBroomMetallic && Game_Manager.instance.IsBroomSnapped)
-                {
-                    Game_Manager.instance.StartBroomBrokenAnimation(Game_Manager.instance.NumberOfTheBroom);
-                }
-            }
+            //    if (Game_Manager.instance.IsBroomMetallic && Game_Manager.instance.IsBroomSnapped)
+            //    {
+            //        Game_Manager.instance.StartBroomAnimation(Game_Manager.instance.NumberOfTheBroom);
+            //    }
+            //    else if (!Game_Manager.instance.IsBroomMetallic && Game_Manager.instance.IsBroomSnapped)
+            //    {
+            //        Game_Manager.instance.StartBroomBrokenAnimation(Game_Manager.instance.NumberOfTheBroom);
+            //    }
+            //}
             CheckSnappedItemExists();
             CheckPrefabUpdate();
             CreateHighlightersInEditor();
