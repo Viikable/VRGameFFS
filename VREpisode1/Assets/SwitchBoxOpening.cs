@@ -20,10 +20,10 @@ public class SwitchBoxOpening : MonoBehaviour
 
 
     void Update()
-    {
+    {      
         if (SwitchSnap.GetCurrentSnappedObject() != null)
         {
-            if (SwitchSnap.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
+            if (SwitchSnap.GetCurrentSnappedObject().CompareTag("JanitorBroom") && notWaited)
             {
                 Debug.Log("entered");
                 foreach (JanitorBroomTransformer rend in SwitchSnap.GetCurrentSnappedObject().GetComponentsInChildren<JanitorBroomTransformer>())
@@ -33,12 +33,17 @@ public class SwitchBoxOpening : MonoBehaviour
                         if (notWaited)
                         {
                             notWaited = false;
-                            StartCoroutine("Wait");
-                        }
-                        //foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().GetComponentsInChildren<MeshRenderer>())
-                        //{
-                        //    child.enabled = false;
-                        //}
+                            foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().GetComponentsInChildren<MeshRenderer>())
+                            {
+                                child.enabled = false;
+                                GetComponent<VRTK_PhysicsRotator>().angleLimits = new Limits2D(25f, -90f);
+                            }
+                            foreach (Collider child in SwitchSnap.GetCurrentSnappedInteractableObject().GetComponentsInChildren<Collider>())
+                            {
+                                child.enabled = false;
+                            }
+                            StartCoroutine("WaitAnimationFinish"); //waits for the animation of broom opening the locker to finish, then moves the broom which was snapped to that position
+                        }                        
                         break;
                     }
                 else
@@ -48,17 +53,20 @@ public class SwitchBoxOpening : MonoBehaviour
             }
         }
     }
-    IEnumerator Wait()
+    IEnumerator WaitAnimationFinish()
     {
-        yield return new WaitForSecondsRealtime(0.25f);
+        yield return new WaitForSecondsRealtime(2f);
+        Vector3 pos = this.transform.TransformPoint(GameObject.Find("BroomInTheJanitorAnimationBroom").transform.localPosition);
+        SwitchSnap.GetCurrentSnappedInteractableObject().transform.position = pos;
+        SwitchSnap.GetCurrentSnappedInteractableObject().transform.rotation = GameObject.Find("BroomInTheJanitorAnimationBroom").transform.rotation;
         foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().GetComponentsInChildren<MeshRenderer>())
         {
-            child.enabled = false;
-            GetComponent<VRTK_PhysicsRotator>().isLocked = false;
+            child.enabled = true;
         }
         foreach (Collider child in SwitchSnap.GetCurrentSnappedInteractableObject().GetComponentsInChildren<Collider>())
         {
-            child.enabled = false;          
+            child.enabled = true;
         }
+        SwitchSnap.enabled = false;
     }
 }

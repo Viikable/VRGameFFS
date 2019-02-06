@@ -572,7 +572,7 @@ namespace VRTK
                     return;
                 }
             }
-            if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal"))
+            if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal"))
             {
                 if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null
                     && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
