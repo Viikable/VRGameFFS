@@ -68,5 +68,6 @@ public class SwitchBoxOpening : MonoBehaviour
             child.enabled = true;
         }
         SwitchSnap.enabled = false;
+        GameObject.Find("SwitchContainer").GetComponent<VRTK_PhysicsRotator>().isLocked = false; //unlocks the lever inside, it's locked before so can't pull it through the door
     }
 }
