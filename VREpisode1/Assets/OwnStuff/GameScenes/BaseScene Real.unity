@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 6645495}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2872,7 +2872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectControlScript: {fileID: 1268412330}
   listenOnAxisChange: 0
-  maximumSpeed: 1
+  maximumSpeed: 1.25
   deceleration: 1
   fallingDeceleration: 0.01
   speedMultiplier: 0
@@ -5127,31 +5127,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.1728479
+      value: -0.3268453
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.6343639
+      value: 0.258508
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.14843008
+      value: 0.093437985
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.7386979
+      value: 0.90422076
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -18.850271
+      value: -57.716347
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -14.007331
+      value: -11.528115
       objectReference: {fileID: 0}
     - target: {fileID: 4073339000352054, guid: 7bf453afdb0030d41b5c9bc2936ce6e7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 27.621048
+      value: 25.195448
       objectReference: {fileID: 0}
     - target: {fileID: 20578162349973822, guid: 7bf453afdb0030d41b5c9bc2936ce6e7,
         type: 2}
@@ -6488,8 +6488,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150296804}
-  m_LocalRotation: {x: -0.16584548, y: 0.77354634, z: 0.22565779, w: 0.56850684}
-  m_LocalPosition: {x: -65.67328, y: -47.365067, z: 54.814053}
+  m_LocalRotation: {x: 0.0012363619, y: 0.9985525, z: 0.04681835, w: -0.026447237}
+  m_LocalPosition: {x: -74.99947, y: 19.358072, z: 49.25199}
   m_LocalScale: {x: 3.5370698, y: 3.5370686, z: 3.537069}
   m_Children: []
   m_Father: {fileID: 1883036897}
@@ -7782,15 +7782,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4686093117528696, guid: 1aed73c569fa06c4985e14118d72d1e7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.1700008
+      value: 3.116
       objectReference: {fileID: 0}
     - target: {fileID: 4686093117528696, guid: 1aed73c569fa06c4985e14118d72d1e7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4.32
+      value: 4.418
       objectReference: {fileID: 0}
     - target: {fileID: 4686093117528696, guid: 1aed73c569fa06c4985e14118d72d1e7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2.64
+      value: 2.539
       objectReference: {fileID: 0}
     - target: {fileID: 4686093117528696, guid: 1aed73c569fa06c4985e14118d72d1e7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -7830,7 +7830,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1231206302317302, guid: 1aed73c569fa06c4985e14118d72d1e7, type: 2}
       propertyPath: m_TagString
-      value: Rope
+      value: NoCollision
       objectReference: {fileID: 0}
     - target: {fileID: 4686093117528696, guid: 1aed73c569fa06c4985e14118d72d1e7, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7951,7 +7951,7 @@ GameObject:
   - component: {fileID: 183283736}
   m_Layer: 0
   m_Name: Locker (6)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11154,7 +11154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectControlScript: {fileID: 2119627658}
   listenOnAxisChange: 0
-  maximumSpeed: 1
+  maximumSpeed: 1.25
   deceleration: 1
   fallingDeceleration: 0.01
   speedMultiplier: 0
@@ -14738,7 +14738,7 @@ GameObject:
   - component: {fileID: 366220948}
   m_Layer: 0
   m_Name: Locker (1)
-  m_TagString: ExcludeTeleport
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15117,7 +15117,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013912359922, guid: 5d323709f0cbd454196647d9d8f2dd84, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -8.7404
+      value: -6.0874
       objectReference: {fileID: 0}
     - target: {fileID: 4000013912359922, guid: 5d323709f0cbd454196647d9d8f2dd84, type: 2}
       propertyPath: m_LocalPosition.y
@@ -15125,7 +15125,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013912359922, guid: 5d323709f0cbd454196647d9d8f2dd84, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 7.5629
+      value: 6.9829
       objectReference: {fileID: 0}
     - target: {fileID: 4000013912359922, guid: 5d323709f0cbd454196647d9d8f2dd84, type: 2}
       propertyPath: m_LocalRotation.x
@@ -20045,8 +20045,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 505796212}
-  m_LocalRotation: {x: -0.33749205, y: 0.11263506, z: 0.040709928, w: 0.9336783}
-  m_LocalPosition: {x: -34.750416, y: -19.369385, z: -25.926579}
+  m_LocalRotation: {x: -0.027484953, y: 0.97235453, z: 0.17277408, w: 0.15466237}
+  m_LocalPosition: {x: -25.058754, y: 13.807711, z: 8.957945}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -20463,7 +20463,7 @@ GameObject:
   - component: {fileID: 522245181}
   m_Layer: 0
   m_Name: Locker (8)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20847,7 +20847,7 @@ GameObject:
   - component: {fileID: 534861091}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23518,7 +23518,7 @@ GameObject:
   - component: {fileID: 618417737}
   m_Layer: 0
   m_Name: Locker (10)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25141,7 +25141,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 674102371}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.92, y: 0.97, z: 4.6}
+  m_LocalPosition: {x: -14.616, y: 0.97, z: 5.051}
   m_LocalScale: {x: 1.0037608, y: 1, z: 1.003762}
   m_Children:
   - {fileID: 2017634860}
@@ -31349,7 +31349,7 @@ GameObject:
   - component: {fileID: 844464214}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33719,7 +33719,7 @@ GameObject:
   - component: {fileID: 880215809}
   m_Layer: 0
   m_Name: Locker (4)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34925,7 +34925,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 909810548}
   m_LocalRotation: {x: -0.6932977, y: 0.13906267, z: 0.13906267, w: 0.6932976}
-  m_LocalPosition: {x: -8.59, y: 1.786, z: 7.505}
+  m_LocalPosition: {x: -5.937, y: 1.786, z: 6.925}
   m_LocalScale: {x: 34.37975, y: 34.379864, z: 34.379837}
   m_Children:
   - {fileID: 172469135}
@@ -36743,7 +36743,7 @@ GameObject:
   - component: {fileID: 997786746}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36907,7 +36907,7 @@ GameObject:
   - component: {fileID: 1006081317}
   m_Layer: 0
   m_Name: Locker (9)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40056,7 +40056,7 @@ Prefab:
     - target: {fileID: 114943754821436908, guid: ee048566a248dbf4fab0762b94282a35,
         type: 2}
       propertyPath: stepUpYOffset
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 114970811766248204, guid: ee048566a248dbf4fab0762b94282a35,
         type: 2}
@@ -46313,7 +46313,7 @@ GameObject:
   - component: {fileID: 1174342949}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46969,7 +46969,7 @@ GameObject:
   - component: {fileID: 1192151447}
   m_Layer: 0
   m_Name: Locker (2)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48502,7 +48502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018581a6a9040b34d83404b882e892a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deviceForDirection: 0
+  deviceForDirection: 2
   disableOtherControlsOnActive: 0
   affectOnFalling: 1
   controlOverrideObject: {fileID: 0}
@@ -57002,7 +57002,7 @@ GameObject:
   - component: {fileID: 1461865692}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59091,7 +59091,7 @@ GameObject:
   - component: {fileID: 1518382015}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59169,7 +59169,7 @@ MonoBehaviour:
   isLocked: 0
   stepValueRange:
     minimum: 0
-    maximum: 100
+    maximum: 10
   stepSize: 0.1
   useStepAsValue: 1
   snapToStep: 0
@@ -62540,7 +62540,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1632953082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.59, y: 1.786, z: 7.505}
+  m_LocalPosition: {x: -5.937, y: 1.786, z: 6.925}
   m_LocalScale: {x: 0.34379724, y: 0.3437971, z: 0.34379724}
   m_Children:
   - {fileID: 1084096433}
@@ -62580,7 +62580,7 @@ MonoBehaviour:
   connectedTo: {fileID: 0}
   hingePoint: {fileID: 1563843252}
   angleLimits:
-    minimum: 0
+    minimum: -1
     maximum: -3
   minMaxThresholdAngle: 5
   restingAngle: -90
@@ -62767,7 +62767,7 @@ GameObject:
   - component: {fileID: 1648001868}
   m_Layer: 0
   m_Name: Locker (5)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63029,7 +63029,7 @@ GameObject:
   - component: {fileID: 1657702655}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63107,7 +63107,7 @@ MonoBehaviour:
   isLocked: 0
   stepValueRange:
     minimum: 0
-    maximum: 100
+    maximum: 10
   stepSize: 0.1
   useStepAsValue: 1
   snapToStep: 0
@@ -66947,7 +66947,7 @@ GameObject:
   - component: {fileID: 1766361902}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67010,7 +67010,7 @@ MonoBehaviour:
   isLocked: 0
   stepValueRange:
     minimum: 0
-    maximum: 100
+    maximum: 10
   stepSize: 0.1
   useStepAsValue: 1
   snapToStep: 0
@@ -68100,7 +68100,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1798415672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.59, y: 1.786, z: 7.505}
+  m_LocalPosition: {x: -5.937, y: 1.786, z: 6.925}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1138674889}
@@ -68133,7 +68133,7 @@ GameObject:
   - component: {fileID: 1799249422}
   m_Layer: 0
   m_Name: Locker (3)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68966,7 +68966,7 @@ GameObject:
   - component: {fileID: 1817620254}
   m_Layer: 0
   m_Name: Locker (7)
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69697,7 +69697,7 @@ GameObject:
   - component: {fileID: 1863694496}
   m_Layer: 0
   m_Name: ME_LOCKER
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75749,7 +75749,7 @@ GameObject:
   - component: {fileID: 2008021150}
   m_Layer: 0
   m_Name: Locker
-  m_TagString: Untagged
+  m_TagString: NoCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83027,7 +83027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018581a6a9040b34d83404b882e892a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deviceForDirection: 0
+  deviceForDirection: 1
   disableOtherControlsOnActive: 0
   affectOnFalling: 1
   controlOverrideObject: {fileID: 0}

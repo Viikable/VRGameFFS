@@ -506,17 +506,25 @@ namespace VRTK
         }
         private void OnCollisionStay(Collision collision)
         {
-            if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope"))
+            if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope") || currentCollidingObject.CompareTag("NoPickUpWhileOnTop"))
             {
                 if (collision.collider.GetComponent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
                 {
                     currentCollidingObject.GetComponent<Rigidbody>().isKinematic = true;
                     Debug.Log("setkinematicstay");
+                    if (currentCollidingObject.CompareTag("NoPickUpWhileOnTop"))
+                    {
+                        currentCollidingObject.GetComponent<VRTK_InteractableObject>().isGrabbable = false;
+                    }
                 }
                 else if (collision.collider.GetComponentInParent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
                 {
                     currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = true;
                     Debug.Log("setkinematicstay");
+                    if (currentCollidingObject.CompareTag("NoPickUpWhileOnTop"))
+                    {
+                        currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>().isGrabbable = false;
+                    }
                 }
                 else
                 {
@@ -530,17 +538,25 @@ namespace VRTK
             {
                 OnStopColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
                 
-                if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope"))
+                if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope") || currentCollidingObject.CompareTag("NoPickUpWhileOnTop"))
                 {
                     if (currentCollidingObject.GetComponent<Rigidbody>() != null)
                     {
                         currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
                         Debug.Log("setnonkinematic");
+                        if (currentCollidingObject.CompareTag("NoPickUpWhileOnTop"))
+                        {
+                            currentCollidingObject.GetComponent<VRTK_InteractableObject>().isGrabbable = true;
+                        }
                     }
                     else if (currentCollidingObject.GetComponentInParent<Rigidbody>() != null)
                     {
                         currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
                         Debug.Log("setnonkinematic");
+                        if (currentCollidingObject.CompareTag("NoPickUpWhileOnTop"))
+                        {
+                            currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>().isGrabbable = true;
+                        }
                     }
                     else
                     {
@@ -554,9 +570,13 @@ namespace VRTK
         
         private void Update()
         {           
-            if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal"))
+            if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null
+                && (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal") 
+                || rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoCollision") 
+                || rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoPickUpWhileOnTop")))
             {
-                if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
+                if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null 
+                    && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
                 {
                     rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>().isKinematic = false;
                     Debug.Log("setnonkinematic");
@@ -572,7 +592,10 @@ namespace VRTK
                     return;
                 }
             }
-            if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal"))
+            if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null 
+                && (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal") 
+                || leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoCollision")
+                || leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoPickUpWhileOnTop")))
             {
                 if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null
                     && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
