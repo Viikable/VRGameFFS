@@ -15,11 +15,12 @@ public class Ledge : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (ledgeSnap.GetCurrentSnappedObject() == this && i == 0)
+		if (ledgeSnap.GetCurrentSnappedInteractableObject() == gameObject.GetComponent<VRTK_InteractableObject>() && i == 0)
         {
-            GetComponent<VRTK_InteractableObject>().isGrabbable = false;
+            GetComponent<VRTK_InteractableObject>().isGrabbable = false;        
             GetComponent<Rigidbody>().isKinematic = true;
             i++;
+            Debug.Log("destroy");
         }
 	}
 }
