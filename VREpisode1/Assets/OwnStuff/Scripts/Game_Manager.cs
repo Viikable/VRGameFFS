@@ -118,7 +118,7 @@
 
             //WaterComes.AddListener(WaterIsRising);
 
-            ropeClimb = false;
+            ropeClimb = true;
 
             isBroom1Snapped = false;
 

@@ -112,7 +112,7 @@ public class MelterEnterTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("ConveyorBeltMetal"))
+        if (other.CompareTag("ConveyorBeltMetal") && other.GetComponent<MetalHitsTheFan>() != null)
         {
             amountOfMeltedObjects += 1;
             melterText.text = amountOfMeltedObjects.ToString();
