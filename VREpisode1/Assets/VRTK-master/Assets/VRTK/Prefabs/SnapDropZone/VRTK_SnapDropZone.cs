@@ -833,10 +833,10 @@ namespace VRTK
 
         protected virtual void UnsnapObject()
         {
-            if (currentSnappedObject.GetComponent<KeyRope>() != null)
-            {
-                Game_Manager.instance.RopeIsAttachedToManual = false;                       //here we check if we unsnap the rope from manual thus making the collider disappear
-            }
+            //if (currentSnappedObject.GetComponent<KeyRope>() != null)
+            //{
+            //    Game_Manager.instance.RopeIsAttachedToManual = false;                       //here we check if we unsnap the rope from manual thus making the collider disappear
+            //}
 
 
             if (currentSnappedObject != null)

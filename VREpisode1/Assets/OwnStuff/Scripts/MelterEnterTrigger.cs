@@ -117,6 +117,7 @@ public class MelterEnterTrigger : MonoBehaviour
             amountOfMeltedObjects += 1;
             melterText.text = amountOfMeltedObjects.ToString();
             other.GetComponent<MetalHitsTheFan>().InsideTheMelter = true;
+            Debug.Log("inside");
             if (amountOfMeltedObjects == 6 && !MetalHitsTheFan.notCompletelyInsideMelter)
             {
                 melterText.color = Color.green;

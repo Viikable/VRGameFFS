@@ -350,132 +350,132 @@
             set { invoked = value; }
         }
 
-        public int NumberOfTheBroom
-        {
-            get { return numberOfTheBroom; }
+        //public int NumberOfTheBroom
+        //{
+        //    get { return numberOfTheBroom; }
 
-            set { numberOfTheBroom = value; }
-        }
+        //    set { numberOfTheBroom = value; }
+        //}
 
 
-        public bool IsBroomSnapped
-        {
-            get
-            {
-                if (numberOfTheBroom == 1)
-                {
-                    return isBroom1Snapped;
-                }
-                else if (numberOfTheBroom == 2)
-                {
-                    return isBroom2Snapped;
-                }
-                else if (numberOfTheBroom == 3)
-                {
-                    return isBroom3Snapped;
-                }
-                else if (numberOfTheBroom == 4)
-                {
-                    return isBroom4Snapped;
-                }
-                else
-                {
-                    Debug.Log("No Broom with this number exists");
-                    throw new System.Exception("Invalid broom ID");
-                }
-            }
-            set
-            {
-                if (numberOfTheBroom == 1)
-                {
-                    isBroom1Snapped = value;
-                }
-                else if (numberOfTheBroom == 2)
-                {
-                    isBroom2Snapped = value;
-                }
-                else if (numberOfTheBroom == 3)
-                {
-                    isBroom3Snapped = value;
-                }
-                else if (numberOfTheBroom == 4)
-                {
-                    isBroom4Snapped = value;
-                }
-                else
-                {
-                    Debug.Log("No Broom with this number exists");
-                    throw new System.Exception("Invalid broom ID");
-                }
-            }
-        }
-        public bool IsBroomMetallic
-        {
-            get
-            {
+        //public bool IsBroomSnapped
+        //{
+        //    get
+        //    {
+        //        if (numberOfTheBroom == 1)
+        //        {
+        //            return isBroom1Snapped;
+        //        }
+        //        else if (numberOfTheBroom == 2)
+        //        {
+        //            return isBroom2Snapped;
+        //        }
+        //        else if (numberOfTheBroom == 3)
+        //        {
+        //            return isBroom3Snapped;
+        //        }
+        //        else if (numberOfTheBroom == 4)
+        //        {
+        //            return isBroom4Snapped;
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("No Broom with this number exists");
+        //            throw new System.Exception("Invalid broom ID");
+        //        }
+        //    }
+        //    set
+        //    {
+        //        if (numberOfTheBroom == 1)
+        //        {
+        //            isBroom1Snapped = value;
+        //        }
+        //        else if (numberOfTheBroom == 2)
+        //        {
+        //            isBroom2Snapped = value;
+        //        }
+        //        else if (numberOfTheBroom == 3)
+        //        {
+        //            isBroom3Snapped = value;
+        //        }
+        //        else if (numberOfTheBroom == 4)
+        //        {
+        //            isBroom4Snapped = value;
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("No Broom with this number exists");
+        //            throw new System.Exception("Invalid broom ID");
+        //        }
+        //    }
+        //}
+        //public bool IsBroomMetallic
+        //{
+        //    get
+        //    {
 
-                if (numberOfTheBroom == 1)
-                {
-                    return isBroom1Metallic;
-                }
-                else if (numberOfTheBroom == 2)
-                {
-                    return isBroom2Metallic;
-                }
-                else if (numberOfTheBroom == 3)
-                {
-                    return isBroom3Metallic;
-                }
-                else if (numberOfTheBroom == 4)
-                {
-                    return isBroom4Metallic;
-                }
-                else
-                {
-                    Debug.Log("No Broom with this number exists");
-                    throw new System.Exception("Invalid broom ID");
-                }
-            }
-            set
-            {
-                if (numberOfTheBroom == 1)
-                {
-                    isBroom1Metallic = value;
-                }
-                else if (numberOfTheBroom == 2)
-                {
-                    isBroom2Metallic = value;
-                }
-                else if (numberOfTheBroom == 3)
-                {
-                    isBroom3Metallic = value;
-                }
-                else if (numberOfTheBroom == 4)
-                {
-                    isBroom4Metallic = value;
-                }
-                else
-                {
-                    Debug.Log("No Broom with this number exists");
-                    throw new System.Exception("Invalid broom ID");
-                }
+        //        if (numberOfTheBroom == 1)
+        //        {
+        //            return isBroom1Metallic;
+        //        }
+        //        else if (numberOfTheBroom == 2)
+        //        {
+        //            return isBroom2Metallic;
+        //        }
+        //        else if (numberOfTheBroom == 3)
+        //        {
+        //            return isBroom3Metallic;
+        //        }
+        //        else if (numberOfTheBroom == 4)
+        //        {
+        //            return isBroom4Metallic;
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("No Broom with this number exists");
+        //            throw new System.Exception("Invalid broom ID");
+        //        }
+        //    }
+        //    set
+        //    {
+        //        if (numberOfTheBroom == 1)
+        //        {
+        //            isBroom1Metallic = value;
+        //        }
+        //        else if (numberOfTheBroom == 2)
+        //        {
+        //            isBroom2Metallic = value;
+        //        }
+        //        else if (numberOfTheBroom == 3)
+        //        {
+        //            isBroom3Metallic = value;
+        //        }
+        //        else if (numberOfTheBroom == 4)
+        //        {
+        //            isBroom4Metallic = value;
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("No Broom with this number exists");
+        //            throw new System.Exception("Invalid broom ID");
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
-        public bool PlayBroomAnimation
-        {
-            get { return playBroomAnimation; }
+        //public bool PlayBroomAnimation
+        //{
+        //    get { return playBroomAnimation; }
 
-            set { playBroomAnimation = value; }
-        }
+        //    set { playBroomAnimation = value; }
+        //}
 
-        public bool RopeIsAttachedToManual
-        {
-            get { return ropeIsAttatchedToManual; }
+        //public bool RopeIsAttachedToManual
+        //{
+        //    get { return ropeIsAttatchedToManual; }
 
-            set { ropeIsAttatchedToManual = value; }
-        }
+        //    set { ropeIsAttatchedToManual = value; }
+        //}
 
 
         //ANIMATION METHODS

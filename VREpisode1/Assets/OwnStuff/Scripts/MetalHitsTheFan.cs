@@ -126,26 +126,27 @@ public class MetalHitsTheFan : MonoBehaviour {
             }            
             
             lavaWaiter++;
-            if (insideTheMelter && this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3"
-                || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6")
+            if (insideTheMelter && gameObject.name == "MetalPiece1" || gameObject.name == "MetalPiece2" || gameObject.name == "MetalPiece3"
+                || gameObject.name == "MetalPiece4" || gameObject.name == "MetalPiece5" || gameObject.name == "MetalPiece6")
             {
                 insideTheMelter = false;
             }
             //scale this specific piece of scrap metal slowly down and at the same time another animation rises the lava
-            if ((this.name == "MetalPiece1" || this.name == "MetalPiece2" || this.name == "MetalPiece3"
-            || this.name == "MetalPiece4" || this.name == "MetalPiece5" || this.name == "MetalPiece6") && begone == true)
+            if ((gameObject.name == "MetalPiece1" || gameObject.name == "MetalPiece2" || gameObject.name == "MetalPiece3"
+            || gameObject.name == "MetalPiece4" || gameObject.name == "MetalPiece5" || gameObject.name == "MetalPiece6") && begone == true)
             {
                 Debug.Log("Useless");
                 transform.localScale = new Vector3(newScale, newScale, newScale);                
                 meltingTime += 0.2f * Time.deltaTime;       //makes the object disappear 
-                this.tag = "Useless";
+                gameObject.tag = "Useless";
                 if (newScale == 0f && this != null)
                 {
-                    this.gameObject.SetActive(false);
+                    Destroy(gameObject);
                     Debug.Log("TurnedOFF");
                 }
             }
-            if ((this.name == "PressedMetal1" || this.name == "PressedMetal2" || this.name == "PressedMetal3" || this.name == "PressedMetal4" || this.name == "PressedMetal5" || this.name == "PressedMetal6") && fuck)
+            if ((gameObject.name == "PressedMetal1" || gameObject.name == "PressedMetal2" || gameObject.name == "PressedMetal3" 
+                || gameObject.name == "PressedMetal4" || gameObject.name == "PressedMetal5" || gameObject.name == "PressedMetal6") && fuck)
             {
                 insideTheMelter = true;
                 fuck = false;

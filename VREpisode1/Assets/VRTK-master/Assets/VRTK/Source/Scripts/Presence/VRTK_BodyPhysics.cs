@@ -479,15 +479,20 @@ namespace VRTK
                 OnStartColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
                 if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope"))
                 {
-                    if (currentCollidingObject.GetComponent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+                    if (currentCollidingObject.GetComponent<Rigidbody>() != null && currentCollidingObject.GetComponent<VRTK_InteractableObject>() != null 
+                        && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
                     {
                         currentCollidingObject.GetComponent<Rigidbody>().isKinematic = true;
                         Debug.Log("setkinematic");
                     }
-                    else if (currentCollidingObject.GetComponentInParent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+                    else if (currentCollidingObject.GetComponentInParent<Rigidbody>() != null && currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>() != null && !currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
                     {
                         currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = true;
-                        Debug.Log("setkinematic");
+                        Debug.Log("setkinematicparent");
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
             }
@@ -500,28 +505,28 @@ namespace VRTK
                 OnStartColliding(SetBodyPhysicsEvent(currentCollidingObject, collider));
             }
         }
-        private void OnCollisionStay(Collision collision)
-        {
-            if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope"))
-            {
-                if (collision.collider.GetComponent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
-                {
-                    currentCollidingObject.GetComponent<Rigidbody>().isKinematic = true;
-                    Debug.Log("setkinematicstay");
+        //private void OnCollisionStay(Collision collision)
+        //{
+        //    if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope"))
+        //    {
+        //        if (collision.collider.GetComponent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+        //        {
+        //            currentCollidingObject.GetComponent<Rigidbody>().isKinematic = true;
+        //            Debug.Log("setkinematicstay");
 
-                }
-                else if (collision.collider.GetComponentInParent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
-                {
-                    currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = true;
-                    Debug.Log("setkinematicstay");
+        //        }
+        //        else if (collision.collider.GetComponentInParent<Rigidbody>() != null && !currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
+        //        {
+        //            currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = true;
+        //            Debug.Log("setkinematicstay");
 
-                }
-                else
-                {
-                    return;
-                }
-            }
-        }
+        //        }
+        //        else
+        //        {
+        //            return;
+        //        }
+        //    }
+        //}
         protected virtual void OnCollisionExit(Collision collision)
         {
             if (CheckExistingCollision(collision.gameObject))
@@ -547,11 +552,9 @@ namespace VRTK
                 }
                 currentCollidingObject = null;
             }
-        }       
-       
-        
+        }               
         private void Update()
-        {
+        {         
             if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null
                 && (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal")
                 || rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoCollision")))
@@ -574,14 +577,10 @@ namespace VRTK
                     if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
                     {
                         Debug.Log("HA");
-                        currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
+                        currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
                     }
                     Debug.Log("setnonkinematicparentupdate");
-                }
-                else
-                {
-                    return;
-                }
+                }                
             }
             if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null
                 && (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal")
@@ -606,14 +605,11 @@ namespace VRTK
                     if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
                     {
                         Debug.Log("HA");
-                        currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
+                        currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
                     }
-                }
-                else
-                {
-                    return;
-                }
+                }               
             }
+
         }
         protected virtual void OnTriggerExit(Collider collider)
         {
