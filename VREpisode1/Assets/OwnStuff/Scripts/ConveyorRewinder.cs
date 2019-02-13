@@ -12,7 +12,7 @@ public class ConveyorRewinder : MonoBehaviour {
     {
         if (other.CompareTag("ConveyorBeltMetal"))
         {
-            other.transform.position = new Vector3(-24.4f, 2.2f, 9f);
+            other.transform.position = new Vector3(-24.4f, 2.2f, 8.7f);
             //other.transform.rotation = Quaternion.Euler(0,0,0);
         }
     }

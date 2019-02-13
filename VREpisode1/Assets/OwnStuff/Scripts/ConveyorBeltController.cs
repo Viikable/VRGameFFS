@@ -68,9 +68,13 @@ public class ConveyorBeltController : MonoBehaviour
     private bool pressedIt2;
     private bool yep;
     private bool yep2;
+    private bool notDown;
+    private bool notUp;
 
     void Start()
     {
+        notDown = true;
+        notUp = true;
         yep = true;
         yep2 = true;
         pressedIt = true;
@@ -186,37 +190,42 @@ public class ConveyorBeltController : MonoBehaviour
 
     public void BeltDownCheck()
     {
-        if (beltMovingDown && beltsMoving)
+        if (notDown)
         {
-            time++;
+            notDown = false;
+            StartCoroutine("BeltDownTime");
         }
-        if (time > 130)
-        {
-            beltHasMovedDown = true;
-            time = 0f;
-            beltMovingDown = false;
-        }
+    }
+
+    IEnumerator BeltDownTime()
+    {       
+        yield return new WaitForSecondsRealtime(5.95f);
+        beltHasMovedDown = true;      
+        beltMovingDown = false;
+        notDown = true;
     }
 
     public void BeltUpCheck()
     {
-        if (beltMovingUp && beltsMoving)
+        if (notUp)
         {
-            timeUp++;
-        }
-        if (timeUp > 180)
-        {
-            Debug.Log("belt has moved up");
-            beltHasMovedUp = true;
-            timeUp = 0f;
-            beltMovingUp = false;
+            StartCoroutine("BeltUpTime");
+            notUp = false;
         }
     }
+    IEnumerator BeltUpTime()
+    {
+        yield return new WaitForSecondsRealtime(5.95f);
+        Debug.Log("belt has moved up");
+        beltHasMovedUp = true;
+        timeUp = 0f;
+        beltMovingUp = false;
+    }
+    
     void Update()
     {
         CheckButtonPress();
-        BeltDownCheck();
-        BeltUpCheck();
+        
         if (beltsMoving)
         {
             //starts the sound and movement for all normal conveyorbelts
@@ -245,6 +254,7 @@ public class ConveyorBeltController : MonoBehaviour
 
         if (beltMovingDown && beltsMoving)
         {
+            BeltDownCheck();
             foreach (Collider col in MiddleConveyorBelt.GetComponentsInChildren<Collider>())
             {
                 col.enabled = false;
@@ -283,10 +293,10 @@ public class ConveyorBeltController : MonoBehaviour
             }
         }
 
-        if (beltMovingUp)
+        if (beltMovingUp && beltsMoving)
         {
             //beltHasMovedDown = false;
-
+            BeltUpCheck();
             animDown.SetBool("Up", true);
             foreach (Collider col in DownConveyorBelt.GetComponentsInChildren<Collider>())
             {

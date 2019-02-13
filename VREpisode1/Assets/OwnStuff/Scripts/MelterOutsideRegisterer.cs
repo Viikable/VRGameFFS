@@ -27,11 +27,11 @@ public class MelterOutsideRegisterer : MonoBehaviour {
     {
         if (x == 0)
         {
-            MetalHitsTheFan.notCompletelyInsideMelter = false;
+            MetalHitsTheFan.NotCompletelyInsideMelter = false;
         }
         else
         {
-            MetalHitsTheFan.notCompletelyInsideMelter = true;
+            MetalHitsTheFan.NotCompletelyInsideMelter = true;
         }
     }
 }
