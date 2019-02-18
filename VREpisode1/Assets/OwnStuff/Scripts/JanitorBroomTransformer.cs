@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
-public class JanitorBroomTransformer : MonoBehaviour {
+public class JanitorBroomTransformer : MonoBehaviour
+{
 
     [Header("Textures for changing the broom into")]
     [Tooltip("Texture we will change the broom into")]
@@ -18,7 +20,7 @@ public class JanitorBroomTransformer : MonoBehaviour {
     public GameObject SixthPart;
     public GameObject SeventhPart;
 
-    void Start ()
+    void Start()
     {
         rend = GetComponent<MeshRenderer>();
         //rend.material.EnableKeyword("_NORMALMAP");
@@ -31,7 +33,7 @@ public class JanitorBroomTransformer : MonoBehaviour {
         FourthPart = transform.parent.Find("FourthPart").gameObject;
         FifthPart = transform.parent.Find("FifthPart").gameObject;
         SixthPart = transform.parent.Find("SixthPart").gameObject;
-        SeventhPart = transform.parent.Find("SeventhPart").gameObject;
+        SeventhPart = transform.parent.Find("SeventhPart").gameObject;        
     }
 
     // Update is called once per frame
@@ -84,13 +86,9 @@ public class JanitorBroomTransformer : MonoBehaviour {
                     //SecondPart.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
                     break;
                 default:
-                    Debug.Log("Bottom or firstpart");
+                    //Debug.Log("Bottom or firstpart");
                     break;
             }
-            //rend.material.SetTexture("_MainTex", CharredBroom);
-            //rend.material.SetTexture("_BumpMap", CharredBroom);
-            //rend.material.SetTexture("_MetallicGlossMap", CharredBroom);
-            //changeBroomColour = false;
         }
-    }
+    }    
 }

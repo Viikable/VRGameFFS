@@ -172,16 +172,14 @@ public class ConveyorBeltController : MonoBehaviour
 
                 if (oddPress && !beltMovingUp)
                 {
-                    Debug.Log("Oddpress");
-                    beltMovingUp = true;
-                    beltMovingDown = false;
+                    Debug.Log("Oddpress");                    
+                    beltMovingDown = true;
                     oddPress = false;
                 }
                 else if (evenPress && !beltMovingDown)
                 {
-                    Debug.Log("evenpress");
-                    beltMovingDown = true;
-                    beltMovingUp = false;
+                    Debug.Log("evenpress");                    
+                    beltMovingUp = true;
                     evenPress = false;
                 }
             }
