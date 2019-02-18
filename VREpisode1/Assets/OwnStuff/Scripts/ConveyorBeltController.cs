@@ -173,15 +173,15 @@ public class ConveyorBeltController : MonoBehaviour
                 if (oddPress && !beltMovingUp)
                 {
                     Debug.Log("Oddpress");
-                    beltMovingUp = false;
-                    beltMovingDown = true;
+                    beltMovingUp = true;
+                    beltMovingDown = false;
                     oddPress = false;
                 }
                 else if (evenPress && !beltMovingDown)
                 {
                     Debug.Log("evenpress");
-                    beltMovingDown = false;
-                    beltMovingUp = true;
+                    beltMovingDown = true;
+                    beltMovingUp = false;
                     evenPress = false;
                 }
             }
@@ -200,6 +200,7 @@ public class ConveyorBeltController : MonoBehaviour
     IEnumerator BeltDownTime()
     {       
         yield return new WaitForSecondsRealtime(5.95f);
+        Debug.Log("belt has moved down");
         beltHasMovedDown = true;      
         beltMovingDown = false;
         notDown = true;
@@ -218,7 +219,7 @@ public class ConveyorBeltController : MonoBehaviour
         yield return new WaitForSecondsRealtime(5.95f);
         Debug.Log("belt has moved up");
         beltHasMovedUp = true;
-        timeUp = 0f;
+        notUp = true;
         beltMovingUp = false;
     }
     
@@ -352,11 +353,17 @@ public class ConveyorBeltController : MonoBehaviour
             }
             foreach (Collider col in DownConveyorBelt.GetComponentsInChildren<Collider>())
             {
-                col.enabled = false;
+                if (col.name != "railing" && col.name != "railing2")
+                {
+                    col.enabled = false;
+                }
             }
             foreach (MeshRenderer rend in DownConveyorBelt.GetComponentsInChildren<MeshRenderer>())
             {
-                rend.enabled = false;
+                if (rend.name != "railing" && rend.name != "railing2")
+                {
+                    rend.enabled = false;
+                }
             }
             animDown.SetBool("Up", false);
             animDown.SetBool("Open", false);
@@ -372,9 +379,9 @@ public class ConveyorBeltController : MonoBehaviour
     IEnumerator WaitDown()
     {
         Debug.Log("waitdowncor");
+        yield return new WaitForSecondsRealtime(0.15f);
         if (beltHasMovedDown)
         {
-            yield return new WaitForSecondsRealtime(0.15f);
             evenPress = true;
             beltHasMovedDown = false;
             pressedIt = true;
@@ -387,9 +394,9 @@ public class ConveyorBeltController : MonoBehaviour
     IEnumerator WaitUp()
     {
         Debug.Log("waitupcor");
+        yield return new WaitForSecondsRealtime(0.15f);
         if (beltHasMovedUp)
         {
-            yield return new WaitForSecondsRealtime(0.15f);
 
             oddPress = true;
             beltHasMovedUp = false;
