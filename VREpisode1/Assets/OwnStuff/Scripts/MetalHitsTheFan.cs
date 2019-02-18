@@ -21,8 +21,7 @@ public class MetalHitsTheFan : MonoBehaviour {
     float lavaIncrement;
     bool insideTheMelter;
     bool goingBig;
-    bool goingSmall;
-    private static bool notCompletelyInsideMelter;
+    bool goingSmall;   
     static float meltingTime = 0.0f;
     public static bool melterIsReady = false;
     public bool begone = false; //indicates when we get rid of the original metal
@@ -37,8 +36,7 @@ public class MetalHitsTheFan : MonoBehaviour {
         MetalSounds5 = transform.Find("MetalSounds5").GetComponent<AudioSource>();
         MetalSounds6 = transform.Find("MetalSounds6").GetComponent<AudioSource>();
         goingBig = true;
-        goingSmall = false;
-        NotCompletelyInsideMelter = false;
+        goingSmall = false;       
         randomizer = 0;
         lavaWaiter = 0;
         randomLavaValue = 0;
@@ -57,19 +55,6 @@ public class MetalHitsTheFan : MonoBehaviour {
     {
         get { return insideTheMelter; }
         set { insideTheMelter = value; }
-    }
-
-    public static bool NotCompletelyInsideMelter
-    {
-        get
-        {
-            return notCompletelyInsideMelter;
-        }
-
-        set
-        {
-            notCompletelyInsideMelter = value;
-        }
     }
 
     private void OnTriggerEnter(Collider other)

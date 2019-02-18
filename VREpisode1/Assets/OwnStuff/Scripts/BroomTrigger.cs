@@ -31,25 +31,7 @@ public class BroomTrigger : MonoBehaviour {
                 //    Debug.Log("plierbroomcollidersTriggerEnt");
                 //}
             }
-        }
+        }       
     }
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (PlierZone.GetCurrentSnappedInteractableObject() != null && PlierZone.GetCurrentSnappedInteractableObject() == this.GetComponentInParent<VRTK_InteractableObject>())
-    //    {
-    //        if (other.transform.parent.name == "HandColliders")
-    //        {
-    //            foreach (MeshCollider col in gameObject.transform.parent.GetComponentsInChildren<MeshCollider>())
-    //            {
-    //                col.enabled = false;
-    //                Debug.Log("plierbroomcollidersTrigger");
-    //            }
-    //            foreach (MeshCollider col in Pliers.transform.GetComponentsInChildren<MeshCollider>())
-    //            {
-    //                col.enabled = true;
-    //                Debug.Log("broomcollidersoffTrigger");
-    //            }
-    //        }
-    //    }
-    //}
+    
 }

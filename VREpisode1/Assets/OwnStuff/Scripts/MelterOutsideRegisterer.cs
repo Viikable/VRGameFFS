@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MelterOutsideRegisterer : MonoBehaviour {
     int x;
+    public bool notCompletelyInsideMelter;
 
     private void Start()
     {
         x = 0;
+        notCompletelyInsideMelter = false;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -27,11 +29,11 @@ public class MelterOutsideRegisterer : MonoBehaviour {
     {
         if (x == 0)
         {
-            MetalHitsTheFan.NotCompletelyInsideMelter = false;
+           notCompletelyInsideMelter = false;
         }
         else
         {
-            MetalHitsTheFan.NotCompletelyInsideMelter = true;
+            notCompletelyInsideMelter = true;
         }
     }
 }
