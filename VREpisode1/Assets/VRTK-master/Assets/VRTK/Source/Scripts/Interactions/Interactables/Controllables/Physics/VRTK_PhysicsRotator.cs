@@ -261,11 +261,19 @@ namespace VRTK.Controllables.PhysicsBased
 
         protected virtual void Update()
         {
+            if (atMaxLimit && atMinLimit)
+            {
+                atMinLimit = false;
+                atMaxLimit = false;
+                Debug.Log("nolimits");
+                AttemptMove();
+            }
             ForceRestingPosition();
             ForceAngleTarget();
             ForceSnapToStep();
             SetJointLimits();
             EmitEvents();
+
             if (ThisNeedsToStop)
             {
                 Debug.Log("Locked");
