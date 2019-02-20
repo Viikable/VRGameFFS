@@ -263,10 +263,9 @@ namespace VRTK.Controllables.PhysicsBased
         {
             if (atMaxLimit && atMinLimit)
             {
-                atMinLimit = false;
-                atMaxLimit = false;
-                Debug.Log("nolimits");
-                AttemptMove();
+                //atMinLimit = false;
+                //atMaxLimit = false;
+                Debug.Log("nolimits");               
             }
             ForceRestingPosition();
             ForceAngleTarget();
