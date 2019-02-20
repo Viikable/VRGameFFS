@@ -505,112 +505,112 @@ namespace VRTK
                 OnStartColliding(SetBodyPhysicsEvent(currentCollidingObject, collider));
             }
         }
-        private void OnCollisionStay(Collision collision)
-        {
-            if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope") || currentCollidingObject.CompareTag("JanitorBroom"))
-            {
-                if (collision.collider.GetComponent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
-                {
-                    currentCollidingObject.GetComponent<Rigidbody>().isKinematic = true;
-                    Debug.Log("setkinematicstay");
+        //private void OnCollisionStay(Collision collision)
+        //{
+        //    if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope") || currentCollidingObject.CompareTag("JanitorBroom"))
+        //    {
+        //        if (collision.collider.GetComponent<Rigidbody>() != null && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+        //        {
+        //            currentCollidingObject.GetComponent<Rigidbody>().isKinematic = true;
+        //            Debug.Log("setkinematicstay");
 
-                }
-                else if (collision.collider.GetComponentInParent<Rigidbody>() != null && !currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
-                {
-                    currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = true;
-                    Debug.Log("setkinematicstay");
+        //        }
+        //        else if (collision.collider.GetComponentInParent<Rigidbody>() != null && !currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
+        //        {
+        //            currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = true;
+        //            Debug.Log("setkinematicstay");
 
-                }
-                else
-                {
-                    return;
-                }
-            }
-        }
+        //        }
+        //        else
+        //        {
+        //            return;
+        //        }
+        //    }
+        //}
         protected virtual void OnCollisionExit(Collision collision)
         {
             if (CheckExistingCollision(collision.gameObject))
             {
                 OnStopColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
 
-                if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope") || currentCollidingObject.CompareTag("JanitorBroom"))
-                {
-                    if (currentCollidingObject.GetComponent<Rigidbody>() != null)
-                    {
-                        currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
-                        Debug.Log("setnonkinematic");
-                    }
-                    else if (currentCollidingObject.GetComponentInParent<Rigidbody>() != null)
-                    {
-                        currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
-                        Debug.Log("setnonkinematic");
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
+                //if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope") || currentCollidingObject.CompareTag("JanitorBroom"))
+                //{
+                //    if (currentCollidingObject.GetComponent<Rigidbody>() != null)
+                //    {
+                //        currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
+                //        Debug.Log("setnonkinematic");
+                //    }
+                //    else if (currentCollidingObject.GetComponentInParent<Rigidbody>() != null)
+                //    {
+                //        currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
+                //        Debug.Log("setnonkinematic");
+                //    }
+                //    else
+                //    {
+                //        return;
+                //    }
+                //}
                 currentCollidingObject = null;
             }
         }               
-        private void Update()
-        {         
-            if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null
-                && (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal")
-                || rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoCollision") || rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("JanitorBroom")))
-            {
-                if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null
-                    && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
-                {
-                    rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>().isKinematic = false;
-                    if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
-                    {
-                        Debug.Log("HA");
-                        currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
-                    }
-                    Debug.Log("setnonkinematicupdate");
-                }
-                else if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>() != null
-                    && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
-                {
-                    rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>().isKinematic = false;
-                    if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
-                    {
-                        Debug.Log("HA");
-                        currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
-                    }
-                    Debug.Log("setnonkinematicparentupdate");
-                }                
-            }
-            if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null
-                && (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal")
-                || leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoCollision") ||leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("JanitorBroom")))
-            {
-                if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null
-                    && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
-                {
-                    leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>().isKinematic = false;
-                    Debug.Log("setnonkinematic");
-                    if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
-                    {
-                        Debug.Log("HA");
-                        currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
-                    }
-                }
-                else if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>() != null
-                    && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
-                {
-                    leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>().isKinematic = false;
-                    Debug.Log("setnonkinematic");
-                    if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
-                    {
-                        Debug.Log("HA");
-                        currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
-                    }
-                }               
-            }
+        //private void Update()
+        //{         
+        //    if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null
+        //        && (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal")
+        //        || rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoCollision") || rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("JanitorBroom")))
+        //    {
+        //        if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null
+        //            && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
+        //        {
+        //            rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>().isKinematic = false;
+        //            if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
+        //            {
+        //                Debug.Log("HA");
+        //                currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
+        //            }
+        //            Debug.Log("setnonkinematicupdate");
+        //        }
+        //        else if (rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>() != null
+        //            && rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
+        //        {
+        //            rightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>().isKinematic = false;
+        //            if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
+        //            {
+        //                Debug.Log("HA");
+        //                currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
+        //            }
+        //            Debug.Log("setnonkinematicparentupdate");
+        //        }                
+        //    }
+        //    if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null
+        //        && (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("ConveyorBeltMetal")
+        //        || leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("NoCollision") ||leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().CompareTag("JanitorBroom")))
+        //    {
+        //        if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>() != null
+        //            && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
+        //        {
+        //            leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<Rigidbody>().isKinematic = false;
+        //            Debug.Log("setnonkinematic");
+        //            if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
+        //            {
+        //                Debug.Log("HA");
+        //                currentCollidingObject.GetComponent<Rigidbody>().isKinematic = false;
+        //            }
+        //        }
+        //        else if (leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>() != null
+        //            && leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.GetType() != typeof(VRTK_ChildOfControllerGrabAttach))
+        //        {
+        //            leftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().GetComponentInParent<Rigidbody>().isKinematic = false;
+        //            Debug.Log("setnonkinematic");
+        //            if (currentCollidingObject != null && currentCollidingObject.GetComponent<Rigidbody>() != null)
+        //            {
+        //                Debug.Log("HA");
+        //                currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = false;
+        //            }
+        //        }               
+        //    }
 
-        }
+        //}
         protected virtual void OnTriggerExit(Collider collider)
         {
             if (CheckExistingCollision(collider.gameObject))
