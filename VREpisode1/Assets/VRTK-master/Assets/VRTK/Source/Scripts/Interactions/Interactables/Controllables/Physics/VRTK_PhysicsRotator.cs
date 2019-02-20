@@ -263,8 +263,8 @@ namespace VRTK.Controllables.PhysicsBased
         {
             if (atMaxLimit && atMinLimit)
             {
-                //atMinLimit = false;
-                //atMaxLimit = false;
+                atMinLimit = false;
+                atMaxLimit = false;
                 Debug.Log("nolimits");               
             }
             ForceRestingPosition();
