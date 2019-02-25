@@ -15,7 +15,7 @@ public class StairStopper : MonoBehaviour {
     {
         if (other.GetComponent<VRTK_PlayerObject>() != null)
         {
-            PlayArea.GetComponent<VRTK_BodyPhysics>().stepUpYOffset = 0.2f;
+            PlayArea.GetComponent<VRTK_BodyPhysics>().stepUpYOffset = 0.28f;
             Debug.Log("exitedStairs");
         }
     }
