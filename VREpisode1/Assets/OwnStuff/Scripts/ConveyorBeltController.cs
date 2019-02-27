@@ -53,37 +53,31 @@ public class ConveyorBeltController : MonoBehaviour
     [Tooltip("Has the conveyor belt finished moving up yet")]
     private bool beltHasMovedUp;
 
-    private float time;    //time to check when conveyor belt is down
-    private float timeUp;
+    //private float time;    //time to check when conveyor belt is down
+    //private float timeUp;
     private bool runCoRoutine;
     private bool checkStart;
-    private bool check;
-    private bool runCoRoutineStart;
+    private bool check;    
     private bool oddPress;
     private bool evenPress;
     private GameObject MiddleConveyorBelt;
     private GameObject VinoConveyorBelt;
     private GameObject DownConveyorBelt;
     private bool pressedIt;
-    private bool pressedIt2;
-    private bool yep;
-    private bool yep2;
+    private bool pressedIt2;     
     private bool notDown;
     private bool notUp;
 
     void Start()
     {
         notDown = true;
-        notUp = true;
-        yep = true;
-        yep2 = true;
+        notUp = true;           
         pressedIt = true;
         pressedIt2 = true;
         evenPress = false;
         oddPress = true;
-        time = 0f;
-        timeUp = 0f;
-        runCoRoutineStart = false;
+        //time = 0f;
+        //timeUp = 0f;       
         check = false;
         checkStart = false;
         runCoRoutine = false;
@@ -154,14 +148,21 @@ public class ConveyorBeltController : MonoBehaviour
         }
         else if (!beltsPaused && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
         {
-
-            Debug.Log("pressed3");
-            beltsPaused = true;
-            ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
+            if (!beltMovingUp && !beltMovingDown)   //this here means can't stop when moving the belt down or up as it causes counting problems
             {
-                ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-                Debug.Log("pressed3while1");
+                Debug.Log("pressed3");
+                beltsPaused = true;
+                ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+                if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
+                {
+                    ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                    Debug.Log("pressed3while1");
+                }
+            }
+            else
+            {
+                ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                StartCoroutine("Return");
             }
         }
         if (ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true && ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
@@ -184,6 +185,11 @@ public class ConveyorBeltController : MonoBehaviour
                 }
             }
         }
+    }
+    IEnumerator Return()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
     }
 
     public void BeltDownCheck()
@@ -293,8 +299,7 @@ public class ConveyorBeltController : MonoBehaviour
         }
 
         if (beltMovingUp && beltsMoving)
-        {
-            //beltHasMovedDown = false;
+        {            
             BeltUpCheck();
             animDown.SetBool("Up", true);
             foreach (Collider col in DownConveyorBelt.GetComponentsInChildren<Collider>())
@@ -314,7 +319,7 @@ public class ConveyorBeltController : MonoBehaviour
                 rend.enabled = false;
             }
             animVino.SetBool("Start", false);
-            //animVino.SetBool("Disappear", true);      //replaced
+            
         }
         if (beltHasMovedDown && pressedIt)
         {
@@ -382,11 +387,7 @@ public class ConveyorBeltController : MonoBehaviour
         {
             evenPress = true;
             beltHasMovedDown = false;
-            pressedIt = true;
-
-
-
-            //StartCoroutine("OkayThen2");
+            pressedIt = true;          
         }
     }
     IEnumerator WaitUp()
@@ -398,9 +399,7 @@ public class ConveyorBeltController : MonoBehaviour
 
             oddPress = true;
             beltHasMovedUp = false;
-            pressedIt2 = true;
-
-            //StartCoroutine("OkayThen");
+            pressedIt2 = true;         
         }
     }
 }
