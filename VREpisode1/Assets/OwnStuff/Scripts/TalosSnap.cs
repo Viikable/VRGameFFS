@@ -15,13 +15,14 @@ public class TalosSnap : MonoBehaviour {
     bool Green;
     bool Red;
     bool Yellow;
+    bool stayTrue;
     public Material RedValid;
     public Material RedMat;
     public Material GreenValid;
     public Material GreenMat;
 
     //L-shape   
-    bool lShape;
+    static bool lShape;
     bool lShapeXOne;
     bool lShapeXOneOneY;
     bool lShapeXOneTwoY;
@@ -68,11 +69,11 @@ public class TalosSnap : MonoBehaviour {
 
 
         //U-shape
-    bool uShape;
+    static bool uShape;
     // U-shape ends
 
     //threerow shape
-    bool threeRow;
+    static bool threeRow;
     bool threeRowXOne;
     bool threeRowXNegOne;
     bool threeRowXTwo;
@@ -94,6 +95,7 @@ public class TalosSnap : MonoBehaviour {
         Green = false;
         Red = false;
         Yellow = false;
+        stayTrue = false;
         GreenMat = GameObject.Find("TalosCube_ThreeRow1").GetComponent<MeshRenderer>().material;
         RedMat = GameObject.Find("TalosCube_L_ShapePart1").GetComponent<MeshRenderer>().material;
         GreenValid = GameObject.Find("GreenValid").GetComponent<MeshRenderer>().material;
@@ -164,27 +166,9 @@ public class TalosSnap : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptGreen>() != null)
-        {
-            threeRowXOne = false;
-            threeRowXNegOne = false;
-            threeRowXOne = false;
-            threeRowXTwo = false;
-            threeRowXNegOne = false;
-            threeRowXNegTwo = false;
-            threeRowYOne = false;
-            threeRowYNegOne = false;
-            threeRowYOne = false;
-            threeRowYTwo = false;
-            threeRowYNegOne = false;
-            threeRowYNegTwo = false;
+        {          
             Green = true;
-            Debug.Log("entertrigger");
-            if (!threeRow)
-            {
-                GameObject.Find("TalosCube_ThreeRow1").GetComponent<MeshRenderer>().material = GreenMat;
-                GameObject.Find("TalosCube_ThreeRow2").GetComponent<MeshRenderer>().material = GreenMat;
-                GameObject.Find("TalosCube_ThreeRow3").GetComponent<MeshRenderer>().material = GreenMat;
-            }
+            Debug.Log("entertriggergreen");           
         }
 
         if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptRed>() != null)
@@ -204,7 +188,13 @@ public class TalosSnap : MonoBehaviour {
             GameObject.Find("TalosCube_ThreeRow2").GetComponent<MeshRenderer>().material = GreenValid;
             GameObject.Find("TalosCube_ThreeRow3").GetComponent<MeshRenderer>().material = GreenValid;
             Debug.Log("greenvalid");
-        }       
+        }
+        else
+        {
+            GameObject.Find("TalosCube_ThreeRow1").GetComponent<MeshRenderer>().material = GreenMat;
+            GameObject.Find("TalosCube_ThreeRow2").GetComponent<MeshRenderer>().material = GreenMat;
+            GameObject.Find("TalosCube_ThreeRow3").GetComponent<MeshRenderer>().material = GreenMat;
+        }
         if (lShape)
         {
             GameObject.Find("TalosCube_L_ShapePart1").GetComponent<MeshRenderer>().material = RedValid;
@@ -214,8 +204,7 @@ public class TalosSnap : MonoBehaviour {
             GameObject.Find("TalosCube_L_ShapePart5").GetComponent<MeshRenderer>().material = RedValid;
             GameObject.Find("TalosCube_L_ShapePart6").GetComponent<MeshRenderer>().material = RedValid;
         }
-        else if ((TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-            && !lShape))
+        else 
         {
             GameObject.Find("TalosCube_L_ShapePart1").GetComponent<MeshRenderer>().material = RedMat;
             GameObject.Find("TalosCube_L_ShapePart2").GetComponent<MeshRenderer>().material = RedMat;
@@ -225,15 +214,14 @@ public class TalosSnap : MonoBehaviour {
             GameObject.Find("TalosCube_L_ShapePart6").GetComponent<MeshRenderer>().material = RedMat;
         }
 
-
-
         if ((threeRowXOne && threeRowXNegOne) || (threeRowXOne && threeRowXTwo) || (threeRowXNegOne && threeRowXNegTwo)
             || (threeRowYOne && threeRowYNegOne) || (threeRowYOne && threeRowYTwo) || (threeRowYNegOne && threeRowYNegTwo))
         {
             threeRow = true;
+            Green = true;
             Debug.Log("yee");
         }
-        else
+        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null) 
         {
             threeRow = false;
         }
@@ -242,27 +230,25 @@ public class TalosSnap : MonoBehaviour {
             || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree && ((lShapeXNegThreeOneNegY && lShapeXNegThreeTwoNegY) || (lShapeYOne && lShapeYTwo)))
             || (lShapeXOne && lShapeXTwo && lShapeXNegOne && ((lShapeXTwoOneY && lShapeXTwoTwoY) || (lShapeXNegOneOneNegY && lShapeXNegOneTwoNegY))) 
                 || (lShapeXOne && lShapeXNegTwo && lShapeXNegOne && ((lShapeXNegTwoOneNegY && lShapeXNegTwoTwoNegY) || (lShapeXOneOneY && lShapeXOneTwoY)))
-                || (lShapeXOne && lShapeXTwo && ((lShapeXTwoOneNegY && lShapeXTwoTwoNegY && lShapeXTwoThreeNegY) || (lShapeYOne && lShapeYTwo && lShapeYThree))))
-        {
-            lShape = true;
-            Debug.Log("truefirst");
-        } 
-           
-        else if ((lShapeYOne && lShapeYTwo && lShapeYThree && ((lShapeYThreeOneNegX && lShapeYThreeTwoNegX) || (lShapeXOne && lShapeXTwo))) 
-                || (lShapeYNegOne && lShapeYNegTwo && lShapeYNegThree && ((lShapeYNegThreeOneX && lShapeYNegThreeTwoX) || (lShapeXNegOne && lShapeXNegTwo))) 
+                || (lShapeXOne && lShapeXTwo && ((lShapeXTwoOneNegY && lShapeXTwoTwoNegY && lShapeXTwoThreeNegY) || (lShapeYOne && lShapeYTwo && lShapeYThree)))
+                || lShapeYOne && lShapeYTwo && lShapeYThree && ((lShapeYThreeOneNegX && lShapeYThreeTwoNegX) || (lShapeXOne && lShapeXTwo))
+                || (lShapeYNegOne && lShapeYNegTwo && lShapeYNegThree && ((lShapeYNegThreeOneX && lShapeYNegThreeTwoX) || (lShapeXNegOne && lShapeXNegTwo)))
                 || (lShapeYOne && lShapeYTwo && lShapeYNegOne && ((lShapeYTwoOneNegX && lShapeYTwoTwoNegX) || (lShapeYNegOneOneX && lShapeYNegOneTwoX)))
                 || (lShapeYOne && lShapeYNegTwo && lShapeYNegOne && ((lShapeYNegTwoOneX && lShapeYNegTwoTwoX) || (lShapeYOneOneNegX && lShapeYOneTwoNegX)))
                 || (lShapeYOne && lShapeYTwo && ((lShapeYTwoOneX && lShapeYTwoTwoX && lShapeYTwoThreeX) || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree))))
         {
             lShape = true;
-            Debug.Log("truesecond");
-        }
-        else
+            Red = true;
+            Debug.Log("truered");
+        } 
+                
+        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
         {
-            lShape = false;         
+            lShape= false;
+                     
         }
-        if (Green)
-        {
+        //if (Green)
+        //{
             if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null)
             {
                 Green = false;
@@ -323,9 +309,9 @@ public class TalosSnap : MonoBehaviour {
                     GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
                     && ((y - 2) >= 1);
             }
-        }
-        if (Red)
-        {
+        //}
+        //if (Red)
+        //{
             if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
             {
                 Red = false;
@@ -627,4 +613,4 @@ public class TalosSnap : MonoBehaviour {
             }
         }
     }
-}
+//}
