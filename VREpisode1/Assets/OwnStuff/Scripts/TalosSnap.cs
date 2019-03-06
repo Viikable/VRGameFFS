@@ -189,65 +189,62 @@ public class TalosSnap : MonoBehaviour
 
     private void Update()
     {
-        //Checkpart
-        if ((threeRowXOne && threeRowXNegOne) || (threeRowXOne && threeRowXTwo) || (threeRowXNegOne && threeRowXNegTwo)
-            || (threeRowYOne && threeRowYNegOne) || (threeRowYOne && threeRowYTwo) || (threeRowYNegOne && threeRowYNegTwo))
-        {
-            threeRow = true;
-            if (!OneCorrect.isPlaying && Green && !lShape)
-            {
-                OneCorrect.Play();
-                Green = false;
-            }
-            Debug.Log("threerow");
-        }
-        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null)
-        {
-            threeRow = false;
-            Debug.Log("nothreerow");
+        if (TalosSnapZone.GetCurrentSnappedObject() == null)
+        {            
+            threeRowXOne = false;
+            threeRowXNegOne = false;
+            threeRowXTwo = false;
+            threeRowXNegTwo = false;
+            threeRowYOne = false;
+            threeRowYNegOne = false;
+            threeRowYTwo = false;
+            threeRowYNegTwo = false;
+
+            lShapeXOne = false;
+            lShapeXOneOneY = false;
+            lShapeXOneTwoY = false;
+            lShapeXTwo = false;
+            lShapeXTwoOneY = false;
+            lShapeXTwoTwoY = false;
+            lShapeXTwoOneNegY = false;
+            lShapeXTwoTwoNegY = false;
+            lShapeXTwoThreeNegY = false;
+            lShapeXThree = false;
+            lShapeXThreeOneY = false;
+            lShapeXThreeTwoY = false;
+            lShapeXNegOne = false;
+            lShapeXNegOneOneNegY = false;
+            lShapeXNegOneTwoNegY = false;
+            lShapeXNegTwo = false;
+            lShapeXNegTwoOneNegY = false;
+            lShapeXNegTwoTwoNegY = false;
+            lShapeXNegThree = false;
+            lShapeXNegThreeOneNegY = false;
+            lShapeXNegThreeTwoNegY = false;
+            lShapeYOne = false;                     //L-shape cannot be turned around
+            lShapeYOneOneNegX = false;
+            lShapeYOneTwoNegX = false;
+            lShapeYTwo = false;
+            lShapeYTwoOneX = false;
+            lShapeYTwoTwoX = false;
+            lShapeYTwoThreeX = false;
+            lShapeYTwoOneNegX = false;
+            lShapeYTwoTwoNegX = false;
+            lShapeYThree = false;
+            lShapeYThreeOneNegX = false;
+            lShapeYThreeTwoNegX = false;
+            lShapeYNegOne = false;
+            lShapeYNegOneOneX = false;
+            lShapeYNegOneTwoX = false;
+            lShapeYNegTwo = false;
+            lShapeYNegTwoOneX = false;
+            lShapeYNegTwoTwoX = false;
+            lShapeYNegThree = false;
+            lShapeYNegThreeOneX = false;
+            lShapeYNegThreeTwoX = false;
         }
 
-        if ((lShapeXOne && lShapeXTwo && lShapeXThree && ((lShapeXThreeOneY && lShapeXThreeTwoY) || (lShapeYNegOne && lShapeYNegTwo)))
-            || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree && ((lShapeXNegThreeOneNegY && lShapeXNegThreeTwoNegY) || (lShapeYOne && lShapeYTwo)))
-            || (lShapeXOne && lShapeXTwo && lShapeXNegOne && ((lShapeXTwoOneY && lShapeXTwoTwoY) || (lShapeXNegOneOneNegY && lShapeXNegOneTwoNegY)))
-                || (lShapeXOne && lShapeXNegTwo && lShapeXNegOne && ((lShapeXNegTwoOneNegY && lShapeXNegTwoTwoNegY) || (lShapeXOneOneY && lShapeXOneTwoY)))
-                || (lShapeXOne && lShapeXTwo && ((lShapeXTwoOneNegY && lShapeXTwoTwoNegY && lShapeXTwoThreeNegY) || (lShapeYOne && lShapeYTwo && lShapeYThree))))
-        {
-            lShape = true;
-            if (!OneCorrect.isPlaying && Red && !threeRow)
-            {
-                OneCorrect.Play();
-                Red = false;
-            }
-            Debug.Log("truered");
-        }
-        else if ((lShapeYOne && lShapeYTwo && lShapeYThree && ((lShapeYThreeOneNegX && lShapeYThreeTwoNegX) || (lShapeXOne && lShapeXTwo)))
-                || (lShapeYNegOne && lShapeYNegTwo && lShapeYNegThree && ((lShapeYNegThreeOneX && lShapeYNegThreeTwoX) || (lShapeXNegOne && lShapeXNegTwo)))
-                || (lShapeYOne && lShapeYTwo && lShapeYNegOne && ((lShapeYTwoOneNegX && lShapeYTwoTwoNegX) || (lShapeYNegOneOneX && lShapeYNegOneTwoX)))
-                || (lShapeYOne && lShapeYNegTwo && lShapeYNegOne && ((lShapeYNegTwoOneX && lShapeYNegTwoTwoX) || (lShapeYOneOneNegX && lShapeYOneTwoNegX)))
-                || (lShapeYOne && lShapeYTwo && ((lShapeYTwoOneX && lShapeYTwoTwoX && lShapeYTwoThreeX) || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree))))
-        {
-            lShape = true;
-            if (!OneCorrect.isPlaying && Red && !threeRow)
-            {
-                OneCorrect.Play();
-                Red = false;
-            }
-            Debug.Log("truered");
-        }
-        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
-        {
-            lShape = false;
-            Debug.Log("nored");
-        }
-        if (threeRow && lShape && !AllCorrect.isPlaying && (Red || Green))
-        {
-            AllCorrect.Play();
-            Red = false;
-            Green = false;
-            Debug.Log("allcorrect");
-        }
-        if (threeRow)
+         if (threeRow)
         {
             GameObject.Find("TalosCube_ThreeRow1").GetComponent<MeshRenderer>().material = GreenValid;
             GameObject.Find("TalosCube_ThreeRow2").GetComponent<MeshRenderer>().material = GreenValid;
@@ -279,6 +276,56 @@ public class TalosSnap : MonoBehaviour
             GameObject.Find("TalosCube_L_ShapePart5").GetComponent<MeshRenderer>().material = RedMat;
             GameObject.Find("TalosCube_L_ShapePart6").GetComponent<MeshRenderer>().material = RedMat;
         }
+        //Checkpart
+        if ((threeRowXOne && threeRowXNegOne) || (threeRowXOne && threeRowXTwo) || (threeRowXNegOne && threeRowXNegTwo)
+            || (threeRowYOne && threeRowYNegOne) || (threeRowYOne && threeRowYTwo) || (threeRowYNegOne && threeRowYNegTwo))
+        {
+            threeRow = true;
+            if (!OneCorrect.isPlaying && Green && !lShape)
+            {
+                OneCorrect.Play();
+                Green = false;
+            }
+            Debug.Log("threerow");
+        }
+        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null && Green)
+        {
+            threeRow = false;
+            Debug.Log("nothreerow");
+        }
+
+        if ((lShapeXOne && lShapeXTwo && lShapeXThree && ((lShapeXThreeOneY && lShapeXThreeTwoY) || (lShapeYNegOne && lShapeYNegTwo)))
+            || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree && ((lShapeXNegThreeOneNegY && lShapeXNegThreeTwoNegY) || (lShapeYOne && lShapeYTwo)))
+            || (lShapeXOne && lShapeXTwo && lShapeXNegOne && ((lShapeXTwoOneY && lShapeXTwoTwoY) || (lShapeXNegOneOneNegY && lShapeXNegOneTwoNegY)))
+                || (lShapeXOne && lShapeXNegTwo && lShapeXNegOne && ((lShapeXNegTwoOneNegY && lShapeXNegTwoTwoNegY) || (lShapeXOneOneY && lShapeXOneTwoY)))
+                || (lShapeXOne && lShapeXTwo && ((lShapeXTwoOneNegY && lShapeXTwoTwoNegY && lShapeXTwoThreeNegY) || (lShapeYOne && lShapeYTwo && lShapeYThree)))
+                || (lShapeYOne && lShapeYTwo && lShapeYThree && ((lShapeYThreeOneNegX && lShapeYThreeTwoNegX) || (lShapeXOne && lShapeXTwo)))
+                || (lShapeYNegOne && lShapeYNegTwo && lShapeYNegThree && ((lShapeYNegThreeOneX && lShapeYNegThreeTwoX) || (lShapeXNegOne && lShapeXNegTwo)))
+                || (lShapeYOne && lShapeYTwo && lShapeYNegOne && ((lShapeYTwoOneNegX && lShapeYTwoTwoNegX) || (lShapeYNegOneOneX && lShapeYNegOneTwoX)))
+                || (lShapeYOne && lShapeYNegTwo && lShapeYNegOne && ((lShapeYNegTwoOneX && lShapeYNegTwoTwoX) || (lShapeYOneOneNegX && lShapeYOneTwoNegX)))
+                || (lShapeYOne && lShapeYTwo && ((lShapeYTwoOneX && lShapeYTwoTwoX && lShapeYTwoThreeX) || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree))))
+        {
+            lShape = true;
+            if (!OneCorrect.isPlaying && Red && !threeRow)
+            {
+                OneCorrect.Play();
+                Red = false;
+            }
+            Debug.Log("truered");
+        }
+        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null && Red)
+        {
+            lShape = false;
+            Debug.Log("nored");
+        }
+        if (threeRow && lShape && !AllCorrect.isPlaying && (Red || Green))
+        {
+            AllCorrect.Play();
+            Red = false;
+            Green = false;
+            Debug.Log("allcorrect");
+        }
+       
         //if (Green)
         //{
         if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null)
