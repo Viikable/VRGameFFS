@@ -6,20 +6,23 @@ using System;
 
 
 
-public class TalosSnap : MonoBehaviour {
+public class TalosSnap : MonoBehaviour
+{
     VRTK_SnapDropZone TalosSnapZone;
     private int x;
     private int y;
     char X;
     char Y;
-    bool Green;
-    bool Red;
-    bool Yellow;
+    static bool Green;
+    static bool Red;
+    static bool Yellow;
     bool stayTrue;
     public Material RedValid;
     public Material RedMat;
     public Material GreenValid;
     public Material GreenMat;
+    AudioSource OneCorrect;
+    AudioSource AllCorrect;
 
     //L-shape   
     static bool lShape;
@@ -68,7 +71,7 @@ public class TalosSnap : MonoBehaviour {
     // L_shape ends
 
 
-        //U-shape
+    //U-shape
     static bool uShape;
     // U-shape ends
 
@@ -85,10 +88,11 @@ public class TalosSnap : MonoBehaviour {
     //threerow Shape ends
     private string currentLocation;  //location in puzzle grid in x and y coordinates
 
-    void Start () {
+    void Start()
+    {
         TalosSnapZone = GetComponent<VRTK_SnapDropZone>();
         X = name[13];
-        Y = name[15];        
+        Y = name[15];
         x = Convert.ToInt32(new string(X, 1));
         y = Convert.ToInt32(new string(Y, 1));
         currentLocation = ("TalosSnapZone" + x + "_" + y).ToString();
@@ -100,6 +104,8 @@ public class TalosSnap : MonoBehaviour {
         RedMat = GameObject.Find("TalosCube_L_ShapePart1").GetComponent<MeshRenderer>().material;
         GreenValid = GameObject.Find("GreenValid").GetComponent<MeshRenderer>().material;
         RedValid = GameObject.Find("RedValid").GetComponent<MeshRenderer>().material;
+        OneCorrect = GameObject.Find("OneCorrectSound").GetComponent<AudioSource>();
+        AllCorrect = GameObject.Find("AllCorrectSound").GetComponent<AudioSource>();
 
         //L-Shape starts
         lShape = false;
@@ -113,7 +119,7 @@ public class TalosSnap : MonoBehaviour {
         lShapeXTwoTwoNegY = false;
         lShapeXTwoThreeNegY = false;
         lShapeXThree = false;
-        lShapeXThreeOneY = false; 
+        lShapeXThreeOneY = false;
         lShapeXThreeTwoY = false;
         lShapeXNegOne = false;
         lShapeXNegOneOneNegY = false;
@@ -166,22 +172,81 @@ public class TalosSnap : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptGreen>() != null)
-        {          
+        {
             Green = true;
-            Debug.Log("entertriggergreen");           
         }
 
         if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptRed>() != null)
         {
             Red = true;
+
         }
         if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptYellow>() != null)
         {
             Yellow = true;
-        }       
-    }  
+        }
+    }
+
     private void Update()
-    {     
+    {
+        //Checkpart
+        if ((threeRowXOne && threeRowXNegOne) || (threeRowXOne && threeRowXTwo) || (threeRowXNegOne && threeRowXNegTwo)
+            || (threeRowYOne && threeRowYNegOne) || (threeRowYOne && threeRowYTwo) || (threeRowYNegOne && threeRowYNegTwo))
+        {
+            threeRow = true;
+            if (!OneCorrect.isPlaying && Green && !lShape)
+            {
+                OneCorrect.Play();
+                Green = false;
+            }
+            Debug.Log("threerow");
+        }
+        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null)
+        {
+            threeRow = false;
+            Debug.Log("nothreerow");
+        }
+
+        if ((lShapeXOne && lShapeXTwo && lShapeXThree && ((lShapeXThreeOneY && lShapeXThreeTwoY) || (lShapeYNegOne && lShapeYNegTwo)))
+            || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree && ((lShapeXNegThreeOneNegY && lShapeXNegThreeTwoNegY) || (lShapeYOne && lShapeYTwo)))
+            || (lShapeXOne && lShapeXTwo && lShapeXNegOne && ((lShapeXTwoOneY && lShapeXTwoTwoY) || (lShapeXNegOneOneNegY && lShapeXNegOneTwoNegY)))
+                || (lShapeXOne && lShapeXNegTwo && lShapeXNegOne && ((lShapeXNegTwoOneNegY && lShapeXNegTwoTwoNegY) || (lShapeXOneOneY && lShapeXOneTwoY)))
+                || (lShapeXOne && lShapeXTwo && ((lShapeXTwoOneNegY && lShapeXTwoTwoNegY && lShapeXTwoThreeNegY) || (lShapeYOne && lShapeYTwo && lShapeYThree))))
+        {
+            lShape = true;
+            if (!OneCorrect.isPlaying && Red && !threeRow)
+            {
+                OneCorrect.Play();
+                Red = false;
+            }
+            Debug.Log("truered");
+        }
+        else if ((lShapeYOne && lShapeYTwo && lShapeYThree && ((lShapeYThreeOneNegX && lShapeYThreeTwoNegX) || (lShapeXOne && lShapeXTwo)))
+                || (lShapeYNegOne && lShapeYNegTwo && lShapeYNegThree && ((lShapeYNegThreeOneX && lShapeYNegThreeTwoX) || (lShapeXNegOne && lShapeXNegTwo)))
+                || (lShapeYOne && lShapeYTwo && lShapeYNegOne && ((lShapeYTwoOneNegX && lShapeYTwoTwoNegX) || (lShapeYNegOneOneX && lShapeYNegOneTwoX)))
+                || (lShapeYOne && lShapeYNegTwo && lShapeYNegOne && ((lShapeYNegTwoOneX && lShapeYNegTwoTwoX) || (lShapeYOneOneNegX && lShapeYOneTwoNegX)))
+                || (lShapeYOne && lShapeYTwo && ((lShapeYTwoOneX && lShapeYTwoTwoX && lShapeYTwoThreeX) || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree))))
+        {
+            lShape = true;
+            if (!OneCorrect.isPlaying && Red && !threeRow)
+            {
+                OneCorrect.Play();
+                Red = false;
+            }
+            Debug.Log("truered");
+        }
+        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
+        {
+            lShape = false;
+            Debug.Log("nored");
+        }
+        if (threeRow && lShape && !AllCorrect.isPlaying && (Red || Green))
+        {
+            AllCorrect.Play();
+            Red = false;
+            Green = false;
+            Debug.Log("allcorrect");
+        }
         if (threeRow)
         {
             GameObject.Find("TalosCube_ThreeRow1").GetComponent<MeshRenderer>().material = GreenValid;
@@ -194,6 +259,7 @@ public class TalosSnap : MonoBehaviour {
             GameObject.Find("TalosCube_ThreeRow1").GetComponent<MeshRenderer>().material = GreenMat;
             GameObject.Find("TalosCube_ThreeRow2").GetComponent<MeshRenderer>().material = GreenMat;
             GameObject.Find("TalosCube_ThreeRow3").GetComponent<MeshRenderer>().material = GreenMat;
+            Debug.Log("greeninvalid");
         }
         if (lShape)
         {
@@ -204,7 +270,7 @@ public class TalosSnap : MonoBehaviour {
             GameObject.Find("TalosCube_L_ShapePart5").GetComponent<MeshRenderer>().material = RedValid;
             GameObject.Find("TalosCube_L_ShapePart6").GetComponent<MeshRenderer>().material = RedValid;
         }
-        else 
+        else
         {
             GameObject.Find("TalosCube_L_ShapePart1").GetComponent<MeshRenderer>().material = RedMat;
             GameObject.Find("TalosCube_L_ShapePart2").GetComponent<MeshRenderer>().material = RedMat;
@@ -213,404 +279,372 @@ public class TalosSnap : MonoBehaviour {
             GameObject.Find("TalosCube_L_ShapePart5").GetComponent<MeshRenderer>().material = RedMat;
             GameObject.Find("TalosCube_L_ShapePart6").GetComponent<MeshRenderer>().material = RedMat;
         }
-
-        if ((threeRowXOne && threeRowXNegOne) || (threeRowXOne && threeRowXTwo) || (threeRowXNegOne && threeRowXNegTwo)
-            || (threeRowYOne && threeRowYNegOne) || (threeRowYOne && threeRowYTwo) || (threeRowYNegOne && threeRowYNegTwo))
-        {
-            threeRow = true;
-            Green = true;
-            Debug.Log("yee");
-        }
-        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null) 
-        {
-            threeRow = false;
-        }
-
-        if ((lShapeXOne && lShapeXTwo && lShapeXThree && ((lShapeXThreeOneY && lShapeXThreeTwoY) || (lShapeYNegOne && lShapeYNegTwo))) 
-            || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree && ((lShapeXNegThreeOneNegY && lShapeXNegThreeTwoNegY) || (lShapeYOne && lShapeYTwo)))
-            || (lShapeXOne && lShapeXTwo && lShapeXNegOne && ((lShapeXTwoOneY && lShapeXTwoTwoY) || (lShapeXNegOneOneNegY && lShapeXNegOneTwoNegY))) 
-                || (lShapeXOne && lShapeXNegTwo && lShapeXNegOne && ((lShapeXNegTwoOneNegY && lShapeXNegTwoTwoNegY) || (lShapeXOneOneY && lShapeXOneTwoY)))
-                || (lShapeXOne && lShapeXTwo && ((lShapeXTwoOneNegY && lShapeXTwoTwoNegY && lShapeXTwoThreeNegY) || (lShapeYOne && lShapeYTwo && lShapeYThree)))
-                || lShapeYOne && lShapeYTwo && lShapeYThree && ((lShapeYThreeOneNegX && lShapeYThreeTwoNegX) || (lShapeXOne && lShapeXTwo))
-                || (lShapeYNegOne && lShapeYNegTwo && lShapeYNegThree && ((lShapeYNegThreeOneX && lShapeYNegThreeTwoX) || (lShapeXNegOne && lShapeXNegTwo)))
-                || (lShapeYOne && lShapeYTwo && lShapeYNegOne && ((lShapeYTwoOneNegX && lShapeYTwoTwoNegX) || (lShapeYNegOneOneX && lShapeYNegOneTwoX)))
-                || (lShapeYOne && lShapeYNegTwo && lShapeYNegOne && ((lShapeYNegTwoOneX && lShapeYNegTwoTwoX) || (lShapeYOneOneNegX && lShapeYOneTwoNegX)))
-                || (lShapeYOne && lShapeYTwo && ((lShapeYTwoOneX && lShapeYTwoTwoX && lShapeYTwoThreeX) || (lShapeXNegOne && lShapeXNegTwo && lShapeXNegThree))))
-        {
-            lShape = true;
-            Red = true;
-            Debug.Log("truered");
-        } 
-                
-        else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
-        {
-            lShape= false;
-                     
-        }
         //if (Green)
         //{
-            if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null)
-            {
-                Green = false;
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX     x and y are actually not in logical positions in the puzzle
-                threeRowXOne = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                    && ((x + 1) <= 4);
+        if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null)
+        {
 
-                threeRowXNegOne = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                    && ((x - 1) >= 1);
+            //Green = false;
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX     x and y are actually not in logical positions in the puzzle
+            threeRowXOne = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+                && ((x + 1) <= 4);
 
-                threeRowXTwo = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                    && ((x + 2) <= 4);
+            threeRowXNegOne = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+                && ((x - 1) >= 1);
 
-                threeRowXNegTwo = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                    && ((x - 2) >= 1);
-                //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-                threeRowYOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                    && ((y + 1) <= 5);
+            threeRowXTwo = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+                && ((x + 2) <= 4);
 
-                threeRowYNegOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                    && ((y - 1) >= 1);
+            threeRowXNegTwo = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+                && ((x - 2) >= 1);
+            //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+            threeRowYOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+                && ((y + 1) <= 5);
 
-                threeRowYTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                   && ((y + 2) <= 5);
+            threeRowYNegOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+                && ((y - 1) >= 1);
 
-                threeRowYNegTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
-                    && ((y - 2) >= 1);
-            }
+            threeRowYTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+               && ((y + 2) <= 5);
+
+            threeRowYNegTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null
+                && ((y - 2) >= 1);
+        }
         //}
         //if (Red)
         //{
-            if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
-            {
-                Red = false;
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                lShapeXOne = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x + 1) <= 4);
+        if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
+        {
+            //Red = false;
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            lShapeXOne = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x + 1) <= 4);
 
-                lShapeXOneOneY = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x + 1) <= 4) && ((y + 1) <= 5);
+            lShapeXOneOneY = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x + 1) <= 4) && ((y + 1) <= 5);
 
-                lShapeXOneTwoY = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x + 1) <= 4) && ((y + 2) <= 5);
+            lShapeXOneTwoY = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x + 1) <= 4) && ((y + 2) <= 5);
 
-                lShapeXNegOne = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x - 1) >= 1);
+            lShapeXNegOne = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x - 1) >= 1);
 
-                lShapeXNegOneOneNegY = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x - 1) >= 1) && ((y - 1) >= 1);
+            lShapeXNegOneOneNegY = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x - 1) >= 1) && ((y - 1) >= 1);
 
-                lShapeXNegOneTwoNegY = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 2)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x - 1) >= 1) && ((y - 2) >= 1);
+            lShapeXNegOneTwoNegY = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 2)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x - 1) >= 1) && ((y - 2) >= 1);
 
-                lShapeXTwo = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x + 2) <= 4);
+            lShapeXTwo = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x + 2) <= 4);
 
-                lShapeXTwoOneY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 1)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 1)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                  && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((x + 2) <= 4) && ((y + 1) <= 5);
+            lShapeXTwoOneY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 1)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 1)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+              && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((x + 2) <= 4) && ((y + 1) <= 5);
 
-                lShapeXTwoTwoY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                  && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((x + 2) <= 4) && ((y + 2) <= 5);
+            lShapeXTwoTwoY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+              && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((x + 2) <= 4) && ((y + 2) <= 5);
 
-                lShapeXTwoOneNegY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                  && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((x + 2) <= 4) && ((y - 1) >= 1);
+            lShapeXTwoOneNegY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+              && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((x + 2) <= 4) && ((y - 1) >= 1);
 
-                lShapeXTwoTwoNegY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                  && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((x + 2) <= 4) && ((y - 2) >= 1);
+            lShapeXTwoTwoNegY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+              && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((x + 2) <= 4) && ((y - 2) >= 1);
 
-                lShapeXTwoThreeNegY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()) != null &&
-                 GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
-                 GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                 && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                  && ((x + 2) <= 4) && ((y - 3) >= 1);
+            lShapeXTwoThreeNegY = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()) != null &&
+             GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
+             GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+             && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+              && ((x + 2) <= 4) && ((y - 3) >= 1);
 
-                lShapeXNegTwo = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x - 2) >= 1);
+            lShapeXNegTwo = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x - 2) >= 1);
 
-                lShapeXNegTwoOneNegY = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 1)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((x - 2) >= 1) && ((y - 1) >= 1);
+            lShapeXNegTwoOneNegY = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 1)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((x - 2) >= 1) && ((y - 1) >= 1);
 
-                lShapeXNegTwoTwoNegY = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 2)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((x - 2) >= 1) && ((y - 2) >= 1);
+            lShapeXNegTwoTwoNegY = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 2)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y - 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((x - 2) >= 1) && ((y - 2) >= 1);
 
-                lShapeXThree = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + y).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + y).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x + 3) <= 4);
+            lShapeXThree = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + y).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + y).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x + 3) <= 4);
 
-                lShapeXThreeOneY = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 1)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x + 3) <= 4) && ((y + 1) <= 5);
+            lShapeXThreeOneY = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 1)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x + 3) <= 4) && ((y + 1) <= 5);
 
-                lShapeXThreeTwoY = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x + 3) <= 4) && ((y + 2) <= 5);
+            lShapeXThreeTwoY = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x + 3) <= 4) && ((y + 2) <= 5);
 
-                lShapeXNegThree = GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + y).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + y).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + y).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x - 3) >= 1);
+            lShapeXNegThree = GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + y).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + y).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + y).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x - 3) >= 1);
 
-                lShapeXNegThreeOneNegY = GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 1)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x - 3) >= 1) && ((y - 1) >= 1);
+            lShapeXNegThreeOneNegY = GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 1)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x - 3) >= 1) && ((y - 1) >= 1);
 
-                lShapeXNegThreeTwoNegY = GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 2)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((x - 3) >= 1) && ((y - 2) >= 1);
+            lShapeXNegThreeTwoNegY = GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 2)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x - 3) + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((x - 3) >= 1) && ((y - 2) >= 1);
 
-                //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-                lShapeYOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((y + 1) <= 5);
+            //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+            lShapeYOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((y + 1) <= 5);
 
-                lShapeYOneOneNegX = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((y + 1) <= 5) && ((x - 1) >= 1);
+            lShapeYOneOneNegX = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((y + 1) <= 5) && ((x - 1) >= 1);
 
-                lShapeYOneTwoNegX = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                    GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((y + 1) <= 5) && ((x - 2) >= 1);
+            lShapeYOneTwoNegX = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+                GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((y + 1) <= 5) && ((x - 2) >= 1);
 
-                lShapeYNegOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                    && GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((y - 1) >= 1);
+            lShapeYNegOne = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+                && GameObject.Find(("TalosSnapZone" + x + "_" + (y - 1)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((y - 1) >= 1);
 
-                lShapeYNegOneOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 1)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((y - 1) >= 1) && ((x + 1) <= 4);
+            lShapeYNegOneOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 1)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((y - 1) >= 1) && ((x + 1) <= 4);
 
-                lShapeYNegOneTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
-                   && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((y - 1) >= 1) && ((x + 2) <= 4);
+            lShapeYNegOneTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null
+               && GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 1)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((y - 1) >= 1) && ((x + 2) <= 4);
 
-                lShapeYTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((y + 2) <= 5);
+            lShapeYTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y + 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((y + 2) <= 5);
 
-                lShapeYTwoOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                  && ((y + 2) <= 5) && ((x + 1) <= 5);
+            lShapeYTwoOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y + 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+              && ((y + 2) <= 5) && ((x + 1) <= 5);
 
-                lShapeYTwoTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()) != null &&
-                 GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
-                 GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                 GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
-                 GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                 && ((y + 2) <= 5) && ((x + 2) <= 5);
+            lShapeYTwoTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()) != null &&
+             GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
+             GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+             GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y + 2)).ToString()).
+             GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+             && ((y + 2) <= 5) && ((x + 2) <= 5);
 
-                lShapeYTwoThreeX = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()) != null &&
-                 GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
-                 GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                 GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
-                 GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                 && ((y + 2) <= 5) && ((x + 3) <= 5);
+            lShapeYTwoThreeX = GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()) != null &&
+             GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
+             GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+             GameObject.Find(("TalosSnapZone" + (x + 3) + "_" + (y + 2)).ToString()).
+             GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+             && ((y + 2) <= 5) && ((x + 3) <= 5);
 
-                lShapeYTwoOneNegX = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 2)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                  GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                  && ((y + 2) <= 5) && ((x - 1) >= 1);
+            lShapeYTwoOneNegX = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 2)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+              GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+              && ((y + 2) <= 5) && ((x - 1) >= 1);
 
-                lShapeYTwoTwoNegX = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 2)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                  GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 2)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                  && ((y + 2) <= 5) && ((x - 2) >= 1);
+            lShapeYTwoTwoNegX = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 2)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+              GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 2)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+              && ((y + 2) <= 5) && ((x - 2) >= 1);
 
-                lShapeYNegTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                    GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((y - 2) >= 1);
+            lShapeYNegTwo = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+                GameObject.Find(("TalosSnapZone" + x + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((y - 2) >= 1);
 
-                lShapeYNegTwoOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 2)).ToString()) != null &&
-                    GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                    GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 2)).ToString()).
-                    GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                    && ((y - 2) >= 1) && ((x + 1) <= 4);
+            lShapeYNegTwoOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 2)).ToString()) != null &&
+                GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+                GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 2)).ToString()).
+                GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+                && ((y - 2) >= 1) && ((x + 1) <= 4);
 
-                lShapeYNegTwoTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                   GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((y - 2) >= 1) && ((x + 2) <= 4);
+            lShapeYNegTwoTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+               GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 2)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((y - 2) >= 1) && ((x + 2) <= 4);
 
-                lShapeYThree = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 3)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y + 3)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y + 3)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((y + 3) <= 5);
+            lShapeYThree = GameObject.Find(("TalosSnapZone" + x + "_" + (y + 3)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y + 3)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y + 3)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((y + 3) <= 5);
 
-                lShapeYThreeOneNegX = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 3)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 3)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                   GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 3)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((y + 3) <= 5) && ((x - 1) >= 1);
+            lShapeYThreeOneNegX = GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 3)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 3)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+               GameObject.Find(("TalosSnapZone" + (x - 1) + "_" + (y + 3)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((y + 3) <= 5) && ((x - 1) >= 1);
 
-                lShapeYThreeTwoNegX = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 3)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 3)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                  GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 3)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                  && ((y + 3) <= 5) && ((x - 2) >= 1);
+            lShapeYThreeTwoNegX = GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 3)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 3)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+              GameObject.Find(("TalosSnapZone" + (x - 2) + "_" + (y + 3)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+              && ((y + 3) <= 5) && ((x - 2) >= 1);
 
-                lShapeYNegThree = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 3)).ToString()) != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y - 3)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                   GameObject.Find(("TalosSnapZone" + x + "_" + (y - 3)).ToString()).
-                   GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                   && ((y - 3) <= 5);
+            lShapeYNegThree = GameObject.Find(("TalosSnapZone" + x + "_" + (y - 3)).ToString()) != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y - 3)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+               GameObject.Find(("TalosSnapZone" + x + "_" + (y - 3)).ToString()).
+               GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+               && ((y - 3) <= 5);
 
-                lShapeYNegThreeOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 3)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 3)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 3)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                  && ((y - 3) <= 5) && ((x + 1) <= 4);
+            lShapeYNegThreeOneX = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 3)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 3)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + (y - 3)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+              && ((y - 3) <= 5) && ((x + 1) <= 4);
 
-                lShapeYNegThreeTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()) != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
-                  GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
-                  GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
-                  && ((y - 3) <= 5) && ((x + 2) <= 4);
-            }
+            lShapeYNegThreeTwoX = GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()) != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject() != null &&
+              GameObject.Find(("TalosSnapZone" + (x + 2) + "_" + (y - 3)).ToString()).
+              GetComponent<VRTK_SnapDropZone>().GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null
+              && ((y - 3) <= 5) && ((x + 2) <= 4);
         }
     }
-//}
+}
+    
+   
