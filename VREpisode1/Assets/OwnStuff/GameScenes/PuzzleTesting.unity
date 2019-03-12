@@ -965,6 +965,91 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 478f9c50c42416442b801ba046d9b732, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &102952355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 102952359}
+  - component: {fileID: 102952358}
+  - component: {fileID: 102952357}
+  - component: {fileID: 102952356}
+  m_Layer: 0
+  m_Name: YellowValid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &102952356
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 102952355}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &102952357
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 102952355}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: a8934a77ad83e0f4a9e9d40b3917880b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &102952358
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 102952355}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &102952359
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 102952355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.134993, y: -6.528023, z: 22.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &105932886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1132,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &111343887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,6 +2618,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &261412041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,7 +3409,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &356914671
 GameObject:
@@ -3585,6 +3674,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &390120116 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1340696790909234, guid: 478f9c50c42416442b801ba046d9b732,
@@ -5002,6 +5093,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &525251211
 GameObject:
   m_ObjectHideFlags: 0
@@ -5156,6 +5249,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &541883052
 GameObject:
   m_ObjectHideFlags: 0
@@ -5484,6 +5579,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &574638268 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1340696790909234, guid: 478f9c50c42416442b801ba046d9b732,
@@ -6084,6 +6181,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &643554057
 GameObject:
   m_ObjectHideFlags: 0
@@ -6785,6 +6884,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1001 &756127124
 Prefab:
   m_ObjectHideFlags: 0
@@ -8409,6 +8510,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!4 &930161737
 Transform:
   m_ObjectHideFlags: 0
@@ -8703,6 +8806,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!114 &968372486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9183,6 +9288,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!4 &1002128026
 Transform:
   m_ObjectHideFlags: 0
@@ -9762,6 +9869,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &1039907532
 GameObject:
   m_ObjectHideFlags: 0
@@ -11500,6 +11609,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &1206179235
 GameObject:
   m_ObjectHideFlags: 0
@@ -12295,6 +12406,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &1292522850
 GameObject:
   m_ObjectHideFlags: 0
@@ -14149,6 +14262,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &1526516730
 GameObject:
   m_ObjectHideFlags: 0
@@ -14564,6 +14679,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &1559666473
 GameObject:
   m_ObjectHideFlags: 0
@@ -14862,6 +14979,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!114 &1671774569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14925,6 +15044,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!4 &1671774573
 Transform:
   m_ObjectHideFlags: 0
@@ -15655,6 +15776,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &1790117611
 GameObject:
   m_ObjectHideFlags: 0
@@ -17714,7 +17837,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2060721329 stripped
 GameObject:
@@ -17803,6 +17926,8 @@ MonoBehaviour:
   RedMat: {fileID: 0}
   GreenValid: {fileID: 0}
   GreenMat: {fileID: 0}
+  YellowMat: {fileID: 0}
+  YellowValid: {fileID: 0}
 --- !u!1 &2072924262
 GameObject:
   m_ObjectHideFlags: 0
