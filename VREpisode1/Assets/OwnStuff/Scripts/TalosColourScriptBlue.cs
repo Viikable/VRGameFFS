@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TalosColourScriptLila : MonoBehaviour {
+public class TalosColourScriptBlue : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
