@@ -352,9 +352,8 @@ public class TalosSnap : MonoBehaviour
             uShapeYNegTwoOneX = false;
             uShapeYNegTwoOneNegX = false;
         }
-
-        CheckPiecePositions();
-        CheckCorrectPieceCombinations();
+        CheckPiecePositions(); //checks are specific snapzones near the currently snapped object(s) vacant or not        //ORDER OF EXECUTION IS VERY IMPORTANT
+        CheckCorrectPieceCombinations(); //checks whether the non-vacant snapzones form the required shapes
     }
     public void CheckCorrectPieceCombinations()
     {
@@ -363,15 +362,13 @@ public class TalosSnap : MonoBehaviour
         {
             ThreeRow1.GetComponent<MeshRenderer>().material = GreenValid;
             ThreeRow2.GetComponent<MeshRenderer>().material = GreenValid;
-            ThreeRow3.GetComponent<MeshRenderer>().material = GreenValid;
-            Debug.Log("greenvalid");
+            ThreeRow3.GetComponent<MeshRenderer>().material = GreenValid;            
         }
         else
         {
             ThreeRow1.GetComponent<MeshRenderer>().material = GreenMat;
             ThreeRow2.GetComponent<MeshRenderer>().material = GreenMat;
-            ThreeRow3.GetComponent<MeshRenderer>().material = GreenMat;
-            Debug.Log("greeninvalid");
+            ThreeRow3.GetComponent<MeshRenderer>().material = GreenMat;            
         }
         if (lShape)
         {
@@ -424,7 +421,7 @@ public class TalosSnap : MonoBehaviour
         else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null && Green)
         {
             threeRow = false;
-            Debug.Log("nothreerow");
+           
         }
 
         if ((lShapeXOne && lShapeXTwo && lShapeXThree && ((lShapeXThreeOneY && lShapeXThreeTwoY) || (lShapeYNegOne && lShapeYNegTwo)))
@@ -449,8 +446,7 @@ public class TalosSnap : MonoBehaviour
         }
         else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null && Red)
         {
-            lShape = false;
-            Debug.Log("nored");
+            lShape = false;          
         }
         if (uShapeXOne && uShapeXNegOne && ((uShapeXOneOneY && uShapeXNegOneOneY) || (uShapeXOneOneNegY && uShapeXNegOneOneNegY))
             || uShapeXOne && uShapeXTwo && ((uShapeYOne && uShapeXTwoOneY) || (uShapeYNegOne && uShapeXTwoOneNegY))
@@ -475,8 +471,7 @@ public class TalosSnap : MonoBehaviour
         }
         else if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptYellow>() != null && Yellow)
         {
-            uShape = false;
-            Debug.Log("noUShape");
+            uShape = false;          
         }
         if (threeRow && lShape && uShape && !AllCorrect.isPlaying && (Red || Green || Yellow))
         {
@@ -492,9 +487,7 @@ public class TalosSnap : MonoBehaviour
         if (Green)
         {
             if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptGreen>() != null)
-            {
-
-                //Green = false;
+            {               
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX     x and y are actually not in logical positions in the puzzle
                 threeRowXOne = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()) != null &&
                     GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
@@ -556,8 +549,7 @@ public class TalosSnap : MonoBehaviour
         if (Red)
         {
             if (TalosSnapZone.GetCurrentSnappedObject() != null && TalosSnapZone.GetCurrentSnappedObject().GetComponent<TalosColourScriptRed>() != null)
-            {
-                //Red = false;
+            {              
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 lShapeXOne = GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()) != null &&
                     GameObject.Find(("TalosSnapZone" + (x + 1) + "_" + y).ToString()).
