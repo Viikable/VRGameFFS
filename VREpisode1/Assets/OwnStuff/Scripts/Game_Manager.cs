@@ -197,21 +197,21 @@
             water.WaterRises = true;
         }
 
-        public void LightUpLantern()
-        {
-            if (lanternIsGrabbed && !LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = true;
-                LanternLightIsOn = true;
-                Debug.Log("Light");
-            }
-            else if (lanternIsGrabbed && LanternLightIsOn)
-            {
-                Lantern.GetComponentInChildren<Light>().enabled = false;
-                LanternLightIsOn = false;
-                Debug.Log("Dark");
-            }
-        }
+        //public void LightUpLantern()
+        //{
+        //    if (lanternIsGrabbed && !LanternLightIsOn)
+        //    {
+        //        Lantern.GetComponentInChildren<Light>().enabled = true;
+        //        LanternLightIsOn = true;
+        //        Debug.Log("Light");
+        //    }
+        //    else if (lanternIsGrabbed && LanternLightIsOn)
+        //    {
+        //        Lantern.GetComponentInChildren<Light>().enabled = false;
+        //        LanternLightIsOn = false;
+        //        Debug.Log("Dark");
+        //    }
+        //}
 
         public void CheckGrabbedObjects()
         {
@@ -227,12 +227,8 @@
                         Debug.Log("invoked");
                     }
                 }
-            }
-            else
-            {
-                lanternIsGrabbed = false;
-            }
-            if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            }          
+            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
             {
                 if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
                 {
@@ -261,26 +257,16 @@
                 LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
             }
 
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
-                {
-
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null  && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+            {               
                     Debug.Log("grabbedWater");
                     StartCoroutine(WaitForSecondsRealtime());
-                }
-            }
-            else
-            {
-                return;
-            }
-            if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
-                {
+                
+            }           
+            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+            {               
                     Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtime());
-                }
+                    StartCoroutine(WaitForSecondsRealtime());               
             }
         }
 
@@ -291,20 +277,14 @@
         }
         IEnumerator ReleaseOrNot()
         {
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
             {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
-                {
                     Debug.Log("ReleasedWater");
-                    RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-                }
+                    RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();               
             }
-            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
-            {
-                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
-                {
-                    LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-                }
+            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+            {               
+                    LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();                
             }
             else
             {
@@ -350,185 +330,7 @@
             set { invoked = value; }
         }
 
-        //public int NumberOfTheBroom
-        //{
-        //    get { return numberOfTheBroom; }
-
-        //    set { numberOfTheBroom = value; }
-        //}
-
-
-        //public bool IsBroomSnapped
-        //{
-        //    get
-        //    {
-        //        if (numberOfTheBroom == 1)
-        //        {
-        //            return isBroom1Snapped;
-        //        }
-        //        else if (numberOfTheBroom == 2)
-        //        {
-        //            return isBroom2Snapped;
-        //        }
-        //        else if (numberOfTheBroom == 3)
-        //        {
-        //            return isBroom3Snapped;
-        //        }
-        //        else if (numberOfTheBroom == 4)
-        //        {
-        //            return isBroom4Snapped;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("No Broom with this number exists");
-        //            throw new System.Exception("Invalid broom ID");
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (numberOfTheBroom == 1)
-        //        {
-        //            isBroom1Snapped = value;
-        //        }
-        //        else if (numberOfTheBroom == 2)
-        //        {
-        //            isBroom2Snapped = value;
-        //        }
-        //        else if (numberOfTheBroom == 3)
-        //        {
-        //            isBroom3Snapped = value;
-        //        }
-        //        else if (numberOfTheBroom == 4)
-        //        {
-        //            isBroom4Snapped = value;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("No Broom with this number exists");
-        //            throw new System.Exception("Invalid broom ID");
-        //        }
-        //    }
-        //}
-        //public bool IsBroomMetallic
-        //{
-        //    get
-        //    {
-
-        //        if (numberOfTheBroom == 1)
-        //        {
-        //            return isBroom1Metallic;
-        //        }
-        //        else if (numberOfTheBroom == 2)
-        //        {
-        //            return isBroom2Metallic;
-        //        }
-        //        else if (numberOfTheBroom == 3)
-        //        {
-        //            return isBroom3Metallic;
-        //        }
-        //        else if (numberOfTheBroom == 4)
-        //        {
-        //            return isBroom4Metallic;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("No Broom with this number exists");
-        //            throw new System.Exception("Invalid broom ID");
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (numberOfTheBroom == 1)
-        //        {
-        //            isBroom1Metallic = value;
-        //        }
-        //        else if (numberOfTheBroom == 2)
-        //        {
-        //            isBroom2Metallic = value;
-        //        }
-        //        else if (numberOfTheBroom == 3)
-        //        {
-        //            isBroom3Metallic = value;
-        //        }
-        //        else if (numberOfTheBroom == 4)
-        //        {
-        //            isBroom4Metallic = value;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("No Broom with this number exists");
-        //            throw new System.Exception("Invalid broom ID");
-        //        }
-
-        //    }
-        //}
-
-        //public bool PlayBroomAnimation
-        //{
-        //    get { return playBroomAnimation; }
-
-        //    set { playBroomAnimation = value; }
-        //}
-
-        //public bool RopeIsAttachedToManual
-        //{
-        //    get { return ropeIsAttatchedToManual; }
-
-        //    set { ropeIsAttatchedToManual = value; }
-        //}
-
-
-        //ANIMATION METHODS
-
-        //public void StartBroomAnimation(int numberOfTheBroom)
-        //{
-        //    if (playBroomAnimation)
-        //    {
-        //        switch (numberOfTheBroom)
-        //        {
-        //            case 1:
-        //                Debug.Log("Broom1AnimationHere");
-        //                break;
-        //            case 2:
-        //                Debug.Log("Broom2AnimationHere");
-        //                break;
-        //            case 3:
-        //                Debug.Log("Broom3AnimationHere");
-        //                break;
-        //            case 4:
-        //                Debug.Log("Broom4AnimationHere");
-        //                break;
-        //            default:
-        //                Debug.Log("NoBroomhere");
-        //                break;
-        //        }
-        //        //play the animation that opens the door with the broom;
-
-        //    }
-        //}
-    //    public void StartBroomBrokenAnimation(int numberOfTheBroom)
-    //    {
-    //        //play the animation that breaks the broom;
-    //        switch (numberOfTheBroom)
-    //        {
-    //            case 1:
-    //                Debug.Log("Broom1BreakAnimationHere");
-    //                break;
-    //            case 2:
-    //                Debug.Log("Broom2BreakAnimationHere");
-    //                break;
-    //            case 3:
-    //                Debug.Log("Broom3BreakAnimationHere");
-    //                break;
-    //            case 4:
-    //                Debug.Log("Broom4BreakAnimationHere");
-    //                break;
-    //            default:
-    //                Debug.Log("NoBroomhere");
-    //                break;
-    //        }
-
-    //    }
+       
     }
 }
 

@@ -464,67 +464,67 @@ public class TalosSnap : MonoBehaviour
 
         if (threeRow)
         {
-            ThreeRow1.GetComponent<MeshRenderer>().material = GreenValid;
-            ThreeRow2.GetComponent<MeshRenderer>().material = GreenValid;
-            ThreeRow3.GetComponent<MeshRenderer>().material = GreenValid;            
+            ThreeRow1.GetComponent<Light>().enabled = true;
+            ThreeRow2.GetComponent<Light>().enabled = true;
+            ThreeRow3.GetComponent<Light>().enabled = true;
         }
         else
         {
-            ThreeRow1.GetComponent<MeshRenderer>().material = GreenMat;
-            ThreeRow2.GetComponent<MeshRenderer>().material = GreenMat;
-            ThreeRow3.GetComponent<MeshRenderer>().material = GreenMat;            
+            ThreeRow1.GetComponent<Light>().enabled = false;
+            ThreeRow2.GetComponent<Light>().enabled = false;
+            ThreeRow3.GetComponent<Light>().enabled = false;
         }
         if (lShape)
         {
-            LShape1.GetComponent<MeshRenderer>().material = RedValid;
-            LShape2.GetComponent<MeshRenderer>().material = RedValid;
-            LShape3.GetComponent<MeshRenderer>().material = RedValid;
-            LShape4.GetComponent<MeshRenderer>().material = RedValid;
-            LShape5.GetComponent<MeshRenderer>().material = RedValid;
-            LShape6.GetComponent<MeshRenderer>().material = RedValid;
+            LShape1.GetComponent<Light>().enabled = true;
+            LShape2.GetComponent<Light>().enabled = true;
+            LShape3.GetComponent<Light>().enabled = true;
+            LShape4.GetComponent<Light>().enabled = true;
+            LShape5.GetComponent<Light>().enabled = true;
+            LShape6.GetComponent<Light>().enabled = true;
         }
         else
         {
-            LShape1.GetComponent<MeshRenderer>().material = RedMat;
-            LShape2.GetComponent<MeshRenderer>().material = RedMat;
-            LShape3.GetComponent<MeshRenderer>().material = RedMat;
-            LShape4.GetComponent<MeshRenderer>().material = RedMat;
-            LShape5.GetComponent<MeshRenderer>().material = RedMat;
-            LShape6.GetComponent<MeshRenderer>().material = RedMat;
+            LShape1.GetComponent<Light>().enabled = false;
+            LShape2.GetComponent<Light>().enabled = false;
+            LShape3.GetComponent<Light>().enabled = false;
+            LShape4.GetComponent<Light>().enabled = false;
+            LShape5.GetComponent<Light>().enabled = false;
+            LShape6.GetComponent<Light>().enabled = false;
         }
         if (uShape)
         {
-            uShape1.GetComponent<MeshRenderer>().material = YellowValid;
-            uShape2.GetComponent<MeshRenderer>().material = YellowValid;
-            uShape3.GetComponent<MeshRenderer>().material = YellowValid;
-            uShape4.GetComponent<MeshRenderer>().material = YellowValid;
-            uShape5.GetComponent<MeshRenderer>().material = YellowValid;
+            uShape1.GetComponent<Light>().enabled = true;
+            uShape2.GetComponent<Light>().enabled = true;
+            uShape3.GetComponent<Light>().enabled = true;
+            uShape4.GetComponent<Light>().enabled = true;
+            uShape5.GetComponent<Light>().enabled = true;
         }
         else
         {
-            uShape1.GetComponent<MeshRenderer>().material = YellowMat;
-            uShape2.GetComponent<MeshRenderer>().material = YellowMat;
-            uShape3.GetComponent<MeshRenderer>().material = YellowMat;
-            uShape4.GetComponent<MeshRenderer>().material = YellowMat;
-            uShape5.GetComponent<MeshRenderer>().material = YellowMat;
+            uShape1.GetComponent<Light>().enabled = false;
+            uShape2.GetComponent<Light>().enabled = false;
+            uShape3.GetComponent<Light>().enabled = false;
+            uShape4.GetComponent<Light>().enabled = false;
+            uShape5.GetComponent<Light>().enabled = false;
         }
         if (squarePlus)
         {
-            squarePlus1.GetComponent<MeshRenderer>().material = BlueValid;
-            squarePlus2.GetComponent<MeshRenderer>().material = BlueValid;
-            squarePlus3.GetComponent<MeshRenderer>().material = BlueValid;
-            squarePlus4.GetComponent<MeshRenderer>().material = BlueValid;
-            squarePlus5.GetComponent<MeshRenderer>().material = BlueValid;
-            squarePlus6.GetComponent<MeshRenderer>().material = BlueValid;
+            squarePlus1.GetComponent<Light>().enabled = true;
+            squarePlus2.GetComponent<Light>().enabled = true;
+            squarePlus3.GetComponent<Light>().enabled = true;
+            squarePlus4.GetComponent<Light>().enabled = true;
+            squarePlus5.GetComponent<Light>().enabled = true;
+            squarePlus6.GetComponent<Light>().enabled = true;
         }
         else
         {
-            squarePlus1.GetComponent<MeshRenderer>().material = BlueMat;
-            squarePlus2.GetComponent<MeshRenderer>().material = BlueMat;
-            squarePlus3.GetComponent<MeshRenderer>().material = BlueMat;
-            squarePlus4.GetComponent<MeshRenderer>().material = BlueMat;
-            squarePlus5.GetComponent<MeshRenderer>().material = BlueMat;
-            squarePlus6.GetComponent<MeshRenderer>().material = BlueMat;
+            squarePlus1.GetComponent<Light>().enabled = false;
+            squarePlus2.GetComponent<Light>().enabled = false;
+            squarePlus3.GetComponent<Light>().enabled = false;
+            squarePlus4.GetComponent<Light>().enabled = false;
+            squarePlus5.GetComponent<Light>().enabled = false;
+            squarePlus6.GetComponent<Light>().enabled = false;
         }
 
         //Checkpart
