@@ -10,7 +10,7 @@ public class TalosSnap : MonoBehaviour
 {
     VRTK_SnapDropZone TalosSnapZone;
     private int x;
-    private int y;
+    private int y;  
     char X;
     char Y;
     static bool Green;
@@ -330,28 +330,29 @@ public class TalosSnap : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptGreen>() != null)
+        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptGreen>() != null && !OneCorrect.isPlaying && !AllCorrect.isPlaying)
         {
             Green = true;
         }
 
-        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptRed>() != null)
+        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptRed>() != null && !OneCorrect.isPlaying && !AllCorrect.isPlaying)
         {
             Red = true;
 
         }
-        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptYellow>() != null)
+        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptYellow>() != null && !OneCorrect.isPlaying && !AllCorrect.isPlaying)
         {
             Yellow = true;
         }
-        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptBlue>() != null)
+        if (other.CompareTag("TalosCube") && other.GetComponent<TalosColourScriptBlue>() != null && !OneCorrect.isPlaying && !AllCorrect.isPlaying)
         {
             Blue = true;
         }
     }
 
     private void Update()
-    {
+    {        
+        Debug.Log(Green);
         if (TalosSnapZone.GetCurrentSnappedObject() == null)
         {
             threeRowXOne = false;
