@@ -98,9 +98,25 @@
 
         public GameObject AttachedRopeToManual;
 
+        public GameObject JuhaniHead;
+
+        public GameObject JuhaniBody;
+
+        public GameObject JuhaniHand1;
+
+        public GameObject JuhaniHand2;
+
+        public GameObject JuhaniLeg1;
+
+        public GameObject JuhaniLeg2;
+
         public GameObject RightController;
 
         public GameObject LeftController;
+
+        VRTK_InteractGrab RightGrab;
+
+        VRTK_InteractGrab LeftGrab;
 
         public static Game_Manager instance = null;
 
@@ -117,6 +133,7 @@
             DontDestroyOnLoad(this);
 
             //WaterComes.AddListener(WaterIsRising);
+
 
             ropeClimb = true;
 
@@ -158,9 +175,25 @@
 
             Broom4 = GameObject.Find("BroomInTheJanitorHouse4");
 
+            JuhaniBody = GameObject.Find("JuhaniBody");
+
+            JuhaniHead = GameObject.Find("JuhaniHead");
+
+            JuhaniHand1 = GameObject.Find("JuhaniHand1");
+
+            JuhaniHand2 = GameObject.Find("JuhaniHand2");
+
+            JuhaniLeg1 = GameObject.Find("JuhaniLeg1");
+
+            JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
+
             RightController = GameObject.Find("RightController");
 
             LeftController = GameObject.Find("LeftController");
+
+            RightGrab = RightController.GetComponent<VRTK_InteractGrab>();
+
+            LeftGrab = LeftController.GetComponent<VRTK_InteractGrab>();
 
             Lantern = GameObject.Find("Lantern");
 
@@ -168,27 +201,11 @@
 
             water = GameObject.Find("Water").GetComponent<WaterMovement>();
         }
-
-
-        //void FixedUpdate()          //currently not in use
-        //{
-        //    //Debug.Log(ropeIsAttatchedToManual);
-        //    if (RopeIsAttachedToManual)
-        //    {
-        //        AttachedRopeToManual.SetActive(true);
-        //        //Debug.Log("active");
-        //    }
-        //    else
-        //    {
-        //        AttachedRopeToManual.SetActive(false);
-        //        //Debug.Log("inactive");
-        //    }
-        //}
+       
 
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
         private void Update()
-        {
-            //StopAllCoroutines();
+        {          
             CheckGrabbedObjects();
         }
         private void WaterIsRising()
@@ -196,28 +213,14 @@
 
             water.WaterRises = true;
         }
+     
 
-        //public void LightUpLantern()
-        //{
-        //    if (lanternIsGrabbed && !LanternLightIsOn)
-        //    {
-        //        Lantern.GetComponentInChildren<Light>().enabled = true;
-        //        LanternLightIsOn = true;
-        //        Debug.Log("Light");
-        //    }
-        //    else if (lanternIsGrabbed && LanternLightIsOn)
-        //    {
-        //        Lantern.GetComponentInChildren<Light>().enabled = false;
-        //        LanternLightIsOn = false;
-        //        Debug.Log("Dark");
-        //    }
-        //}
 
         public void CheckGrabbedObjects()
         {
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            if (RightGrab.GetGrabbedObject() != null)
             {
-                if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
+                if (RightGrab.GetGrabbedObject() == Lantern)
                 {
                     lanternIsGrabbed = true;
                     if (invoked)
@@ -228,9 +231,9 @@
                     }
                 }
             }          
-            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null)
+            else if (LeftGrab.GetGrabbedObject() != null)
             {
-                if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == Lantern)
+                if (LeftGrab.GetGrabbedObject() == Lantern)
                 {
                     lanternIsGrabbed = true;
                     if (invoked)
@@ -246,24 +249,40 @@
                 lanternIsGrabbed = false;
             }
 
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
-            {           //this checks to see if we want to change rope from grabbable to climbable
-                RopeClimb = true;
-                RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();
-            }
-            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject().name == "KeyRope")
+            //if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "KeyRope")
+            //{           //this checks to see if we want to change rope from grabbable to climbable
+            //    RopeClimb = true;
+            //    RightGrab.ForceRelease();
+            //}
+            //else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "KeyRope")
+            //{
+            //    RopeClimb = true;
+            //    LeftGrab.ForceRelease();
+            //}
+            if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "JuhaniHead" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
-                RopeClimb = true;
-                LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();
+
+                Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());
+                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());
+                Destroy(GameObject.Find("ShaftConnector"));
+            }
+            else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniHead" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
+            {
+
+                Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());
+                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());
+                Destroy(GameObject.Find("ShaftConnector"));
+                ropeClimb = false;
+                RopeClimb = false;
             }
 
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null  && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+            if (RightGrab.GetGrabbedObject() != null  && RightGrab.GetGrabbedObject() == GrabbableWater)
             {               
                     Debug.Log("grabbedWater");
                     StartCoroutine(WaitForSecondsRealtime());
                 
             }           
-            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+            else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
             {               
                     Debug.Log("grabbedWater");
                     StartCoroutine(WaitForSecondsRealtime());               
@@ -277,14 +296,14 @@
         }
         IEnumerator ReleaseOrNot()
         {
-            if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+            if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
             {
                     Debug.Log("ReleasedWater");
-                    RightController.GetComponent<VRTK_InteractGrab>().ForceRelease();               
+                    RightGrab.ForceRelease();               
             }
-            else if (LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() != null && LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == GrabbableWater)
+            else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
             {               
-                    LeftController.GetComponent<VRTK_InteractGrab>().ForceRelease();                
+                    LeftGrab.ForceRelease();                
             }
             else
             {
