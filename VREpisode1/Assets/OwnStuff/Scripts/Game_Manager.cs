@@ -261,18 +261,16 @@
             //}
             if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "JuhaniHead" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
-
+                RightGrab.ForceRelease();
                 Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());
-                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());
-                Destroy(GameObject.Find("ShaftConnector"));                
+                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());                                             
                 RopeClimb = false;
             }
             else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniHead" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
-
+                LeftGrab.ForceRelease();
                 Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());
-                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());
-                Destroy(GameObject.Find("ShaftConnector"));               
+                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());                                           
                 RopeClimb = false;
             }
 

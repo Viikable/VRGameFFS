@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace VRTK {
-
+namespace VRTK
+{
     public class Rope_Climb_Toggler : MonoBehaviour {
-
-
-
-        // Update is called once per frame
+        
         void Update() {
 
             if (Game_Manager.instance.RopeClimb)
