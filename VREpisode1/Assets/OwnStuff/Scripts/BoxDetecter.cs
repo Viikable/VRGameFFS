@@ -8,46 +8,34 @@ namespace VRTK
         VRTK_SnapDropZone boxSnap;
         bool notSnapped;
         GameObject previouslySnapped;
+        GameObject invisible;
         static int boxCounter;
-
-        // Use this for initialization
+      
         void Start()
         {
             boxSnap = GetComponent<VRTK_SnapDropZone>();
             notSnapped = true;
             previouslySnapped = null;
             boxCounter = 0;
+            invisible = null;
         }
-
-        // Update is called once per frame
+        
         void Update()
         {
+           
             if (boxSnap.GetCurrentSnappedObject() != null && boxSnap.GetCurrentSnappedObject().CompareTag("WoodenBox"))
             {
                 previouslySnapped = boxSnap.GetCurrentSnappedObject();
-                previouslySnapped.GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript
-                = previouslySnapped.GetComponent<GrabAttachMechanics.VRTK_ClimbableGrabAttach>();
-                previouslySnapped.GetComponentInParent<BoxCollider>().enabled = true;
-                if (notSnapped)
-                {
-                    notSnapped = false;
-                    StartCoroutine("Wait");
-                }
+                boxCounter++;
+                invisible = GameObject.Find("InvisibleBox" + boxCounter.ToString());
+                invisible.GetComponent<Collider>().enabled = true;
+                invisible.GetComponent<MeshRenderer>().enabled = true;
+                Destroy(previouslySnapped);
+                GetComponent<Collider>().enabled = false;
+                GameObject.Find("WoodenSnapZone" + boxCounter.ToString()).GetComponent<Collider>().enabled = true;
             }
-            if (boxCounter >= 4 && previouslySnapped != null)
-            {
-                previouslySnapped.GetComponentInChildren<MeshCollider>().enabled = true;
-            }
+            
         }
-        IEnumerator Wait()
-        {
-            Debug.Log("enteredwait");
-            yield return new WaitForSecondsRealtime(0.27f);
-            Debug.Log("Waited");
-            Destroy(boxSnap);
-            previouslySnapped.GetComponent<Rigidbody>().isKinematic = true;
-            previouslySnapped.GetComponent<Rigidbody>().useGravity = false;
-            boxCounter++;
-        }
+        
     }
 }
