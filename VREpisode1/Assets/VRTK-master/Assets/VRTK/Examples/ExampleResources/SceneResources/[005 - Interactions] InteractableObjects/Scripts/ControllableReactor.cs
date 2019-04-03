@@ -13,27 +13,7 @@
         //public bool AlreadyDid;
         GameObject LeverAudio;
         AudioSource LeverSource;
-        
-        
-
-        //private void Awake()
-        //{
-        //    AlreadyDid = false;
-        //    LeverAudio = GameObject.Find("LeverAudioSource");
-        //    LeverSource = LeverAudio.GetComponent<AudioSource>();
-        //    MovingObject = GameObject.Find("MovingObject");
-        //}
-
-        //private void Update()                             //added by Taneli, basically controls what happens after the lever reaches a certain point
-        //{
-        //    if (displayText.text == "2.0" && AlreadyDid == false)
-        //    {
-        //        Debug.Log("We can do anything now!");
-        //        AlreadyDid = true;
-        //        LeverSource.Play();
-        //        MovingObject.transform.Translate(Vector3.forward);
-        //    }
-        //}
+               
         protected virtual void OnEnable()
         {
             controllable = (controllable == null ? GetComponent<VRTK_BaseControllable>() : controllable);

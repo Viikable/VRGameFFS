@@ -134,7 +134,6 @@
 
             //WaterComes.AddListener(WaterIsRising);
 
-
             ropeClimb = true;
 
             isBroom1Snapped = false;
@@ -213,9 +212,7 @@
 
             water.WaterRises = true;
         }
-     
-
-
+        
         public void CheckGrabbedObjects()
         {
             if (RightGrab.GetGrabbedObject() != null)
@@ -259,14 +256,14 @@
             //    RopeClimb = true;
             //    LeftGrab.ForceRelease();
             //}
-            if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "JuhaniHead" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
+            if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 RightGrab.ForceRelease();
                 Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());
                 Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());                                             
                 RopeClimb = false;
             }
-            else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniHead" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
+            else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 LeftGrab.ForceRelease();
                 Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());

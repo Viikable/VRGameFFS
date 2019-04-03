@@ -59,6 +59,10 @@ public class MelterEnterTrigger : MonoBehaviour
     int index5;
     int index6;
 
+    Light LavaLight;
+    Light LavaLight2;
+    Light LavaLight3;
+
     GameObject MetalPiece1;
     GameObject MetalPiece2;
     GameObject MetalPiece3;
@@ -69,11 +73,15 @@ public class MelterEnterTrigger : MonoBehaviour
     public MelterOutsideRegisterer reg;
 
     AudioSource MeltingSound;
+    AudioSource CompressionSound;
+    AudioSource CraneSound;
     AudioSource LidSlamSound;
     AudioSource LavaBubblingSound;
 
     private void Start()
     {
+        CompressionSound = GameObject.Find("MetalPressSound").GetComponent<AudioSource>();
+        CraneSound = GameObject.Find("CraneMovingSound").GetComponent<AudioSource>();
         MeltingSound = GameObject.Find("MeltingSound").GetComponent<AudioSource>();
         LidSlamSound = GameObject.Find("LandingSoundMelterLid").GetComponent<AudioSource>();
         LavaBubblingSound = GameObject.Find("LavaBubbling").GetComponent<AudioSource>();
@@ -109,6 +117,9 @@ public class MelterEnterTrigger : MonoBehaviour
         MelterPressPressActivatorButton = GameObject.Find("MelterPressPressActivatorContainer/MelterPressPressActivatorButton");
         PoolLid = GameObject.Find("PoolLidAnimated").GetComponent<Animator>();
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
+        LavaLight = GameObject.Find("LavaSurface").GetComponent<Light>();
+        LavaLight2 = GameObject.Find("LavaLight").GetComponent<Light>();
+        LavaLight3 = GameObject.Find("LavaLight2").GetComponent<Light>();
         melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
         amountOfMeltedObjects = 6;
         MetalPiece1 = GameObject.Find("MetalPiece1");
@@ -296,6 +307,7 @@ public class MelterEnterTrigger : MonoBehaviour
             Debug.Log("melter lifted");
             PoolLid.SetBool("Melt", false);
             PoolLid.SetBool("Press", false);
+            CraneSound.Play();
             //MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             liftable = false;
             if (!notMeltedYet)
@@ -321,9 +333,14 @@ public class MelterEnterTrigger : MonoBehaviour
         if (amountOfMeltedObjects != 0)  //sets it instaback if is 0
         {
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            CraneSound.Play();
             yield return new WaitForSecondsRealtime(5);  //animation takes 5 seconds, then add press sounds for 5 secs
+            CraneSound.Stop();
             LidSlamSound.Play();
             MeltingSound.Play();
+            LavaLight.enabled = true;
+            LavaLight2.enabled = true;
+            LavaLight3.enabled = true;
             yield return new WaitForSecondsRealtime(5);
             MeltingSound.Stop();
             LavaBubblingSound.Play();
@@ -404,9 +421,15 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             Debug.Log("deactivator false");
-            LavaBubblingSound.Stop();
+            CraneSound.Play();
             yield return new WaitForSecondsRealtime(5);
+            CraneSound.Stop();
             LidSlamSound.Play();
+            LavaBubblingSound.Stop();
+            CompressionSound.Play();
+            LavaLight.enabled = false;
+            LavaLight2.enabled = false;
+            LavaLight3.enabled = false;
             yield return new WaitForSecondsRealtime(5);
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;  //so that we can press the melting button again
             MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;           
