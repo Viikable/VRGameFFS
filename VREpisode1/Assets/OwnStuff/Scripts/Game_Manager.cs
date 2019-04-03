@@ -200,8 +200,6 @@
 
             water = GameObject.Find("Water").GetComponent<WaterMovement>();
         }
-       
-
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
         private void Update()
         {          
@@ -211,8 +209,7 @@
         {
 
             water.WaterRises = true;
-        }
-        
+        }       
         public void CheckGrabbedObjects()
         {
             if (RightGrab.GetGrabbedObject() != null)
@@ -244,38 +241,29 @@
             else
             {
                 lanternIsGrabbed = false;
-            }
-
-            //if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "KeyRope")
-            //{           //this checks to see if we want to change rope from grabbable to climbable
-            //    RopeClimb = true;
-            //    RightGrab.ForceRelease();
-            //}
-            //else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "KeyRope")
-            //{
-            //    RopeClimb = true;
-            //    LeftGrab.ForceRelease();
-            //}
+            }       
             if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 RightGrab.ForceRelease();
-                Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());
-                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());                                             
+                foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
+                {
+                Destroy(juhaniJoin);
+                }                                                         
                 RopeClimb = false;
             }
             else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 LeftGrab.ForceRelease();
-                Destroy(JuhaniHead.GetComponent<ConfigurableJoint>());
-                Destroy(JuhaniBody.GetComponent<ConfigurableJoint>());                                           
+                foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
+                {
+                    Destroy(juhaniJoin);
+                }
                 RopeClimb = false;
             }
-
             if (RightGrab.GetGrabbedObject() != null  && RightGrab.GetGrabbedObject() == GrabbableWater)
             {               
                     Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtime());
-                
+                    StartCoroutine(WaitForSecondsRealtime());               
             }           
             else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
             {               
@@ -283,7 +271,6 @@
                     StartCoroutine(WaitForSecondsRealtime());               
             }
         }
-
         IEnumerator WaitForSecondsRealtime()
         {
             yield return new WaitForSecondsRealtime(0.5f);
