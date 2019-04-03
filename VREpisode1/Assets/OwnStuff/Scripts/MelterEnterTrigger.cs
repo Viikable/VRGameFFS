@@ -67,9 +67,16 @@ public class MelterEnterTrigger : MonoBehaviour
     GameObject MetalPiece6;
     List<Vector3> metalTransforms = new List<Vector3>();
     public MelterOutsideRegisterer reg;
-    
+
+    AudioSource MeltingSound;
+    AudioSource LidSlamSound;
+    AudioSource LavaBubblingSound;
+
     private void Start()
     {
+        MeltingSound = GameObject.Find("MeltingSound").GetComponent<AudioSource>();
+        LidSlamSound = GameObject.Find("LandingSoundMelterLid").GetComponent<AudioSource>();
+        LavaBubblingSound = GameObject.Find("LavaBubbling").GetComponent<AudioSource>();
         reg = GameObject.Find("MelterOutsideRegisterer").GetComponent<MelterOutsideRegisterer>();
         PressedMetal1 = GameObject.Find("PressedMetal1");
         PressedMetal2 = GameObject.Find("PressedMetal2");
@@ -103,7 +110,7 @@ public class MelterEnterTrigger : MonoBehaviour
         PoolLid = GameObject.Find("PoolLidAnimated").GetComponent<Animator>();
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
         melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
-        amountOfMeltedObjects = 0;
+        amountOfMeltedObjects = 6;
         MetalPiece1 = GameObject.Find("MetalPiece1");
         MetalPiece2 = GameObject.Find("MetalPiece2");
         MetalPiece3 = GameObject.Find("MetalPiece3");
@@ -314,18 +321,16 @@ public class MelterEnterTrigger : MonoBehaviour
         if (amountOfMeltedObjects != 0)  //sets it instaback if is 0
         {
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
-            yield return new WaitForSecondsRealtime(10);  //animation takes 5 seconds, then add press sounds for 5 secs           
+            yield return new WaitForSecondsRealtime(5);  //animation takes 5 seconds, then add press sounds for 5 secs
+            LidSlamSound.Play();
+            MeltingSound.Play();
+            yield return new WaitForSecondsRealtime(5);
+            MeltingSound.Stop();
+            LavaBubblingSound.Play();
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             liftable = true;
-            //if (MetalPiece1 != null && MetalPiece2 != null && MetalPiece3 != null && MetalPiece4 != null && MetalPiece5 != null && MetalPiece6 != null) { 
-            //MetalPiece1.SetActive(false);
-            //MetalPiece2.SetActive(false);
-            //MetalPiece3.SetActive(false);
-            //MetalPiece4.SetActive(false);
-            //MetalPiece5.SetActive(false);
-            //MetalPiece6.SetActive(false);
-            //}
+            
             int amount = 1;
             foreach (GameObject metalPart in GameObject.FindGameObjectsWithTag("ConveyorBeltMetal"))
             {
@@ -399,7 +404,10 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             Debug.Log("deactivator false");
-            yield return new WaitForSecondsRealtime(10);
+            LavaBubblingSound.Stop();
+            yield return new WaitForSecondsRealtime(5);
+            LidSlamSound.Play();
+            yield return new WaitForSecondsRealtime(5);
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;  //so that we can press the melting button again
             MelterPressPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;           
             Debug.Log("ReadyToReMelt");
