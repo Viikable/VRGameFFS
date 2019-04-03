@@ -248,7 +248,14 @@
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
                 Destroy(juhaniJoin);
-                }                                                         
+                }
+                foreach (ConfigurableJoint headNoose in GameObject.Find("NOOSE").GetComponents<ConfigurableJoint>())
+                {
+                    if (headNoose.connectedBody.name == "JuhaniHead" || headNoose.connectedBody.name == "Bone_chest")
+                    {
+                        Destroy(headNoose);                
+                    }
+                }               
                 RopeClimb = false;
             }
             else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
