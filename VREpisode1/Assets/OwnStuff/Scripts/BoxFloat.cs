@@ -25,26 +25,26 @@ public class BoxFloat : MonoBehaviour {
             notTouched = false;
             StartCoroutine("WaitForRealism");            
         }
-        if (other.name == "Lantern" && !other.GetComponent<VRTK_InteractableObject>().IsGrabbed())
-        {
-            other.transform.parent = transform;
-        }
+        //if (other.name == "Lantern" && !other.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+        //{
+        //    other.transform.parent = transform;
+        //}
         //if (other.name == "ShaftCeiling")
         //{
         //    stop = true;
         //}
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.name == "Lantern")
-        {
-            other.transform.parent = null;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.name == "Lantern")
+    //    {
+    //        other.transform.parent = null;
+    //    }
+    //}
     
     IEnumerator WaitForRealism()
     {
-        yield return new WaitForSecondsRealtime(2.5f);
+        yield return new WaitForSecondsRealtime(4.5f);
         startMoving = true;
     }
 
@@ -56,6 +56,7 @@ public class BoxFloat : MonoBehaviour {
             FloatAnim.SetBool("Float", true);
             GetComponent<VRTK_InteractableObject>().isGrabbable = false;
             GetComponent<Rigidbody>().freezeRotation = true;
+            GetComponent<Rigidbody>().isKinematic = true;
             if (whatSideofTheBoxDown == 0)
             {
                 transform.Translate(new Vector3(0, 0, 1) * 0.005f);
