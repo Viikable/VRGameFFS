@@ -20,6 +20,10 @@ public class WaterMovement : MonoBehaviour
     private bool touchedWater;
 
     [SerializeField]
+    [Tooltip("Has the floating box hit the water surface on one of its sides yet")]
+    private bool boxDetected;
+
+    [SerializeField]
     [Tooltip("Have we left the water or not")]
     private bool exitedWater;
 
@@ -43,19 +47,26 @@ public class WaterMovement : MonoBehaviour
     //[Tooltip("VRTK_SDK manager in scene")]
     //private VRTK_SDKManager sManager;
 
+    private BoxFloat floatingBox;
     public GameObject headSet;
     public Rigidbody headsetbody;
     public Collider feet;
     public Collider head;
     public GameObject HeadsetFollower;
+    GameObject LeftController;
+    GameObject RightController;
 
     
 
     void Start()
-    {      
+    {
+        boxDetected = false;
+        floatingBox = GameObject.Find("FloatingBox").GetComponent<BoxFloat>();
+        LeftController = GameObject.Find("LeftController");
+        RightController = GameObject.Find("RightController");
         touchedWater = false;
         oxygenTimer = 30f;
-        waterRises = false;
+        waterRises = true;
         headIsUnderWater = false;
         reachedTopPuzzle = false;
         headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
@@ -72,7 +83,37 @@ public class WaterMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider hitCollider)
     {
-        
+        if (hitCollider.name == "Marker" && !boxDetected)
+        {
+            boxDetected = true;
+            floatingBox.whatSideofTheBoxDown = 0;           
+        }
+        if (hitCollider.name == "Marker2" && !boxDetected)
+        {
+            boxDetected = true;
+            floatingBox.whatSideofTheBoxDown = 1;
+        }
+        if (hitCollider.name == "Marker3" && !boxDetected)
+        {
+            boxDetected = true;
+            floatingBox.whatSideofTheBoxDown = 2;
+        }
+        if (hitCollider.name == "Marker4" && !boxDetected)
+        {
+            boxDetected = true;
+            floatingBox.whatSideofTheBoxDown = 3;
+        }
+        if (hitCollider.name == "Marker5" && !boxDetected)
+        {
+            boxDetected = true;
+            floatingBox.whatSideofTheBoxDown = 4;
+        }
+        if (hitCollider.name == "Marker6" && !boxDetected)
+        {
+            boxDetected = true;
+            floatingBox.whatSideofTheBoxDown = 5;
+        }
+
         if (hitCollider == feet)       //just to check which object the rigidbody attached to the camerarig collided with
         {          
             touchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
@@ -123,10 +164,7 @@ public class WaterMovement : MonoBehaviour
                     head = headSet.transform.GetChild(2).GetChild(2).GetComponent<Collider>();
                 }
             }
-            headsetbody = headSet.GetComponent<Rigidbody>();
-            if (headsetbody.velocity.y > 0.5) {
-                //Debug.Log(headsetbody.velocity.y);
-            }
+            headsetbody = headSet.GetComponent<Rigidbody>();           
         }
        
         if (touchedWater)
@@ -144,21 +182,21 @@ public class WaterMovement : MonoBehaviour
                 Debug.Log("1/4 oxygen left");
             }
 
-            if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater)
+            if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater && LeftController != null && RightController != null)
             {
                 Debug.Log("drowned");
                 //Debug.Log(Time.time);
-                GameObject.Find("LeftController").GetComponent<VRTK_InteractGrab>().enabled = false;
-                GameObject.Find("LeftController").GetComponent<VRTK_ControllerEvents>().enabled = false;
-                GameObject.Find("RightController").GetComponent<VRTK_InteractGrab>().enabled = false;
-                GameObject.Find("RightController").GetComponent<VRTK_ControllerEvents>().enabled = false;
+                LeftController.GetComponent<VRTK_InteractGrab>().enabled = false;
+                LeftController.GetComponent<VRTK_ControllerEvents>().enabled = false;
+                RightController.GetComponent<VRTK_InteractGrab>().enabled = false;
+                RightController.GetComponent<VRTK_ControllerEvents>().enabled = false;
                 head.GetComponent<Rigidbody>().isKinematic = false;
                 //player dies here, lose control, sink to bottom, fade to black
                 Light [] lights = FindObjectsOfType<Light>();
                 for (int i = 0; i < lights.Length; i++)
                 {
                     lights[i].enabled = false;
-                }
+                }               
             }
             Debug.Log("nogravity");
             //headsetbody.useGravity = false;
