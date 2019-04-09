@@ -160,7 +160,7 @@
 
             ropeIsAttatchedToManual = false;
 
-            invoked = false;
+            invoked = true;
 
             elevatorMoving = 0;
 
@@ -267,30 +267,42 @@
                 }
                 RopeClimb = false;
             }
-            if (RightGrab.GetGrabbedObject() != null  && RightGrab.GetGrabbedObject() == GrabbableWater)
+            if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
             {               
                     Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtime());               
+                    StartCoroutine(WaitForSecondsRealtimeRight());               
             }           
             else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
             {               
                     Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtime());               
+                    StartCoroutine(WaitForSecondsRealtimeLeft());               
             }
         }
-        IEnumerator WaitForSecondsRealtime()
+        IEnumerator WaitForSecondsRealtimeRight()
         {
-            yield return new WaitForSecondsRealtime(0.5f);
-            StartCoroutine(ReleaseOrNot());
+            yield return new WaitForSecondsRealtime(0.25f);
+            StartCoroutine(ReleaseOrNotRight());
         }
-        IEnumerator ReleaseOrNot()
+        IEnumerator WaitForSecondsRealtimeLeft()
+        {
+            yield return new WaitForSecondsRealtime(0.25f);
+            StartCoroutine(ReleaseOrNotLeft());
+        }
+        IEnumerator ReleaseOrNotRight()
         {
             if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
             {
                     Debug.Log("ReleasedWater");
                     RightGrab.ForceRelease();               
             }
-            else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
+            else
+            {
+                yield return null;
+            }
+        }
+        IEnumerator ReleaseOrNotLeft()
+        {
+            if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
             {               
                     LeftGrab.ForceRelease();                
             }

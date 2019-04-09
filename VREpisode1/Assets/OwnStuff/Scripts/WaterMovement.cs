@@ -12,6 +12,10 @@ public class WaterMovement : MonoBehaviour
     private bool waterRises;
 
     [SerializeField]
+    [Tooltip("Is the water level at the top of the shaft")]
+    public bool reachedTopPuzzle;
+
+    [SerializeField]
     [Tooltip("Have we touched the water surface yet or not")]
     private bool touchedWater;
 
@@ -53,6 +57,7 @@ public class WaterMovement : MonoBehaviour
         oxygenTimer = 30f;
         waterRises = false;
         headIsUnderWater = false;
+        reachedTopPuzzle = false;
         headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         headsetbody = null;
         feet = null;
@@ -147,7 +152,7 @@ public class WaterMovement : MonoBehaviour
                 GameObject.Find("LeftController").GetComponent<VRTK_ControllerEvents>().enabled = false;
                 GameObject.Find("RightController").GetComponent<VRTK_InteractGrab>().enabled = false;
                 GameObject.Find("RightController").GetComponent<VRTK_ControllerEvents>().enabled = false;
-                headSet.transform.GetChild(2).GetChild(3).GetComponent<Rigidbody>().isKinematic = false;
+                head.GetComponent<Rigidbody>().isKinematic = false;
                 //player dies here, lose control, sink to bottom, fade to black
                 Light [] lights = FindObjectsOfType<Light>();
                 for (int i = 0; i < lights.Length; i++)
@@ -179,14 +184,16 @@ public class WaterMovement : MonoBehaviour
 
         if (WaterRises)
         {
-            this.transform.Translate(Vector3.up * 0.005f);
+            if (!reachedTopPuzzle)
+            {
+                transform.Translate(Vector3.up * 0.005f);
             Debug.Log("waterup");
-        }
-        else
-        {
-            this.transform.Translate(Vector3.up * 0f);
-            //Debug.Log("waterdown");
-        }
+            }
+            else
+            {
+                transform.Translate(Vector3.up * 0.001f);
+            }
+        }      
     }
     public bool WaterRises
     {

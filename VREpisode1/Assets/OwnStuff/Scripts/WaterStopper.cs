@@ -15,6 +15,10 @@ public class WaterStopper : MonoBehaviour {
             Debug.Log("stopped");
             water.WaterRises = false;
         }
+        if (other.name == "WaterSlower")
+        {
+            water.reachedTopPuzzle = true;
+        }
     }
     // Update is called once per frame
     void Update () {
