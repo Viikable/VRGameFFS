@@ -66,7 +66,7 @@ public class WaterMovement : MonoBehaviour
         RightController = GameObject.Find("RightController");
         touchedWater = false;
         oxygenTimer = 30f;
-        waterRises = true;
+        waterRises = false;
         headIsUnderWater = false;
         reachedTopPuzzle = false;
         headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
