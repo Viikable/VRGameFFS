@@ -128,7 +128,7 @@ public class WaterMovement : MonoBehaviour
             timeWhenGotUnderwater = Time.time;
             headIsUnderWater = true;
             //Debug.Log(timeWhenGotUnderwater);
-            fader.Fade(Color.black, 70f);
+            fader.Fade(Color.black, 60f);
         }
     }
     private void OnTriggerExit(Collider hitCollider)
