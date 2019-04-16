@@ -121,7 +121,7 @@ public class MelterEnterTrigger : MonoBehaviour
         LavaLight2 = GameObject.Find("LavaLight").GetComponent<Light>();
         LavaLight3 = GameObject.Find("LavaLight2").GetComponent<Light>();
         melterText = GameObject.Find("ObjectRegistererText").GetComponent<TextMeshPro>();
-        amountOfMeltedObjects = 6;
+        amountOfMeltedObjects = 0;
         MetalPiece1 = GameObject.Find("MetalPiece1");
         MetalPiece2 = GameObject.Find("MetalPiece2");
         MetalPiece3 = GameObject.Find("MetalPiece3");
@@ -137,7 +137,14 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             amountOfMeltedObjects += 1;
             melterText.text = amountOfMeltedObjects.ToString();
+            if (other.GetComponent<MetalHitsTheFan>() != null)
+            {
             other.GetComponent<MetalHitsTheFan>().InsideTheMelter = true;
+            }
+            else
+            {
+            other.GetComponentInParent<MetalHitsTheFan>().InsideTheMelter = true;
+            }
             Debug.Log("inside");
             if (amountOfMeltedObjects == 6 && reg.notCompletelyInsideMelter == false)
             {
