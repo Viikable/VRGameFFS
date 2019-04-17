@@ -265,6 +265,13 @@
                 {
                     Destroy(juhaniJoin);
                 }
+                foreach (ConfigurableJoint headNoose in GameObject.Find("NOOSE").GetComponents<ConfigurableJoint>())
+                {
+                    if (headNoose.connectedBody.name == "JuhaniHead" || headNoose.connectedBody.name == "Bone_chest")
+                    {
+                        Destroy(headNoose);
+                    }
+                }
                 RopeClimb = false;
             }
             if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)

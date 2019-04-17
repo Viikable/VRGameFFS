@@ -32,7 +32,10 @@ namespace VRTK
                 invisible.GetComponent<MeshRenderer>().enabled = true;
                 Destroy(previouslySnapped);
                 GetComponent<Collider>().enabled = false;
+                if (boxCounter < 5)
+                {
                 GameObject.Find("WoodenSnapZone" + boxCounter.ToString()).GetComponent<Collider>().enabled = true;
+                }
             }
             
         }
