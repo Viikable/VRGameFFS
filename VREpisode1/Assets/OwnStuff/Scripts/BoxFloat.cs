@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+using VRTK.GrabAttachMechanics;
 
 public class BoxFloat : MonoBehaviour {
     private bool startMoving;
@@ -44,7 +45,7 @@ public class BoxFloat : MonoBehaviour {
     
     IEnumerator WaitForRealism()
     {
-        yield return new WaitForSecondsRealtime(4.5f);
+        yield return new WaitForSecondsRealtime(3f);
         startMoving = true;
     }
 
@@ -54,12 +55,13 @@ public class BoxFloat : MonoBehaviour {
         {
             GetComponent<Rigidbody>().useGravity = false;
             FloatAnim.SetBool("Float", true);
-            GetComponent<VRTK_InteractableObject>().isGrabbable = false;
+            GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
+            //GetComponent<VRTK_InteractableObject>().isGrabbable = false;
             GetComponent<Rigidbody>().freezeRotation = true;
             GetComponent<Rigidbody>().isKinematic = true;
-            if (whatSideofTheBoxDown == 0)
-            {
-                transform.Translate(new Vector3(0, 0, 1) * 0.005f);
+            //if (whatSideofTheBoxDown == 0)
+            //{
+                transform.Translate(new Vector3(0, 1, 0) * 0.005f, Space.World);
                 //if (transform.eulerAngles != new Vector3(-1.981f, -154.381f, 0.72f))
                 //{
                 //    Vector3 correctRotation = new Vector3(-1.981f, -154.381f, 0.72f);
@@ -68,26 +70,26 @@ public class BoxFloat : MonoBehaviour {
                 //    }
             }
         }       
-            if (whatSideofTheBoxDown == 1)
-            {
-                transform.Translate(new Vector3(0, 0, -1) * 0.005f);
-            }
-            if (whatSideofTheBoxDown == 2)
-            {
-                transform.Translate(new Vector3(0, -1, 0) * 0.005f);
-            }
-            if (whatSideofTheBoxDown == 3)
-            {
-                transform.Translate(new Vector3(0, 1, 0) * 0.005f);
-            }
-            if (whatSideofTheBoxDown == 4)
-            {
-                transform.Translate(new Vector3(-1, 0, 0) * 0.005f);
-            }
-            if (whatSideofTheBoxDown == 5)
-            {
-                transform.Translate(new Vector3(1, 0, 0) * 0.005f);
-            }
-        } 
+        //    if (whatSideofTheBoxDown == 1)
+        //    {
+        //        transform.Translate(new Vector3(0, 0, -1) * 0.005f);
+        //    }
+        //    if (whatSideofTheBoxDown == 2)
+        //    {
+        //        transform.Translate(new Vector3(0, -1, 0) * 0.005f);
+        //    }
+        //    if (whatSideofTheBoxDown == 3)
+        //    {
+        //        transform.Translate(new Vector3(0, 1, 0) * 0.005f);
+        //    }
+        //    if (whatSideofTheBoxDown == 4)
+        //    {
+        //        transform.Translate(new Vector3(-1, 0, 0) * 0.005f);
+        //    }
+        //    if (whatSideofTheBoxDown == 5)
+        //    {
+        //        transform.Translate(new Vector3(1, 0, 0) * 0.005f);
+        //    }
+        //} 
    }
 
