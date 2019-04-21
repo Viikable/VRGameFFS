@@ -83,36 +83,36 @@ public class WaterMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider hitCollider)
     {
-        if (hitCollider.name == "Marker" && !boxDetected)
-        {
-            boxDetected = true;
-            floatingBox.whatSideofTheBoxDown = 0;           
-        }
-        if (hitCollider.name == "Marker2" && !boxDetected)
-        {
-            boxDetected = true;
-            floatingBox.whatSideofTheBoxDown = 1;
-        }
-        if (hitCollider.name == "Marker3" && !boxDetected)
-        {
-            boxDetected = true;
-            floatingBox.whatSideofTheBoxDown = 2;
-        }
-        if (hitCollider.name == "Marker4" && !boxDetected)
-        {
-            boxDetected = true;
-            floatingBox.whatSideofTheBoxDown = 3;
-        }
-        if (hitCollider.name == "Marker5" && !boxDetected)
-        {
-            boxDetected = true;
-            floatingBox.whatSideofTheBoxDown = 4;
-        }
-        if (hitCollider.name == "Marker6" && !boxDetected)
-        {
-            boxDetected = true;
-            floatingBox.whatSideofTheBoxDown = 5;
-        }
+        //if (hitCollider.name == "Marker" && !boxDetected)
+        //{
+        //    boxDetected = true;
+        //    floatingBox.whatSideofTheBoxDown = 0;           
+        //}
+        //if (hitCollider.name == "Marker2" && !boxDetected)
+        //{
+        //    boxDetected = true;
+        //    floatingBox.whatSideofTheBoxDown = 1;
+        //}
+        //if (hitCollider.name == "Marker3" && !boxDetected)
+        //{
+        //    boxDetected = true;
+        //    floatingBox.whatSideofTheBoxDown = 2;
+        //}
+        //if (hitCollider.name == "Marker4" && !boxDetected)
+        //{
+        //    boxDetected = true;
+        //    floatingBox.whatSideofTheBoxDown = 3;
+        //}
+        //if (hitCollider.name == "Marker5" && !boxDetected)
+        //{
+        //    boxDetected = true;
+        //    floatingBox.whatSideofTheBoxDown = 4;
+        //}
+        //if (hitCollider.name == "Marker6" && !boxDetected)
+        //{
+        //    boxDetected = true;
+        //    floatingBox.whatSideofTheBoxDown = 5;
+        //}
 
         if (hitCollider == feet)       //just to check which object the rigidbody attached to the camerarig collided with
         {          
