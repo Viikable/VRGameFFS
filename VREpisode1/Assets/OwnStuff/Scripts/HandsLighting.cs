@@ -28,8 +28,8 @@ public class HandsLighting : MonoBehaviour {
         }
         else
         {
-            LeftHandMat.SetColor("_EmissionColor", Color.green * -50f);
-            RightHandMat.SetColor("_EmissionColor", Color.green * -50f);
+            LeftHandMat.SetColor("_EmissionColor", Color.green * -25f);
+            RightHandMat.SetColor("_EmissionColor", Color.green * -25f);
         }
     }
 }

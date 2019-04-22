@@ -24,12 +24,7 @@ public class WaterTouch : MonoBehaviour {
             water.timeWhenGotUnderwater = Time.time;
             water.headIsUnderWater = true;
             //Debug.Log(timeWhenGotUnderwater);
-            water.fader.Fade(Color.black, 60f);
+            water.fader.Fade(Color.black, 70f);
         }
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

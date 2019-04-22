@@ -65,7 +65,7 @@ public class WaterMovement : MonoBehaviour
         LeftController = GameObject.Find("LeftController");
         RightController = GameObject.Find("RightController");
         touchedWater = false;
-        oxygenTimer = 30f;
+        oxygenTimer = 45f;
         waterRises = false;
         headIsUnderWater = false;
         reachedTopPuzzle = false;
@@ -131,22 +131,22 @@ public class WaterMovement : MonoBehaviour
         //    fader.Fade(Color.black, 60f);
         //}
     }
-    private void OnTriggerExit(Collider hitCollider)
-    {
-        if (hitCollider == feet)
-        {           
-            Debug.Log("feet exited water");
-            touchedWater = false;
-        }
-        if (hitCollider == head)
-        {
-            headIsUnderWater = false;
-            Debug.Log("head exited water");
-            headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
-            //touchedWater = false;
-            fader.Unfade(5f);
-        }
-    }
+    //private void OnTriggerExit(Collider hitCollider)
+    //{
+    //    if (hitCollider == feet)
+    //    {           
+    //        Debug.Log("feet exited water");
+    //        touchedWater = false;
+    //    }
+    //    if (hitCollider == head)
+    //    {
+    //        headIsUnderWater = false;
+    //        Debug.Log("head exited water");
+    //        headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
+    //        //touchedWater = false;
+    //        fader.Unfade(5f);
+    //    }
+    //}
    
     void Update()
     {        

@@ -176,7 +176,7 @@ public class ElevatorMove2 : MonoBehaviour
                 {
                     elevatorDown.Play();
                 }
-                this.transform.Translate(Vector3.up * 1.85f * Time.deltaTime, Space.World);
+                this.transform.Translate(Vector3.up * 3.85f * Time.deltaTime, Space.World);
                 positionChecked = false;
                 StopAllCoroutines();
             }
@@ -196,7 +196,7 @@ public class ElevatorMove2 : MonoBehaviour
                 {
                     elevatorUp.Play();
                 }
-                this.transform.Translate(Vector3.down * 1.85f * Time.deltaTime, Space.World);
+                this.transform.Translate(Vector3.down * 3.85f * Time.deltaTime, Space.World);
                 positionChecked = false;
                 StopAllCoroutines();
             }
@@ -222,6 +222,8 @@ public class ElevatorMove2 : MonoBehaviour
         if (other.name == "ElevatorStopper" && Game_Manager.instance.ElevatorMoving != 0)
         {
             elevatorStops.Play();
+            elevatorDown.Stop();
+            elevatorUp.Stop();
             elevatorMovingDown = false;
             elevatorMovingUp = false;
             Debug.Log("stopped");
