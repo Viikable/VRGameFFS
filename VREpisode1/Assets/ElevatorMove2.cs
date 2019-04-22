@@ -23,6 +23,12 @@ public class ElevatorMove2 : MonoBehaviour
 
     private Animator elevAnim;
 
+    bool wtf;
+
+    bool elevatorMovingDown;
+
+    bool elevatorMovingUp;
+
     [SerializeField]
     [Tooltip("is Octocode correct")]
     private bool codeIsCorrect;
@@ -51,10 +57,26 @@ public class ElevatorMove2 : MonoBehaviour
 
     public GameObject ElevatorButton2;
 
+    void Start()
+    {
+        canGoUp = false;
+        canMoveDown = true;
+        positionChecked = true;
+        elevAnim = this.GetComponent<Animator>();
+        weWannaGoBackUp = false;
+        codeIsCorrect = true;
+        doorHasOpened = false;
+        ElevatorButton1 = GameObject.Find("ElevatorButton1");
+        ElevatorButton2 = GameObject.Find("ElevatorButton2");
+        wtf = true;
+        elevatorMovingDown = false;
+        elevatorMovingUp = false;
+
+    }
     public void CheckButtonPress()
     {
         if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f
-            && ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed && Game_Manager.instance.ElevatorMoving == 0)
+            && ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed && Game_Manager.instance.ElevatorMoving == 0 && !elevatorMovingDown)
         {
             if (canGoUp)
             {
@@ -67,8 +89,13 @@ public class ElevatorMove2 : MonoBehaviour
                 Debug.Log("elevator1when2");
             }
         }
+        else if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f && elevatorMovingDown)
+        {
+            ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            StartCoroutine("niceCoding");
+        }
         if (ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f
-            && ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed && Game_Manager.instance.ElevatorMoving == 0)
+            && ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed && Game_Manager.instance.ElevatorMoving == 0 && !elevatorMovingUp)
         {
             if (canMoveDown)
             {
@@ -81,21 +108,20 @@ public class ElevatorMove2 : MonoBehaviour
                 ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             }
         }
+        else if (ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f && elevatorMovingUp)
+        {
+            ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            StartCoroutine("niceCoding");
+        }
     }
-
-    void Start()
+    IEnumerator niceCoding()
     {
-        canGoUp = false;
-        canMoveDown = true;
-        positionChecked = true;
-        elevAnim = this.GetComponent<Animator>();
-        weWannaGoBackUp = false;
-        codeIsCorrect = true;
-        doorHasOpened = false;
-        ElevatorButton1 = GameObject.Find("ElevatorButton1");
-        ElevatorButton2 = GameObject.Find("ElevatorButton2");
-
+        yield return new WaitForSecondsRealtime(1f);
+        ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+        ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
     }
+
+
     public bool CanGoUp
     {
         get { return canGoUp; }
@@ -135,13 +161,22 @@ public class ElevatorMove2 : MonoBehaviour
         else if (Game_Manager.instance.ElevatorMoving == 1 && canMoveDown)
         {
             Debug.Log("elevatorMovingdown");
+            elevatorMovingDown = true;
             elevAnim.SetBool("Open", false);
             elevAnim.SetBool("Close", true);          //door opens with the code and closes when button pressed inside
-            StartCoroutine("WaitForDoor");
+            if (wtf)
+            {
+                wtf = false;
+                elevatorCloses.Play();
+                StartCoroutine("WaitForDoor");
+            }
             if (doorHasOpened)
             {
-                elevatorDown.Play();
-                this.transform.Translate(Vector3.up * 1.5f * Time.deltaTime, Space.World);
+                if (!elevatorDown.isPlaying)
+                {
+                    elevatorDown.Play();
+                }
+                this.transform.Translate(Vector3.up * 1.85f * Time.deltaTime, Space.World);
                 positionChecked = false;
                 StopAllCoroutines();
             }
@@ -150,14 +185,18 @@ public class ElevatorMove2 : MonoBehaviour
         {
 
             Debug.Log("elevatorMovingUp");
+            elevatorMovingUp = true;
             elevAnim.SetBool("Open", false);
             elevAnim.SetBool("BackClose", true);
             elevAnim.SetBool("Close", false);
             StartCoroutine("WaitForDoor");
             if (doorHasOpened)
             {
-                elevatorUp.Play();
-                this.transform.Translate(Vector3.down * 1.5f * Time.deltaTime, Space.World);
+                if (!elevatorUp.isPlaying)
+                {
+                    elevatorUp.Play();
+                }
+                this.transform.Translate(Vector3.down * 1.85f * Time.deltaTime, Space.World);
                 positionChecked = false;
                 StopAllCoroutines();
             }
@@ -183,6 +222,8 @@ public class ElevatorMove2 : MonoBehaviour
         if (other.name == "ElevatorStopper" && Game_Manager.instance.ElevatorMoving != 0)
         {
             elevatorStops.Play();
+            elevatorMovingDown = false;
+            elevatorMovingUp = false;
             Debug.Log("stopped");
             if (canMoveDown)
             {
@@ -191,7 +232,7 @@ public class ElevatorMove2 : MonoBehaviour
                 elevAnim.SetBool("BackClose", false);
                 elevAnim.SetBool("BackOpen", true);
                 elevAnim.SetBool("Open", false);
-                //StartCoroutine("WaitForDoor");
+                StartCoroutine("WaitForDoor2");
             }
             else if (canGoUp)
             {
@@ -200,7 +241,7 @@ public class ElevatorMove2 : MonoBehaviour
                 elevAnim.SetBool("Close", false);
                 elevAnim.SetBool("Open", true);
                 elevAnim.SetBool("BackOpen", false);
-                //StartCoroutine("WaitForDoor");
+                StartCoroutine("WaitForDoor2");
             }
             Game_Manager.instance.ElevatorMoving = 0;
         }
@@ -208,8 +249,12 @@ public class ElevatorMove2 : MonoBehaviour
     IEnumerator WaitForDoor()
     {
         yield return new WaitForSeconds(4);
-        doorHasOpened = true;
-        yield break;
+        doorHasOpened = true;       
+    }
+    IEnumerator WaitForDoor2()
+    {
+        yield return new WaitForSeconds(1);
+        elevatorOpens.Play();       
     }
 }
 

@@ -8,18 +8,24 @@ public class ElevatorChildTrigger : MonoBehaviour {
     GameObject Elevator;
    
     void Start () {
-        mainSDK = GameObject.Find("SDKSetups");
+        mainSDK = GameObject.Find("[VRTK_SDKManager]");
         Elevator = GameObject.Find("ELEVATOR2.0");
 	}
 	
     private void OnTriggerEnter(Collider other)
     {
-        mainSDK.transform.parent = Elevator.transform;
+        if (other == GameObject.Find("Water").GetComponent<WaterMovement>().head)
+        {
+            mainSDK.transform.parent = Elevator.transform;
+        }
         
     }
     private void OnTriggerExit(Collider other)
     {
-        mainSDK.transform.parent = null;
+        if (other == GameObject.Find("Water").GetComponent<WaterMovement>().head)
+        {
+            mainSDK.transform.parent = null;
+        }
     }
 
     void Update () {

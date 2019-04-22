@@ -5,7 +5,7 @@ using VRTK;
 
 public class WaterMovement : MonoBehaviour
 {
-    VRTK_HeadsetFade fader;  //this is used to create drowning effect when the headset slowly gets darker
+    public VRTK_HeadsetFade fader;  //this is used to create drowning effect when the headset slowly gets darker
 
     [SerializeField]
     [Tooltip("Is the water rising right now")]
@@ -17,7 +17,7 @@ public class WaterMovement : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Have we touched the water surface yet or not")]
-    private bool touchedWater;
+    public bool touchedWater;
 
     [SerializeField]
     [Tooltip("Has the floating box hit the water surface on one of its sides yet")]
@@ -29,11 +29,11 @@ public class WaterMovement : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Is player's head underwater currently")]
-    private bool headIsUnderWater;
+    public bool headIsUnderWater;
 
     [SerializeField]
     [Tooltip("Time when player enters the water")]
-    private float timeWhenGotUnderwater;
+    public float timeWhenGotUnderwater;
 
     [SerializeField]
     [Tooltip("How much oxygen the player has left")]
@@ -114,22 +114,22 @@ public class WaterMovement : MonoBehaviour
         //    floatingBox.whatSideofTheBoxDown = 5;
         //}
 
-        if (hitCollider == feet)       //just to check which object the rigidbody attached to the camerarig collided with
-        {          
-            touchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
-            Debug.Log("feet entered water");
-            Splash.Play();
-        }
-        if (hitCollider == head)
-        {
-            headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
-            touchedWater = true;
-            Debug.Log("head entered water");
-            timeWhenGotUnderwater = Time.time;
-            headIsUnderWater = true;
-            //Debug.Log(timeWhenGotUnderwater);
-            fader.Fade(Color.black, 60f);
-        }
+        //if (hitCollider == feet)       //just to check which object the rigidbody attached to the camerarig collided with
+        //{          
+        //    touchedWater = true;                            //whenever we want the gravity to return to normal we can just change the bool back to false
+        //    Debug.Log("feet entered water");
+        //    Splash.Play();
+        //}
+        //if (hitCollider == head)
+        //{
+        //    headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+        //    touchedWater = true;
+        //    Debug.Log("head entered water");
+        //    timeWhenGotUnderwater = Time.time;
+        //    headIsUnderWater = true;
+        //    //Debug.Log(timeWhenGotUnderwater);
+        //    fader.Fade(Color.black, 60f);
+        //}
     }
     private void OnTriggerExit(Collider hitCollider)
     {

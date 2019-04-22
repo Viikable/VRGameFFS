@@ -623,6 +623,9 @@ public class TalosSnap : MonoBehaviour
         if (threeRow && lShape && uShape && squarePlus && !AllCorrect.isPlaying && (Red || Green || Yellow || Blue))
         {
             AllCorrect.Play();
+            //THIS REMOVED LATER
+            GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<FogEffect>().enabled = false;  //this part ONLY FOR TANELIGAME
+            //!!!
             Red = false;
             Green = false;
             Yellow = false;
