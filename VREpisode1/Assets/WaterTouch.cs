@@ -13,8 +13,9 @@ public class WaterTouch : MonoBehaviour {
     {
         if (other == water.feet)
         {
+            Debug.Log("Splash");
             water.Splash.Play();
-            water.touchedWater = true;
+            //water.touchedWater = true;
         }
         if (other == water.head)
         {

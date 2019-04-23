@@ -351,8 +351,7 @@ public class TalosSnap : MonoBehaviour
     }
 
     private void Update()
-    {        
-        Debug.Log(Green);
+    {               
         if (TalosSnapZone.GetCurrentSnappedObject() == null)
         {
             threeRowXOne = false;
