@@ -19,11 +19,15 @@ public class WaterTouchHigh : MonoBehaviour {
         }
         if (other == water.head)
         {
+            if (!water.Splash.isPlaying)
+            {
+            water.Splash.Play();
+            }
             water.headIsUnderWater = false;
             Debug.Log("head exited water");
             water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
             //touchedWater = false;
-            water.fader.Unfade(5f);
+            water.fader.Unfade(3f);
         }
     }
 

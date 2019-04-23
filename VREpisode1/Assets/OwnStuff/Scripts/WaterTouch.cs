@@ -14,7 +14,10 @@ public class WaterTouch : MonoBehaviour {
         if (other == water.feet)
         {
             Debug.Log("Splash");
+            if (!water.Splash.isPlaying)
+            {
             water.Splash.Play();
+            }
             //water.touchedWater = true;
         }
         if (other == water.head)
@@ -25,7 +28,7 @@ public class WaterTouch : MonoBehaviour {
             water.timeWhenGotUnderwater = Time.time;
             water.headIsUnderWater = true;
             //Debug.Log(timeWhenGotUnderwater);
-            water.fader.Fade(Color.black, 70f);
+            water.fader.Fade(Color.black, 80f);
         }
     }
 }

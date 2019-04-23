@@ -78,6 +78,8 @@
         [Tooltip("Toggles between climbable rope and grabbable rope")]
         private int elevatorMoving;
 
+        AudioSource LeftWaterPush;
+        AudioSource RightWaterPush;
 
         [SerializeField]
         private WaterMovement water;
@@ -133,6 +135,10 @@
             DontDestroyOnLoad(this);
 
             //WaterComes.AddListener(WaterIsRising);
+
+            LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
+
+            RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
 
             ropeClimb = true;
 
@@ -275,14 +281,22 @@
                 RopeClimb = false;
             }
             if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
-            {               
-                    Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtimeRight());               
-            }           
+            {
+                Debug.Log("grabbedWater");
+                if (!RightWaterPush.isPlaying)
+                {
+                RightWaterPush.Play();
+                }
+                StartCoroutine(WaitForSecondsRealtimeRight());
+            }
             else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
-            {               
-                    Debug.Log("grabbedWater");
-                    StartCoroutine(WaitForSecondsRealtimeLeft());               
+            {
+                if (!LeftWaterPush.isPlaying)
+                {
+                    LeftWaterPush.Play();
+                }
+                Debug.Log("grabbedWater");
+                StartCoroutine(WaitForSecondsRealtimeLeft());
             }
         }
         IEnumerator WaitForSecondsRealtimeRight()
