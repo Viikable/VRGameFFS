@@ -197,7 +197,7 @@ public class WaterMovement : MonoBehaviour
         {
             if (!reachedTopPuzzle)
             {
-                transform.Translate(Vector3.up * 0.005f);
+                transform.Translate(Vector3.up * 0.0005f);
             Debug.Log("waterup");
             }
             else
