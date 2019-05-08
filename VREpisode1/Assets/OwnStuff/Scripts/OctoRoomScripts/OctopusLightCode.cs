@@ -40,6 +40,21 @@ public class OctopusLightCode : MonoBehaviour
 
     bool buttonRegistering;
 
+    [Tooltip("Shows the player the colour which has been entered first into the code")]
+    GameObject CodeCube1;
+
+    [Tooltip("Shows the player the colour which has been entered second into the code")]
+    GameObject CodeCube2;
+
+    [Tooltip("Shows the player the colour which has been entered third into the code")]
+    GameObject CodeCube3;
+
+    [Tooltip("Shows the player the colour which has been entered fourth into the code")]
+    GameObject CodeCube4;
+
+    [Tooltip("Snaps to objects so that the Octopus recognizes we want to apply the code with them or get a code from them")]
+    GameObject Marker;
+
     void Start()
     {
         RedLight = transform.Find("RedLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
@@ -57,6 +72,11 @@ public class OctopusLightCode : MonoBehaviour
         GreenLightSource = transform.Find("GreenLightSource").GetComponent<Light>();
         CyanLightSource = transform.Find("CyanLightSource").GetComponent<Light>();
         buttonRegistering = false;
+        CodeCube1 = transform.Find("CodeCube1").gameObject;
+        CodeCube2 = transform.Find("CodeCube2").gameObject;
+        CodeCube3 = transform.Find("CodeCube3").gameObject;
+        CodeCube4 = transform.Find("CodeCube4").gameObject;
+        Marker = GameObject.Find("Marker");
     }
     void Update()
     {
@@ -67,6 +87,22 @@ public class OctopusLightCode : MonoBehaviour
             combinationNumber++;
             buttonRegistering = true;
             RedLightSource.enabled = true;
+            if (combinationNumber == 1)
+            {
+                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            else if (combinationNumber == 2)
+            {
+                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            else if (combinationNumber == 3)
+            {
+                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            else
+            {
+                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
             StartCoroutine("WaitForPress");
         }
         if (GreenLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering)
@@ -75,6 +111,22 @@ public class OctopusLightCode : MonoBehaviour
             combinationNumber++;
             buttonRegistering = true;
             GreenLightSource.enabled = true;
+            if (combinationNumber == 1)
+            {
+                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            else if (combinationNumber == 2)
+            {
+                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            else if (combinationNumber == 3)
+            {
+                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            else
+            {
+                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
             StartCoroutine("WaitForPress");
         }
         if (YellowLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering)
@@ -83,6 +135,22 @@ public class OctopusLightCode : MonoBehaviour
             combinationNumber++;
             buttonRegistering = true;
             YellowLightSource.enabled = true;
+            if (combinationNumber == 1)
+            {
+                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            }
+            else if (combinationNumber == 2)
+            {
+                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            }
+            else if (combinationNumber == 3)
+            {
+                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            }
+            else
+            {
+                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            }
             StartCoroutine("WaitForPress");
         }
         if (CyanLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering)
@@ -91,6 +159,22 @@ public class OctopusLightCode : MonoBehaviour
             combinationNumber++;
             buttonRegistering = true;
             CyanLightSource.enabled = true;
+            if (combinationNumber == 1)
+            {
+                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.cyan;
+            }
+            else if (combinationNumber == 2)
+            {
+                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.cyan;
+            }
+            else if (combinationNumber == 3)
+            {
+                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.cyan;
+            }
+            else
+            {
+                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.cyan;
+            }
             StartCoroutine("WaitForPress");
         }
         if (combinationNumber == 4 && !codeEntered)
@@ -110,11 +194,18 @@ public class OctopusLightCode : MonoBehaviour
         YellowLightSource.enabled = false;
         CyanLightSource.enabled = false;
     }
-
+    public void ColourReset()
+    {
+        CodeCube1.GetComponent<MeshRenderer>().material.color = Color.grey;
+        CodeCube2.GetComponent<MeshRenderer>().material.color = Color.grey;
+        CodeCube3.GetComponent<MeshRenderer>().material.color = Color.grey;
+        CodeCube4.GetComponent<MeshRenderer>().material.color = Color.grey;
+        codeEntered = false;
+    }
 
     public void CheckCodeValidity()
     {
-        if (OctopusAttention.AtMaxLimit())
+        if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
         {
             if (colourCode[0] == "Red")
             {
@@ -249,6 +340,7 @@ public class OctopusLightCode : MonoBehaviour
                     OctopusAttention.stayPressed = false;
                 }
             }
+            ColourReset();
         }
         else
         {
