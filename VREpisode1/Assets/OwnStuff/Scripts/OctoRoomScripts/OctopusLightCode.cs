@@ -36,8 +36,10 @@ public class OctopusLightCode : MonoBehaviour
     [Tooltip("This describes the object where the marker is attatched to atm")]
     string currentMarkedLocation;
 
+    [Tooltip("Indicates whether code has been entered and the octopus notified of this in order to make buttons remain inactive until possible animations have concluded")]
     bool codeEntered;
 
+    [Tooltip("Indicates whether a button has just been pressed or not to avoid accidental double pressing")]
     bool buttonRegistering;
 
     [Tooltip("Shows the player the colour which has been entered first into the code")]
@@ -54,6 +56,40 @@ public class OctopusLightCode : MonoBehaviour
 
     [Tooltip("Snaps to objects so that the Octopus recognizes we want to apply the code with them or get a code from them")]
     GameObject Marker;
+
+    [Tooltip("A research object that teaches the player the verb CLOSE when put on the research table with a marker on it and Octopusattentionbutton is pressed")]
+    GameObject OpenBox;
+
+    [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
+    VRTK_SnapDropZone OpenBoxSnapZone1;
+
+    [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
+    VRTK_SnapDropZone OpenBoxSnapZone2;
+
+    [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
+    VRTK_SnapDropZone OpenBoxSnapZone3;
+
+    [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
+    VRTK_SnapDropZone OpenBoxSnapZone4;
+
+    [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
+    VRTK_SnapDropZone OpenBoxSnapZone5;
+
+    [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
+    VRTK_SnapDropZone OpenBoxSnapZone6;
+
+    //these colliders will be activated when the marker snaps to a given snapzone, creating the illusory colliders for it
+    public Collider MarkerGhostCollider1;
+
+    public Collider MarkerGhostCollider2;
+
+    public Collider MarkerGhostCollider3;
+
+    public Collider MarkerGhostCollider4;
+
+    public Collider MarkerGhostCollider5;
+
+    public Collider MarkerGhostCollider6;
 
     void Start()
     {
@@ -77,11 +113,30 @@ public class OctopusLightCode : MonoBehaviour
         CodeCube3 = transform.Find("CodeCube3").gameObject;
         CodeCube4 = transform.Find("CodeCube4").gameObject;
         Marker = GameObject.Find("Marker");
+        OpenBox = GameObject.Find("OpenBox");
+        OpenBoxSnapZone1 = OpenBox.transform.Find("OpenBoxSnapZone1").GetComponent<VRTK_SnapDropZone>();
+        OpenBoxSnapZone2 = OpenBox.transform.Find("OpenBoxSnapZone2").GetComponent<VRTK_SnapDropZone>();
+        OpenBoxSnapZone3 = OpenBox.transform.Find("OpenBoxSnapZone3").GetComponent<VRTK_SnapDropZone>();
+        OpenBoxSnapZone4 = OpenBox.transform.Find("OpenBoxSnapZone4").GetComponent<VRTK_SnapDropZone>();
+        OpenBoxSnapZone5 = OpenBox.transform.Find("OpenBoxSnapZone5").GetComponent<VRTK_SnapDropZone>();
+        OpenBoxSnapZone6 = OpenBox.transform.Find("OpenBoxSnapZone6").GetComponent<VRTK_SnapDropZone>();
+        MarkerGhostCollider1 = OpenBox.transform.Find("MarkerGhostCollider1").GetComponent<Collider>();
+        MarkerGhostCollider2 = OpenBox.transform.Find("MarkerGhostCollider2").GetComponent<Collider>();
+        MarkerGhostCollider3 = OpenBox.transform.Find("MarkerGhostCollider3").GetComponent<Collider>();
+        MarkerGhostCollider4 = OpenBox.transform.Find("MarkerGhostCollider4").GetComponent<Collider>();
+        MarkerGhostCollider5 = OpenBox.transform.Find("MarkerGhostCollider5").GetComponent<Collider>();
+        MarkerGhostCollider6 = OpenBox.transform.Find("MarkerGhostCollider6").GetComponent<Collider>();
     }
+
     void Update()
     {
+        CheckMarkerLocation();    
+        CheckColourCombination();
+    }
 
-        if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering)            //checking what colour combination has been entered
+    public void CheckColourCombination()  //checking what colour combination has been entered
+    { 
+        if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering)            
         {
             colourCode[combinationNumber] = "Red";
             combinationNumber++;
@@ -183,7 +238,7 @@ public class OctopusLightCode : MonoBehaviour
             OctopusAttention.stayPressed = true;
             CheckCodeValidity();
         }
-    }
+    }   
     IEnumerator WaitForPress()
     {
         //Waits for the button to register being pressed and lifted up so it's only registered once
@@ -203,6 +258,55 @@ public class OctopusLightCode : MonoBehaviour
         codeEntered = false;
     }
 
+    public void CheckMarkerLocation()      //checks where the marker is snapped currently, if nowhere, resets location to null
+    {
+        if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone())
+        {
+            if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3 
+                || OpenBoxSnapZone4 || OpenBoxSnapZone5 || OpenBoxSnapZone6))
+            {
+                currentMarkedLocation = "OpenBox";
+                Marker.GetComponent<Collider>().enabled = false;
+                if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
+                {
+                    MarkerGhostCollider1.enabled = true;
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
+                {
+                    MarkerGhostCollider2.enabled = true;
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
+                {
+                    MarkerGhostCollider3.enabled = true;
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
+                {
+                    MarkerGhostCollider4.enabled = true;
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone5)
+                {
+                    MarkerGhostCollider5.enabled = true;
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone6)
+                {
+                    MarkerGhostCollider6.enabled = true;
+                }
+            }
+        }
+        else
+        {
+            Marker.GetComponent<Collider>().enabled = true;
+            MarkerGhostCollider1.enabled = false;
+            MarkerGhostCollider2.enabled = false;
+            MarkerGhostCollider3.enabled = false;
+            MarkerGhostCollider4.enabled = false;
+            MarkerGhostCollider5.enabled = false;
+            MarkerGhostCollider6.enabled = false;
+            currentMarkedLocation = null;
+            return;
+        }
+    }
+
     public void CheckCodeValidity()
     {
         if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
@@ -216,6 +320,7 @@ public class OctopusLightCode : MonoBehaviour
                     //here we can write what we can close and what happens if we type close and then ask the octopus about it
                     if (currentMarkedLocation == "OpenBox" /* && the OpenBox is on the research table snapped */)
                     {
+                        OpenBox.GetComponent<MeshRenderer>().material.color = Color.green;
                         //we play the animation which closes the box like a hologram on the table separate from the actual box
                     }
                     combinationNumber = 0;
