@@ -14,37 +14,41 @@
         //public UnityEngine.Events.UnityEvent WaterComes;
 
         [Header("Booleans")]
-        [SerializeField]
-        [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        private bool isBroom1Snapped;
+        //[SerializeField]
+        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
+        //private bool isBroom1Snapped;
+
+        //[SerializeField]
+        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
+        //private bool isBroom2Snapped;
 
         [SerializeField]
-        [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        private bool isBroom2Snapped;
+        [Tooltip("checks if the octomarker is being unsnapped from a snapzone")]
+        public bool beingUnSnapped;
 
-        [SerializeField]
-        [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        private bool isBroom3Snapped;
+        //[SerializeField]
+        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
+        //private bool isBroom3Snapped;
 
-        [SerializeField]
-        [Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        private bool isBroom4Snapped;
+        //[SerializeField]
+        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
+        //private bool isBroom4Snapped;
 
-        [SerializeField]
-        [Tooltip("checks if broom is still wood or not")]
-        private bool isBroom1Metallic;
+        //[SerializeField]
+        //[Tooltip("checks if broom is still wood or not")]
+        //private bool isBroom1Metallic;
 
-        [SerializeField]
-        [Tooltip("checks if broom is still wood or not")]
-        private bool isBroom2Metallic;
+        //[SerializeField]
+        //[Tooltip("checks if broom is still wood or not")]
+        //private bool isBroom2Metallic;
 
-        [SerializeField]
-        [Tooltip("checks if broom is still wood or not")]
-        private bool isBroom3Metallic;
+        //[SerializeField]
+        //[Tooltip("checks if broom is still wood or not")]
+        //private bool isBroom3Metallic;
 
-        [SerializeField]
-        [Tooltip("checks if broom is still wood or not")]
-        private bool isBroom4Metallic;
+        //[SerializeField]
+        //[Tooltip("checks if broom is still wood or not")]
+        //private bool isBroom4Metallic;
 
         [SerializeField]
         [Tooltip("checks if broom is ready to start the door cracking animation")]
@@ -116,9 +120,9 @@
 
         public GameObject LeftController;
 
-        VRTK_InteractGrab RightGrab;
+        public VRTK_InteractGrab RightGrab;
 
-        VRTK_InteractGrab LeftGrab;
+        public VRTK_InteractGrab LeftGrab;
 
         public static Game_Manager instance = null;
 
@@ -136,27 +140,27 @@
 
             //WaterComes.AddListener(WaterIsRising);
 
-            LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
+            //LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
 
-            RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
+            //RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
 
             ropeClimb = true;
 
-            isBroom1Snapped = false;
+            //isBroom1Snapped = false;
 
-            isBroom2Snapped = false;
+            //isBroom2Snapped = false;
 
-            isBroom3Snapped = false;
+            //isBroom3Snapped = false;
 
-            isBroom4Snapped = false;
+            //isBroom4Snapped = false;
 
-            isBroom1Metallic = false;
+            //isBroom1Metallic = false;
 
-            isBroom2Metallic = false;
+            //isBroom2Metallic = false;
 
-            isBroom3Metallic = false;
+            //isBroom3Metallic = false;
 
-            isBroom4Metallic = false;
+            //isBroom4Metallic = false;
 
             playBroomAnimation = false;
 
@@ -165,6 +169,8 @@
             lanternLightIsOn = false;
 
             ropeIsAttatchedToManual = false;
+
+            beingUnSnapped = false;
 
             invoked = true;
 
@@ -202,9 +208,9 @@
 
             Lantern = GameObject.Find("Lantern");
 
-            GrabbableWater = GameObject.Find("GrabbableWater");
+            //GrabbableWater = GameObject.Find("GrabbableWater");
 
-            water = GameObject.Find("Water").GetComponent<WaterMovement>();
+            //water = GameObject.Find("Water").GetComponent<WaterMovement>();
         }
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
         private void Update()

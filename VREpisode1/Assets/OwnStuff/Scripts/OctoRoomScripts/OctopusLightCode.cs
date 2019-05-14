@@ -42,6 +42,9 @@ public class OctopusLightCode : MonoBehaviour
     [Tooltip("Indicates whether a button has just been pressed or not to avoid accidental double pressing")]
     bool buttonRegistering;
 
+    //[Tooltip("Indicates whether the Marker is being unsnapped at the moment")]
+    //public bool beingUnSnapped;
+
     [Tooltip("Shows the player the colour which has been entered first into the code")]
     GameObject CodeCube1;
 
@@ -102,6 +105,7 @@ public class OctopusLightCode : MonoBehaviour
         colourCode = new string[4];
         currentMarkedLocation = null;
         codeEntered = false;
+        //beingUnSnapped = false;
         AttentionLight = transform.Find("AttentionLight").GetComponent<Light>();
         RedLightSource = transform.Find("RedLightSource").GetComponent<Light>();
         YellowLightSource = transform.Find("YellowLightSource").GetComponent<Light>();
@@ -260,7 +264,7 @@ public class OctopusLightCode : MonoBehaviour
 
     public void CheckMarkerLocation()      //checks where the marker is snapped currently, if nowhere, resets location to null
     {
-        if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone())
+        if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone() && !Game_Manager.instance.beingUnSnapped)
         {
             if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3 
                 || OpenBoxSnapZone4 || OpenBoxSnapZone5 || OpenBoxSnapZone6))
@@ -293,8 +297,8 @@ public class OctopusLightCode : MonoBehaviour
                 }
             }
         }
-        else
-        {
+        else if (Game_Manager.instance.beingUnSnapped)
+        {            
             Marker.GetComponent<Collider>().enabled = true;
             MarkerGhostCollider1.enabled = false;
             MarkerGhostCollider2.enabled = false;
@@ -302,7 +306,11 @@ public class OctopusLightCode : MonoBehaviour
             MarkerGhostCollider4.enabled = false;
             MarkerGhostCollider5.enabled = false;
             MarkerGhostCollider6.enabled = false;
-            currentMarkedLocation = null;
+            currentMarkedLocation = null;                   
+            Marker.transform.position -= transform.forward * Time.deltaTime * 0.5f;         
+        }
+        else
+        {
             return;
         }
     }

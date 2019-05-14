@@ -2,80 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+using VRTK.Controllables.PhysicsBased;
 
 public class OpenBoxUnSnapTrigger : MonoBehaviour
 {
     VRTK_SnapDropZone OpenBoxSnap;
+
+    VRTK_PhysicsPusher MarkerReleaseButton;
+
     GameObject Marker;
-    VRTK_InteractGrab RightGrab;
-    VRTK_InteractGrab LeftGrab;
-    GameObject RightController;
-    GameObject LeftController;
-
-    Collider temp;
-
-    bool grabLeft;
-    bool grabRight;
-
+  
+    bool markerCanSnap;
+   
     void Start()
     {
         OpenBoxSnap = GetComponent<VRTK_SnapDropZone>();
         Marker = GameObject.Find("Marker");
 
-        RightController = GameObject.Find("RightController");
+        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<VRTK_PhysicsPusher>();
 
-        LeftController = GameObject.Find("LeftController");
-
-        RightGrab = RightController.GetComponent<VRTK_InteractGrab>();
-
-        LeftGrab = LeftController.GetComponent<VRTK_InteractGrab>();
-
-        grabLeft = false;
-        grabRight = false;
+        markerCanSnap = true;
+       
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        temp = other;
-        if (other == Marker)
+    {       
+        if (other.name == "Marker" && markerCanSnap)
         {
-            OpenBoxSnap.ForceSnap(Marker);
-        }
+            OpenBoxSnap.ForceSnap(Marker);         
+            MarkerReleaseButton.stayPressed = true;  //remember to set this true so the release button gets activated again after releasing marker
+        }      
+    }
 
+    private void Update()
+    {
+      
         if (OpenBoxSnap.GetCurrentSnappedObject() != null && OpenBoxSnap.GetCurrentSnappedObject() ==
-            Marker)
-        {            
-            if (other.transform.parent != null && other.transform.parent.name == "HandColliders" && other.transform.parent.transform.parent.name == "VRTK_LeftBasicHand")               
+           Marker && MarkerReleaseButton.AtMaxLimit() && MarkerReleaseButton.stayPressed)
+        {          
+            Game_Manager.instance.beingUnSnapped = true;
+            OpenBoxSnap.ForceUnsnap();
+            if (markerCanSnap)
             {
-                Debug.Log("UnsnapL");
-                OpenBoxSnap.ForceUnsnap();
-                LeftController.GetComponent<VRTK_InteractTouch>().ForceTouch(Marker);
-                grabLeft = true;
-            }
-            else if (other.transform.parent != null && other.transform.parent.name == "HandColliders" && other.transform.parent.transform.parent.name == "VRTK_RightBasicHand")
-            {
-                Debug.Log("UnsnapR");
-                OpenBoxSnap.ForceUnsnap();
-                RightController.GetComponent<VRTK_InteractTouch>().ForceTouch(Marker);
-                grabRight = true;
+                markerCanSnap = false;
+                StartCoroutine("WaitForMarker");
             }
         }
     }
-    private void Update()
+    IEnumerator WaitForMarker()
     {
-        Debug.Log(temp.transform.parent.transform.parent.name);
-        if (grabLeft && LeftGrab.GetGrabbedObject() == null)
-        {
-            LeftGrab.AttemptGrab();
-        }
-        else if (grabRight && RightGrab.GetGrabbedObject() == null)
-        {
-            RightGrab.AttemptGrab();
-        }
-        if (LeftGrab.GetGrabbedObject() == Marker || RightGrab.GetGrabbedObject() == Marker)
-        {
-            grabRight = false;
-            grabLeft = false;
-        }
+        yield return new WaitForSecondsRealtime(2f);
+        markerCanSnap = true;
+        MarkerReleaseButton.stayPressed = false;
+        Game_Manager.instance.beingUnSnapped = false;
     }
 }
