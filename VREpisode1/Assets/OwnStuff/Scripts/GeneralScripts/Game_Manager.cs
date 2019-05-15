@@ -14,42 +14,11 @@
         //public UnityEngine.Events.UnityEvent WaterComes;
 
         [Header("Booleans")]
-        //[SerializeField]
-        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        //private bool isBroom1Snapped;
-
-        //[SerializeField]
-        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        //private bool isBroom2Snapped;
-
+       
         [SerializeField]
         [Tooltip("checks if the octomarker is being unsnapped from a snapzone")]
         public bool beingUnSnapped;
-
-        //[SerializeField]
-        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        //private bool isBroom3Snapped;
-
-        //[SerializeField]
-        //[Tooltip("checks if our player has snapped the broom to the janitor door in order to jank it open")]
-        //private bool isBroom4Snapped;
-
-        //[SerializeField]
-        //[Tooltip("checks if broom is still wood or not")]
-        //private bool isBroom1Metallic;
-
-        //[SerializeField]
-        //[Tooltip("checks if broom is still wood or not")]
-        //private bool isBroom2Metallic;
-
-        //[SerializeField]
-        //[Tooltip("checks if broom is still wood or not")]
-        //private bool isBroom3Metallic;
-
-        //[SerializeField]
-        //[Tooltip("checks if broom is still wood or not")]
-        //private bool isBroom4Metallic;
-
+      
         [SerializeField]
         [Tooltip("checks if broom is ready to start the door cracking animation")]
         private bool playBroomAnimation;
@@ -140,9 +109,9 @@
 
             //WaterComes.AddListener(WaterIsRising);
 
-            //LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
+            LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
 
-            //RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
+            RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
 
             ropeClimb = true;
 
@@ -208,9 +177,9 @@
 
             Lantern = GameObject.Find("Lantern");
 
-            //GrabbableWater = GameObject.Find("GrabbableWater");
+            GrabbableWater = GameObject.Find("GrabbableWater");
 
-            //water = GameObject.Find("Water").GetComponent<WaterMovement>();
+            water = GameObject.Find("Water").GetComponent<WaterMovement>();
         }
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
         private void Update()

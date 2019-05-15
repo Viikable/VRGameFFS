@@ -2163,6 +2163,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1604487588530110, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
+      propertyPath: m_TagString
+      value: ResearchObject
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114189474412551408, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
     - {fileID: 114413479722248482, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
@@ -3858,8 +3862,8 @@ GameObject:
   - component: {fileID: 69388833}
   m_Layer: 0
   m_Name: OpenBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_TagString: ResearchObject
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4411,7 +4415,7 @@ GameObject:
   m_Layer: 0
   m_Name: StepIncreaser
   m_TagString: Floor
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -6230,6 +6234,23 @@ GameObject:
   m_PrefabParentObject: {fileID: 1911066814393716, guid: 8001df02259603d4e9aa36316bbf2140,
     type: 2}
   m_PrefabInternal: {fileID: 555352960}
+--- !u!114 &110685785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 110685778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec2ac476f2fc9a45a4e69712580a603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  precisionGrab: 1
+  rightSnapHandle: {fileID: 0}
+  leftSnapHandle: {fileID: 0}
+  throwVelocityWithAttachDistance: 0
+  throwMultiplier: 1
+  onGrabCollisionDelay: 0
 --- !u!1001 &111380347
 Prefab:
   m_ObjectHideFlags: 0
@@ -6873,6 +6894,11 @@ Prefab:
       propertyPath: m_TagString
       value: ResearchObject
       objectReference: {fileID: 0}
+    - target: {fileID: 1604487588530110, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
   m_IsPrefabParent: 0
@@ -8381,8 +8407,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150296804}
-  m_LocalRotation: {x: 0.11017108, y: 0.7520709, z: 0.13014704, w: -0.63664234}
-  m_LocalPosition: {x: -12.871076, y: 15.127607, z: 38.948925}
+  m_LocalRotation: {x: -0.2909665, y: 0.28028303, z: 0.08958198, w: 0.91035986}
+  m_LocalPosition: {x: -79.055214, y: -48.67047, z: -9.735012}
   m_LocalScale: {x: 3.5370698, y: 3.5370686, z: 3.537069}
   m_Children: []
   m_Father: {fileID: 1883036897}
@@ -10043,7 +10069,7 @@ GameObject:
   m_Layer: 0
   m_Name: ResearchTable
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -14541,6 +14567,10 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604487588530110, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
+      propertyPath: m_TagString
+      value: ResearchObject
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114189474412551408, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
@@ -21961,8 +21991,8 @@ GameObject:
   - component: {fileID: 356892382}
   m_Layer: 0
   m_Name: MagneticFence
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_TagString: NoFade
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -23529,8 +23559,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 384473832}
-  m_LocalRotation: {x: 0.050871093, y: 0.9488661, z: 0.20855542, w: -0.23145184}
-  m_LocalPosition: {x: 2.4041839, y: 12.932597, z: 3.3606894}
+  m_LocalRotation: {x: -0.13920094, y: -0.52640915, z: 0.08784756, w: -0.8341459}
+  m_LocalPosition: {x: -9.323738, y: -6.924094, z: -4.4916267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -28945,7 +28975,7 @@ GameObject:
   m_Layer: 0
   m_Name: Rewinder
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -35369,7 +35399,7 @@ Prefab:
     - target: {fileID: 114774764056450446, guid: 8001df02259603d4e9aa36316bbf2140,
         type: 2}
       propertyPath: stayGrabbedOnTeleport
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114774764056450446, guid: 8001df02259603d4e9aa36316bbf2140,
         type: 2}
@@ -35396,6 +35426,11 @@ Prefab:
       propertyPath: holdButtonToGrab
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114774764056450446, guid: 8001df02259603d4e9aa36316bbf2140,
+        type: 2}
+      propertyPath: grabAttachMechanicScript
+      value: 
+      objectReference: {fileID: 110685785}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8001df02259603d4e9aa36316bbf2140, type: 2}
   m_IsPrefabParent: 0
@@ -42176,7 +42211,7 @@ GameObject:
   m_Layer: 0
   m_Name: StepIncreaser
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -48039,8 +48074,8 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 762329051}
-  m_LocalRotation: {x: -0.22340702, y: 0.019450525, z: 0.004458326, w: 0.974521}
-  m_LocalPosition: {x: -44.339024, y: -10.997573, z: -99.217926}
+  m_LocalRotation: {x: 0.16177705, y: 0.12647323, z: 0.020911833, w: -0.9784659}
+  m_LocalPosition: {x: -65.27102, y: -15.753719, z: -116.93492}
   m_LocalScale: {x: 3.5370576, y: 3.5370572, z: 3.5370572}
   m_Children: []
   m_Father: {fileID: 1549442550}
@@ -56361,7 +56396,7 @@ GameObject:
   m_Layer: 0
   m_Name: Stand
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -57016,7 +57051,7 @@ GameObject:
   m_Layer: 0
   m_Name: StepIncreaser
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -58919,7 +58954,7 @@ GameObject:
   m_Layer: 0
   m_Name: StepDecreaser
   m_TagString: Floor
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -68261,7 +68296,7 @@ Prefab:
     - target: {fileID: 114943754821436908, guid: ee048566a248dbf4fab0762b94282a35,
         type: 2}
       propertyPath: ignoreCollisionsWith.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399348507611660, guid: ee048566a248dbf4fab0762b94282a35, type: 2}
       propertyPath: m_LocalPosition.x
@@ -68404,7 +68439,7 @@ Prefab:
         type: 2}
       propertyPath: ignoreCollisionsWith.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 356892377}
     - target: {fileID: 114943754821436908, guid: ee048566a248dbf4fab0762b94282a35,
         type: 2}
       propertyPath: ignoreCollisionsWith.Array.data[1]
@@ -73700,6 +73735,11 @@ Prefab:
       propertyPath: AttachedRopeToManual
       value: 
       objectReference: {fileID: 1860095287}
+    - target: {fileID: 1866756639944804, guid: ea6d5c9830d04f44eb205b4b1a503843, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea6d5c9830d04f44eb205b4b1a503843, type: 2}
   m_IsPrefabParent: 0
@@ -84324,7 +84364,7 @@ GameObject:
   m_Layer: 0
   m_Name: Water
   m_TagString: ExcludeTeleport
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -105027,6 +105067,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1604487588530110, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
+      propertyPath: m_TagString
+      value: ResearchObject
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114189474412551408, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
     - {fileID: 114413479722248482, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
@@ -108264,6 +108308,10 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604487588530110, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
+      propertyPath: m_TagString
+      value: ResearchObject
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114189474412551408, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
@@ -115653,6 +115701,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1604487588530110, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
+      propertyPath: m_TagString
+      value: ResearchObject
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114189474412551408, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
     - {fileID: 114413479722248482, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
@@ -121759,7 +121811,7 @@ GameObject:
   m_Layer: 0
   m_Name: StepDecreaser
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -127427,6 +127479,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1604487588530110, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
+      propertyPath: m_TagString
+      value: ResearchObject
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114189474412551408, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
     - {fileID: 114413479722248482, guid: d8bd601595e18694996ba25ebdf49f98, type: 2}
@@ -128313,7 +128369,7 @@ GameObject:
   m_Layer: 0
   m_Name: SDKSetups
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -139344,7 +139400,7 @@ GameObject:
   m_Layer: 0
   m_Name: StepDecreaser
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
