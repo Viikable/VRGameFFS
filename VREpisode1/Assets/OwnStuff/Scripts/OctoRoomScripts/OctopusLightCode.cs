@@ -96,17 +96,17 @@ public class OctopusLightCode : MonoBehaviour
     VRTK_SnapDropZone ResearchSnapZone;
 
     //these colliders will be activated when the marker snaps to a given snapzone, creating the illusory colliders for it
-    public Collider OpenBoxMarkerGhostCollider1;
+    public GameObject OpenBoxMarkerGhostColliderContainer1;
 
-    public Collider OpenBoxMarkerGhostCollider2;
+    public GameObject OpenBoxMarkerGhostColliderContainer2;
 
-    public Collider OpenBoxMarkerGhostCollider3;
+    public GameObject OpenBoxMarkerGhostColliderContainer3;
 
-    public Collider OpenBoxMarkerGhostCollider4;
+    public GameObject OpenBoxMarkerGhostColliderContainer4;
 
-    public Collider MarkerGhostCollider5;
+    public GameObject MarkerGhostCollider5;
 
-    public Collider MarkerGhostCollider6;
+    public GameObject MarkerGhostCollider6;
 
     void Start()
     {
@@ -140,10 +140,10 @@ public class OctopusLightCode : MonoBehaviour
         
         ResearchSnapZone = GameObject.Find("ResearchSnapZone").GetComponent<VRTK_SnapDropZone>();
 
-        //OpenBoxMarkerGhostCollider1 = OpenBox.transform.Find("MarkerGhostCollider1").GetComponent<Collider>();
-        //OpenBoxMarkerGhostCollider2 = OpenBox.transform.Find("MarkerGhostCollider2").GetComponent<Collider>();
-        //OpenBoxMarkerGhostCollider3 = OpenBox.transform.Find("MarkerGhostCollider3").GetComponent<Collider>();
-        //OpenBoxMarkerGhostCollider4 = OpenBox.transform.Find("MarkerGhostCollider4").GetComponent<Collider>();      
+        OpenBoxMarkerGhostColliderContainer1 = OpenBox.transform.Find("MarkerGhostCollider1").gameObject;
+        OpenBoxMarkerGhostColliderContainer2 = OpenBox.transform.Find("MarkerGhostCollider2").gameObject;
+        OpenBoxMarkerGhostColliderContainer3 = OpenBox.transform.Find("MarkerGhostCollider3").gameObject;
+        OpenBoxMarkerGhostColliderContainer4 = OpenBox.transform.Find("MarkerGhostCollider4").gameObject;    
     }
 
     void Update()
@@ -162,6 +162,10 @@ public class OctopusLightCode : MonoBehaviour
             {
                 currentTableObject = "OpenBox";
             }
+        }
+        else
+        {
+            currentTableObject = null;
         }
         //enables the attention button in order to play hologram and get code
         if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox")       
@@ -345,28 +349,28 @@ public class OctopusLightCode : MonoBehaviour
                 }              
                 if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
                 {
-                    foreach (Collider col in OpenBoxMarkerGhostCollider1.GetComponentsInChildren<Collider>())
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }                    
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
                 {
-                    foreach (Collider col in OpenBoxMarkerGhostCollider2.GetComponentsInChildren<Collider>())
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer2.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
                 {
-                    foreach (Collider col in OpenBoxMarkerGhostCollider3.GetComponentsInChildren<Collider>())
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer3.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
                 {
-                    foreach (Collider col in OpenBoxMarkerGhostCollider4.GetComponentsInChildren<Collider>())
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
@@ -379,24 +383,22 @@ public class OctopusLightCode : MonoBehaviour
             {
                 col.enabled = true;
             }
-            foreach (Collider col in OpenBoxMarkerGhostCollider1.GetComponentsInChildren<Collider>())
+            foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
             {
                 col.enabled = false;
             }
-            foreach (Collider col in OpenBoxMarkerGhostCollider2.GetComponentsInChildren<Collider>())
+            foreach (Collider col in OpenBoxMarkerGhostColliderContainer2.GetComponentsInChildren<Collider>())
             {
                 col.enabled = false;
             }
-            foreach (Collider col in OpenBoxMarkerGhostCollider3.GetComponentsInChildren<Collider>())
+            foreach (Collider col in OpenBoxMarkerGhostColliderContainer3.GetComponentsInChildren<Collider>())
             {
                 col.enabled = false;
             }
-            foreach (Collider col in OpenBoxMarkerGhostCollider4.GetComponentsInChildren<Collider>())
+            foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
             {
                 col.enabled = false;
-            }
-            MarkerGhostCollider5.enabled = false;
-            MarkerGhostCollider6.enabled = false;
+            }           
             currentMarkedLocation = null;                   
             Marker.transform.position -= transform.forward * Time.deltaTime * 0.5f;         
         }
