@@ -12,54 +12,71 @@ public class OctopusLightCode : MonoBehaviour
     VRTK_PhysicsPusher YellowLight;
     VRTK_PhysicsPusher OctopusAttention;
 
+    [SerializeField]
     [Tooltip("This lights the attention button once a code has been entered")]
     Light AttentionLight;
 
+    [SerializeField]
     [Tooltip("This lights the red button once a red button has been pressed")]
     Light RedLightSource;
 
+    [SerializeField]
     [Tooltip("This lights the red button once a green button has been pressed")]
     Light GreenLightSource;
 
+    [SerializeField]
     [Tooltip("This lights the red button once a cyan button has been pressed")]
     Light CyanLightSource;
 
+    [SerializeField]
     [Tooltip("This lights the red button once a yellow button has been pressed")]
     Light YellowLightSource;
 
+    [SerializeField]
     [Tooltip("This shows how many colours have been entered into the combination, ranges from 0-4")]
     int combinationNumber;
 
+    [SerializeField]
     [Tooltip("This is a list containing all the currently stored colour names in a combination")]
     string[] colourCode;
 
+    [SerializeField]
     [Tooltip("This describes the object where the marker is attatched to atm")]
     string currentMarkedLocation;
 
+    [SerializeField]
+    [Tooltip("This tells which object is on the reserach table")]
+    string currentTableObject;
+
+    [SerializeField]
     [Tooltip("Indicates whether code has been entered and the octopus notified of this in order to make buttons remain inactive until possible animations have concluded")]
     bool codeEntered;
 
+    [SerializeField]
     [Tooltip("Indicates whether a button has just been pressed or not to avoid accidental double pressing")]
     bool buttonRegistering;
-
-    //[Tooltip("Indicates whether the Marker is being unsnapped at the moment")]
-    //public bool beingUnSnapped;
-
+  
+    [SerializeField]
     [Tooltip("Shows the player the colour which has been entered first into the code")]
     GameObject CodeCube1;
 
+    [SerializeField]
     [Tooltip("Shows the player the colour which has been entered second into the code")]
     GameObject CodeCube2;
 
+    [SerializeField]
     [Tooltip("Shows the player the colour which has been entered third into the code")]
     GameObject CodeCube3;
 
+    [SerializeField]
     [Tooltip("Shows the player the colour which has been entered fourth into the code")]
     GameObject CodeCube4;
 
+    [SerializeField]
     [Tooltip("Snaps to objects so that the Octopus recognizes we want to apply the code with them or get a code from them")]
     GameObject Marker;
 
+    [SerializeField]
     [Tooltip("A research object that teaches the player the verb CLOSE when put on the research table with a marker on it and Octopusattentionbutton is pressed")]
     GameObject OpenBox;
 
@@ -81,14 +98,17 @@ public class OctopusLightCode : MonoBehaviour
     [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
     VRTK_SnapDropZone OpenBoxSnapZone6;
 
+    [Tooltip("Area on the research table where research objects can be snapped into")]
+    VRTK_SnapDropZone ResearchSnapZone;
+
     //these colliders will be activated when the marker snaps to a given snapzone, creating the illusory colliders for it
-    public Collider MarkerGhostCollider1;
+    public Collider OpenBoxMarkerGhostCollider1;
 
-    public Collider MarkerGhostCollider2;
+    public Collider OpenBoxMarkerGhostCollider2;
 
-    public Collider MarkerGhostCollider3;
+    public Collider OpenBoxMarkerGhostCollider3;
 
-    public Collider MarkerGhostCollider4;
+    public Collider OpenBoxMarkerGhostCollider4;
 
     public Collider MarkerGhostCollider5;
 
@@ -104,6 +124,7 @@ public class OctopusLightCode : MonoBehaviour
         combinationNumber = 0;
         colourCode = new string[4];
         currentMarkedLocation = null;
+        currentTableObject = null;
         codeEntered = false;
         //beingUnSnapped = false;
         AttentionLight = transform.Find("AttentionLight").GetComponent<Light>();
@@ -124,21 +145,60 @@ public class OctopusLightCode : MonoBehaviour
         OpenBoxSnapZone4 = OpenBox.transform.Find("OpenBoxSnapZone4").GetComponent<VRTK_SnapDropZone>();
         OpenBoxSnapZone5 = OpenBox.transform.Find("OpenBoxSnapZone5").GetComponent<VRTK_SnapDropZone>();
         OpenBoxSnapZone6 = OpenBox.transform.Find("OpenBoxSnapZone6").GetComponent<VRTK_SnapDropZone>();
-        MarkerGhostCollider1 = OpenBox.transform.Find("MarkerGhostCollider1").GetComponent<Collider>();
-        MarkerGhostCollider2 = OpenBox.transform.Find("MarkerGhostCollider2").GetComponent<Collider>();
-        MarkerGhostCollider3 = OpenBox.transform.Find("MarkerGhostCollider3").GetComponent<Collider>();
-        MarkerGhostCollider4 = OpenBox.transform.Find("MarkerGhostCollider4").GetComponent<Collider>();
+        ResearchSnapZone = GameObject.Find("ResearchSnapZone").GetComponent<VRTK_SnapDropZone>();
+        OpenBoxMarkerGhostCollider1 = OpenBox.transform.Find("MarkerGhostCollider1").GetComponent<Collider>();
+        OpenBoxMarkerGhostCollider2 = OpenBox.transform.Find("MarkerGhostCollider2").GetComponent<Collider>();
+        OpenBoxMarkerGhostCollider3 = OpenBox.transform.Find("MarkerGhostCollider3").GetComponent<Collider>();
+        OpenBoxMarkerGhostCollider4 = OpenBox.transform.Find("MarkerGhostCollider4").GetComponent<Collider>();
         MarkerGhostCollider5 = OpenBox.transform.Find("MarkerGhostCollider5").GetComponent<Collider>();
         MarkerGhostCollider6 = OpenBox.transform.Find("MarkerGhostCollider6").GetComponent<Collider>();
     }
 
     void Update()
     {
-        CheckMarkerLocation();    
+        CheckMarkerLocation();
+        CheckResearchTable();
         CheckColourCombination();
     }
 
-    public void CheckColourCombination()  //checking what colour combination has been entered
+    //Checks what object if any is snapped to the research table snap zone currently
+    public void CheckResearchTable()  
+    {
+        if (ResearchSnapZone.GetCurrentSnappedObject() != null)
+        {
+            if (ResearchSnapZone.GetCurrentSnappedObject() == OpenBox)
+            {
+                currentTableObject = "OpenBox";
+            }
+        }
+        //enables the attention button in order to play hologram and get code
+        if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox" && !OctopusAttention.AtMaxLimit())       
+        {
+            AttentionLight.enabled = true;
+            OctopusAttention.stayPressed = true;
+            if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+            {
+                AttentionLight.enabled = false;
+                AnimateHologram();
+                DisplayCode();
+            }
+        }      
+    }
+
+    //Animates the given hologram of the research object, showing an action
+    public void AnimateHologram()
+    {
+
+    }
+
+    //Displays a colour code for the player which corresponds to the hologram's action
+    public void DisplayCode()
+    {
+
+    }
+
+    //checking what colour combination has been entered
+    public void CheckColourCombination()  
     { 
         if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering)            
         {
@@ -273,19 +333,19 @@ public class OctopusLightCode : MonoBehaviour
                 Marker.GetComponent<Collider>().enabled = false;
                 if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
                 {
-                    MarkerGhostCollider1.enabled = true;
+                    OpenBoxMarkerGhostCollider1.enabled = true;
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
                 {
-                    MarkerGhostCollider2.enabled = true;
+                    OpenBoxMarkerGhostCollider2.enabled = true;
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
                 {
-                    MarkerGhostCollider3.enabled = true;
+                    OpenBoxMarkerGhostCollider3.enabled = true;
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
                 {
-                    MarkerGhostCollider4.enabled = true;
+                    OpenBoxMarkerGhostCollider4.enabled = true;
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone5)
                 {
@@ -300,10 +360,10 @@ public class OctopusLightCode : MonoBehaviour
         else if (Game_Manager.instance.beingUnSnapped)
         {            
             Marker.GetComponent<Collider>().enabled = true;
-            MarkerGhostCollider1.enabled = false;
-            MarkerGhostCollider2.enabled = false;
-            MarkerGhostCollider3.enabled = false;
-            MarkerGhostCollider4.enabled = false;
+            OpenBoxMarkerGhostCollider1.enabled = false;
+            OpenBoxMarkerGhostCollider2.enabled = false;
+            OpenBoxMarkerGhostCollider3.enabled = false;
+            OpenBoxMarkerGhostCollider4.enabled = false;
             MarkerGhostCollider5.enabled = false;
             MarkerGhostCollider6.enabled = false;
             currentMarkedLocation = null;                   
