@@ -27,7 +27,7 @@ public class OpenBoxUnSnapTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {       
-        if (other.name == "Marker" && markerCanSnap)
+        if (other.CompareTag("Marker") && markerCanSnap)
         {
             OpenBoxSnap.ForceSnap(Marker);         
             MarkerReleaseButton.stayPressed = true;  //remember to set this true so the release button gets activated again after releasing marker
