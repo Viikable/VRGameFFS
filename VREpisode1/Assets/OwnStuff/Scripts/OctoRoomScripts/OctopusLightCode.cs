@@ -55,7 +55,11 @@ public class OctopusLightCode : MonoBehaviour
     [SerializeField]
     [Tooltip("Indicates whether a button has just been pressed or not to avoid accidental double pressing")]
     bool buttonRegistering;
-  
+
+    [SerializeField]
+    [Tooltip("Indicates whether a research object with a marker on it is attached to the research table and its hologram is currently playing")]
+    bool hologramInProgress;
+
     [SerializeField]
     [Tooltip("Shows the player the colour which has been entered first into the code")]
     GameObject CodeCube1;
@@ -95,6 +99,8 @@ public class OctopusLightCode : MonoBehaviour
     [Tooltip("Area on the research table where research objects can be snapped into")]
     VRTK_SnapDropZone ResearchSnapZone;
 
+    Animator OpenBoxAnim;
+
     //these colliders will be activated when the marker snaps to a given snapzone, creating the illusory colliders for it
     public GameObject OpenBoxMarkerGhostColliderContainer1;
 
@@ -120,13 +126,13 @@ public class OctopusLightCode : MonoBehaviour
         currentMarkedLocation = null;
         currentTableObject = null;
         codeEntered = false;
-        //beingUnSnapped = false;
+        buttonRegistering = false;
+        hologramInProgress = false;       
         AttentionLight = transform.Find("AttentionLight").GetComponent<Light>();
         RedLightSource = transform.Find("RedLightSource").GetComponent<Light>();
         YellowLightSource = transform.Find("YellowLightSource").GetComponent<Light>();
         GreenLightSource = transform.Find("GreenLightSource").GetComponent<Light>();
         CyanLightSource = transform.Find("CyanLightSource").GetComponent<Light>();
-        buttonRegistering = false;
         CodeCube1 = transform.Find("CodeCube1").gameObject;
         CodeCube2 = transform.Find("CodeCube2").gameObject;
         CodeCube3 = transform.Find("CodeCube3").gameObject;
@@ -139,6 +145,8 @@ public class OctopusLightCode : MonoBehaviour
         OpenBoxSnapZone4 = OpenBox.transform.Find("OpenBoxSnapZone4").GetComponent<VRTK_SnapDropZone>();
         
         ResearchSnapZone = GameObject.Find("ResearchSnapZone").GetComponent<VRTK_SnapDropZone>();
+
+        OpenBoxAnim = GameObject.Find("OpenBoxAnimated").GetComponent<Animator>();
 
         OpenBoxMarkerGhostColliderContainer1 = OpenBox.transform.Find("MarkerGhostCollider1").gameObject;
         OpenBoxMarkerGhostColliderContainer2 = OpenBox.transform.Find("MarkerGhostCollider2").gameObject;
@@ -154,7 +162,7 @@ public class OctopusLightCode : MonoBehaviour
     }
 
     //Checks what object if any is snapped to the research table snap zone currently
-    public void CheckResearchTable()  
+    public void CheckResearchTable()
     {
         if (ResearchSnapZone.GetCurrentSnappedObject() != null)
         {
@@ -168,27 +176,36 @@ public class OctopusLightCode : MonoBehaviour
             currentTableObject = null;
         }
         //enables the attention button in order to play hologram and get code
-        if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox")       
+        if (!hologramInProgress)
         {
-            AttentionLight.enabled = true;
-            OctopusAttention.stayPressed = true;
-            if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+            if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox")
             {
-                OctopusAttention.stayPressed = false;
-                AttentionLight.enabled = false;
-                AnimateHologram();
-                DisplayCode("CLOSE");
+                AttentionLight.enabled = true;
+                OctopusAttention.stayPressed = true;
+                if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+                {
+                    OctopusAttention.stayPressed = false;
+                    AttentionLight.enabled = false;
+                    AnimateHologram("OpenBox");
+                    DisplayCode("CLOSE");
+                }
             }
-        }      
+        }
     }
 
     //Animates the given hologram of the research object, showing an action
-    public void AnimateHologram()
+    public void AnimateHologram(string objectToBeAnimated)
     {
         Debug.Log("animationHologram");
+        if (objectToBeAnimated == "OpenBox")
+        {
+            hologramInProgress = true;
+            OpenBoxAnim.SetBool("Close", true);
+            StartCoroutine("HologramFinish", 5f);
+        }
     }
 
-    //Displays a colour code for the player which corresponds to the hologram's action
+    //Displays the first colour of the code for the player
     public void DisplayCode(string actionVerb)
     {
         Debug.Log("DisplayCode");
@@ -196,18 +213,29 @@ public class OctopusLightCode : MonoBehaviour
         {
             CodeCube1.GetComponent<MeshRenderer>().material.color = Color.red;
 
-            StartCoroutine("DisplayCodeColourCLOSE");          
+            StartCoroutine("DisplayCodeColour", "CLOSE");          
+        }
+    }
+    //this displays the rest of the colour code based on the verb entered
+    IEnumerator DisplayCodeColour(string actionVerb)
+    {
+        if (actionVerb == "CLOSE")
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube2.GetComponent<MeshRenderer>().material.color = Color.green;
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube3.GetComponent<MeshRenderer>().material.color = Color.green;
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube4.GetComponent<MeshRenderer>().material.color = Color.green;
         }
     }
 
-    IEnumerator DisplayCodeColourCLOSE()
+    //with this method we can decide the duration of the animation based
+    IEnumerator HologramFinish(float animationTime)
     {
-        yield return new WaitForSecondsRealtime(1f);
-        CodeCube2.GetComponent<MeshRenderer>().material.color = Color.green;
-        yield return new WaitForSecondsRealtime(1f);
-        CodeCube3.GetComponent<MeshRenderer>().material.color = Color.green;
-        yield return new WaitForSecondsRealtime(1f);
-        CodeCube4.GetComponent<MeshRenderer>().material.color = Color.green;
+        yield return new WaitForSecondsRealtime(animationTime);
+        hologramInProgress = false;
+        OpenBoxAnim.SetBool("Close", false);
     }
 
     //checking what colour combination has been entered
@@ -400,7 +428,7 @@ public class OctopusLightCode : MonoBehaviour
                 col.enabled = false;
             }           
             currentMarkedLocation = null;                   
-            Marker.transform.position -= transform.forward * Time.deltaTime * 0.5f;         
+            //Marker.transform.position -= transform.forward * Time.deltaTime * 0.5f;         
         }
         else
         {
