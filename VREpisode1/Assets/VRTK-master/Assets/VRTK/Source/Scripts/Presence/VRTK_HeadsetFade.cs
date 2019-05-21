@@ -114,6 +114,7 @@ namespace VRTK
         {
             isFaded = false;
             isTransitioning = true;
+            HandsLighting.insideObject = true;      //this turns the hands visible still
             VRTK_SDK_Bridge.HeadsetFade(color, duration);
             OnHeadsetFadeStart(SetHeadsetFadeEvent(headset, duration));
             CancelInvoke("UnfadeComplete");
@@ -127,6 +128,7 @@ namespace VRTK
         public virtual void Unfade(float duration)
         {
             isFaded = true;
+            HandsLighting.insideObject = false;     //hands back to normal
             isTransitioning = true;
             VRTK_SDK_Bridge.HeadsetFade(Color.clear, duration);
             OnHeadsetUnfadeStart(SetHeadsetFadeEvent(headset, duration));
