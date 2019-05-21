@@ -226,8 +226,7 @@ namespace VRTK.Controllables
             originalLocalRotation = transform.localRotation;
 
             storedValue = GetValue();
-        }
-
+        }        
         protected virtual void OnEnable()
         {
             atMinLimit = false;

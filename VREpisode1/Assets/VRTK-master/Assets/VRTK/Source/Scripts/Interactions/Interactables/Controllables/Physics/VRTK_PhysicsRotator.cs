@@ -261,13 +261,21 @@ namespace VRTK.Controllables.PhysicsBased
 
         protected virtual void Update()
         {
+            if (atMaxLimit && atMinLimit)
+            {
+                atMinLimit = false;
+                atMaxLimit = false;
+                Debug.Log("nolimits");               
+            }
             ForceRestingPosition();
             ForceAngleTarget();
             ForceSnapToStep();
             SetJointLimits();
             EmitEvents();
+
             if (ThisNeedsToStop)
             {
+                Debug.Log("Locked");
                 isLocked = true;
             }
         }
@@ -392,6 +400,7 @@ namespace VRTK.Controllables.PhysicsBased
                     break;
                 case GrabMechanic.RotatorTrack:
                     controlGrabAttach = controlInteractableObject.gameObject.AddComponent<VRTK_RotatorTrackGrabAttach>();
+                    controlGrabAttach.GetComponent<VRTK_RotatorTrackGrabAttach>().onGrabCollisionDelay = 0.5f;
                     break;
             }
             SetGrabMechanicParameters();

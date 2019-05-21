@@ -22,10 +22,7 @@
         public AudioSource LeverSource;
         public AudioSource LeverSource2;
         public AudioSource LeverSource3;
-        public AudioSource LeverSource4;
-        [Header("Something else")]
-        [Tooltip("The game object which happens to move when we flip the switch")]
-        public GameObject MovingObject;
+        public AudioSource LeverSource4;       
         [Tooltip("The amount of times the broom has been moved from one end to the other")]
         public int BroomSwings;
 
@@ -39,13 +36,12 @@
             LeverSource = LeverAudio.GetComponent<AudioSource>();
             LeverSource2 = LeverAudio2.GetComponent<AudioSource>();
             LeverSource3 = LeverAudio3.GetComponent<AudioSource>();
-            LeverSource4 = LeverAudio4.GetComponent<AudioSource>();
-            MovingObject = GameObject.Find("MovingObject");
+            LeverSource4 = LeverAudio4.GetComponent<AudioSource>();          
             BroomSwings = 0;
             random = Random.Range(0, 2);
         }
 
-     
+
 
         private void Update()                             //added by Taneli, basically controls what happens after the lever reaches a certain point
         {
@@ -141,7 +137,7 @@
             }
 
 
-                if (BroomSwings == 5 && !AlreadyDid)
+            if (BroomSwings == 5 && !AlreadyDid)
             {
                 Debug.Log("Cleaning Complete!");
                 AlreadyDid = true;
@@ -158,40 +154,41 @@
                 VRTK_PhysicsRotator.ThisNeedsToStop = true;
             }
 
-               
-        }
-        protected virtual void OnEnable()
-        {
-            controllable = (controllable == null ? GetComponent<VRTK_BaseControllable>() : controllable);
-            controllable.ValueChanged += ValueChanged;
-            controllable.MaxLimitReached += MaxLimitReached;
-            controllable.MinLimitReached += MinLimitReached;
-        }
 
-        protected virtual void ValueChanged(object sender, ControllableEventArgs e)
-        {
-            if (displayText != null)
-            {
-                displayText.text = e.value.ToString("F1");
-
-            }
         }
+        //    protected virtual void OnEnable()
+        //    {
+        //        controllable = (controllable == null ? GetComponent<VRTK_BaseControllable>() : controllable);
+        //        controllable.ValueChanged += ValueChanged;
+        //        controllable.MaxLimitReached += MaxLimitReached;
+        //        controllable.MinLimitReached += MinLimitReached;
+        //    }
 
-        protected virtual void MaxLimitReached(object sender, ControllableEventArgs e)
-        {
-            if (outputOnMax != "")
-            {
+        //    protected virtual void ValueChanged(object sender, ControllableEventArgs e)
+        //    {
+        //        if (displayText != null)
+        //        {
+        //            displayText.text = e.value.ToString("F1");
 
-                Debug.Log(outputOnMax);
-            }
-        }
+        //        }
+        //    }
 
-        protected virtual void MinLimitReached(object sender, ControllableEventArgs e)
-        {
-            if (outputOnMin != "")
-            {
-                Debug.Log(outputOnMin);
-            }
-        }
+        //    protected virtual void MaxLimitReached(object sender, ControllableEventArgs e)
+        //    {
+        //        if (outputOnMax != "")
+        //        {
+
+        //            Debug.Log(outputOnMax);
+        //        }
+        //    }
+
+        //    protected virtual void MinLimitReached(object sender, ControllableEventArgs e)
+        //    {
+        //        if (outputOnMin != "")
+        //        {
+        //            Debug.Log(outputOnMin);
+        //        }
+        //    }
+        //}
     }
 }

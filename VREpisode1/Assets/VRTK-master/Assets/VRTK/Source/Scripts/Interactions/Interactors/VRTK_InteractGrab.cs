@@ -238,12 +238,10 @@ namespace VRTK
         
         protected virtual void Update()
         {
-
             ManageGrabListener(true);
             CheckControllerAttachPointSet();
             CreateNonTouchingRigidbody();
-            CheckPrecognitionGrab();
-
+            CheckPrecognitionGrab();            
 
         }
 

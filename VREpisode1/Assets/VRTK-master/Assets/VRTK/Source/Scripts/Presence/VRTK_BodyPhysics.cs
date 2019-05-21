@@ -4,6 +4,7 @@ namespace VRTK
     using UnityEngine;
     using System.Collections;
     using System.Collections.Generic;
+    using VRTK.GrabAttachMechanics;
 
     /// <summary>
     /// Event Payload
@@ -39,6 +40,8 @@ namespace VRTK
     [AddComponentMenu("VRTK/Scripts/Presence/VRTK_BodyPhysics")]
     public class VRTK_BodyPhysics : VRTK_DestinationMarker
     {
+        GameObject rightController;
+        GameObject leftController;
         /// <summary>
         /// Options for testing if a play space fall is valid
         /// </summary>
@@ -125,7 +128,7 @@ namespace VRTK
         public GameObject customBodyColliderContainer = null;
         [Tooltip("A GameObject to represent a custom foot collider container. It should contain a collider component that will be used for detecting step collisions. If one isn't provided then it will be auto generated.")]
         public GameObject customFootColliderContainer = null;
-
+     
         /// <summary>
         /// Emitted when a fall begins.
         /// </summary>
@@ -425,6 +428,8 @@ namespace VRTK
         protected virtual void Awake()
         {
             VRTK_SDKManager.AttemptAddBehaviourToToggleOnLoadedSetupChange(this);
+            rightController = GameObject.Find("RightController");
+            leftController = GameObject.Find("LeftController");
         }
 
         protected override void OnEnable()
@@ -465,7 +470,6 @@ namespace VRTK
 
             lastPlayAreaPosition = (playArea != null ? playArea.position : Vector3.zero);
         }
-
         protected virtual void OnCollisionEnter(Collision collision)
         {
             if (CheckValidCollision(collision.gameObject))
@@ -473,9 +477,26 @@ namespace VRTK
                 CheckStepUpCollision(collision);
                 currentCollidingObject = collision.gameObject;
                 OnStartColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
+                //if (currentCollidingObject.CompareTag("ConveyorBeltMetal") || currentCollidingObject.CompareTag("NoCollision") || currentCollidingObject.CompareTag("Rope"))
+                //{
+                //    if (currentCollidingObject.GetComponent<Rigidbody>() != null && currentCollidingObject.GetComponent<VRTK_InteractableObject>() != null 
+                //        && !currentCollidingObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+                //    {
+                //        currentCollidingObject.GetComponent<Rigidbody>().isKinematic = true;
+                //        Debug.Log("setkinematic");
+                //    }
+                //    else if (currentCollidingObject.GetComponentInParent<Rigidbody>() != null && currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>() != null && !currentCollidingObject.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
+                //    {
+                //        currentCollidingObject.GetComponentInParent<Rigidbody>().isKinematic = true;
+                //        Debug.Log("setkinematicparent");
+                //    }
+                //    else
+                //    {
+                //        return;
+                //    }
+                //}
             }
         }
-
         protected virtual void OnTriggerEnter(Collider collider)
         {
             if (CheckValidCollision(collider.gameObject))
@@ -483,18 +504,16 @@ namespace VRTK
                 currentCollidingObject = collider.gameObject;
                 OnStartColliding(SetBodyPhysicsEvent(currentCollidingObject, collider));
             }
-
         }
-
+      
         protected virtual void OnCollisionExit(Collision collision)
         {
             if (CheckExistingCollision(collision.gameObject))
             {
-                OnStopColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));
+                OnStopColliding(SetBodyPhysicsEvent(currentCollidingObject, collision.collider));              
                 currentCollidingObject = null;
             }
-        }
-
+        }               
         protected virtual void OnTriggerExit(Collider collider)
         {
             if (CheckExistingCollision(collider.gameObject))
@@ -820,8 +839,7 @@ namespace VRTK
                     OnStopLeaning(SetBodyPhysicsEvent(null, null));
                 }
             }
-        }
-
+        }      
         protected virtual void UpdateStandingPosition(Vector2 currentHeadsetPosition)
         {
             VRTK_SharedMethods.AddListValue(standingPositionHistory, currentHeadsetPosition);
@@ -944,11 +962,11 @@ namespace VRTK
         protected virtual void ManagePhysicsCollider(Collider collider, bool state)
         {
             if (bodyCollider != null)
-            {
+            {               
                 Physics.IgnoreCollision(bodyCollider, collider, state);
             }
             if (footCollider != null)
-            {
+            {                
                 Physics.IgnoreCollision(footCollider, collider, state);
             }
         }
