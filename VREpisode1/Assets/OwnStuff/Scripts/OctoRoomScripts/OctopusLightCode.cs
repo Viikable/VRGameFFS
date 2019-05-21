@@ -96,8 +96,41 @@ public class OctopusLightCode : MonoBehaviour
     [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
     VRTK_SnapDropZone OpenBoxSnapZone4;
 
-    [Tooltip("Area on the research table where research objects can be snapped into")]
-    VRTK_SnapDropZone ResearchSnapZone;
+    [SerializeField]
+    [Tooltip("A research object that teaches the player verb LOWER")]
+    GameObject ResearchPool;
+
+    [Tooltip("One of the areas where the marker can snap to in the ResearchPool object.")]
+    VRTK_SnapDropZone PoolSnapZone;
+
+    [SerializeField]
+    [Tooltip("A research object that teaches the word PLAY")]
+    GameObject Siren;
+
+    [Tooltip("One of the areas where the marker can snap to in the Siren object.")]
+    VRTK_SnapDropZone SirenSnapZone;
+
+    [SerializeField]
+    [Tooltip("A research object that lets the player turn it ON to test how it works")]
+    GameObject ConveyorBelt;
+
+    [Tooltip("One of the areas where the marker can snap to in the ConveyorBelt object.")]
+    VRTK_SnapDropZone ConveyorSnapZone1;
+
+    [Tooltip("One of the areas where the marker can snap to in the ConveyorBelt object.")]
+    VRTK_SnapDropZone ConveyorSnapZone2;
+
+    [Tooltip("Area on the research table where OpenBox can be snapped into")]
+    VRTK_SnapDropZone ResearchSnapZoneOpenBox;
+
+    [Tooltip("Area on the research table where Pool can be snapped into")]
+    VRTK_SnapDropZone ResearchSnapZonePool;
+
+    [Tooltip("Area on the research table where ConveyorBelt can be snapped into")]
+    VRTK_SnapDropZone ResearchSnapZoneConveyor;
+
+    [Tooltip("Area on the research table where Siren can be snapped into")]
+    VRTK_SnapDropZone ResearchSnapZoneSiren;
 
     Animator OpenBoxAnim;
 
@@ -110,10 +143,14 @@ public class OctopusLightCode : MonoBehaviour
 
     public GameObject OpenBoxMarkerGhostColliderContainer4;
 
-    public GameObject MarkerGhostCollider5;
+    public GameObject ConveyorMarkerGhostCollider1Container;
 
-    public GameObject MarkerGhostCollider6;
+    public GameObject ConveyorMarkerGhostCollider2Container;
 
+    public GameObject SirenMarkerGhostColliderContainer;
+
+    public GameObject MelterMarkerGhostColliderContainer;
+  
     void Start()
     {
         RedLight = transform.Find("RedLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
@@ -137,21 +174,50 @@ public class OctopusLightCode : MonoBehaviour
         CodeCube2 = transform.Find("CodeCube2").gameObject;
         CodeCube3 = transform.Find("CodeCube3").gameObject;
         CodeCube4 = transform.Find("CodeCube4").gameObject;
+
         Marker = GameObject.Find("Marker");
+
         OpenBox = GameObject.Find("OpenBox");
+
+        ResearchPool = GameObject.Find("Research_melterpool");
+
+        ConveyorBelt = GameObject.Find("Research_Conveyor_belt");
+
+        Siren = GameObject.Find("Research_siren");
+
         OpenBoxSnapZone1 = OpenBox.transform.Find("OpenBoxSnapZone1").GetComponent<VRTK_SnapDropZone>();
         OpenBoxSnapZone2 = OpenBox.transform.Find("OpenBoxSnapZone2").GetComponent<VRTK_SnapDropZone>();
         OpenBoxSnapZone3 = OpenBox.transform.Find("OpenBoxSnapZone3").GetComponent<VRTK_SnapDropZone>();
         OpenBoxSnapZone4 = OpenBox.transform.Find("OpenBoxSnapZone4").GetComponent<VRTK_SnapDropZone>();
-        
-        ResearchSnapZone = GameObject.Find("ResearchSnapZone").GetComponent<VRTK_SnapDropZone>();
+
+        ConveyorSnapZone1 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone1").GetComponent<VRTK_SnapDropZone>();
+        ConveyorSnapZone2 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone2").GetComponent<VRTK_SnapDropZone>();
+
+        PoolSnapZone = ResearchPool.transform.Find("ResearchPoolSnapzone").GetComponent<VRTK_SnapDropZone>();
+
+        SirenSnapZone = Siren.transform.Find("SirenSnapzone").GetComponent<VRTK_SnapDropZone>();
+
+        ResearchSnapZoneOpenBox = GameObject.Find("ResearchSnapZoneOpenBox").GetComponent<VRTK_SnapDropZone>();
+
+        ResearchSnapZonePool = GameObject.Find("ResearchSnapZonePool").GetComponent<VRTK_SnapDropZone>();
+
+        ResearchSnapZoneConveyor = GameObject.Find("ResearchSnapZoneConveyor").GetComponent<VRTK_SnapDropZone>();
+
+        ResearchSnapZoneSiren = GameObject.Find("ResearchSnapZoneSiren").GetComponent<VRTK_SnapDropZone>();
 
         OpenBoxAnim = GameObject.Find("OpenBoxAnimated").GetComponent<Animator>();
 
         OpenBoxMarkerGhostColliderContainer1 = OpenBox.transform.Find("MarkerGhostCollider1").gameObject;
         OpenBoxMarkerGhostColliderContainer2 = OpenBox.transform.Find("MarkerGhostCollider2").gameObject;
         OpenBoxMarkerGhostColliderContainer3 = OpenBox.transform.Find("MarkerGhostCollider3").gameObject;
-        OpenBoxMarkerGhostColliderContainer4 = OpenBox.transform.Find("MarkerGhostCollider4").gameObject;    
+        OpenBoxMarkerGhostColliderContainer4 = OpenBox.transform.Find("MarkerGhostCollider4").gameObject;
+
+        ConveyorMarkerGhostCollider1Container = ConveyorBelt.transform.Find("ConveyorMarkerGhostCollider1").gameObject;
+        ConveyorMarkerGhostCollider2Container = ConveyorBelt.transform.Find("ConveyorMarkerGhostCollider2").gameObject;
+
+        SirenMarkerGhostColliderContainer = Siren.transform.Find("SirenMarkerGhostCollider").gameObject;
+
+        MelterMarkerGhostColliderContainer = ResearchPool.transform.Find("MelterMarkerGhostCollider").gameObject;
     }
 
     void Update()
@@ -164,16 +230,54 @@ public class OctopusLightCode : MonoBehaviour
     //Checks what object if any is snapped to the research table snap zone currently
     public void CheckResearchTable()
     {
-        if (ResearchSnapZone.GetCurrentSnappedObject() != null)
+        if (ResearchSnapZoneOpenBox.GetCurrentSnappedObject() != null)
         {
-            if (ResearchSnapZone.GetCurrentSnappedObject() == OpenBox)
+            if (ResearchSnapZoneOpenBox.GetCurrentSnappedObject() == OpenBox)
             {
                 currentTableObject = "OpenBox";
+                //so that cannot snap multiple objects at the same time
+                ResearchSnapZoneConveyor.GetComponent<Collider>().enabled = false;       
+                ResearchSnapZonePool.GetComponent<Collider>().enabled = false;
+                ResearchSnapZoneSiren.GetComponent<Collider>().enabled = false;
+            }
+        }
+        else if (ResearchSnapZoneConveyor.GetCurrentSnappedObject() != null)
+        {
+            if (ResearchSnapZoneConveyor.GetCurrentSnappedObject() == ConveyorBelt)
+            {
+                currentTableObject = "ConveyorBelt";
+                ResearchSnapZoneOpenBox.GetComponent<Collider>().enabled = false;
+                ResearchSnapZonePool.GetComponent<Collider>().enabled = false;
+                ResearchSnapZoneSiren.GetComponent<Collider>().enabled = false;
+            }
+        }
+        else if (ResearchSnapZonePool.GetCurrentSnappedObject() != null)
+        {
+            if (ResearchSnapZonePool.GetCurrentSnappedObject() == ResearchPool)
+            {
+                currentTableObject = "Pool";
+                ResearchSnapZoneConveyor.GetComponent<Collider>().enabled = false;
+                ResearchSnapZoneOpenBox.GetComponent<Collider>().enabled = false;
+                ResearchSnapZoneSiren.GetComponent<Collider>().enabled = false;
+            }
+        }
+        else if (ResearchSnapZoneSiren.GetCurrentSnappedObject() != null)
+        {
+            if (ResearchSnapZoneSiren.GetCurrentSnappedObject() == Siren)
+            {
+                currentTableObject = "Siren";
+                ResearchSnapZoneConveyor.GetComponent<Collider>().enabled = false;
+                ResearchSnapZonePool.GetComponent<Collider>().enabled = false;
+                ResearchSnapZoneOpenBox.GetComponent<Collider>().enabled = false;
             }
         }
         else
         {
             currentTableObject = null;
+            ResearchSnapZoneConveyor.GetComponent<Collider>().enabled = true;
+            ResearchSnapZonePool.GetComponent<Collider>().enabled = true;
+            ResearchSnapZoneSiren.GetComponent<Collider>().enabled = true;
+            ResearchSnapZoneOpenBox.GetComponent<Collider>().enabled = true;
         }
         //enables the attention button in order to play hologram and get code
         if (!hologramInProgress)
@@ -367,20 +471,20 @@ public class OctopusLightCode : MonoBehaviour
     {
         if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone() && !Game_Manager.instance.beingUnSnapped)
         {
-            if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3 
+            if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3
                 || OpenBoxSnapZone4))
             {
                 currentMarkedLocation = "OpenBox";
                 foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
                 {
                     col.enabled = false;
-                }              
+                }
                 if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
                 {
                     foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
-                    }                    
+                    }
                 }
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
                 {
@@ -402,7 +506,53 @@ public class OctopusLightCode : MonoBehaviour
                     {
                         col.enabled = true;
                     }
-                }               
+                }
+            }
+            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (ConveyorSnapZone1 || ConveyorSnapZone2))
+            {
+                currentMarkedLocation = "ConveyorBelt";
+                foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = false;
+                }
+                if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == ConveyorSnapZone1)
+                {
+                    foreach (Collider col in ConveyorMarkerGhostCollider1Container.GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = true;
+                    }
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == ConveyorSnapZone2)
+                {
+                    foreach (Collider col in ConveyorMarkerGhostCollider2Container.GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = true;
+                    }
+                }
+            }
+            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (PoolSnapZone))
+            {
+                currentMarkedLocation = "Pool";
+                foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = false;
+                }
+                foreach (Collider col in MelterMarkerGhostColliderContainer.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = true;
+                }
+            }
+            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (SirenSnapZone))
+            {
+                currentMarkedLocation = "Siren";
+                foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = false;
+                }
+                foreach (Collider col in SirenMarkerGhostColliderContainer.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = true;
+                }
             }
         }
         else if (Game_Manager.instance.beingUnSnapped)
@@ -426,8 +576,24 @@ public class OctopusLightCode : MonoBehaviour
             foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
             {
                 col.enabled = false;
-            }           
-            currentMarkedLocation = null;                   
+            }
+            foreach (Collider col in ConveyorMarkerGhostCollider1Container.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = false;
+            }
+            foreach (Collider col in ConveyorMarkerGhostCollider2Container.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = false;
+            }
+            foreach (Collider col in MelterMarkerGhostColliderContainer.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = false;
+            }
+            foreach (Collider col in SirenMarkerGhostColliderContainer.GetComponentsInChildren<Collider>())
+            {
+                col.enabled = false;
+            }
+            currentMarkedLocation = null;
             //Marker.transform.position -= transform.forward * Time.deltaTime * 0.5f;         
         }
         else
