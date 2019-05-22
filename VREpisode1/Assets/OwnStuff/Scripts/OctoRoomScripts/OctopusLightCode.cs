@@ -285,7 +285,7 @@ public class OctopusLightCode : MonoBehaviour
             ResearchSnapZoneOpenBox.GetComponent<Collider>().enabled = true;
         }
         //enables the attention button in order to play hologram and get code
-        if (!hologramInProgress)
+        if (!hologramInProgress && combinationNumber == 0)
         {
             if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox")
             {
@@ -300,6 +300,19 @@ public class OctopusLightCode : MonoBehaviour
                 }
             }
             else if (currentTableObject == "ConveyorBelt" && currentMarkedLocation == "ConveyorBelt")
+            {
+                Debug.Log("conveyor");
+                AttentionLight.enabled = true;
+                OctopusAttention.stayPressed = true;
+                if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+                {
+                    OctopusAttention.stayPressed = false;
+                    AttentionLight.enabled = false;
+                    AnimateHologram("ConveyorBelt");
+                    DisplayCode("ON");
+                }
+            }
+            else if (currentTableObject == "Pool" && currentMarkedLocation == "Pool")
             {
                 Debug.Log("conveyor");
                 AttentionLight.enabled = true;
@@ -529,44 +542,45 @@ public class OctopusLightCode : MonoBehaviour
     {
         if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone() && !Game_Manager.instance.beingUnSnapped)
         {
-            if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3
-                || OpenBoxSnapZone4))
-            {
-                currentMarkedLocation = "OpenBox";
-                foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
-                {
-                    col.enabled = false;
-                }
-                if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
-                {
-                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
-                    {
-                        col.enabled = true;
-                    }
-                }
-                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
-                {
-                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer2.GetComponentsInChildren<Collider>())
-                    {
-                        col.enabled = true;
-                    }
-                }
-                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
-                {
-                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer3.GetComponentsInChildren<Collider>())
-                    {
-                        col.enabled = true;
-                    }
-                }
-                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
-                {
-                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
-                    {
-                        col.enabled = true;
-                    }
-                }
-            }
-            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (ConveyorSnapZone1 || ConveyorSnapZone2))
+            //if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3
+            //    || OpenBoxSnapZone4))
+            //{
+            //    Debug.Log("OpenBoxmarked");
+            //    currentMarkedLocation = "OpenBox";
+            //    foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
+            //    {
+            //        col.enabled = false;
+            //    }
+            //    if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
+            //    {
+            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
+            //        {
+            //            col.enabled = true;
+            //        }
+            //    }
+            //    else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
+            //    {
+            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer2.GetComponentsInChildren<Collider>())
+            //        {
+            //            col.enabled = true;
+            //        }
+            //    }
+            //    else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
+            //    {
+            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer3.GetComponentsInChildren<Collider>())
+            //        {
+            //            col.enabled = true;
+            //        }
+            //    }
+            //    else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
+            //    {
+            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
+            //        {
+            //            col.enabled = true;
+            //        }
+            //    }
+            //}
+            /*else */if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (ConveyorSnapZone1 || ConveyorSnapZone2))
             {
                 Debug.Log("conveyormarker");
                 currentMarkedLocation = "ConveyorBelt";
@@ -654,11 +668,7 @@ public class OctopusLightCode : MonoBehaviour
             }
             currentMarkedLocation = null;
             //Marker.transform.position -= transform.forward * Time.deltaTime * 0.5f;         
-        }
-        else
-        {
-            return;
-        }
+        }      
     }
 
     public void CheckCodeValidity()
@@ -667,7 +677,7 @@ public class OctopusLightCode : MonoBehaviour
         {
             if (colourCode[0] == "Red")
             {
-                if (colourCode[1] == "Green" && colourCode[2] == "Green" && colourCode[3] == "Green")
+                if (colourCode[1] == "Cyan" && colourCode[2] == "Green" && colourCode[3] == "Green")
                 {
                     Debug.Log("CLOSE");
                     //This word is CLOSE
@@ -683,7 +693,7 @@ public class OctopusLightCode : MonoBehaviour
                     OctopusAttention.stayPressed = false;
                     //signals the player somehow that marker isn't in the right place or that the object needs to be on the table
                 }
-                else if (colourCode[1] == "Cyan" && colourCode[2] == "Green" && colourCode[3] == "Green")
+                else if (colourCode[1] == "Green" && colourCode[2] == "Green" && colourCode[3] == "Green")
                 {
                     //This word is OPEN, this is the KEY word to open the elevator
                     if (currentMarkedLocation == "Elevator")
