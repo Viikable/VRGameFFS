@@ -12,6 +12,16 @@ public class OctopusLightCode : MonoBehaviour
     VRTK_PhysicsPusher YellowLight;
     VRTK_PhysicsPusher OctopusAttention;
 
+    Color ButtonCyan;
+    Color ButtonRed;
+    Color ButtonGreen;
+    Color ButtonYellow;
+
+    Material FirstButMat;
+    Material SecondButMat;
+    Material ThirdButMat;
+    Material FourthButMat;
+
     [SerializeField]
     [Tooltip("This lights the attention button once a code has been entered")]
     Light AttentionLight;
@@ -155,6 +165,11 @@ public class OctopusLightCode : MonoBehaviour
   
     void Start()
     {
+        ButtonCyan = new Color(72, 159, 181);
+        ButtonYellow = new Color(198, 155, 0);
+        ButtonGreen = new Color(68f, 91f, 44f);
+        ButtonRed = new Color(165, 27, 6);
+        
         RedLight = transform.Find("RedLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
         GreenLight = transform.Find("GreenLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
         CyanLight = transform.Find("CyanLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
@@ -176,6 +191,15 @@ public class OctopusLightCode : MonoBehaviour
         CodeCube2 = transform.Find("CodeCube2").gameObject;
         CodeCube3 = transform.Find("CodeCube3").gameObject;
         CodeCube4 = transform.Find("CodeCube4").gameObject;
+
+        FirstButMat = CodeCube1.GetComponent<MeshRenderer>().material;
+        FirstButMat.EnableKeyword("_EMISSION");
+        SecondButMat = CodeCube2.GetComponent<MeshRenderer>().material;
+        SecondButMat.EnableKeyword("_EMISSION");
+        ThirdButMat = CodeCube3.GetComponent<MeshRenderer>().material;
+        ThirdButMat.EnableKeyword("_EMISSION");
+        FourthButMat = CodeCube4.GetComponent<MeshRenderer>().material;
+        FourthButMat.EnableKeyword("_EMISSION");
 
         Marker = GameObject.Find("Marker");
 
@@ -314,15 +338,15 @@ public class OctopusLightCode : MonoBehaviour
             }
             else if (currentTableObject == "Pool" && currentMarkedLocation == "Pool")
             {
-                Debug.Log("conveyor");
+                Debug.Log("pool");
                 AttentionLight.enabled = true;
                 OctopusAttention.stayPressed = true;
                 if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
                     AttentionLight.enabled = false;
-                    AnimateHologram("ConveyorBelt");
-                    DisplayCode("ON");
+                    AnimateHologram("Pool");
+                    DisplayCode("LOWER");
                 }
             }
         }
@@ -342,6 +366,10 @@ public class OctopusLightCode : MonoBehaviour
             ConveyorAnim.SetBool("On", true);
             StartCoroutine("HologramFinish", 7.5f);
         }
+        else if (objectToBeAnimated == "Pool")
+        {
+            //animate pool
+        }
     }
 
     //Displays the first colour of the code for the player
@@ -350,13 +378,13 @@ public class OctopusLightCode : MonoBehaviour
         ColourReset();
         if (actionVerb == "CLOSE")
         {
-            CodeCube1.GetComponent<MeshRenderer>().material.color = Color.red;
+            FirstButMat.SetColor("_Color", ButtonRed);
 
             StartCoroutine("DisplayCodeColour", "CLOSE");          
         }
         else if (actionVerb == "ON")
         {
-            CodeCube1.GetComponent<MeshRenderer>().material.color = Color.green;
+            FirstButMat.SetColor("_Color", ButtonGreen);
             StartCoroutine("DisplayCodeColour", "ON");
         }
     }
@@ -366,20 +394,20 @@ public class OctopusLightCode : MonoBehaviour
         if (actionVerb == "CLOSE")
         {
             yield return new WaitForSecondsRealtime(1f);
-            CodeCube2.GetComponent<MeshRenderer>().material.color = Color.green;
+            SecondButMat.SetColor("_Color", ButtonGreen);
             yield return new WaitForSecondsRealtime(1f);
-            CodeCube3.GetComponent<MeshRenderer>().material.color = Color.green;
+            ThirdButMat.SetColor("_Color", ButtonGreen);
             yield return new WaitForSecondsRealtime(1f);
-            CodeCube4.GetComponent<MeshRenderer>().material.color = Color.green;
+            FourthButMat.SetColor("_Color", ButtonGreen);
         }
         else if (actionVerb == "ON")
         {
             yield return new WaitForSecondsRealtime(1f);
-            CodeCube2.GetComponent<MeshRenderer>().material.color = Color.red;
+            SecondButMat.SetColor("_Color", ButtonRed);
             yield return new WaitForSecondsRealtime(1f);
-            CodeCube3.GetComponent<MeshRenderer>().material.color = Color.red;
+            ThirdButMat.SetColor("_Color", ButtonRed);
             yield return new WaitForSecondsRealtime(1f);
-            CodeCube4.GetComponent<MeshRenderer>().material.color = Color.red;
+            FourthButMat.SetColor("_Color", ButtonRed);
         }
     }
 
@@ -408,19 +436,19 @@ public class OctopusLightCode : MonoBehaviour
             RedLightSource.enabled = true;
             if (combinationNumber == 1)
             {
-                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.red;
+                FirstButMat.SetColor("_Color", ButtonRed);
             }
             else if (combinationNumber == 2)
             {
-                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.red;
+                SecondButMat.SetColor("_Color", ButtonRed);
             }
             else if (combinationNumber == 3)
             {
-                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.red;
+                ThirdButMat.SetColor("_Color", ButtonRed);
             }
             else
             {
-                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.red;
+                FourthButMat.SetColor("_Color", ButtonRed);
             }
             StartCoroutine("WaitForPress");
         }
@@ -435,20 +463,20 @@ public class OctopusLightCode : MonoBehaviour
             buttonRegistering = true;
             GreenLightSource.enabled = true;
             if (combinationNumber == 1)
-            {
-                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.green;
+            {              
+                FirstButMat.SetColor("_Color", ButtonGreen);              
             }
             else if (combinationNumber == 2)
             {
-                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.green;
+                SecondButMat.SetColor("_Color", ButtonGreen);
             }
             else if (combinationNumber == 3)
             {
-                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.green;
+                ThirdButMat.SetColor("_Color", ButtonGreen);
             }
             else
             {
-                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.green;
+                FourthButMat.SetColor("_Color", ButtonGreen);
             }
             StartCoroutine("WaitForPress");
         }
@@ -463,20 +491,20 @@ public class OctopusLightCode : MonoBehaviour
             buttonRegistering = true;
             YellowLightSource.enabled = true;
             if (combinationNumber == 1)
-            {
-                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            {              
+                FirstButMat.color = ButtonYellow;
             }
             else if (combinationNumber == 2)
             {
-                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                SecondButMat.color = ButtonYellow;
             }
             else if (combinationNumber == 3)
             {
-                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                ThirdButMat.color = ButtonYellow;
             }
             else
             {
-                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                FourthButMat.color = ButtonYellow;
             }
             StartCoroutine("WaitForPress");
         }
@@ -492,19 +520,19 @@ public class OctopusLightCode : MonoBehaviour
             CyanLightSource.enabled = true;
             if (combinationNumber == 1)
             {
-                CodeCube1.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                FirstButMat.SetColor("_Color", ButtonCyan);
             }
             else if (combinationNumber == 2)
             {
-                CodeCube2.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                SecondButMat.SetColor("_Color", ButtonCyan);
             }
             else if (combinationNumber == 3)
             {
-                CodeCube3.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                ThirdButMat.SetColor("_Color", ButtonCyan);
             }
             else
             {
-                CodeCube4.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                FourthButMat.SetColor("_Color", ButtonCyan);
             }
             StartCoroutine("WaitForPress");
         }
@@ -527,10 +555,10 @@ public class OctopusLightCode : MonoBehaviour
     }
     public void ColourReset()
     {
-        CodeCube1.GetComponent<MeshRenderer>().material.color = Color.grey;
-        CodeCube2.GetComponent<MeshRenderer>().material.color = Color.grey;
-        CodeCube3.GetComponent<MeshRenderer>().material.color = Color.grey;
-        CodeCube4.GetComponent<MeshRenderer>().material.color = Color.grey;
+        CodeCube1.GetComponent<MeshRenderer>().material.color = Color.black;
+        CodeCube2.GetComponent<MeshRenderer>().material.color = Color.black;
+        CodeCube3.GetComponent<MeshRenderer>().material.color = Color.black;
+        CodeCube4.GetComponent<MeshRenderer>().material.color = Color.black;
         colourCode[0] = null;
         colourCode[1] = null;
         colourCode[2] = null;
@@ -540,47 +568,9 @@ public class OctopusLightCode : MonoBehaviour
 
     public void CheckMarkerLocation()      //checks where the marker is snapped currently, if nowhere, resets location to null
     {
-        if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone() && !Game_Manager.instance.beingUnSnapped)
-        {
-            //if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3
-            //    || OpenBoxSnapZone4))
-            //{
-            //    Debug.Log("OpenBoxmarked");
-            //    currentMarkedLocation = "OpenBox";
-            //    foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
-            //    {
-            //        col.enabled = false;
-            //    }
-            //    if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
-            //    {
-            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
-            //        {
-            //            col.enabled = true;
-            //        }
-            //    }
-            //    else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
-            //    {
-            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer2.GetComponentsInChildren<Collider>())
-            //        {
-            //            col.enabled = true;
-            //        }
-            //    }
-            //    else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
-            //    {
-            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer3.GetComponentsInChildren<Collider>())
-            //        {
-            //            col.enabled = true;
-            //        }
-            //    }
-            //    else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
-            //    {
-            //        foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
-            //        {
-            //            col.enabled = true;
-            //        }
-            //    }
-            //}
-            /*else */if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (ConveyorSnapZone1 || ConveyorSnapZone2))
+        if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone())
+        {           
+            if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (ConveyorSnapZone1 || ConveyorSnapZone2))
             {
                 Debug.Log("conveyormarker");
                 currentMarkedLocation = "ConveyorBelt";
@@ -598,6 +588,44 @@ public class OctopusLightCode : MonoBehaviour
                 else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == ConveyorSnapZone2)
                 {
                     foreach (Collider col in ConveyorMarkerGhostCollider2Container.GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = true;
+                    }
+                }
+            }
+            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3
+                || OpenBoxSnapZone4))
+            {
+                Debug.Log("OpenBoxmarked");
+                currentMarkedLocation = "OpenBox";
+                foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = false;
+                }
+                if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
+                {
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = true;
+                    }
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
+                {
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer2.GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = true;
+                    }
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
+                {
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer3.GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = true;
+                    }
+                }
+                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
+                {
+                    foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
