@@ -141,6 +141,10 @@ public class OctopusLightCode : MonoBehaviour
 
     Animator ConveyorAnim;
 
+    Animator PoolAnim;
+
+    Animator SirenAnim;
+
     //these colliders will be activated when the marker snaps to a given snapzone, creating the illusory colliders for it
     public GameObject OpenBoxMarkerGhostColliderContainer1;
 
@@ -187,15 +191,6 @@ public class OctopusLightCode : MonoBehaviour
         CodeCube3 = transform.Find("CodeCube3").gameObject;
         CodeCube4 = transform.Find("CodeCube4").gameObject;
 
-        //CodeCube1.GetComponent<MeshRenderer>().material = CodeCube1.GetComponent<MeshRenderer>().material;
-        //CodeCube1.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-        //CodeCube2.GetComponent<MeshRenderer>().material = CodeCube2.GetComponent<MeshRenderer>().material;
-        //CodeCube2.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-        //CodeCube3.GetComponent<MeshRenderer>().material = CodeCube3.GetComponent<MeshRenderer>().material;
-        //CodeCube3.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-        //CodeCube4.GetComponent<MeshRenderer>().material = CodeCube4.GetComponent<MeshRenderer>().material;
-        //CodeCube4.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-
         Marker = GameObject.Find("Marker");
 
         OpenBox = GameObject.Find("OpenBox");
@@ -229,6 +224,10 @@ public class OctopusLightCode : MonoBehaviour
         OpenBoxAnim = GameObject.Find("OpenBoxAnimated").GetComponent<Animator>();
 
         ConveyorAnim = GameObject.Find("Research_Conveyor_Animated").GetComponent<Animator>();
+
+        PoolAnim = GameObject.Find("Research_Pool_Lid_Animated").GetComponent<Animator>();
+
+        SirenAnim = GameObject.Find("Research_siren_Animated").GetComponent<Animator>();
 
         OpenBoxMarkerGhostColliderContainer1 = OpenBox.transform.Find("MarkerGhostCollider1").gameObject;
         OpenBoxMarkerGhostColliderContainer2 = OpenBox.transform.Find("MarkerGhostCollider2").gameObject;
@@ -344,6 +343,19 @@ public class OctopusLightCode : MonoBehaviour
                     DisplayCode("LOWER");
                 }
             }
+            else if (currentTableObject == "Siren" && currentMarkedLocation == "Siren")
+            {
+                Debug.Log("siren");
+                AttentionLight.enabled = true;
+                OctopusAttention.stayPressed = true;
+                if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+                {
+                    OctopusAttention.stayPressed = false;
+                    AttentionLight.enabled = false;
+                    AnimateHologram("Siren");
+                    DisplayCode("PLAY");
+                }
+            }
         }
     }
 
@@ -363,7 +375,13 @@ public class OctopusLightCode : MonoBehaviour
         }
         else if (objectToBeAnimated == "Pool")
         {
-            //animate pool
+            PoolAnim.SetBool("Lower", true);
+            StartCoroutine("HologramFinish", 5f);          
+        }
+        else if (objectToBeAnimated == "Siren")
+        {
+            PoolAnim.SetBool("Play", true);
+            StartCoroutine("HologramFinish", 5f);
         }
     }
 
@@ -381,6 +399,16 @@ public class OctopusLightCode : MonoBehaviour
         {
             CodeCube1.GetComponent<MeshRenderer>().material = ButtonGreen;
             StartCoroutine("DisplayCodeColour", "ON");
+        }
+        else if (actionVerb == "LOWER")
+        {
+            CodeCube1.GetComponent<MeshRenderer>().material = ButtonYellow;
+            StartCoroutine("DisplayCodeColour", "LOWER");
+        }
+        else if (actionVerb == "PLAY")
+        {
+            CodeCube1.GetComponent<MeshRenderer>().material = ButtonCyan;
+            StartCoroutine("DisplayCodeColour", "PLAY");
         }
     }
     //this displays the rest of the colour code based on the verb entered
@@ -404,6 +432,24 @@ public class OctopusLightCode : MonoBehaviour
             yield return new WaitForSecondsRealtime(1f);
             CodeCube4.GetComponent<MeshRenderer>().material = ButtonRed;
         }
+        else if (actionVerb == "LOWER")
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube2.GetComponent<MeshRenderer>().material = ButtonYellow;
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube3.GetComponent<MeshRenderer>().material = ButtonGreen;
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube4.GetComponent<MeshRenderer>().material = ButtonRed;
+        }
+        else if (actionVerb == "PLAY")
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube2.GetComponent<MeshRenderer>().material = ButtonYellow;
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube3.GetComponent<MeshRenderer>().material = ButtonRed;
+            yield return new WaitForSecondsRealtime(1f);
+            CodeCube4.GetComponent<MeshRenderer>().material = ButtonGreen;
+        }
     }
 
     //with this method we can decide the duration of the animation based on the animated object
@@ -412,6 +458,8 @@ public class OctopusLightCode : MonoBehaviour
         yield return new WaitForSecondsRealtime(animationTime);
         OpenBoxAnim.SetBool("Close", false);
         ConveyorAnim.SetBool("On", false);
+        PoolAnim.SetBool("Lower", false);
+        SirenAnim.SetBool("Play", false);
         hologramInProgress = false;
     }
 
@@ -564,8 +612,9 @@ public class OctopusLightCode : MonoBehaviour
     public void CheckMarkerLocation()      //checks where the marker is snapped currently, if nowhere, resets location to null
     {
         if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone())
-        {           
-            if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (ConveyorSnapZone1 || ConveyorSnapZone2))
+        {
+            Debug.Log(Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone());
+            if (ConveyorSnapZone1.GetCurrentSnappedObject() == Marker || ConveyorSnapZone2.GetCurrentSnappedObject() == Marker)
             {
                 Debug.Log("conveyormarker");
                 currentMarkedLocation = "ConveyorBelt";
@@ -588,8 +637,8 @@ public class OctopusLightCode : MonoBehaviour
                     }
                 }
             }
-            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == (OpenBoxSnapZone1 || OpenBoxSnapZone2 || OpenBoxSnapZone3
-                || OpenBoxSnapZone4))
+            else if (OpenBoxSnapZone1.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone2.GetCurrentSnappedObject() == Marker 
+                || OpenBoxSnapZone3.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone4.GetCurrentSnappedObject() == Marker)               
             {
                 Debug.Log("OpenBoxmarked");
                 currentMarkedLocation = "OpenBox";
@@ -626,7 +675,7 @@ public class OctopusLightCode : MonoBehaviour
                     }
                 }
             }
-            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == PoolSnapZone)
+            else if (PoolSnapZone.GetCurrentSnappedObject() == Marker)
             {
                 currentMarkedLocation = "Pool";
                 foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
@@ -638,7 +687,7 @@ public class OctopusLightCode : MonoBehaviour
                     col.enabled = true;
                 }
             }
-            else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == SirenSnapZone)
+            else if (SirenSnapZone.GetCurrentSnappedObject() == Marker)
             {
                 currentMarkedLocation = "Siren";
                 foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
@@ -788,6 +837,11 @@ public class OctopusLightCode : MonoBehaviour
                 else if (colourCode[1] == "Yellow" && colourCode[2] == "Green" && colourCode[3] == "Red")
                 {
                     //This one is LOWER, also used only with research objects
+                    if (currentTableObject == "Pool")
+                    {
+                        AnimateHologram("Pool");
+                        //we play the animation which closes the box like a hologram on the table separate from the actual box
+                    }
                     combinationNumber = 0;
                     AttentionLight.enabled = false;
                     codeEntered = true;
@@ -807,6 +861,12 @@ public class OctopusLightCode : MonoBehaviour
                 {
                     // This one is ON and that is also known at the start paper, 
                     // it can be used to turn on some research items and the monitor
+                    if (currentTableObject == "ConveyorBelt")
+                    {
+                        AnimateHologram("ConveyorBelt");
+                        //we play the animation which closes the box like a hologram on the table separate from the actual box
+                    }
+
                     combinationNumber = 0;
                     AttentionLight.enabled = false;
                     codeEntered = true;
