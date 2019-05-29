@@ -380,7 +380,7 @@ public class OctopusLightCode : MonoBehaviour
         }
         else if (objectToBeAnimated == "Siren")
         {
-            PoolAnim.SetBool("Play", true);
+            SirenAnim.SetBool("Play", true);
             StartCoroutine("HologramFinish", 5f);
         }
     }
