@@ -12,16 +12,11 @@ public class OctopusLightCode : MonoBehaviour
     VRTK_PhysicsPusher YellowLight;
     VRTK_PhysicsPusher OctopusAttention;
 
-    Color ButtonCyan;
-    Color ButtonRed;
-    Color ButtonGreen;
-    Color ButtonYellow;
-
-    Material FirstButMat;
-    Material SecondButMat;
-    Material ThirdButMat;
-    Material FourthButMat;
-
+    Material ButtonCyan;
+    Material ButtonRed;
+    Material ButtonGreen;
+    Material ButtonYellow;
+   
     [SerializeField]
     [Tooltip("This lights the attention button once a code has been entered")]
     Light AttentionLight;
@@ -165,11 +160,11 @@ public class OctopusLightCode : MonoBehaviour
   
     void Start()
     {
-        ButtonCyan = new Color(72, 159, 181);
-        ButtonYellow = new Color(198, 155, 0);
-        ButtonGreen = new Color(68f, 91f, 44f);
-        ButtonRed = new Color(165, 27, 6);
-        
+        ButtonCyan = GameObject.Find("OctoCyan").GetComponent<MeshRenderer>().material;
+        ButtonYellow = GameObject.Find("OctoYellow").GetComponent<MeshRenderer>().material;
+        ButtonGreen = GameObject.Find("OctoGreen").GetComponent<MeshRenderer>().material;
+        ButtonRed = GameObject.Find("OctoRed").GetComponent<MeshRenderer>().material;
+
         RedLight = transform.Find("RedLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
         GreenLight = transform.Find("GreenLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
         CyanLight = transform.Find("CyanLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
@@ -192,14 +187,14 @@ public class OctopusLightCode : MonoBehaviour
         CodeCube3 = transform.Find("CodeCube3").gameObject;
         CodeCube4 = transform.Find("CodeCube4").gameObject;
 
-        FirstButMat = CodeCube1.GetComponent<MeshRenderer>().material;
-        FirstButMat.EnableKeyword("_EMISSION");
-        SecondButMat = CodeCube2.GetComponent<MeshRenderer>().material;
-        SecondButMat.EnableKeyword("_EMISSION");
-        ThirdButMat = CodeCube3.GetComponent<MeshRenderer>().material;
-        ThirdButMat.EnableKeyword("_EMISSION");
-        FourthButMat = CodeCube4.GetComponent<MeshRenderer>().material;
-        FourthButMat.EnableKeyword("_EMISSION");
+        //CodeCube1.GetComponent<MeshRenderer>().material = CodeCube1.GetComponent<MeshRenderer>().material;
+        //CodeCube1.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+        //CodeCube2.GetComponent<MeshRenderer>().material = CodeCube2.GetComponent<MeshRenderer>().material;
+        //CodeCube2.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+        //CodeCube3.GetComponent<MeshRenderer>().material = CodeCube3.GetComponent<MeshRenderer>().material;
+        //CodeCube3.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+        //CodeCube4.GetComponent<MeshRenderer>().material = CodeCube4.GetComponent<MeshRenderer>().material;
+        //CodeCube4.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
 
         Marker = GameObject.Find("Marker");
 
@@ -378,13 +373,13 @@ public class OctopusLightCode : MonoBehaviour
         ColourReset();
         if (actionVerb == "CLOSE")
         {
-            FirstButMat.SetColor("_Color", ButtonRed);
+            CodeCube1.GetComponent<MeshRenderer>().material = ButtonRed;
 
             StartCoroutine("DisplayCodeColour", "CLOSE");          
         }
         else if (actionVerb == "ON")
         {
-            FirstButMat.SetColor("_Color", ButtonGreen);
+            CodeCube1.GetComponent<MeshRenderer>().material = ButtonGreen;
             StartCoroutine("DisplayCodeColour", "ON");
         }
     }
@@ -394,20 +389,20 @@ public class OctopusLightCode : MonoBehaviour
         if (actionVerb == "CLOSE")
         {
             yield return new WaitForSecondsRealtime(1f);
-            SecondButMat.SetColor("_Color", ButtonGreen);
+            CodeCube2.GetComponent<MeshRenderer>().material = ButtonGreen;
             yield return new WaitForSecondsRealtime(1f);
-            ThirdButMat.SetColor("_Color", ButtonGreen);
+            CodeCube3.GetComponent<MeshRenderer>().material = ButtonGreen;
             yield return new WaitForSecondsRealtime(1f);
-            FourthButMat.SetColor("_Color", ButtonGreen);
+            CodeCube4.GetComponent<MeshRenderer>().material = ButtonGreen;
         }
         else if (actionVerb == "ON")
         {
             yield return new WaitForSecondsRealtime(1f);
-            SecondButMat.SetColor("_Color", ButtonRed);
+            CodeCube2.GetComponent<MeshRenderer>().material = ButtonRed;
             yield return new WaitForSecondsRealtime(1f);
-            ThirdButMat.SetColor("_Color", ButtonRed);
+            CodeCube3.GetComponent<MeshRenderer>().material = ButtonRed;
             yield return new WaitForSecondsRealtime(1f);
-            FourthButMat.SetColor("_Color", ButtonRed);
+            CodeCube4.GetComponent<MeshRenderer>().material = ButtonRed;
         }
     }
 
@@ -436,19 +431,19 @@ public class OctopusLightCode : MonoBehaviour
             RedLightSource.enabled = true;
             if (combinationNumber == 1)
             {
-                FirstButMat.SetColor("_Color", ButtonRed);
+                CodeCube1.GetComponent<MeshRenderer>().material = ButtonRed;
             }
             else if (combinationNumber == 2)
             {
-                SecondButMat.SetColor("_Color", ButtonRed);
+                CodeCube2.GetComponent<MeshRenderer>().material = ButtonRed;
             }
             else if (combinationNumber == 3)
             {
-                ThirdButMat.SetColor("_Color", ButtonRed);
+                CodeCube3.GetComponent<MeshRenderer>().material = ButtonRed;
             }
             else
             {
-                FourthButMat.SetColor("_Color", ButtonRed);
+                CodeCube4.GetComponent<MeshRenderer>().material = ButtonRed;
             }
             StartCoroutine("WaitForPress");
         }
@@ -464,19 +459,19 @@ public class OctopusLightCode : MonoBehaviour
             GreenLightSource.enabled = true;
             if (combinationNumber == 1)
             {              
-                FirstButMat.SetColor("_Color", ButtonGreen);              
+                CodeCube1.GetComponent<MeshRenderer>().material = ButtonGreen;              
             }
             else if (combinationNumber == 2)
             {
-                SecondButMat.SetColor("_Color", ButtonGreen);
+                CodeCube2.GetComponent<MeshRenderer>().material = ButtonGreen;
             }
             else if (combinationNumber == 3)
             {
-                ThirdButMat.SetColor("_Color", ButtonGreen);
+                CodeCube3.GetComponent<MeshRenderer>().material = ButtonGreen;
             }
             else
             {
-                FourthButMat.SetColor("_Color", ButtonGreen);
+                CodeCube4.GetComponent<MeshRenderer>().material = ButtonGreen;
             }
             StartCoroutine("WaitForPress");
         }
@@ -492,19 +487,19 @@ public class OctopusLightCode : MonoBehaviour
             YellowLightSource.enabled = true;
             if (combinationNumber == 1)
             {              
-                FirstButMat.color = ButtonYellow;
+                CodeCube1.GetComponent<MeshRenderer>().material = ButtonYellow;
             }
             else if (combinationNumber == 2)
             {
-                SecondButMat.color = ButtonYellow;
+                CodeCube2.GetComponent<MeshRenderer>().material = ButtonYellow;
             }
             else if (combinationNumber == 3)
             {
-                ThirdButMat.color = ButtonYellow;
+                CodeCube3.GetComponent<MeshRenderer>().material = ButtonYellow;
             }
             else
             {
-                FourthButMat.color = ButtonYellow;
+                CodeCube4.GetComponent<MeshRenderer>().material = ButtonYellow;
             }
             StartCoroutine("WaitForPress");
         }
@@ -520,19 +515,19 @@ public class OctopusLightCode : MonoBehaviour
             CyanLightSource.enabled = true;
             if (combinationNumber == 1)
             {
-                FirstButMat.SetColor("_Color", ButtonCyan);
+                CodeCube1.GetComponent<MeshRenderer>().material = ButtonCyan;
             }
             else if (combinationNumber == 2)
             {
-                SecondButMat.SetColor("_Color", ButtonCyan);
+                CodeCube2.GetComponent<MeshRenderer>().material = ButtonCyan;
             }
             else if (combinationNumber == 3)
             {
-                ThirdButMat.SetColor("_Color", ButtonCyan);
+                CodeCube3.GetComponent<MeshRenderer>().material = ButtonCyan;
             }
             else
             {
-                FourthButMat.SetColor("_Color", ButtonCyan);
+                CodeCube4.GetComponent<MeshRenderer>().material = ButtonCyan;
             }
             StartCoroutine("WaitForPress");
         }
