@@ -417,7 +417,7 @@ public class OctopusLightCode : MonoBehaviour
         if (actionVerb == "CLOSE")
         {
             yield return new WaitForSecondsRealtime(1f);
-            CodeCube2.GetComponent<MeshRenderer>().material = ButtonGreen;
+            CodeCube2.GetComponent<MeshRenderer>().material = ButtonCyan;
             yield return new WaitForSecondsRealtime(1f);
             CodeCube3.GetComponent<MeshRenderer>().material = ButtonGreen;
             yield return new WaitForSecondsRealtime(1f);
