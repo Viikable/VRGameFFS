@@ -7,12 +7,12 @@ using VRTK.GrabAttachMechanics;
 public class BoxFloat : MonoBehaviour {
     private bool startMoving;
     private bool notTouched;
-    public int whatSideofTheBoxDown;
+    //public int whatSideofTheBoxDown;
     Animator FloatAnim;
 
     private void Awake()
     {
-        whatSideofTheBoxDown = 0;
+        //whatSideofTheBoxDown = 0;
         startMoving = false;
         notTouched = true;
         FloatAnim = transform.parent.GetComponent<Animator>();
@@ -45,7 +45,7 @@ public class BoxFloat : MonoBehaviour {
     
     IEnumerator WaitForRealism()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSeconds(3f);
         startMoving = true;
     }
 
@@ -69,27 +69,6 @@ public class BoxFloat : MonoBehaviour {
                 //     transform.eulerAngles = correctRotation;
                 //    }
             }
-        }       
-        //    if (whatSideofTheBoxDown == 1)
-        //    {
-        //        transform.Translate(new Vector3(0, 0, -1) * 0.005f);
-        //    }
-        //    if (whatSideofTheBoxDown == 2)
-        //    {
-        //        transform.Translate(new Vector3(0, -1, 0) * 0.005f);
-        //    }
-        //    if (whatSideofTheBoxDown == 3)
-        //    {
-        //        transform.Translate(new Vector3(0, 1, 0) * 0.005f);
-        //    }
-        //    if (whatSideofTheBoxDown == 4)
-        //    {
-        //        transform.Translate(new Vector3(-1, 0, 0) * 0.005f);
-        //    }
-        //    if (whatSideofTheBoxDown == 5)
-        //    {
-        //        transform.Translate(new Vector3(1, 0, 0) * 0.005f);
-        //    }
-        //} 
+        }              
    }
 
