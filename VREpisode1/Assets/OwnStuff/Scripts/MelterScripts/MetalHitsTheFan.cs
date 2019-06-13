@@ -59,8 +59,8 @@ public class MetalHitsTheFan : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.tag == "ConveyorPart")
-        //{
+        if (!MetalSounds1.isPlaying && !MetalSounds2.isPlaying && !MetalSounds3.isPlaying && !MetalSounds4.isPlaying && !MetalSounds5.isPlaying && !MetalSounds6.isPlaying)
+        {
             if (randomizer == 1)
             {
                 MetalSounds1.Play();
@@ -85,7 +85,7 @@ public class MetalHitsTheFan : MonoBehaviour {
             {
                 MetalSounds6.Play();
             }
-        //}
+        }
     }      
     private void Update()
     {
