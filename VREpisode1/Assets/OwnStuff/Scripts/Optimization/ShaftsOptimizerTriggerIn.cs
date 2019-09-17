@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ShaftsOptimizerTriggerIn : MonoBehaviour {
     WaterMovement water;
-
+    ParticleSystem GasLeak;
 
     void Start()
     {
         water = GameObject.Find("Water").GetComponent<WaterMovement>();
+        GasLeak = GameObject.Find("ToxicGasLeak").GetComponent<ParticleSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,6 +21,7 @@ public class ShaftsOptimizerTriggerIn : MonoBehaviour {
             OptimizeRendering.insideOctoRoom = false;
             OptimizeRendering.insideMelterArea = false;
             OptimizeRendering.renderingChanged = false;
+            GasLeak.Play();
         }
     }
 }

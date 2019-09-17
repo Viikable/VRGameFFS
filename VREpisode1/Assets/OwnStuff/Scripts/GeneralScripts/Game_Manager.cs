@@ -59,6 +59,8 @@
 
         [Header("Gameobjects")]
 
+        public ParticleSystem WaterBubbles;
+
         public GameObject Lantern;
 
         public GameObject GrabbableWater;
@@ -109,28 +111,16 @@
 
             //WaterComes.AddListener(WaterIsRising);
 
+            WaterBubbles = GameObject.Find("Water").GetComponentInChildren<ParticleSystem>();
+
+            WaterBubbles.Pause();
+
             LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
 
             RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
 
             ropeClimb = true;
-
-            //isBroom1Snapped = false;
-
-            //isBroom2Snapped = false;
-
-            //isBroom3Snapped = false;
-
-            //isBroom4Snapped = false;
-
-            //isBroom1Metallic = false;
-
-            //isBroom2Metallic = false;
-
-            //isBroom3Metallic = false;
-
-            //isBroom4Metallic = false;
-
+           
             playBroomAnimation = false;
 
             lanternIsGrabbed = false;
@@ -200,6 +190,7 @@
                     lanternIsGrabbed = true;
                     if (invoked)
                     {
+                        WaterBubbles.Play();
                         water.WaterRises = true;
                         invoked = false;
                         Debug.Log("invoked");
