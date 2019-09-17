@@ -12,9 +12,13 @@
 
         protected bool state;
 
+        private bool startToggledHandsOn;     //added
+
         protected virtual void OnEnable()
         {
-            state = false;
+            state = false;      //false
+            startToggledHandsOn = false;
+
             if (leftController != null)
             {
                 leftController.ButtonTwoPressed += ToggleHands;
@@ -111,7 +115,7 @@
 
         protected virtual void ToggleScriptAlias()
         {
-            GameObject scriptLeft = VRTK_DeviceFinder.GetControllerLeftHand(false);
+            GameObject scriptLeft = VRTK_DeviceFinder.GetControllerLeftHand(false);    //VRTK_DeviceFinder.GetControllerLeftHand(false);
             GameObject scriptRight = VRTK_DeviceFinder.GetControllerRightHand(false);
             CycleScriptAlias(scriptLeft, leftHandAvatar);
             CycleScriptAlias(scriptRight, rightHandAvatar);
@@ -136,6 +140,16 @@
                 }
                 touch.enabled = true;
                 grab.enabled = true;
+            }
+        }
+        private void Update()        //this enables the hands without need of button two pressing after 0.75s of starting the game
+        {
+            if (!startToggledHandsOn && Time.time >= 0.75f)
+            {
+                Debug.Log("hmm");
+                startToggledHandsOn = true;
+                state = true;
+                ToggleVisibility();
             }
         }
     }

@@ -4,31 +4,34 @@ using UnityEngine;
 
 public class WaterTouch : MonoBehaviour {
     WaterMovement water;
-	// Use this for initialization
-	void Start () {
-        water = GameObject.Find("Water").GetComponent<WaterMovement>();
+    public static bool dontLightHands;
 
+    void Start()
+    {
+        water = transform.parent.GetComponentInParent<WaterMovement>();
+        dontLightHands = false;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other == water.feet)
         {
-            Debug.Log("Splash");
+            Debug.Log("feet entered water");
             if (!water.Splash.isPlaying)
             {
-            water.Splash.Play();
+                water.Splash.Play();
             }
-            //water.touchedWater = true;
+            WaterMovement.touchedWater = true;
         }
         if (other == water.head)
         {
             water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
-            water.touchedWater = true;
+            //WaterMovement.touchedWater = true;
             Debug.Log("head entered water");
-            water.timeWhenGotUnderwater = Time.time;
-            water.headIsUnderWater = true;
-            //Debug.Log(timeWhenGotUnderwater);
-            water.fader.Fade(Color.black, 80f);
+            WaterMovement.timeWhenGotUnderwater = Time.time;
+            WaterMovement.headIsUnderWater = true;
+            //Debug.Log(WaterMovement.timeWhenGotUnderwater);
+            dontLightHands = true; //this causes hands to not light up when head goes under water, but it won't prevent them lighting up when inside wall in water etc.
+            WaterMovement.fader.Fade(Color.black, 80f);
         }
     }
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WaterTouchHigh : MonoBehaviour {
     WaterMovement water;
-    // Use this for initialization
+
     void Start()
     {
-        water = GameObject.Find("Water").GetComponent<WaterMovement>();
+        water = transform.parent.GetComponentInParent<WaterMovement>();
 
     }
     private void OnTriggerEnter(Collider other)
@@ -15,19 +15,24 @@ public class WaterTouchHigh : MonoBehaviour {
         if (other == water.feet)
         {
             Debug.Log("feet exited water");
-            water.touchedWater = false;
+            WaterMovement.touchedWater = false;
         }
         if (other == water.head)
         {
             if (!water.Splash.isPlaying)
             {
-            water.Splash.Play();
+                water.Splash.Play();
             }
-            water.headIsUnderWater = false;
+            WaterMovement.headIsUnderWater = false;
             Debug.Log("head exited water");
             water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
             //touchedWater = false;
-            water.fader.Unfade(3f);
+            WaterMovement.fader.Unfade(0.25f);
+
+            //if (ButtonSwimming.swimUp)
+            //{
+            //    GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = true;
+            //}
         }
     }
 

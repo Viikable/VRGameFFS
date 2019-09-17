@@ -114,7 +114,17 @@ namespace VRTK
         {
             isFaded = false;
             isTransitioning = true;
-            HandsLighting.insideObject = true;      //this turns the hands visible still
+            //!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (WaterTouch.dontLightHands)
+            {
+                HandsLighting.insideObject = false;      //this makes the hands not glow when entering water
+                WaterTouch.dontLightHands = false;
+            }
+            else
+            {
+                HandsLighting.insideObject = true;
+            }
+            //!!!!!!!!!!!!!!!!!!!!!!!!     
             VRTK_SDK_Bridge.HeadsetFade(color, duration);
             OnHeadsetFadeStart(SetHeadsetFadeEvent(headset, duration));
             CancelInvoke("UnfadeComplete");
