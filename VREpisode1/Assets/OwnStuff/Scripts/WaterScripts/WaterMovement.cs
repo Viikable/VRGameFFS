@@ -108,7 +108,7 @@ public class WaterMovement : MonoBehaviour
                 }
                 else
                 {
-                    head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();
+                    head = headSet.transform.GetChild(2).GetChild(2).GetComponent<Collider>();
                 }
             }
             headsetbody = headSet.GetComponent<Rigidbody>();

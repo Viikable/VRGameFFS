@@ -16,20 +16,20 @@ public class OptimizeRendering : MonoBehaviour {
     [Tooltip("If inside OctoRoom then doesn't render other areas")]
     public static bool insideOctoRoom;
 
-    public static GameObject[] MelterObjects;
+    public static GameObject[] MelterObjects = new GameObject[1000];
 
-    public static GameObject[] MainHallObjects;
+    public static GameObject[] MainHallObjects = new GameObject[1000];
 
-    public static GameObject[] ShaftsObjects;
+    public static GameObject[] ShaftsObjects = new GameObject[1000];
 
-    public static GameObject[] OctoRoomObjects;
+    public static GameObject[] OctoRoomObjects = new GameObject[1000];
 
     public static bool renderingChanged;
 
     int counter;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         insideMelterArea = false;
         insideMainHall = true;       //we start here
         insideShafts = false;
@@ -38,7 +38,7 @@ public class OptimizeRendering : MonoBehaviour {
         counter = 0;
 
         foreach (MelterObject scriptObject in GameObject.FindObjectsOfType<MelterObject>())
-        {
+        {          
             MelterObjects[counter] = scriptObject.gameObject;
             counter++;
         }
@@ -62,14 +62,15 @@ public class OptimizeRendering : MonoBehaviour {
         }
     }
 		
-	void Update () {
+	void Update ()
+    {
 		if (!renderingChanged)
         {
             if (insideMelterArea)
             {
                 foreach (GameObject melterObject in MelterObjects)
                 {
-                    if (melterObject.GetComponent<MeshRenderer>() != null)
+                    if (melterObject != null && melterObject.GetComponent<MeshRenderer>() != null)
                     {
                         melterObject.GetComponent<MeshRenderer>().enabled = true;
                     }
@@ -79,7 +80,7 @@ public class OptimizeRendering : MonoBehaviour {
             {
                 foreach (GameObject melterObject in MelterObjects)
                 {
-                    if (melterObject.GetComponent<MeshRenderer>() != null)
+                    if (melterObject != null && melterObject.GetComponent<MeshRenderer>() != null)
                     {
                     melterObject.GetComponent<MeshRenderer>().enabled = false;
                     }
@@ -89,7 +90,7 @@ public class OptimizeRendering : MonoBehaviour {
             {
                 foreach (GameObject MainHallObject in MainHallObjects)
                 {
-                    if (MainHallObject.GetComponent<MeshRenderer>() != null)
+                    if (MainHallObject != null && MainHallObject.GetComponent<MeshRenderer>() != null)
                     {
                         MainHallObject.GetComponent<MeshRenderer>().enabled = true;
                     }
@@ -99,7 +100,7 @@ public class OptimizeRendering : MonoBehaviour {
             {
                 foreach (GameObject MainHallObject in MainHallObjects)
                 {
-                    if (MainHallObject.GetComponent<MeshRenderer>() != null)
+                    if (MainHallObject != null && MainHallObject.GetComponent<MeshRenderer>() != null)
                     {
                         MainHallObject.GetComponent<MeshRenderer>().enabled = false;
                     }
@@ -109,7 +110,7 @@ public class OptimizeRendering : MonoBehaviour {
             {
                 foreach (GameObject ShaftsObject in ShaftsObjects)
                 {
-                    if (ShaftsObject.GetComponent<MeshRenderer>() != null)
+                    if (ShaftsObject != null && ShaftsObject.GetComponent<MeshRenderer>() != null)
                     {
                         ShaftsObject.GetComponent<MeshRenderer>().enabled = true;
                     }
@@ -119,7 +120,7 @@ public class OptimizeRendering : MonoBehaviour {
             {
                 foreach (GameObject ShaftsObject in ShaftsObjects)
                 {
-                    if (ShaftsObject.GetComponent<MeshRenderer>() != null)
+                    if (ShaftsObject != null && ShaftsObject.GetComponent<MeshRenderer>() != null)
                     {
                         ShaftsObject.GetComponent<MeshRenderer>().enabled = false;
                     }
@@ -129,7 +130,7 @@ public class OptimizeRendering : MonoBehaviour {
             {
                 foreach (GameObject OctoRoomObject in OctoRoomObjects)
                 {
-                    if (OctoRoomObject.GetComponent<MeshRenderer>() != null)
+                    if (OctoRoomObject != null && OctoRoomObject.GetComponent<MeshRenderer>() != null)
                     {
                         OctoRoomObject.GetComponent<MeshRenderer>().enabled = true;
                     }
@@ -139,7 +140,7 @@ public class OptimizeRendering : MonoBehaviour {
             {
                 foreach (GameObject OctoRoomObject in OctoRoomObjects)
                 {
-                    if (OctoRoomObject.GetComponent<MeshRenderer>() != null)
+                    if (OctoRoomObject != null && OctoRoomObject.GetComponent<MeshRenderer>() != null)
                     {
                         OctoRoomObject.GetComponent<MeshRenderer>().enabled = false;
                     }
