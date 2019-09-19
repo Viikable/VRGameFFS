@@ -840,7 +840,7 @@ public class OctopusLightCode : MonoBehaviour
                     if (currentTableObject == "Pool")
                     {
                         AnimateHologram("Pool");
-                        //we play the animation which closes the box like a hologram on the table separate from the actual box
+                        //we play the animation which closes pool lid on the table separate from the actual lid
                     }
                     combinationNumber = 0;
                     AttentionLight.enabled = false;
@@ -864,7 +864,7 @@ public class OctopusLightCode : MonoBehaviour
                     if (currentTableObject == "ConveyorBelt")
                     {
                         AnimateHologram("ConveyorBelt");
-                        //we play the animation which closes the box like a hologram on the table separate from the actual box
+                        //we play the animation which starts the conveyor belt on the table
                     }
 
                     combinationNumber = 0;
@@ -899,6 +899,6 @@ public class OctopusLightCode : MonoBehaviour
             //attention button hasn't been pressed
             return;
         }
-    }
+    }      //checks whether the code is valid and if it is then possibly starts an action
 }
 
