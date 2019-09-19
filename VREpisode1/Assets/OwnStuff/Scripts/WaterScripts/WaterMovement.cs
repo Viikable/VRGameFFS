@@ -51,6 +51,8 @@ public class WaterMovement : MonoBehaviour
     public AudioSource Splash;
     [Tooltip("Drowning sound")]
     public AudioSource Drowned;
+    [Tooltip("24s oxygen left sounds")]
+    public AudioSource DrowningAlertSounds;
 
     private BoxFloat floatingBox;
 
@@ -73,7 +75,7 @@ public class WaterMovement : MonoBehaviour
         LeftController = GameObject.Find("LeftController");
         RightController = GameObject.Find("RightController");
         touchedWater = false;
-        oxygenTimer = 150f;
+        oxygenTimer = 60f;
         waterRises = false;
         headIsUnderWater = false;
         reachedTopPuzzle = false;
@@ -124,13 +126,18 @@ public class WaterMovement : MonoBehaviour
             {
                 Debug.Log("half oxygen left");
             }
-            if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer * 1 / 4 && headIsUnderWater)
+            if (oxygenTimer < Time.time - timeWhenGotUnderwater + 24f && headIsUnderWater && notDrownedYet)
             {
-                Debug.Log("1/4 oxygen left");
+                Debug.Log("24s oxygen left");
+                if (!DrowningAlertSounds.isPlaying)
+                {
+                    DrowningAlertSounds.Play();
+                }
             }
 
             if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater && notDrownedYet)
             {
+                DrowningAlertSounds.Stop();
                 notDrownedYet = false;
                 Drowned.Play();
                 Debug.Log("drowned");

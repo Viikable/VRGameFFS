@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterTouchHigh : MonoBehaviour {
     WaterMovement water;
-
+    public AudioSource DrowningAlertSounds;
     void Start()
     {
         water = transform.parent.GetComponentInParent<WaterMovement>();
@@ -19,6 +19,7 @@ public class WaterTouchHigh : MonoBehaviour {
         }
         if (other == water.head)
         {
+            DrowningAlertSounds.Stop();
             if (!water.Splash.isPlaying)
             {
                 water.Splash.Play();

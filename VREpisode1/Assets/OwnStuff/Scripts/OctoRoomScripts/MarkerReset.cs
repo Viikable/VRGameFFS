@@ -13,6 +13,7 @@ namespace VRTK
         public GameObject Marker;
         public Transform ResetLocation;
         bool reseted;
+        VRTK_SnapDropZone storedSnapZone;
 
         private void Awake()
         {
@@ -20,6 +21,7 @@ namespace VRTK
             Marker = GameObject.Find("Marker");
             ResetLocation = gameObject.transform.Find("ResetLocation").transform;
             reseted = false;
+            storedSnapZone = null;
         }
        
         void Update()
@@ -28,6 +30,11 @@ namespace VRTK
             {
                 reseted = true;
                 Marker.transform.position = ResetLocation.transform.position;
+                storedSnapZone = Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone();
+                if (storedSnapZone != null)
+                {
+                storedSnapZone.ForceUnsnap();
+                }
                 Marker.GetComponent<Rigidbody>().isKinematic = true;
                 Game_Manager.instance.beingUnSnapped = true;
                 StartCoroutine("WaitForReset");
