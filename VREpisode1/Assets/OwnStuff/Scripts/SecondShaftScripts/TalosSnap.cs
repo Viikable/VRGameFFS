@@ -395,28 +395,120 @@ public class TalosSnap : MonoBehaviour
 
     private void Update()
     {     
-        if (TalosPuzzleResetButton.AtMaxLimit())
+        if (TalosPuzzleResetButton.AtMaxLimit())  //return the pieces to their original places on the wall with reset button
         {
+            if (ThreeRow1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+            ThreeRow1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (ThreeRow2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                ThreeRow2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (ThreeRow3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                ThreeRow3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+
+            if (LShape1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                LShape1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (LShape2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                LShape2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (LShape3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                LShape3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (LShape4.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                LShape4.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (LShape5.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                LShape5.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (LShape6.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                LShape6.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+
+            if (uShape1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                uShape1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (uShape2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                uShape2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (uShape3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                uShape3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (uShape4.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                uShape4.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (uShape5.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                uShape5.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+
+            if (squarePlus1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                squarePlus1.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (squarePlus2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                squarePlus2.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (squarePlus3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                squarePlus3.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (squarePlus4.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                squarePlus4.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (squarePlus5.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                squarePlus5.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+            if (squarePlus6.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() != null)
+            {
+                squarePlus6.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone().ForceUnsnap();
+            }
+
             ThreerowSnapZone1.ForceSnap(ThreeRow1);
             ThreerowSnapZone2.ForceSnap(ThreeRow2);
             ThreerowSnapZone3.ForceSnap(ThreeRow3);
+
             L_ShapedSnapZone1.ForceSnap(LShape1);
             L_ShapedSnapZone2.ForceSnap(LShape2);
             L_ShapedSnapZone3.ForceSnap(LShape3);
             L_ShapedSnapZone4.ForceSnap(LShape4);
             L_ShapedSnapZone5.ForceSnap(LShape5);
             L_ShapedSnapZone6.ForceSnap(LShape6);
+
             U_ShapedZone1.ForceSnap(uShape1);
             U_ShapedZone2.ForceSnap(uShape2);
             U_ShapedZone3.ForceSnap(uShape3);
             U_ShapedZone4.ForceSnap(uShape4);
             U_ShapedZone5.ForceSnap(uShape5);
+
             SquarePlusShapeSnapZone1.ForceSnap(squarePlus1);
             SquarePlusShapeSnapZone2.ForceSnap(squarePlus2);
             SquarePlusShapeSnapZone3.ForceSnap(squarePlus3);
             SquarePlusShapeSnapZone4.ForceSnap(squarePlus4);
             SquarePlusShapeSnapZone5.ForceSnap(squarePlus5);
             SquarePlusShapeSnapZone6.ForceSnap(squarePlus6);
+
+            uShape = false;
+            lShape = false;
+            threeRow = false;
+            squarePlus = false;
 
         }
         if (TalosSnapZone.GetCurrentSnappedObject() == null)
