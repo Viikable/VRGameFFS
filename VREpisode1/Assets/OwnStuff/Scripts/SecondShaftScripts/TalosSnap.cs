@@ -20,6 +20,17 @@ public class TalosSnap : MonoBehaviour
     VRTK_SnapDropZone L_ShapedSnapZone4;
     VRTK_SnapDropZone L_ShapedSnapZone5;
     VRTK_SnapDropZone L_ShapedSnapZone6;
+    VRTK_SnapDropZone U_ShapedZone1;
+    VRTK_SnapDropZone U_ShapedZone2;
+    VRTK_SnapDropZone U_ShapedZone3;
+    VRTK_SnapDropZone U_ShapedZone4;
+    VRTK_SnapDropZone U_ShapedZone5;
+    VRTK_SnapDropZone SquarePlusShapeSnapZone1;
+    VRTK_SnapDropZone SquarePlusShapeSnapZone2;
+    VRTK_SnapDropZone SquarePlusShapeSnapZone3;
+    VRTK_SnapDropZone SquarePlusShapeSnapZone4;
+    VRTK_SnapDropZone SquarePlusShapeSnapZone5;
+    VRTK_SnapDropZone SquarePlusShapeSnapZone6;
     private int x;
     private int y;  
     char X;
@@ -185,6 +196,23 @@ public class TalosSnap : MonoBehaviour
         ThreerowSnapZone1 = GameObject.Find("ThreerowSnapZone1").GetComponent<VRTK_SnapDropZone>();
         ThreerowSnapZone2 = GameObject.Find("ThreerowSnapZone2").GetComponent<VRTK_SnapDropZone>();
         ThreerowSnapZone3 = GameObject.Find("ThreerowSnapZone3").GetComponent<VRTK_SnapDropZone>();
+        L_ShapedSnapZone1 = GameObject.Find("L_ShapedSnapZone1").GetComponent<VRTK_SnapDropZone>();
+        L_ShapedSnapZone2 = GameObject.Find("L_ShapedSnapZone2").GetComponent<VRTK_SnapDropZone>();
+        L_ShapedSnapZone3 = GameObject.Find("L_ShapedSnapZone3").GetComponent<VRTK_SnapDropZone>();
+        L_ShapedSnapZone4 = GameObject.Find("L_ShapedSnapZone4").GetComponent<VRTK_SnapDropZone>();
+        L_ShapedSnapZone5 = GameObject.Find("L_ShapedSnapZone5").GetComponent<VRTK_SnapDropZone>();
+        L_ShapedSnapZone6 = GameObject.Find("L_ShapedSnapZone6").GetComponent<VRTK_SnapDropZone>();
+        U_ShapedZone1 = GameObject.Find("U_ShapedZone1").GetComponent<VRTK_SnapDropZone>();
+        U_ShapedZone2 = GameObject.Find("U_ShapedZone2").GetComponent<VRTK_SnapDropZone>();
+        U_ShapedZone3 = GameObject.Find("U_ShapedZone3").GetComponent<VRTK_SnapDropZone>();
+        U_ShapedZone4 = GameObject.Find("U_ShapedZone4").GetComponent<VRTK_SnapDropZone>();
+        U_ShapedZone5 = GameObject.Find("U_ShapedZone5").GetComponent<VRTK_SnapDropZone>();
+        SquarePlusShapeSnapZone1 = GameObject.Find("SquarePlusShapeSnapZone1").GetComponent<VRTK_SnapDropZone>();
+        SquarePlusShapeSnapZone2 = GameObject.Find("SquarePlusShapeSnapZone2").GetComponent<VRTK_SnapDropZone>();
+        SquarePlusShapeSnapZone3 = GameObject.Find("SquarePlusShapeSnapZone3").GetComponent<VRTK_SnapDropZone>();
+        SquarePlusShapeSnapZone4 = GameObject.Find("SquarePlusShapeSnapZone4").GetComponent<VRTK_SnapDropZone>();
+        SquarePlusShapeSnapZone5 = GameObject.Find("SquarePlusShapeSnapZone5").GetComponent<VRTK_SnapDropZone>();
+        SquarePlusShapeSnapZone6 = GameObject.Find("SquarePlusShapeSnapZone6").GetComponent<VRTK_SnapDropZone>();
         TalosSnapZone = GetComponent<VRTK_SnapDropZone>();
         X = name[13];
         Y = name[15];
@@ -370,7 +398,26 @@ public class TalosSnap : MonoBehaviour
         if (TalosPuzzleResetButton.AtMaxLimit())
         {
             ThreerowSnapZone1.ForceSnap(ThreeRow1);
-            
+            ThreerowSnapZone2.ForceSnap(ThreeRow2);
+            ThreerowSnapZone3.ForceSnap(ThreeRow3);
+            L_ShapedSnapZone1.ForceSnap(LShape1);
+            L_ShapedSnapZone2.ForceSnap(LShape2);
+            L_ShapedSnapZone3.ForceSnap(LShape3);
+            L_ShapedSnapZone4.ForceSnap(LShape4);
+            L_ShapedSnapZone5.ForceSnap(LShape5);
+            L_ShapedSnapZone6.ForceSnap(LShape6);
+            U_ShapedZone1.ForceSnap(uShape1);
+            U_ShapedZone2.ForceSnap(uShape2);
+            U_ShapedZone3.ForceSnap(uShape3);
+            U_ShapedZone4.ForceSnap(uShape4);
+            U_ShapedZone5.ForceSnap(uShape5);
+            SquarePlusShapeSnapZone1.ForceSnap(squarePlus1);
+            SquarePlusShapeSnapZone2.ForceSnap(squarePlus2);
+            SquarePlusShapeSnapZone3.ForceSnap(squarePlus3);
+            SquarePlusShapeSnapZone4.ForceSnap(squarePlus4);
+            SquarePlusShapeSnapZone5.ForceSnap(squarePlus5);
+            SquarePlusShapeSnapZone6.ForceSnap(squarePlus6);
+
         }
         if (TalosSnapZone.GetCurrentSnappedObject() == null)
         {
