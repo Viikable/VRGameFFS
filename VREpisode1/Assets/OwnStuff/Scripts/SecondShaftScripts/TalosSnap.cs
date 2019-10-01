@@ -2,13 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+using VRTK.Controllables.PhysicsBased;
 using System;
 
 
 
 public class TalosSnap : MonoBehaviour
 {
+    VRTK_PhysicsPusher TalosPuzzleResetButton;
     VRTK_SnapDropZone TalosSnapZone;
+    VRTK_SnapDropZone ThreerowSnapZone1;
+    VRTK_SnapDropZone ThreerowSnapZone2;
+    VRTK_SnapDropZone ThreerowSnapZone3;
+    VRTK_SnapDropZone L_ShapedSnapZone1;
+    VRTK_SnapDropZone L_ShapedSnapZone2;
+    VRTK_SnapDropZone L_ShapedSnapZone3;
+    VRTK_SnapDropZone L_ShapedSnapZone4;
+    VRTK_SnapDropZone L_ShapedSnapZone5;
+    VRTK_SnapDropZone L_ShapedSnapZone6;
     private int x;
     private int y;  
     char X;
@@ -170,6 +181,10 @@ public class TalosSnap : MonoBehaviour
 
     void Start()
     {
+        TalosPuzzleResetButton = GameObject.Find("TalosPuzzleResetButton").GetComponent<VRTK_PhysicsPusher>();
+        ThreerowSnapZone1 = GameObject.Find("ThreerowSnapZone1").GetComponent<VRTK_SnapDropZone>();
+        ThreerowSnapZone2 = GameObject.Find("ThreerowSnapZone2").GetComponent<VRTK_SnapDropZone>();
+        ThreerowSnapZone3 = GameObject.Find("ThreerowSnapZone3").GetComponent<VRTK_SnapDropZone>();
         TalosSnapZone = GetComponent<VRTK_SnapDropZone>();
         X = name[13];
         Y = name[15];
@@ -351,7 +366,12 @@ public class TalosSnap : MonoBehaviour
     }
 
     private void Update()
-    {               
+    {     
+        if (TalosPuzzleResetButton.AtMaxLimit())
+        {
+            ThreerowSnapZone1.ForceSnap(ThreeRow1);
+            
+        }
         if (TalosSnapZone.GetCurrentSnappedObject() == null)
         {
             threeRowXOne = false;
