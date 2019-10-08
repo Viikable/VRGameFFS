@@ -896,7 +896,6 @@ public class OctopusLightCode : MonoBehaviour
                         AnimateHologram("ConveyorBelt");
                         //we play the animation which starts the conveyor belt on the table
                     }
-
                     combinationNumber = 0;
                     AttentionLight.enabled = false;
                     codeEntered = true;
@@ -912,8 +911,9 @@ public class OctopusLightCode : MonoBehaviour
                         MagneticFenceContainer.transform.Find("MagneticFence2").GetComponent<Collider>().enabled = false;
                         MagneticFenceContainer.transform.Find("MagneticFence2").GetComponent<AudioSource>().Stop();
                         MagneticFenceContainer.transform.Find("OctoMagneticWallParticles1").GetComponent<ParticleSystem>().Stop();
+                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles1").GetComponent<ParticleSystem>().Clear();
                         MagneticFenceContainer.transform.Find("OctoMagneticWallParticles2").GetComponent<ParticleSystem>().Stop();
-                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles3").GetComponent<ParticleSystem>().Stop();
+                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles2").GetComponent<ParticleSystem>().Clear();                       
                         //turns the magnetic gate off
                     }
                     combinationNumber = 0;
