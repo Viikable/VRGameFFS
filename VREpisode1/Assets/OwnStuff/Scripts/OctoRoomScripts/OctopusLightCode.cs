@@ -908,7 +908,12 @@ public class OctopusLightCode : MonoBehaviour
                     if (currentMarkedLocation == "MagneticFence")
                     {
                         MagneticFenceContainer.transform.Find("MagneticFence1").GetComponent<Collider>().enabled = false;
+                        MagneticFenceContainer.transform.Find("MagneticFence1").GetComponent<AudioSource>().Stop();
                         MagneticFenceContainer.transform.Find("MagneticFence2").GetComponent<Collider>().enabled = false;
+                        MagneticFenceContainer.transform.Find("MagneticFence2").GetComponent<AudioSource>().Stop();
+                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles1").GetComponent<ParticleSystem>().Stop();
+                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles2").GetComponent<ParticleSystem>().Stop();
+                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles3").GetComponent<ParticleSystem>().Stop();
                         //turns the magnetic gate off
                     }
                     combinationNumber = 0;
