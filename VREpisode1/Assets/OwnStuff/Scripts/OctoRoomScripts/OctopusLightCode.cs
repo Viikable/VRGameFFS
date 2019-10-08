@@ -112,6 +112,10 @@ public class OctopusLightCode : MonoBehaviour
     [Tooltip("A research object that teaches the word PLAY")]
     GameObject Siren;
 
+    [SerializeField]
+    [Tooltip("Magnetic Fences which keep the reserach objects in the research area until turned off by the player")]
+    GameObject MagneticFenceContainer;
+
     [Tooltip("One of the areas where the marker can snap to in the Siren object.")]
     VRTK_SnapDropZone SirenSnapZone;
 
@@ -124,6 +128,9 @@ public class OctopusLightCode : MonoBehaviour
 
     [Tooltip("One of the areas where the marker can snap to in the ConveyorBelt object.")]
     VRTK_SnapDropZone ConveyorSnapZone2;
+
+    [Tooltip("One of the areas where the marker can snap to somewhere near the Magnetic Fence.")]
+    VRTK_SnapDropZone MagneticFenceSnapZone;
 
     [Tooltip("Area on the research table where OpenBox can be snapped into")]
     VRTK_SnapDropZone ResearchSnapZoneOpenBox;
@@ -161,7 +168,9 @@ public class OctopusLightCode : MonoBehaviour
     public GameObject SirenMarkerGhostColliderContainer;
 
     public GameObject MelterMarkerGhostColliderContainer;
-  
+
+    public GameObject MagneticFenceMarkerGhostColliderContainer;
+
     void Start()
     {
         ButtonCyan = GameObject.Find("OctoCyan").GetComponent<MeshRenderer>().material;
@@ -201,6 +210,8 @@ public class OctopusLightCode : MonoBehaviour
 
         Siren = GameObject.Find("Research_siren");
 
+        MagneticFenceContainer = GameObject.Find("MagneticFenceContainer");
+
         OpenBoxSnapZone1 = OpenBox.transform.Find("OpenBoxSnapZone1").GetComponent<VRTK_SnapDropZone>();
         OpenBoxSnapZone2 = OpenBox.transform.Find("OpenBoxSnapZone2").GetComponent<VRTK_SnapDropZone>();
         OpenBoxSnapZone3 = OpenBox.transform.Find("OpenBoxSnapZone3").GetComponent<VRTK_SnapDropZone>();
@@ -208,6 +219,8 @@ public class OctopusLightCode : MonoBehaviour
 
         ConveyorSnapZone1 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone1").GetComponent<VRTK_SnapDropZone>();
         ConveyorSnapZone2 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone2").GetComponent<VRTK_SnapDropZone>();
+
+        MagneticFenceSnapZone = GameObject.Find("MagneticFenceSnapZone").GetComponent<VRTK_SnapDropZone>();
 
         PoolSnapZone = ResearchPool.transform.Find("ResearchPoolSnapzone").GetComponent<VRTK_SnapDropZone>();
 
@@ -240,6 +253,8 @@ public class OctopusLightCode : MonoBehaviour
         SirenMarkerGhostColliderContainer = Siren.transform.Find("SirenMarkerGhostCollider").gameObject;
 
         MelterMarkerGhostColliderContainer = ResearchPool.transform.Find("MelterMarkerGhostCollider").gameObject;
+
+        MagneticFenceMarkerGhostColliderContainer = MagneticFenceSnapZone.transform.Find("MagneticFenceMarkerGhostCollider").gameObject;
     }
 
     void Update()
@@ -411,6 +426,7 @@ public class OctopusLightCode : MonoBehaviour
             StartCoroutine("DisplayCodeColour", "PLAY");
         }
     }
+
     //this displays the rest of the colour code based on the verb entered
     IEnumerator DisplayCodeColour(string actionVerb)
     {
@@ -586,6 +602,7 @@ public class OctopusLightCode : MonoBehaviour
             CheckCodeValidity();
         }
     }   
+
     IEnumerator WaitForPress()
     {
         //Waits for the button to register being pressed and lifted up so it's only registered once
@@ -596,6 +613,7 @@ public class OctopusLightCode : MonoBehaviour
         YellowLightSource.enabled = false;
         CyanLightSource.enabled = false;
     }
+
     public void ColourReset()
     {
         CodeCube1.GetComponent<MeshRenderer>().material.color = Color.black;
@@ -637,8 +655,8 @@ public class OctopusLightCode : MonoBehaviour
                     }
                 }
             }
-            else if (OpenBoxSnapZone1.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone2.GetCurrentSnappedObject() == Marker 
-                || OpenBoxSnapZone3.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone4.GetCurrentSnappedObject() == Marker)               
+            else if (OpenBoxSnapZone1.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone2.GetCurrentSnappedObject() == Marker
+                || OpenBoxSnapZone3.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone4.GetCurrentSnappedObject() == Marker)
             {
                 Debug.Log("OpenBoxmarked");
                 currentMarkedLocation = "OpenBox";
@@ -695,6 +713,18 @@ public class OctopusLightCode : MonoBehaviour
                     col.enabled = false;
                 }
                 foreach (Collider col in SirenMarkerGhostColliderContainer.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = true;
+                }
+            }
+            else if (MagneticFenceSnapZone.GetCurrentSnappedObject() == Marker)
+            {
+                currentMarkedLocation = "MagneticFence";
+                foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
+                {
+                    col.enabled = false;
+                }
+                foreach (Collider col in MagneticFenceMarkerGhostColliderContainer.GetComponentsInChildren<Collider>())
                 {
                     col.enabled = true;
                 }
@@ -875,9 +905,11 @@ public class OctopusLightCode : MonoBehaviour
                 else if (colourCode[1] == "Yellow" && colourCode[2] == "Yellow" && colourCode[3] == "Yellow")
                 {
                     //This one is OFF, and it is used to turn the magnetic gate off and some research items like the LAMP can give this verb
-                    if (currentMarkedLocation == "MagneticGate")
+                    if (currentMarkedLocation == "MagneticFence")
                     {
-                        //turn the magnetic gate off
+                        MagneticFenceContainer.transform.Find("MagneticFence1").GetComponent<Collider>().enabled = false;
+                        MagneticFenceContainer.transform.Find("MagneticFence2").GetComponent<Collider>().enabled = false;
+                        //turns the magnetic gate off
                     }
                     combinationNumber = 0;
                     AttentionLight.enabled = false;
