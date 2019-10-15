@@ -28,6 +28,8 @@ public class MelterEnterTrigger : MonoBehaviour
 
     Animator LavaAnim;
 
+    Collider LavaSurface;
+
     [SerializeField]
     [Tooltip("Shuts the melter lid")]
     GameObject MelterMeltPressActivatorButton;
@@ -117,6 +119,7 @@ public class MelterEnterTrigger : MonoBehaviour
         MelterPressPressActivatorButton = GameObject.Find("MelterPressPressActivatorContainer/MelterPressPressActivatorButton");
         PoolLid = GameObject.Find("PoolLidAnimated").GetComponent<Animator>();
         LavaAnim = GameObject.Find("LavaSurface").GetComponent<Animator>();
+        LavaSurface = GameObject.Find("LavaSurface").GetComponent<Collider>();
         LavaLight = GameObject.Find("LavaSurface").GetComponent<Light>();
         LavaLight2 = GameObject.Find("LavaLight").GetComponent<Light>();
         LavaLight3 = GameObject.Find("LavaLight2").GetComponent<Light>();
@@ -351,6 +354,7 @@ public class MelterEnterTrigger : MonoBehaviour
             yield return new WaitForSecondsRealtime(5);
             MeltingSound.Stop();
             LavaBubblingSound.Play();
+            LavaSurface.enabled = true;
             MelterPresserDeActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
             MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
             liftable = true;
