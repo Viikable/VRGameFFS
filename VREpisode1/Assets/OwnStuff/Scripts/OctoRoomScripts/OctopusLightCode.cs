@@ -63,7 +63,7 @@ public class OctopusLightCode : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Indicates whether a research object with a marker on it is attached to the research table and its hologram is currently playing")]
-    bool hologramInProgress;
+    bool animationInProgress;
 
     [SerializeField]
     [Tooltip("Shows the player the colour which has been entered first into the code")]
@@ -189,7 +189,7 @@ public class OctopusLightCode : MonoBehaviour
         currentTableObject = null;
         codeEntered = false;
         buttonRegistering = false;
-        hologramInProgress = false;       
+        animationInProgress = false;       
         AttentionLight = transform.Find("AttentionLight").GetComponent<Light>();
         RedLightSource = transform.Find("RedLightSource").GetComponent<Light>();
         YellowLightSource = transform.Find("YellowLightSource").GetComponent<Light>();
@@ -318,7 +318,7 @@ public class OctopusLightCode : MonoBehaviour
             ResearchSnapZoneOpenBox.GetComponent<Collider>().enabled = true;
         }
         //enables the attention button in order to play hologram and get code
-        if (!hologramInProgress && combinationNumber == 0)
+        if (!animationInProgress && combinationNumber == 0)
         {
             if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox")
             {
@@ -377,7 +377,7 @@ public class OctopusLightCode : MonoBehaviour
     //Animates the given hologram of the research object, showing an action
     public void AnimateHologram(string objectToBeAnimated)
     {     
-        hologramInProgress = true;
+        animationInProgress = true;
         if (objectToBeAnimated == "OpenBox")
         {
             OpenBoxAnim.SetBool("Close", true);
@@ -476,13 +476,13 @@ public class OctopusLightCode : MonoBehaviour
         ConveyorAnim.SetBool("On", false);
         PoolAnim.SetBool("Lower", false);
         SirenAnim.SetBool("Play", false);
-        hologramInProgress = false;
+        animationInProgress = false;
     }
 
     //checking what colour combination has been entered
     public void CheckColourCombination()  
     { 
-        if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress)            
+        if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)            
         {
             //this so that if player starts pressing the buttons after a hologram has showed a code it resets
             if (combinationNumber == 0)
@@ -511,7 +511,7 @@ public class OctopusLightCode : MonoBehaviour
             }
             StartCoroutine("WaitForPress");
         }
-        if (GreenLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress)
+        if (GreenLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -539,7 +539,7 @@ public class OctopusLightCode : MonoBehaviour
             }
             StartCoroutine("WaitForPress");
         }
-        if (YellowLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress)
+        if (YellowLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -567,7 +567,7 @@ public class OctopusLightCode : MonoBehaviour
             }
             StartCoroutine("WaitForPress");
         }
-        if (CyanLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress)
+        if (CyanLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -811,6 +811,7 @@ public class OctopusLightCode : MonoBehaviour
                 else
                 {
                     //Nothing happens/Octopus doesn't understand
+                    AnimateOctopus("CONFUSED");
                     combinationNumber = 0;
                     AttentionLight.enabled = false;
                     codeEntered = true;
@@ -858,7 +859,7 @@ public class OctopusLightCode : MonoBehaviour
             {
                 if (colourCode[1] == "Red" && colourCode[2] == "Green" && colourCode[3] == "Yellow")
                 {
-                    //This one is LIFT, used only with the research objects most likely
+                    //This one is LIFT, can only be got from octopus, this starts octopusLiftAnimation
                     combinationNumber = 0;
                     AttentionLight.enabled = false;
                     codeEntered = true;
@@ -937,5 +938,33 @@ public class OctopusLightCode : MonoBehaviour
             return;
         }
     }      //checks whether the code is valid and if it is then possibly starts an action
+
+
+        public void AnimateOctopus(string animationName)  //a specific method for animating the octopus
+        //here we can confirm the opposites of the words we get from researchobjects
+    {
+            animationInProgress = true;
+        if (animationName == "OCTO_CONFUSED")
+        {
+            //animate confused octopus
+        }
+        else if (animationName == "OCTO_LIFT")
+        {
+
+        }
+        else if (animationName == "OCTO_TURNOFF")
+        {
+
+        }
+        else if (animationName == "OCTO_OPEN")
+        {
+
+        }
+        else if (animationName == "OCTO_PLAY")  //play sound
+        {
+
+        }
+    }
+    
 }
 

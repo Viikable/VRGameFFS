@@ -32,8 +32,8 @@ public class OptimizeRendering : MonoBehaviour {
     void Awake () {
         insideMelterArea = false;
         insideMainHall = false;       //we start here
-        insideShafts = true;
-        insideOctoRoom = false;
+        insideShafts = false;
+        insideOctoRoom = true;
         renderingChanged = false;
         counter = 0;
 
