@@ -12,6 +12,12 @@ public class OctopusLightCode : MonoBehaviour
     VRTK_PhysicsPusher YellowLight;
     VRTK_PhysicsPusher OctopusAttention;
 
+    MeshRenderer RedButtonMeshMaterial;
+    MeshRenderer GreenButtonMeshMaterial;
+    MeshRenderer CyanButtonMeshMaterial;
+    MeshRenderer YellowButtonMeshMaterial;
+    MeshRenderer OctopusAttentionButtonMeshMaterial;
+
     Material ButtonCyan;
     Material ButtonRed;
     Material ButtonGreen;
@@ -179,10 +185,21 @@ public class OctopusLightCode : MonoBehaviour
         ButtonRed = GameObject.Find("OctoRed").GetComponent<MeshRenderer>().material;
 
         RedLight = transform.Find("RedLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        RedButtonMeshMaterial = transform.Find("RedLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        RedButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         GreenLight = transform.Find("GreenLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        GreenButtonMeshMaterial = transform.Find("GreenLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        GreenButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         CyanLight = transform.Find("CyanLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        CyanButtonMeshMaterial = transform.Find("CyanLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        CyanButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         YellowLight = transform.Find("YellowLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        YellowButtonMeshMaterial = transform.Find("YellowLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        YellowButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         OctopusAttention = transform.Find("OctopusAttention").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        OctopusAttentionButtonMeshMaterial = transform.Find("OctopusAttention").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        OctopusAttentionButtonMeshMaterial.material.EnableKeyword("_EMISSION");
+
         combinationNumber = 0;
         colourCode = new string[4];
         currentMarkedLocation = null;
@@ -322,12 +339,12 @@ public class OctopusLightCode : MonoBehaviour
         {
             if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox")
             {
-                AttentionLight.enabled = true;
+                OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
                 if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("OpenBox");
                     DisplayCode("CLOSE");
                 }
@@ -335,12 +352,12 @@ public class OctopusLightCode : MonoBehaviour
             else if (currentTableObject == "ConveyorBelt" && currentMarkedLocation == "ConveyorBelt")
             {
                 Debug.Log("conveyor");
-                AttentionLight.enabled = true;
+                OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
                 if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("ConveyorBelt");
                     DisplayCode("ON");
                 }
@@ -348,12 +365,12 @@ public class OctopusLightCode : MonoBehaviour
             else if (currentTableObject == "Pool" && currentMarkedLocation == "Pool")
             {
                 Debug.Log("pool");
-                AttentionLight.enabled = true;
+                OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
                 if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("Pool");
                     DisplayCode("LOWER");
                 }
@@ -361,12 +378,12 @@ public class OctopusLightCode : MonoBehaviour
             else if (currentTableObject == "Siren" && currentMarkedLocation == "Siren")
             {
                 Debug.Log("siren");
-                AttentionLight.enabled = true;
+                OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
                 if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("Siren");
                     DisplayCode("PLAY");
                 }
@@ -492,7 +509,7 @@ public class OctopusLightCode : MonoBehaviour
             colourCode[combinationNumber] = "Red";
             combinationNumber++;
             buttonRegistering = true;
-            RedLightSource.enabled = true;
+            RedButtonMeshMaterial.material.SetColor("_EmissionColor", ButtonRed.color * 0.75f);
             if (combinationNumber == 1)
             {
                 CodeCube1.GetComponent<MeshRenderer>().material = ButtonRed;
@@ -520,7 +537,7 @@ public class OctopusLightCode : MonoBehaviour
             colourCode[combinationNumber] = "Green";
             combinationNumber++;
             buttonRegistering = true;
-            GreenLightSource.enabled = true;
+            GreenButtonMeshMaterial.material.SetColor("_EmissionColor", ButtonGreen.color * 0.75f);
             if (combinationNumber == 1)
             {              
                 CodeCube1.GetComponent<MeshRenderer>().material = ButtonGreen;              
@@ -548,7 +565,7 @@ public class OctopusLightCode : MonoBehaviour
             colourCode[combinationNumber] = "Yellow";
             combinationNumber++;
             buttonRegistering = true;
-            YellowLightSource.enabled = true;
+            YellowButtonMeshMaterial.material.SetColor("_EmissionColor", ButtonYellow.color * 0.75f);
             if (combinationNumber == 1)
             {              
                 CodeCube1.GetComponent<MeshRenderer>().material = ButtonYellow;
@@ -576,7 +593,7 @@ public class OctopusLightCode : MonoBehaviour
             colourCode[combinationNumber] = "Cyan";
             combinationNumber++;
             buttonRegistering = true;
-            CyanLightSource.enabled = true;
+            CyanButtonMeshMaterial.material.SetColor("_EmissionColor", ButtonCyan.color * 0.75f);
             if (combinationNumber == 1)
             {
                 CodeCube1.GetComponent<MeshRenderer>().material = ButtonCyan;
@@ -597,7 +614,7 @@ public class OctopusLightCode : MonoBehaviour
         }
         if (combinationNumber == 4 && !codeEntered)
         {
-            AttentionLight.enabled = true;
+            OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
             OctopusAttention.stayPressed = true;
             CheckCodeValidity();
         }
@@ -608,10 +625,10 @@ public class OctopusLightCode : MonoBehaviour
         //Waits for the button to register being pressed and lifted up so it's only registered once
         yield return new WaitForSecondsRealtime(1);
         buttonRegistering = false;
-        RedLightSource.enabled = false;
-        GreenLightSource.enabled = false;
-        YellowLightSource.enabled = false;
-        CyanLightSource.enabled = false;
+        RedButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
+        GreenButtonMeshMaterial.material.SetColor("_EmissionColor", Color.green * 0f);
+        CyanButtonMeshMaterial.material.SetColor("_EmissionColor", Color.cyan * 0f);
+        YellowButtonMeshMaterial.material.SetColor("_EmissionColor", Color.yellow * 0f);
     }
 
     public void ColourReset()
@@ -790,7 +807,7 @@ public class OctopusLightCode : MonoBehaviour
                         //we play the animation which closes the box like a hologram on the table separate from the actual box
                     }
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                     //signals the player somehow that marker isn't in the right place or that the object needs to be on the table
@@ -803,7 +820,7 @@ public class OctopusLightCode : MonoBehaviour
                         //Gives the code to unlock the elevator panel to the player
                     }
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                     //signals the player somehow that marker isn't in the right place
@@ -813,7 +830,7 @@ public class OctopusLightCode : MonoBehaviour
                     //Nothing happens/Octopus doesn't understand
                     AnimateOctopus("CONFUSED");
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
@@ -828,7 +845,7 @@ public class OctopusLightCode : MonoBehaviour
                         //Mutes the music player
                     }
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                     //signals the player somehow that marker isn't in the right place
@@ -841,7 +858,7 @@ public class OctopusLightCode : MonoBehaviour
                         //Starts the music player
                     }
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                     //signals the player somehow that marker isn't in the right place
@@ -850,7 +867,7 @@ public class OctopusLightCode : MonoBehaviour
                 {
                     //Nothing happens/Octopus doesn't understand
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
@@ -861,7 +878,7 @@ public class OctopusLightCode : MonoBehaviour
                 {
                     //This one is LIFT, can only be got from octopus, this starts octopusLiftAnimation
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
@@ -874,14 +891,14 @@ public class OctopusLightCode : MonoBehaviour
                         //we play the animation which closes pool lid on the table separate from the actual lid
                     }
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
                 else
                 {
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
@@ -898,7 +915,7 @@ public class OctopusLightCode : MonoBehaviour
                         //we play the animation which starts the conveyor belt on the table
                     }
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
@@ -918,14 +935,14 @@ public class OctopusLightCode : MonoBehaviour
                         //turns the magnetic gate off
                     }
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
                 else
                 {
                     combinationNumber = 0;
-                    AttentionLight.enabled = false;
+                    OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
                     OctopusAttention.stayPressed = false;
                 }
