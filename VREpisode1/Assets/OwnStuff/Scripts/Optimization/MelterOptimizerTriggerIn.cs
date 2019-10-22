@@ -21,6 +21,7 @@ public class MelterOptimizerTriggerIn : MonoBehaviour {
             OptimizeRendering.insideOctoRoom = false;
             OptimizeRendering.insideShafts = false;
             OptimizeRendering.renderingChanged = false;
+            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "MelterRoom";
         }
     }
 }

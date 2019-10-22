@@ -194,6 +194,7 @@
                         water.WaterRises = true;
                         invoked = false;
                         Debug.Log("invoked");
+                        ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
                     }
                 }
             }          
@@ -207,6 +208,7 @@
                         water.WaterRises = true;
                         invoked = false;
                         Debug.Log("invoked");
+                        ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
                     }
                 }
             }
@@ -217,6 +219,7 @@
             if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 RightGrab.ForceRelease();
+                ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";  
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
                 Destroy(juhaniJoin);
@@ -233,6 +236,7 @@
             else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 LeftGrab.ForceRelease();
+                ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
                     Destroy(juhaniJoin);

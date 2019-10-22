@@ -28,6 +28,7 @@ public class ShaftLightsButton : MonoBehaviour {
             MaintenanceSpot.enabled = true;
             switcher++;
             StartCoroutine("Wait");
+            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
         }
         else if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && switcher % 2 == 1 && !processing)
         {
