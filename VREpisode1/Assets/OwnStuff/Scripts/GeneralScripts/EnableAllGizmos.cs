@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using System;
 using System.Reflection;
-
+#if UNITY_EDITOR
 public class EnableAllGizmos
 {
     [MenuItem("Window/Enable All Gizmos")]
@@ -27,3 +27,4 @@ public class EnableAllGizmos
         }
     }
 }
+#endif

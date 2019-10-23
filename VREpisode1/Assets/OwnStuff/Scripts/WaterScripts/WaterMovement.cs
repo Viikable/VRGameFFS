@@ -96,7 +96,7 @@ public class WaterMovement : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
 
         if (Time.time >= 0.25f && GameObject.Find("SteamVR") != null && VRTK_SDKManager.GetLoadedSDKSetup() == GameObject.Find("SteamVR").GetComponent<VRTK_SDKSetup>())   //this because the first check gives error as the colliders are created at runtime + don't wanna use this in the simulator
@@ -181,12 +181,12 @@ public class WaterMovement : MonoBehaviour
         {
             if (!reachedTopPuzzle)
             {
-                transform.Translate(Vector3.up * 0.005f, Space.World);
+                transform.Translate(Vector3.up * 0.005f * Time.deltaTime, Space.World);
                 Debug.Log("waterup");
             }
             else
             {
-                transform.Translate(Vector3.up * 0.0025f, Space.World);
+                transform.Translate(Vector3.up * 0.0025f * Time.deltaTime, Space.World);
             }
         }      
     }

@@ -172,7 +172,7 @@
             water = GameObject.Find("Water").GetComponent<WaterMovement>();
         }
         //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
-        private void Update()
+        private void FixedUpdate()
         {          
             CheckGrabbedObjects();
         }

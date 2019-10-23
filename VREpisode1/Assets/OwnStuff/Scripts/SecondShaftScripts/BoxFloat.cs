@@ -61,7 +61,7 @@ public class BoxFloat : MonoBehaviour {
             GetComponent<Rigidbody>().isKinematic = true;
             //if (whatSideofTheBoxDown == 0)
             //{
-                transform.Translate(new Vector3(0, 1, 0) * 0.005f, Space.World);
+                transform.Translate(new Vector3(0, 1, 0) * 0.005f * Time.deltaTime, Space.World);
                 //if (transform.eulerAngles != new Vector3(-1.981f, -154.381f, 0.72f))
                 //{
                 //    Vector3 correctRotation = new Vector3(-1.981f, -154.381f, 0.72f);

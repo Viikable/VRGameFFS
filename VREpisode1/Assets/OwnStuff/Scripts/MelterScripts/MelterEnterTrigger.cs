@@ -295,7 +295,7 @@ public class MelterEnterTrigger : MonoBehaviour
             LavaAnim.speed = 1f;
             PoolLid.SetBool("Melt", true);            //causes press to go down to melt metal into lava
             PoolLid.SetBool("Press", true);
-            StartCoroutine("AdjustLavaHeight", 1.7f);
+            StartCoroutine("AdjustLavaHeight", 1.8f);
             StartCoroutine("WaitForMelting");
         }
         if (amountOfMeltedObjects == 0 && MelterMeltPressActivatorButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true
