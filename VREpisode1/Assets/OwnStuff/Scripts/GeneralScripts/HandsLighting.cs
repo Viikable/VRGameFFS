@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HandsLighting : MonoBehaviour {
-    GameObject LeftHandModel;
-    GameObject RightHandModel;
+    public static GameObject LeftHandModel;
+    public static GameObject RightHandModel;
     Material LeftHandMat;
     Material RightHandMat;
     public static bool insideObject;

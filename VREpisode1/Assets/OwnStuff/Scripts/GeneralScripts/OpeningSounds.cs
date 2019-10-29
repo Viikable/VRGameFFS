@@ -8,8 +8,8 @@ namespace VRTK
 
     public class OpeningSounds : MonoBehaviour
     {
-        GameObject Crate;
-        GameObject DoorLid;
+        public GameObject Crate;
+        public GameObject DoorLid;
         GameObject LeftController;
         GameObject RightController;
         bool doorActivator;
