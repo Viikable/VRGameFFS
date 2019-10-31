@@ -16,7 +16,7 @@ public class BackpackFunctionality : MonoBehaviour
     public bool lefthandEntered;
     public bool righthandEntered;
     public AudioSource toBackpackSound;
-    public AudioSource touchingBackpackObjectSound;  //vibrations to detect when touching
+
 
     void Start()
     {
@@ -226,36 +226,31 @@ public class BackpackFunctionality : MonoBehaviour
     {
         if (lefthandEntered && !Game_Manager.instance.LeftGrab.IsGrabButtonPressed() && !backpackFull)
         {
+
             if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
             {
-                if (Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<Collider>() != null)
-                {
-                    Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<Collider>().enabled = false;
-                }
-                if (Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponentsInChildren<Collider>() != null)
-                {
-                    foreach (Collider col in Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponentsInChildren<Collider>())
-                    {
-                        col.enabled = true;
-                    }
-                    backZone.ForceSnap(Game_Manager.instance.LeftGrab.GetGrabbedObject());
-                    backpackFull = true;
-                    toBackpackSound.Play();
-                }
-            }
-            else if (righthandEntered && !Game_Manager.instance.RightGrab.IsGrabButtonPressed() && !backpackFull)
-            {
-                if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
-                {
-                    backZone.ForceSnap(Game_Manager.instance.RightGrab.GetGrabbedObject());
-                    backpackFull = true;
-                    toBackpackSound.Play();
-                }
-            }
-            if (backZone.GetCurrentSnappedObject() == null)
-            {
-                backpackFull = false;
+                backZone.ForceSnap(Game_Manager.instance.LeftGrab.GetGrabbedObject());
+                backpackFull = true;
+                toBackpackSound.Play();
             }
         }
+        else if (righthandEntered && !Game_Manager.instance.RightGrab.IsGrabButtonPressed() && !backpackFull)
+        {
+
+            if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
+            {
+                backZone.ForceSnap(Game_Manager.instance.RightGrab.GetGrabbedObject());
+                backpackFull = true;
+                toBackpackSound.Play();
+            }
+        }
+        if (backZone.GetCurrentSnappedObject() == null && backpackFull)
+        {
+            backpackFull = false;
+            toBackpackSound.Play();
+
+        }      
     }
 }
+
+
