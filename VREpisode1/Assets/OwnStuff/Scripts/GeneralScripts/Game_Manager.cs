@@ -34,10 +34,6 @@ public class Game_Manager : MonoBehaviour
     private bool lanternLightIsOn;
 
     [SerializeField]
-    [Tooltip("checks if rope is currently attatched to the manual or not")]
-    private bool ropeIsAttatchedToManual;
-
-    [SerializeField]
     [Tooltip("Toggles between climbable rope and grabbable rope")]
     private bool ropeClimb;
 
@@ -70,9 +66,7 @@ public class Game_Manager : MonoBehaviour
     public GameObject Broom3;
 
     public GameObject Broom4;
-
-    public GameObject AttachedRopeToManual;
-
+ 
     public GameObject JuhaniHead;
 
     public GameObject JuhaniBody;
@@ -123,9 +117,7 @@ public class Game_Manager : MonoBehaviour
 
         lanternIsGrabbed = false;
 
-        lanternLightIsOn = false;
-
-        ropeIsAttatchedToManual = false;
+        lanternLightIsOn = false;      
 
         beingUnSnapped = false;
 

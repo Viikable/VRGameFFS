@@ -23,7 +23,7 @@ public class BackpackFunctionality : MonoBehaviour
         LeftHandColliders = VRTK_DeviceFinder.GetControllerLeftHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         RightHandColliders = VRTK_DeviceFinder.GetControllerRightHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         backpack = gameObject.AddComponent<BoxCollider>();
-        backpack.size = new Vector3(0.4651775f, 0.3086213f, 0.1926915f);
+        backpack.size = new Vector3(0.4651775f, 0.3286213f, 0.2226915f);
         backpack.center = new Vector3(-0.004957672f, -0.03318618f, -0.07300865f);
         backpack.isTrigger = true;
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
@@ -246,14 +246,19 @@ public class BackpackFunctionality : MonoBehaviour
         else if (backZone.GetCurrentSnappedObject() == null && backpackFull)
         {
             backpackFull = false;
-            toBackpackSound.Play();
-            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
+            toBackpackSound.Play();           
+        }
+        if (!backpackFull)
+        {
+            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>() != null)
             {
+                Debug.Log("leftnovib");
                 Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
             }
-            else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
+            else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>() != null)
             {
                 Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
+                Debug.Log("rightnovib");
             }
         }
         // this sets the haptics on ONLY when snapped to backpack
@@ -261,6 +266,7 @@ public class BackpackFunctionality : MonoBehaviour
         {
             backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>().enabled = true;
         }
+        Debug.Log(Game_Manager.instance.LeftGrab.GetGrabbedObject());
     }
 }
 
