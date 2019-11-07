@@ -23,7 +23,7 @@ public class BackpackFunctionality : MonoBehaviour
         LeftHandColliders = VRTK_DeviceFinder.GetControllerLeftHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         RightHandColliders = VRTK_DeviceFinder.GetControllerRightHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         backpack = gameObject.AddComponent<BoxCollider>();
-        backpack.size = new Vector3(0.4651775f, 0.3086213f, 0.1626915f);
+        backpack.size = new Vector3(0.4651775f, 0.3086213f, 0.1926915f);
         backpack.center = new Vector3(-0.004957672f, -0.03318618f, -0.07300865f);
         backpack.isTrigger = true;
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
@@ -226,30 +226,41 @@ public class BackpackFunctionality : MonoBehaviour
     {
         if (lefthandEntered && !Game_Manager.instance.LeftGrab.IsGrabButtonPressed() && !backpackFull)
         {
-
             if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
-            {
+            {               
                 backZone.ForceSnap(Game_Manager.instance.LeftGrab.GetGrabbedObject());
                 backpackFull = true;
-                toBackpackSound.Play();
+                toBackpackSound.Play();             
             }
         }
         else if (righthandEntered && !Game_Manager.instance.RightGrab.IsGrabButtonPressed() && !backpackFull)
         {
 
             if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
-            {
+            {                
                 backZone.ForceSnap(Game_Manager.instance.RightGrab.GetGrabbedObject());
                 backpackFull = true;
-                toBackpackSound.Play();
+                toBackpackSound.Play();              
             }
         }
-        if (backZone.GetCurrentSnappedObject() == null && backpackFull)
+        else if (backZone.GetCurrentSnappedObject() == null && backpackFull)
         {
             backpackFull = false;
             toBackpackSound.Play();
-
-        }      
+            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
+            {
+                Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
+            }
+            else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
+            {
+                Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
+            }
+        }
+        // this sets the haptics on ONLY when snapped to backpack
+        if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null)
+        {
+            backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>().enabled = true;
+        }
     }
 }
 
