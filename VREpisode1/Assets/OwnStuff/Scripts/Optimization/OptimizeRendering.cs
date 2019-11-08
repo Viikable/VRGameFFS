@@ -33,7 +33,7 @@ public class OptimizeRendering : MonoBehaviour {
         insideMelterArea = false;
         insideMainHall = true;       //we start here
         insideShafts = false;
-        insideOctoRoom = true;
+        insideOctoRoom = false;
         renderingChanged = false;
         counter = 0;
 
