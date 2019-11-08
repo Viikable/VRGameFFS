@@ -69,7 +69,11 @@ public class OctopusLightCode : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Indicates whether a research object with a marker on it is attached to the research table and its hologram is currently playing")]
-    bool animationInProgress;
+    bool hologramInProgress;
+
+    [SerializeField]
+    [Tooltip("Indicates whether octopus response animation is currently playing or not")]
+    bool octoAnimInProgress;
 
     [SerializeField]
     [Tooltip("Shows the player the colour which has been entered first into the code")]
@@ -158,6 +162,8 @@ public class OctopusLightCode : MonoBehaviour
 
     Animator SirenAnim;
 
+    Animator OctopusAnim;
+
     //these colliders will be activated when the marker snaps to a given snapzone, creating the illusory colliders for it
     public GameObject OpenBoxMarkerGhostColliderContainer1;
 
@@ -206,7 +212,8 @@ public class OctopusLightCode : MonoBehaviour
         currentTableObject = null;
         codeEntered = false;
         buttonRegistering = false;
-        animationInProgress = false;       
+        hologramInProgress = false;
+        octoAnimInProgress = false;
         AttentionLight = transform.Find("AttentionLight").GetComponent<Light>();
         RedLightSource = transform.Find("RedLightSource").GetComponent<Light>();
         YellowLightSource = transform.Find("YellowLightSource").GetComponent<Light>();
@@ -258,6 +265,8 @@ public class OctopusLightCode : MonoBehaviour
         PoolAnim = GameObject.Find("Research_Pool_Lid_Animated").GetComponent<Animator>();
 
         SirenAnim = GameObject.Find("Research_siren_Animated").GetComponent<Animator>();
+
+        OctopusAnim = GameObject.Find("OCTOPUS").GetComponent<Animator>();
 
         OpenBoxMarkerGhostColliderContainer1 = OpenBox.transform.Find("MarkerGhostCollider1").gameObject;
         OpenBoxMarkerGhostColliderContainer2 = OpenBox.transform.Find("MarkerGhostCollider2").gameObject;
@@ -335,7 +344,7 @@ public class OctopusLightCode : MonoBehaviour
             ResearchSnapZoneOpenBox.GetComponent<Collider>().enabled = true;
         }
         //enables the attention button in order to play hologram and get code
-        if (!animationInProgress && combinationNumber == 0)
+        if (!hologramInProgress && !octoAnimInProgress && combinationNumber == 0)
         {
             if (currentTableObject == "OpenBox" && currentMarkedLocation == "OpenBox")
             {
@@ -346,6 +355,7 @@ public class OctopusLightCode : MonoBehaviour
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("OpenBox");
+                    AnimateOctopus("OCTO_CLOSE");
                     DisplayCode("CLOSE");
                 }
             }
@@ -359,6 +369,7 @@ public class OctopusLightCode : MonoBehaviour
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("ConveyorBelt");
+                    AnimateOctopus("OCTO_TURNON");
                     DisplayCode("ON");
                 }
             }
@@ -372,6 +383,7 @@ public class OctopusLightCode : MonoBehaviour
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("Pool");
+                    AnimateOctopus("OCTO_LOWER");
                     DisplayCode("LOWER");
                 }
             }
@@ -385,6 +397,7 @@ public class OctopusLightCode : MonoBehaviour
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     AnimateHologram("Siren");
+                    AnimateOctopus("OCTO_CLOSE");
                     DisplayCode("PLAY");
                 }
             }
@@ -394,7 +407,7 @@ public class OctopusLightCode : MonoBehaviour
     //Animates the given hologram of the research object, showing an action
     public void AnimateHologram(string objectToBeAnimated)
     {     
-        animationInProgress = true;
+        hologramInProgress = true;
         if (objectToBeAnimated == "OpenBox")
         {
             OpenBoxAnim.SetBool("Close", true);
@@ -493,13 +506,13 @@ public class OctopusLightCode : MonoBehaviour
         ConveyorAnim.SetBool("On", false);
         PoolAnim.SetBool("Lower", false);
         SirenAnim.SetBool("Play", false);
-        animationInProgress = false;
+        hologramInProgress = false;
     }
 
     //checking what colour combination has been entered
     public void CheckColourCombination()  
     { 
-        if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)            
+        if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)            
         {
             //this so that if player starts pressing the buttons after a hologram has showed a code it resets
             if (combinationNumber == 0)
@@ -528,7 +541,7 @@ public class OctopusLightCode : MonoBehaviour
             }
             StartCoroutine("WaitForPress");
         }
-        if (GreenLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)
+        if (GreenLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -556,7 +569,7 @@ public class OctopusLightCode : MonoBehaviour
             }
             StartCoroutine("WaitForPress");
         }
-        if (YellowLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)
+        if (YellowLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -584,7 +597,7 @@ public class OctopusLightCode : MonoBehaviour
             }
             StartCoroutine("WaitForPress");
         }
-        if (CyanLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !animationInProgress)
+        if (CyanLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -790,6 +803,7 @@ public class OctopusLightCode : MonoBehaviour
         }      
     }
 
+    //checks whether the code is valid and if it is then possibly starts an action
     public void CheckCodeValidity()
     {
         if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
@@ -804,7 +818,12 @@ public class OctopusLightCode : MonoBehaviour
                     if (currentTableObject == "OpenBox")
                     {
                         AnimateHologram("OpenBox");
+                        AnimateOctopus("OCTO_CLOSE");
                         //we play the animation which closes the box like a hologram on the table separate from the actual box
+                    }
+                    else
+                    {
+                        AnimateOctopus("OCTO_CLOSE");
                     }
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -817,7 +836,12 @@ public class OctopusLightCode : MonoBehaviour
                     //This word is OPEN, this is the KEY word to open the elevator
                     if (currentMarkedLocation == "Elevator")
                     {
-                        //Gives the code to unlock the elevator panel to the player
+                        AnimateOctopus("OCTO_OPEN");
+                        //OPENS THE ELEVATOR
+                    }
+                    else
+                    {
+                        AnimateOctopus("OCTO_OPEN");
                     }
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -828,7 +852,7 @@ public class OctopusLightCode : MonoBehaviour
                 else
                 {
                     //Nothing happens/Octopus doesn't understand
-                    AnimateOctopus("CONFUSED");
+                    AnimateOctopus("OCTO_CONFUSED");
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
@@ -843,6 +867,7 @@ public class OctopusLightCode : MonoBehaviour
                     if (currentMarkedLocation == "MusicPlayer")
                     {
                         //Mutes the music player
+                        AnimateOctopus("OCTO_MUTE");
                     }
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -856,6 +881,7 @@ public class OctopusLightCode : MonoBehaviour
                     if (currentMarkedLocation == "MusicPlayer")
                     {
                         //Starts the music player
+                        AnimateOctopus("OCTO_PLAY");
                     }
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -866,6 +892,7 @@ public class OctopusLightCode : MonoBehaviour
                 else
                 {
                     //Nothing happens/Octopus doesn't understand
+                    AnimateOctopus("OCTO_CONFUSED");
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
@@ -888,7 +915,12 @@ public class OctopusLightCode : MonoBehaviour
                     if (currentTableObject == "Pool")
                     {
                         AnimateHologram("Pool");
+                        AnimateOctopus("OCTO_LOWER");
                         //we play the animation which closes pool lid on the table separate from the actual lid
+                    }
+                    else
+                    {
+                        AnimateOctopus("OCTO_LOWER");
                     }
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -897,6 +929,8 @@ public class OctopusLightCode : MonoBehaviour
                 }
                 else
                 {
+                    //Nothing happens/Octopus doesn't understand
+                    AnimateOctopus("OCTO_CONFUSED");
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
@@ -907,12 +941,17 @@ public class OctopusLightCode : MonoBehaviour
             {
                 if (colourCode[1] == "Red" && colourCode[2] == "Red" && colourCode[3] == "Red")
                 {
-                    // This one is ON and that is also known at the start paper, 
+                    // This one is ON and that is got from turning ON the conveyor belt, 
                     // it can be used to turn on some research items and the monitor
                     if (currentTableObject == "ConveyorBelt")
                     {
                         AnimateHologram("ConveyorBelt");
+                        AnimateOctopus("OCTO_TURNON");
                         //we play the animation which starts the conveyor belt on the table
+                    }
+                    else
+                    {
+                        AnimateOctopus("OCTO_TURNON");
                     }
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -924,6 +963,7 @@ public class OctopusLightCode : MonoBehaviour
                     //This one is OFF, and it is used to turn the magnetic gate off and some research items like the LAMP can give this verb
                     if (currentMarkedLocation == "MagneticFence")
                     {
+                        //turns the magnetic gate off
                         MagneticFenceContainer.transform.Find("MagneticFence1").GetComponent<Collider>().enabled = false;
                         MagneticFenceContainer.transform.Find("MagneticFence1").GetComponent<AudioSource>().Stop();
                         MagneticFenceContainer.transform.Find("MagneticFence2").GetComponent<Collider>().enabled = false;
@@ -931,8 +971,12 @@ public class OctopusLightCode : MonoBehaviour
                         MagneticFenceContainer.transform.Find("OctoMagneticWallParticles1").GetComponent<ParticleSystem>().Stop();
                         MagneticFenceContainer.transform.Find("OctoMagneticWallParticles1").GetComponent<ParticleSystem>().Clear();
                         MagneticFenceContainer.transform.Find("OctoMagneticWallParticles2").GetComponent<ParticleSystem>().Stop();
-                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles2").GetComponent<ParticleSystem>().Clear();                       
-                        //turns the magnetic gate off
+                        MagneticFenceContainer.transform.Find("OctoMagneticWallParticles2").GetComponent<ParticleSystem>().Clear();
+                        AnimateOctopus("OCTO_TURNOFF");
+                    }
+                    else
+                    {
+                        AnimateOctopus("OCTO_TURNOFF");
                     }
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -941,6 +985,8 @@ public class OctopusLightCode : MonoBehaviour
                 }
                 else
                 {
+                    //Nothing happens/Octopus doesn't understand
+                    AnimateOctopus("OCTO_CONFUSED");
                     combinationNumber = 0;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
                     codeEntered = true;
@@ -954,34 +1000,73 @@ public class OctopusLightCode : MonoBehaviour
             //attention button hasn't been pressed
             return;
         }
-    }      //checks whether the code is valid and if it is then possibly starts an action
+    }
 
-
-        public void AnimateOctopus(string animationName)  //a specific method for animating the octopus
-        //here we can confirm the opposites of the words we get from researchobjects
+    //a specific method for animating the octopus
+    public void AnimateOctopus(string animationName)
+    //here we can confirm the opposites of the words we get from research objects
     {
-            animationInProgress = true;
+        octoAnimInProgress = true;
         if (animationName == "OCTO_CONFUSED")
         {
-            //animate confused octopus
+            OctopusAnim.SetBool("CONFUSED", true);
+            StartCoroutine("OctoAnimationFinish", 3f);
+        }
+        else if (animationName == "OCTO_LOWER")
+        {
+            OctopusAnim.SetBool("LOWER", true);
+            StartCoroutine("OctoAnimationFinish", 4f);
         }
         else if (animationName == "OCTO_LIFT")
         {
-
+            OctopusAnim.SetBool("LIFT", true);
+            StartCoroutine("OctoAnimationFinish", 4f);
         }
         else if (animationName == "OCTO_TURNOFF")
         {
+            OctopusAnim.SetBool("OFF", true);
+            StartCoroutine("OctoAnimationFinish", 3f);
 
+        }
+        else if (animationName == "OCTO_TURNON")
+        {
+            OctopusAnim.SetBool("ON", true);
+            StartCoroutine("OctoAnimationFinish", 3f);
         }
         else if (animationName == "OCTO_OPEN")
         {
-
+            OctopusAnim.SetBool("OPEN", true);
+            StartCoroutine("OctoAnimationFinish", 4f);
+        }
+        else if (animationName == "OCTO_CLOSE")
+        {
+            OctopusAnim.SetBool("CLOSE", true);
+            StartCoroutine("OctoAnimationFinish", 4f);
         }
         else if (animationName == "OCTO_PLAY")  //play sound
         {
-
+            OctopusAnim.SetBool("PLAY", true);
+            StartCoroutine("OctoAnimationFinish", 4f);
+        }
+        else if (animationName == "OCTO_MUTE")
+        {
+            OctopusAnim.SetBool("MUTE", true);
+            StartCoroutine("OctoAnimationFinish", 4f);
         }
     }
-    
+    IEnumerator OctoAnimationFinish(float animationtime)
+    {
+        yield return new WaitForSecondsRealtime(animationtime);
+        OctopusAnim.SetBool("CONFUSED", false);
+        OctopusAnim.SetBool("LOWER", false);
+        OctopusAnim.SetBool("LIFT", false);
+        OctopusAnim.SetBool("OFF", false);
+        OctopusAnim.SetBool("ON", false);
+        OctopusAnim.SetBool("OPEN", false);
+        OctopusAnim.SetBool("CLOSE", false);
+        OctopusAnim.SetBool("PLAY", false);
+        OctopusAnim.SetBool("MUTE", false);
+        octoAnimInProgress = false;
+    }
 }
 
