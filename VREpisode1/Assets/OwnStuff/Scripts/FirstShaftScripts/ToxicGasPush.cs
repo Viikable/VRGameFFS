@@ -18,13 +18,13 @@ public class ToxicGasPush : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == WaterMovement.head || other == WaterMovement.feet)
+        if (other == WaterMovement.head || other == WaterMovement.feet || WaterMovement.body)
         {
             pushedObject = PlayerBody;
             beingPushed = true;
             Debug.Log("PlayerPush");
         }
-        else
+        else if (other.GetComponent<VRTK_InteractableObject>() != null || other.GetComponentInParent<VRTK_InteractableObject>() != null)
         {
             if (other.gameObject.GetComponentInParent<Rigidbody>() != null)
             {
@@ -44,12 +44,12 @@ public class ToxicGasPush : MonoBehaviour {
     {
         if (beingPushed)
         {          
-            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null || Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
+            if (pushedObject == PlayerBody && Game_Manager.instance.LeftGrab.GetGrabbedObject() != null || Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
             {
                 Game_Manager.instance.LeftGrab.ForceRelease();
                 Game_Manager.instance.RightGrab.ForceRelease();
             }
-            pushedObject.AddForce(new Vector3(0f, -20f, -500f), ForceMode.Impulse);
+            pushedObject.AddForce(new Vector3(0f, -20f, -200f), ForceMode.Impulse);
             beingPushed = false;
         }
         if (Time.time >= 0.5f)

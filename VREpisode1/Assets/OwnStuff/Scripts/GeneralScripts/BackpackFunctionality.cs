@@ -23,7 +23,7 @@ public class BackpackFunctionality : MonoBehaviour
         LeftHandColliders = VRTK_DeviceFinder.GetControllerLeftHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         RightHandColliders = VRTK_DeviceFinder.GetControllerRightHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         backpack = gameObject.AddComponent<BoxCollider>();
-        backpack.size = new Vector3(2.7426398f, 4.8061069f, 0.6186796f);
+        backpack.size = new Vector3(2.7426398f, 4.8061069f, 1.2186796f);
         backpack.center = new Vector3(0.06898964f, -0.01245906f, -0.1619698f);
         backpack.isTrigger = true;
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
@@ -121,8 +121,7 @@ public class BackpackFunctionality : MonoBehaviour
         if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null)
         {
             backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>().enabled = true;
-        }
-        Debug.Log(Game_Manager.instance.LeftGrab.GetGrabbedObject());
+        }       
     }
 }
 

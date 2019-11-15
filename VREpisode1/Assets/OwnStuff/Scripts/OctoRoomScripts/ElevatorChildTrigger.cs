@@ -14,15 +14,14 @@ public class ElevatorChildTrigger : MonoBehaviour {
 	
     private void OnTriggerEnter(Collider other)
     {
-        if (other == GameObject.Find("Water").GetComponent<WaterMovement>().head)
+        if (other == WaterMovement.head)
         {
             mainSDK.transform.parent = Elevator.transform;
-        }
-        
+        }       
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other == GameObject.Find("Water").GetComponent<WaterMovement>().head)
+        if (other == WaterMovement.head)
         {
             mainSDK.transform.parent = null;
         }
