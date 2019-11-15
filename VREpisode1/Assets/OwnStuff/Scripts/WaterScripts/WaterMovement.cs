@@ -59,8 +59,9 @@ public class WaterMovement : MonoBehaviour
     [Header("Colliders")]
     public GameObject headSet;
     public Rigidbody headsetbody;
-    public Collider feet;
-    public Collider head;
+    public static Collider feet;
+    public static Collider head;
+    public static Collider body;
     public GameObject HeadsetFollower;
     //Light UnderWaterHeadLight;
     GameObject LeftController;
@@ -104,6 +105,7 @@ public class WaterMovement : MonoBehaviour
             if (feet == null && head == null)   //to prevent error when system button is pressed
             {
                 feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
+                body = headSet.transform.GetChild(3).GetComponent<Collider>();
                 if (HeadsetFollower.activeSelf)
                 {
                     head = headSet.transform.GetChild(2).GetChild(4).GetComponent<Collider>();    //finds the collider child for head

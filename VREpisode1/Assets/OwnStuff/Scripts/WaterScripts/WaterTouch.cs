@@ -13,7 +13,7 @@ public class WaterTouch : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other == water.feet)
+        if (other == WaterMovement.feet)
         {
             Debug.Log("feet entered water");
             if (!water.Splash.isPlaying)
@@ -22,7 +22,7 @@ public class WaterTouch : MonoBehaviour {
             }
             WaterMovement.touchedWater = true;
         }
-        if (other == water.head)
+        if (other == WaterMovement.head)
         {
             water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
             //WaterMovement.touchedWater = true;

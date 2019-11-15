@@ -10,11 +10,12 @@ public class ShaftsOptimizerTriggerIn : MonoBehaviour {
     {
         water = GameObject.Find("Water").GetComponent<WaterMovement>();
         GasLeak = GameObject.Find("ToxicGasLeak").GetComponent<ParticleSystem>();
+        GasLeak.Play();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == (water.head || water.feet))
+        if (other == (WaterMovement.head || WaterMovement.feet))
         {
             OptimizeRendering.insideShafts = true;
             OptimizeRendering.insideMainHall = false;

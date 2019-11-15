@@ -12,12 +12,12 @@ public class WaterTouchHigh : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other == water.feet)
+        if (other == WaterMovement.feet)
         {
             Debug.Log("feet exited water");
             WaterMovement.touchedWater = false;
         }
-        if (other == water.head)
+        if (other == WaterMovement.head)
         {
             DrowningAlertSounds.Stop();
             if (!water.Splash.isPlaying)

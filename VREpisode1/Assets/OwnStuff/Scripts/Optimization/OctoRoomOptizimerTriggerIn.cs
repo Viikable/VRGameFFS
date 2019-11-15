@@ -12,7 +12,7 @@ public class OctoRoomOptizimerTriggerIn : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == (water.head || water.feet))
+        if (other == (WaterMovement.head || WaterMovement.feet))
         {
             OptimizeRendering.insideOctoRoom = true;
             OptimizeRendering.insideMainHall = false;

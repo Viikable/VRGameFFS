@@ -14,7 +14,7 @@ public class MelterOptimizerTriggerOutToMainHall : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == (water.head || water.feet))
+        if (other == (WaterMovement.head || WaterMovement.feet))
         {
             OptimizeRendering.insideMelterArea = false;
             OptimizeRendering.insideMainHall = true;           

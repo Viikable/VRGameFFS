@@ -14,7 +14,7 @@ public class OctoRoomOptimizerTriggerOut : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)    //entering elevator from OctoRoom, we cannot go back to shafts
     {
-        if (other == (water.head || water.feet))
+        if (other == (WaterMovement.head || WaterMovement.feet))
         {
             OptimizeRendering.insideOctoRoom = false;                    
             OptimizeRendering.renderingChanged = false;
