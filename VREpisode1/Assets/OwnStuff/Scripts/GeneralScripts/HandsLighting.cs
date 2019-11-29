@@ -20,10 +20,16 @@ public class HandsLighting : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (insideObject)
         {
-        LeftHandMat.SetColor("_EmissionColor", Color.green * 50f);
+            if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null || Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
+            {
+                Game_Manager.instance.RightGrab.ForceRelease();
+                Game_Manager.instance.LeftGrab.ForceRelease();
+            }
+            LeftHandMat.SetColor("_EmissionColor", Color.green * 50f);
         RightHandMat.SetColor("_EmissionColor", Color.green * 50f);
         }
         else
