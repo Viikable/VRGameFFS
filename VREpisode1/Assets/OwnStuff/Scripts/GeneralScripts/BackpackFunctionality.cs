@@ -33,68 +33,74 @@ public class BackpackFunctionality : MonoBehaviour
     }
     
 
-    private void OnTriggerEnter(Collider other)  //in order to snap objects to backpack slot if player stops holding the grabButton while in the trigger zone
-    {       
-        if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-            || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-        {
-            if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
-            {
-                lefthandEntered = true;
-                Debug.Log("lefthandEntered");
+    //private void OnTriggerEnter(Collider other)  //in order to snap objects to backpack slot if player stops holding the grabButton while in the trigger zone
+    //{       
+    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
+    //        || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
+    //    {
+    //        if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
+    //        {
+    //            lefthandEntered = true;
+    //            Debug.Log("lefthandEntered");
 
-            }
-        }
-        if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-            || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-        {
-            if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
-            {
-                righthandEntered = true;
-                Debug.Log("righthandEntered");
-            }
-        }      
-    }
+    //        }
+    //    }
+    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
+    //        || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
+    //    {
+    //        if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
+    //        {
+    //            righthandEntered = true;
+    //            Debug.Log("righthandEntered");
+    //        }
+    //    }      
+    //}
    
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-            || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-        {
-            if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
-            {
-                lefthandEntered = false;
-            }
-        }
-        if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-             || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-        {
-            if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
-            {
-                righthandEntered = false;
-            }
-        }      
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
+    //        || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
+    //    {
+    //        if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
+    //        {
+    //            lefthandEntered = false;
+    //        }
+    //    }
+    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
+    //         || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
+    //    {
+    //        if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
+    //        {
+    //            righthandEntered = false;
+    //        }
+    //    }      
+    //}
     private void FixedUpdate()
     {
-        if (lefthandEntered && !Game_Manager.instance.LeftGrab.IsGrabButtonPressed() && !backpackFull)
-        {
-            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
-            {               
-                backZone.ForceSnap(Game_Manager.instance.LeftGrab.GetGrabbedObject());
-                backpackFull = true;
-                toBackpackSound.Play();             
-            }
-        }
-        else if (righthandEntered && !Game_Manager.instance.RightGrab.IsGrabButtonPressed() && !backpackFull)
-        {
+        //if (lefthandEntered && !Game_Manager.instance.LeftGrab.IsGrabButtonPressed() && !backpackFull)
+        //{
+        //    //if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
+        //    //{               
+        //    //    backZone.ForceSnap(Game_Manager.instance.LeftGrab.GetGrabbedObject());
+        //        backpackFull = true;
+        //        toBackpackSound.Play();             
+        //    //}
+        //}
+        //else if (righthandEntered && !Game_Manager.instance.RightGrab.IsGrabButtonPressed() && !backpackFull)
+        //{
 
-            if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
-            {                
-                backZone.ForceSnap(Game_Manager.instance.RightGrab.GetGrabbedObject());
-                backpackFull = true;
-                toBackpackSound.Play();              
-            }
+        //    //if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
+        //    //{                
+        //    //    backZone.ForceSnap(Game_Manager.instance.RightGrab.GetGrabbedObject());
+        //        backpackFull = true;
+        //        toBackpackSound.Play();
+        //        Debug.Log("backpack right");
+        //    //}
+        //}
+        if (backZone.GetCurrentSnappedObject() != null && !backpackFull)
+        {
+            toBackpackSound.Play();
+            backpackFull = true;
         }
         else if (backZone.GetCurrentSnappedObject() == null && backpackFull)
         {

@@ -7,16 +7,17 @@ public class CanDropSound : MonoBehaviour {
 
     public AudioSource canDropSound;
    
-	void Start () {
+	void Start ()
+    {
        
-        canDropSound = transform.Find("CanDropSound").GetComponent<AudioSource>();
+        canDropSound = transform.GetChild(0).transform.Find("CanDropSound").GetComponent<AudioSource>();
 	}
-
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!canDropSound.isPlaying && !gameObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
         {
+            Debug.Log("wat");
         canDropSound.Play();
         }
     }
