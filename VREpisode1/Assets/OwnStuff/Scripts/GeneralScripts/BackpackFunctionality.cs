@@ -23,7 +23,7 @@ public class BackpackFunctionality : MonoBehaviour
         LeftHandColliders = VRTK_DeviceFinder.GetControllerLeftHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         RightHandColliders = VRTK_DeviceFinder.GetControllerRightHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         backpack = gameObject.AddComponent<BoxCollider>();
-        backpack.size = new Vector3(2.7426398f, 4.8061069f, 1.2186796f);
+        backpack.size = new Vector3(2.7426398f, 4.481942f, 0.8670577f);
         backpack.center = new Vector3(0.06898964f, -0.01245906f, -0.1619698f);
         backpack.isTrigger = true;
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
@@ -34,9 +34,7 @@ public class BackpackFunctionality : MonoBehaviour
     
 
     private void OnTriggerEnter(Collider other)  //in order to snap objects to backpack slot if player stops holding the grabButton while in the trigger zone
-    {
-        
-
+    {       
         if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
             || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
         {
@@ -55,8 +53,7 @@ public class BackpackFunctionality : MonoBehaviour
                 righthandEntered = true;
                 Debug.Log("righthandEntered");
             }
-        }
-       
+        }      
     }
    
     private void OnTriggerExit(Collider other)
