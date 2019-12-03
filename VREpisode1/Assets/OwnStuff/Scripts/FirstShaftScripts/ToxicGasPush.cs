@@ -48,7 +48,14 @@ public class ToxicGasPush : MonoBehaviour {
                 Game_Manager.instance.LeftGrab.ForceRelease();
                 Game_Manager.instance.RightGrab.ForceRelease();
             }
+            if (pushedObject.mass == 100)
+            {
             pushedObject.AddForce(new Vector3(0f, 0f, -200f), ForceMode.Impulse);
+            }
+            else
+            {
+                pushedObject.AddForce(new Vector3(0f, 0f, -4f), ForceMode.Impulse);
+            }
             beingPushed = false;
         }
         if (Time.time >= 0.5f)
