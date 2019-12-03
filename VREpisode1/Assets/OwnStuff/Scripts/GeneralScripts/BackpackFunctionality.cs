@@ -23,8 +23,8 @@ public class BackpackFunctionality : MonoBehaviour
         LeftHandColliders = VRTK_DeviceFinder.GetControllerLeftHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         RightHandColliders = VRTK_DeviceFinder.GetControllerRightHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         backpack = gameObject.AddComponent<BoxCollider>();
-        backpack.size = new Vector3(2.7426398f, 4.481942f, 0.8670577f);
-        backpack.center = new Vector3(0.06898964f, -0.01245906f, -0.1619698f);
+        backpack.size = new Vector3(2.74264f, 4.065854f, 0.8670576f);
+        backpack.center = new Vector3(0.06900147f, -0.2205016f, -0.1619138f);
         backpack.isTrigger = true;
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
         backpackFull = false;

@@ -6,50 +6,49 @@ using VRTK;
 public class ToxicGasPush : MonoBehaviour {
     bool beingPushed;
     bool notEnded;
-    Rigidbody pushedObject;
+    public Rigidbody pushedObject;
     public GameObject CameraRig;
     Rigidbody PlayerBody;
 
     private void Start()
     {
         beingPushed = false;
-        notEnded = true;       
+        notEnded = true;
+        pushedObject = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == WaterMovement.head || other == WaterMovement.feet || WaterMovement.body)
+        if (other == WaterMovement.head || other == WaterMovement.feet || other == WaterMovement.body)
         {
             pushedObject = PlayerBody;
             beingPushed = true;
             Debug.Log("PlayerPush");
         }
-        else if (other.GetComponent<VRTK_InteractableObject>() != null || other.GetComponentInParent<VRTK_InteractableObject>() != null)
+        if (other.gameObject.GetComponent<Rigidbody>() != null)
         {
-            if (other.gameObject.GetComponentInParent<Rigidbody>() != null)
-            {
-                pushedObject = other.gameObject.GetComponentInParent<Rigidbody>();
-                beingPushed = true;
-                Debug.Log("ObjectPushParent");
-            }
-            else if (other.gameObject.GetComponent<Rigidbody>() != null)
-            {
-                pushedObject = other.gameObject.GetComponentInParent<Rigidbody>();
-                beingPushed = true;
-                Debug.Log("ObjectPushSelf");
-            }
+            pushedObject = other.gameObject.GetComponent<Rigidbody>();
+            beingPushed = true;
+            Debug.Log("ObjectPushSelf");
+        }
+        else if (other.transform.parent != null && other.gameObject.GetComponentInParent<Rigidbody>() != null)
+        {
+            pushedObject = other.gameObject.GetComponentInParent<Rigidbody>();
+            beingPushed = true;
+            Debug.Log("ObjectPushParent");
         }
     }
     private void FixedUpdate()
     {
-        if (beingPushed)
-        {          
-            if (pushedObject == PlayerBody && Game_Manager.instance.LeftGrab.GetGrabbedObject() != null || Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
+        if (beingPushed && pushedObject != null)
+        {
+            Debug.Log("pushed");
+            if (pushedObject == PlayerBody && (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null || Game_Manager.instance.RightGrab.GetGrabbedObject() != null))
             {
                 Game_Manager.instance.LeftGrab.ForceRelease();
                 Game_Manager.instance.RightGrab.ForceRelease();
             }
-            pushedObject.AddForce(new Vector3(0f, -20f, -200f), ForceMode.Impulse);
+            pushedObject.AddForce(new Vector3(0f, 0f, -200f), ForceMode.Impulse);
             beingPushed = false;
         }
         if (Time.time >= 0.5f)

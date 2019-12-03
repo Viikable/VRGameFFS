@@ -17,8 +17,22 @@ public class CanDropSound : MonoBehaviour {
     {
         if (!canDropSound.isPlaying && !gameObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
         {
-            Debug.Log("wat");
-        canDropSound.Play();
+            Debug.Log("candrops");
+            if (collision.relativeVelocity.magnitude - 2f >= 0.1f)
+            {
+                canDropSound.volume = collision.relativeVelocity.magnitude - 2f;
+                Debug.Log("highlevelCollision");
+            }
+            else if (collision.relativeVelocity.magnitude - 2f <= 0.1f && collision.relativeVelocity.magnitude - 2f >= -0.5f)
+            {
+                canDropSound.volume = 0.1f;
+                Debug.Log("lowlevelCollision");
+            }
+            else
+            {
+                canDropSound.volume = 0f;
+            }
+            canDropSound.Play();
         }
     }
 }
