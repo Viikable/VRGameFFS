@@ -10,6 +10,7 @@ public class ShaftLightsButton : MonoBehaviour {
     Light MaintenanceSpot;
     int switcher;
     bool processing;
+    AudioSource ShaftLightSound;
 	
 	void Start () {
         shaftlightButton = GetComponent<VRTK_PhysicsPusher>();
@@ -17,15 +18,16 @@ public class ShaftLightsButton : MonoBehaviour {
         MaintenanceSpot = MaintenanceLight.GetComponent<Light>();
         switcher = 0;
         processing = false;
-
+        ShaftLightSound = GetComponent<AudioSource>();
     }
 		
 	void Update () {
 
-		if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && switcher % 2 == 0 && !processing)
+        if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && switcher % 2 == 0 && !processing)
         {
             processing = true;
             MaintenanceSpot.enabled = true;
+            ShaftLightSound.Play();
             switcher++;
             StartCoroutine("Wait");
             ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
@@ -34,6 +36,7 @@ public class ShaftLightsButton : MonoBehaviour {
         {
             processing = true;
             MaintenanceSpot.enabled = false;
+            ShaftLightSound.Play();
             switcher++;
             StartCoroutine("Wait");
         }

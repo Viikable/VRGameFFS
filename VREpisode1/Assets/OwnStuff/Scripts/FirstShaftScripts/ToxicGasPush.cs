@@ -19,23 +19,26 @@ public class ToxicGasPush : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == WaterMovement.head || other == WaterMovement.feet || other == WaterMovement.body)
+        if (other.name != "BackpackCollider")
         {
-            pushedObject = PlayerBody;
-            beingPushed = true;
-            Debug.Log("PlayerPush");
-        }
-        if (other.gameObject.GetComponent<Rigidbody>() != null)
-        {
-            pushedObject = other.gameObject.GetComponent<Rigidbody>();
-            beingPushed = true;
-            Debug.Log("ObjectPushSelf");
-        }
-        else if (other.transform.parent != null && other.gameObject.GetComponentInParent<Rigidbody>() != null)
-        {
-            pushedObject = other.gameObject.GetComponentInParent<Rigidbody>();
-            beingPushed = true;
-            Debug.Log("ObjectPushParent");
+            if (other == WaterMovement.head || other == WaterMovement.feet || other == WaterMovement.body)
+            {
+                pushedObject = PlayerBody;
+                beingPushed = true;
+                Debug.Log("PlayerPush");
+            }
+            if (other.gameObject.GetComponent<Rigidbody>() != null)
+            {
+                pushedObject = other.gameObject.GetComponent<Rigidbody>();
+                beingPushed = true;
+                Debug.Log("ObjectPushSelf");
+            }
+            else if (other.transform.parent != null && other.gameObject.GetComponentInParent<Rigidbody>() != null)
+            {
+                pushedObject = other.gameObject.GetComponentInParent<Rigidbody>();
+                beingPushed = true;
+                Debug.Log("ObjectPushParent");
+            }
         }
     }
     private void FixedUpdate()

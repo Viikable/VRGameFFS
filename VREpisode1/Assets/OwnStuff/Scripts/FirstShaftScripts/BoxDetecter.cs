@@ -10,6 +10,7 @@ namespace VRTK
         GameObject previouslySnapped;
         GameObject invisible;
         static int boxCounter;
+        AudioSource BoxStackingSound;
       
         void Start()
         {
@@ -18,6 +19,7 @@ namespace VRTK
             previouslySnapped = null;
             boxCounter = 0;
             invisible = null;
+            BoxStackingSound = GetComponent<AudioSource>();
         }
         
         void Update()
@@ -32,6 +34,10 @@ namespace VRTK
                 invisible.GetComponent<MeshRenderer>().enabled = true;
                 Destroy(previouslySnapped);
                 GetComponent<Collider>().enabled = false;
+                if (!BoxStackingSound.isPlaying)
+                {
+                BoxStackingSound.Play();
+                }
                 if (boxCounter < 5)
                 {
                 GameObject.Find("WoodenSnapZone" + boxCounter.ToString()).GetComponent<Collider>().enabled = true;
