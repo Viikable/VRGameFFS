@@ -3,7 +3,7 @@
 --- !u!74 &7400000
 AnimationClip:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SwitchBoxOpening
   serializedVersion: 6
@@ -112,7 +112,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.43746763, y: 3.390517, z: 0.16841307}
+        value: {x: -0.1225, y: 0.4095, z: 0.2361}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -120,8 +120,17 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
+        time: 1
+        value: {x: -0.182, y: 0.413, z: 0.236}
+        inSlope: {x: -0.08675, y: 0.0069999695, z: -0.00020000339}
+        outSlope: {x: -0.08675, y: 0.0069999695, z: -0.00020000339}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
         time: 2
-        value: {x: 0.0987635, y: 3.3387628, z: 0.1692203}
+        value: {x: -0.296, y: 0.444, z: 0.235}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -159,7 +168,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/Bottom
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/Bottom
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -187,7 +196,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FifthPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/SeventhPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -215,7 +224,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FirstPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/SixthPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -243,7 +252,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FourthPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/FifthPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -271,7 +280,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SecondPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/FourthPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -299,7 +308,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SeventhPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/ThirdPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -327,7 +336,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SixthPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/SecondPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -355,232 +364,8 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/ThirdPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/FirstPart
     classID: 23
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/Bottom
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SeventhPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SixthPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FifthPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FourthPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/ThirdPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SecondPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FirstPart
-    classID: 64
     script: {fileID: 0}
   m_PPtrCurves: []
   m_SampleRate: 1
@@ -619,115 +404,59 @@ AnimationClip:
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1242108835
+      path: 620186139
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3835421969
+      path: 1643158362
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3474921463
+      path: 3474756476
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3894972171
+      path: 514487249
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1742816871
+      path: 1941339181
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3009839188
+      path: 3050792781
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 892143036
+      path: 4236227905
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1340535181
+      path: 892240183
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 1242108835
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3009839188
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 892143036
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3835421969
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3894972171
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 1340535181
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 1742816871
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3474921463
-      attribute: 3305885265
-      script: {fileID: 0}
-      typeID: 64
       customType: 0
       isPPtrCurve: 0
     pptrCurveMapping: []
@@ -979,7 +708,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.43746763
+        value: -0.1225
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -987,8 +716,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 1
+        value: -0.182
+        inSlope: -0.08675
+        outSlope: -0.08675
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 2
-        value: 0.0987635
+        value: -0.296
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1007,7 +745,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 3.390517
+        value: 0.4095
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1015,8 +753,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 1
+        value: 0.413
+        inSlope: 0.0069999695
+        outSlope: 0.0069999695
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 2
-        value: 3.3387628
+        value: 0.444
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1035,7 +782,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.16841307
+        value: 0.2361
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1043,8 +790,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 1
+        value: 0.236
+        inSlope: -0.00020000339
+        outSlope: -0.00020000339
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 2
-        value: 0.1692203
+        value: 0.235
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1167,7 +923,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/Bottom
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/Bottom
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -1195,7 +951,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FifthPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/SeventhPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -1223,7 +979,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FirstPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/SixthPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -1251,7 +1007,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FourthPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/FifthPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -1279,7 +1035,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SecondPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/FourthPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -1307,7 +1063,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SeventhPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/ThirdPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -1335,7 +1091,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SixthPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/SecondPart
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -1363,232 +1119,8 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/ThirdPart
+    path: BroomInTheJanitorAnimationBroom/BroomInTheJanitorHouse1/FirstPart
     classID: 23
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/Bottom
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SeventhPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SixthPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FifthPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FourthPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/ThirdPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/SecondPart
-    classID: 64
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: BroomInTheJanitorAnimationBroom/FirstPart
-    classID: 64
     script: {fileID: 0}
   m_EulerEditorCurves:
   - curve:

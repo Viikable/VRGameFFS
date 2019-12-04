@@ -11,8 +11,8 @@ public class BackpackFunctionality : MonoBehaviour
     GameObject previouslyGrabbed;
     GameObject backpackObject;
     public bool backpackFull;
-    public GameObject LeftHandColliders;
-    public GameObject RightHandColliders;
+    GameObject LeftHandColliders;
+    GameObject RightHandColliders;
     public bool lefthandEntered;
     public bool righthandEntered;
     public AudioSource toBackpackSound;
@@ -24,17 +24,15 @@ public class BackpackFunctionality : MonoBehaviour
         LeftHandColliders = VRTK_DeviceFinder.GetControllerLeftHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         RightHandColliders = VRTK_DeviceFinder.GetControllerRightHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         backpack = gameObject.AddComponent<BoxCollider>();
-        backpack.size = new Vector3(2.74264f, 4.065854f, 0.8670576f);
-        backpack.center = new Vector3(0.06900147f, -0.2205016f, -0.1619138f);
+        backpack.size = new Vector3(2.74264f, 4.065854f, 0.6175302f);
+        backpack.center = new Vector3(0.06899975f, -0.2205318f, -0.2866777f);
         backpack.isTrigger = true;
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
         backpackFull = false;
         lefthandEntered = false;
         righthandEntered = false;
     }
-    
-
-    
+       
     private void FixedUpdate()
     {       
         if (backZone.GetCurrentSnappedObject() != null && !backpackFull)
@@ -65,7 +63,7 @@ public class BackpackFunctionality : MonoBehaviour
             }
         }
         // this sets the haptics on ONLY when snapped to backpack
-        if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null)
+        if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null && backpackFull)
         {
             backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>().enabled = true;
         }       

@@ -45,48 +45,33 @@ public class JanitorBroomTransformer : MonoBehaviour
             {
                 case "SeventhPart":
                     Bottom.GetComponent<MeshRenderer>().material = CharredBroom;
-                    //Bottom.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", CharredBroom);
-                    //Bottom.GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", CharredBroom);
-                    //Bottom.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
+                   
                     break;
                 case "SixthPart":
                     SeventhPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                    //SeventhPart.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", CharredBroom);
-                    //SeventhPart.GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", CharredBroom);
-                    //SeventhPart.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
+                    
                     break;
                 case "FifthPart":
                     SixthPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                    //SixthPart.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", CharredBroom);
-                    //SixthPart.GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", CharredBroom);
-                    //SixthPart.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
+                   
                     break;
                 case "FourthPart":
                     FifthPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                    //FifthPart.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", CharredBroom);
-                    //FifthPart.GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", CharredBroom);
-                    //FifthPart.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
+                   
                     break;
                 case "ThirdPart":
                     FourthPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                    //FourthPart.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", CharredBroom);
-                    //FourthPart.GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", CharredBroom);
-                    //FourthPart.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
+                   
                     break;
                 case "SecondPart":
                     ThirdPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                    //ThirdPart.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", CharredBroom);
-                    //ThirdPart.GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", CharredBroom);
-                    //ThirdPart.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
+                    
                     break;
                 case "FirstPart":
                     SecondPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                    //SecondPart.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", CharredBroom);
-                    //SecondPart.GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", CharredBroom);
-                    //SecondPart.GetComponent<MeshRenderer>().material.SetTexture("_MetallicGlossMap", CharredBroom);
+                   
                     break;
-                default:
-                    //Debug.Log("Bottom or firstpart");
+                default:                   
                     break;
             }
         }
