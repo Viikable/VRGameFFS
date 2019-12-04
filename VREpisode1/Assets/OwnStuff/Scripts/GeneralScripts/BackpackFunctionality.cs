@@ -16,6 +16,7 @@ public class BackpackFunctionality : MonoBehaviour
     public bool lefthandEntered;
     public bool righthandEntered;
     public AudioSource toBackpackSound;
+    public AudioSource fromBackpackSound;
 
 
     void Start()
@@ -33,70 +34,9 @@ public class BackpackFunctionality : MonoBehaviour
     }
     
 
-    //private void OnTriggerEnter(Collider other)  //in order to snap objects to backpack slot if player stops holding the grabButton while in the trigger zone
-    //{       
-    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-    //        || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-    //    {
-    //        if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
-    //        {
-    //            lefthandEntered = true;
-    //            Debug.Log("lefthandEntered");
-
-    //        }
-    //    }
-    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-    //        || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-    //    {
-    //        if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
-    //        {
-    //            righthandEntered = true;
-    //            Debug.Log("righthandEntered");
-    //        }
-    //    }      
-    //}
-   
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-    //        || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-    //    {
-    //        if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
-    //        {
-    //            lefthandEntered = false;
-    //        }
-    //    }
-    //    if (other.gameObject.name == "Palm" || other.gameObject.name == "Thumb" || other.gameObject.name == "Index"
-    //         || other.gameObject.name == "Middle" || other.gameObject.name == "Ring" || other.gameObject.name == "Pinky")
-    //    {
-    //        if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
-    //        {
-    //            righthandEntered = false;
-    //        }
-    //    }      
-    //}
+    
     private void FixedUpdate()
-    {
-        //if (lefthandEntered && !Game_Manager.instance.LeftGrab.IsGrabButtonPressed() && !backpackFull)
-        //{
-        //    //if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
-        //    //{               
-        //    //    backZone.ForceSnap(Game_Manager.instance.LeftGrab.GetGrabbedObject());
-        //        backpackFull = true;
-        //        toBackpackSound.Play();             
-        //    //}
-        //}
-        //else if (righthandEntered && !Game_Manager.instance.RightGrab.IsGrabButtonPressed() && !backpackFull)
-        //{
-
-        //    //if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
-        //    //{                
-        //    //    backZone.ForceSnap(Game_Manager.instance.RightGrab.GetGrabbedObject());
-        //        backpackFull = true;
-        //        toBackpackSound.Play();
-        //        Debug.Log("backpack right");
-        //    //}
-        //}
+    {       
         if (backZone.GetCurrentSnappedObject() != null && !backpackFull)
         {
             toBackpackSound.Play();
@@ -105,13 +45,12 @@ public class BackpackFunctionality : MonoBehaviour
         else if (backZone.GetCurrentSnappedObject() == null && backpackFull)
         {
             backpackFull = false;
-            toBackpackSound.Play();           
+            fromBackpackSound.Play();           
         }
         if (!backpackFull)
         {
             if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>() != null)
-            {
-                Debug.Log("leftnovib");
+            {               
                 if (!Game_Manager.instance.LeftGrab.GetGrabbedObject().CompareTag("PermanentHaptics"))
                 {
                     Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
@@ -121,8 +60,7 @@ public class BackpackFunctionality : MonoBehaviour
             {
                 if (!Game_Manager.instance.RightGrab.GetGrabbedObject().CompareTag("PermanentHaptics"))
                 {
-                    Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
-                    Debug.Log("rightnovib");
+                    Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;                   
                 }
             }
         }
