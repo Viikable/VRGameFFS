@@ -17,21 +17,36 @@ public class BroomTrigger : MonoBehaviour {
     {
         if (PlierZone.GetCurrentSnappedInteractableObject() != null && PlierZone.GetCurrentSnappedInteractableObject() == this.GetComponentInParent<VRTK_InteractableObject>())
         {
-            if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
+            if (other.transform.parent != null && other.transform.parent.name == "HandColliders" && !PliersSnapZone.beingReleased)
             {
-                PlierZone.ForceUnsnap();
-                foreach (MeshCollider col in Pliers.transform.GetComponentsInChildren<MeshCollider>())
+                if (other.transform.parent.parent.name == "VRTK_RightBasicHand" && Game_Manager.instance.RightGrab.IsGrabButtonPressed())
                 {
-                    col.enabled = false;
-                    Debug.Log("broomcollidersoffTriggerEnt");
+                    PliersSnapZone.beingReleased = true;
+                    PlierZone.ForceUnsnap();                   
+                    foreach (MeshCollider col in Pliers.transform.GetComponentsInChildren<MeshCollider>())
+                    {
+                        col.enabled = false;
+                        Debug.Log("broomcollidersoffTriggerEnt");
+                    }
+                    StartCoroutine("WaitForRelease");
                 }
-                //foreach (MeshCollider col in gameObject.transform.parent.GetComponentsInChildren<MeshCollider>())
-                //{
-                //    col.enabled = true;
-                //    Debug.Log("plierbroomcollidersTriggerEnt");
-                //}
+                else if (other.transform.parent.parent.name == "VRTK_LeftBasicHand" && Game_Manager.instance.LeftGrab.IsGrabButtonPressed())
+                {
+                    PliersSnapZone.beingReleased = true;
+                    PlierZone.ForceUnsnap();                  
+                    foreach (MeshCollider col in Pliers.transform.GetComponentsInChildren<MeshCollider>())
+                    {
+                        col.enabled = false;
+                        Debug.Log("broomcollidersoffTriggerEnt2");
+                    }
+                    StartCoroutine("WaitForRelease");
+                }                                       
             }
         }       
     }
-    
+    IEnumerator WaitForRelease()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        PliersSnapZone.beingReleased = false;
+    }
 }

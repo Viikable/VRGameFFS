@@ -15,12 +15,12 @@ public class BodySounds : MonoBehaviour
     {               
         if (!BodyHitsGroundSound.isPlaying)
         {
-            if (collision.relativeVelocity.magnitude - 2f >= 0.1f)
+            if (collision.relativeVelocity.magnitude - 1.5f >= 0.1f)
             {
-                BodyHitsGroundSound.volume = collision.relativeVelocity.magnitude - 2f;
+                BodyHitsGroundSound.volume = collision.relativeVelocity.magnitude - 1.5f;
                 Debug.Log("highlevelCollision");
             }
-            else if (collision.relativeVelocity.magnitude - 2f <= 0.1f && collision.relativeVelocity.magnitude - 2f >= -0.5f)
+            else if (collision.relativeVelocity.magnitude - 1.5f <= 0.1f && collision.relativeVelocity.magnitude - 1.5f >= -0.5f)
             {
                 BodyHitsGroundSound.volume = 0.1f;
                 Debug.Log("lowlevelCollision");

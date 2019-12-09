@@ -10,7 +10,7 @@ public class JanitorBroomTransformer : MonoBehaviour
     [Tooltip("Texture we will change the broom into")]
     public Material CharredBroom;
     public bool changeBroomColour;
-    Renderer rend;
+    Renderer rend;   
     public GameObject Bottom;
     public GameObject FirstPart;
     public GameObject SecondPart;
@@ -33,7 +33,7 @@ public class JanitorBroomTransformer : MonoBehaviour
         FourthPart = transform.parent.Find("FourthPart").gameObject;
         FifthPart = transform.parent.Find("FifthPart").gameObject;
         SixthPart = transform.parent.Find("SixthPart").gameObject;
-        SeventhPart = transform.parent.Find("SeventhPart").gameObject;        
+        SeventhPart = transform.parent.Find("SeventhPart").gameObject;      
     }
 
     // Update is called once per frame
@@ -69,11 +69,11 @@ public class JanitorBroomTransformer : MonoBehaviour
                     break;
                 case "FirstPart":
                     SecondPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                   
+                    FirstPart.GetComponent<MeshRenderer>().material = CharredBroom;      //looks a bit awkward sometimes
                     break;
                 default:                   
                     break;
-            }
+            }            
         }
     }    
 }

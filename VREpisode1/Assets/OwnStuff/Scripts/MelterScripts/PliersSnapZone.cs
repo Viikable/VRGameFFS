@@ -10,18 +10,21 @@ public class PliersSnapZone : MonoBehaviour
     GameObject RightController;
     GameObject LeftController;
     GameObject Broom;
+    public static bool beingReleased;
 
     void Awake()
     {
         PlierZone = GetComponentInChildren<VRTK_SnapDropZone>();
         RightController = GameObject.Find("RightController");
         LeftController = GameObject.Find("LeftController");
+        beingReleased = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {      
-        if (RightController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == gameObject
-                || LeftController.GetComponent<VRTK_InteractGrab>().GetGrabbedObject() == gameObject)
+        if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject
+                || Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject 
+                && !beingReleased)
         {
             if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
             {
@@ -36,10 +39,7 @@ public class PliersSnapZone : MonoBehaviour
                 {
                     col.enabled = true;
                     Debug.Log("plierbroomcolliders");
-                }
-                //other.gameObject.GetComponentInParent<Rigidbody>().isKinematic = false;
-                //other.gameObject.GetComponentInParent<Rigidbody>().useGravity = false;
-                Debug.Log("forcesnap");
+                }                             
             }
         }
     }

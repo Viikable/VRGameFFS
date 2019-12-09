@@ -222,6 +222,13 @@ public class Game_Manager : MonoBehaviour
                 }
             }
             RopeClimb = false;
+            GameObject.Find("JuhaniBody").GetComponent<Rigidbody>().mass = 300;
+            foreach (Rigidbody Juhanirigidpart in GameObject.Find("JuhaniBody").GetComponentsInChildren<Rigidbody>())
+            {
+                Juhanirigidpart.mass = 500;
+                Juhanirigidpart.drag = 0.5f;
+                Juhanirigidpart.angularDrag = 0.5f;
+            }
         }
         else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
         {
@@ -237,6 +244,13 @@ public class Game_Manager : MonoBehaviour
                 {
                     Destroy(headNoose);
                 }
+            }
+            GameObject.Find("JuhaniBody").GetComponent<Rigidbody>().mass = 300;
+            foreach (Rigidbody Juhanirigidpart in GameObject.Find("JuhaniBody").GetComponentsInChildren<Rigidbody>())
+            {
+                Juhanirigidpart.mass = 500;
+                Juhanirigidpart.drag = 0.5f;
+                Juhanirigidpart.angularDrag = 0.5f;
             }
             RopeClimb = false;
         }

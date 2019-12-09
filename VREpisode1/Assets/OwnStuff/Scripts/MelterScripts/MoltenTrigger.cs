@@ -17,8 +17,7 @@ public class MoltenTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("JanitorBroom"))
-        {
-            Debug.Log("collidedJanitor");
+        {           
             other.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider1" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))

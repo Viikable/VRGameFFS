@@ -8,39 +8,63 @@ public class ShaftLightsButton : MonoBehaviour {
     VRTK_PhysicsPusher shaftlightButton;
     GameObject MaintenanceLight;
     Light MaintenanceSpot;
-    int switcher;
+    bool lightOn;
     bool processing;
+    bool scared;
     AudioSource ShaftLightSound;
+    AudioSource ScarySound;
 	
 	void Start () {
         shaftlightButton = GetComponent<VRTK_PhysicsPusher>();
         MaintenanceLight = GameObject.Find("MaintenanceSpotLight");
         MaintenanceSpot = MaintenanceLight.GetComponent<Light>();
-        switcher = 0;
+        lightOn = false;
         processing = false;
         ShaftLightSound = GetComponent<AudioSource>();
+        ScarySound = GameObject.Find("ScarySound").GetComponent<AudioSource>();
+        scared = false;
     }
-		
-	void Update () {
 
-        if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && switcher % 2 == 0 && !processing)
+    void Update()
+    {
+        if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && !lightOn && !processing)
         {
             processing = true;
             MaintenanceSpot.enabled = true;
             ShaftLightSound.Play();
-            switcher++;
+            lightOn = true;
             StartCoroutine("Wait");
             ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
         }
-        else if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && switcher % 2 == 1 && !processing)
+        else if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && lightOn && !processing)
         {
             processing = true;
             MaintenanceSpot.enabled = false;
             ShaftLightSound.Play();
-            switcher++;
+            lightOn = false;
             StartCoroutine("Wait");
         }
-	}
+
+        if (lightOn && !scared)
+        {
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+            foreach (Collider col in GameObject.Find("JuhaniBody").GetComponentsInChildren<Collider>())
+            {
+
+                if (GeometryUtility.TestPlanesAABB(planes, col.bounds))
+                {
+                    ScarySound.Play();
+                    scared = true;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
     IEnumerator Wait()
     {
         Debug.Log("wait");

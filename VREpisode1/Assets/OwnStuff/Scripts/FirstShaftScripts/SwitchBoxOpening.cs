@@ -41,7 +41,7 @@ public class SwitchBoxOpening : MonoBehaviour
                     {
                         metallicBroomParts++;
                         
-                        if (notWaited && metallicBroomParts >= 6)
+                        if (notWaited && metallicBroomParts == 8)   //needs whole broom to be metallic to work
                         {
                             SwitchAnim.SetBool("Crack", true);
                             BroomOpensLockerSound.Play();
@@ -70,8 +70,7 @@ public class SwitchBoxOpening : MonoBehaviour
                 {
                     metallicBroomParts = 0;
                     notWaited = false;
-                    SwitchAnim.SetBool("Break", true);                    
-                    BroomBreaksSound.Play();
+                    SwitchAnim.SetBool("Break", true);                                       
                     foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
                     {
                         child.enabled = false;
@@ -109,6 +108,7 @@ public class SwitchBoxOpening : MonoBehaviour
     IEnumerator BroomBreaks()
     {
         yield return new WaitForSecondsRealtime(1f);
+        BroomBreaksSound.Play();
         BroomPosition = transform.TransformPoint(GameObject.Find("BroomInTheJanitorAnimationBroom2").transform.localPosition);
         SwitchSnap.GetCurrentSnappedInteractableObject().transform.position = BroomPosition;
         SwitchSnap.GetCurrentSnappedInteractableObject().transform.TransformPoint(GameObject.Find("BroomInTheJanitorAnimationBroom2").transform.localRotation.eulerAngles);
