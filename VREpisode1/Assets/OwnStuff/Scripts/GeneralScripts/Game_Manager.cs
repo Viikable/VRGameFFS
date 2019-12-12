@@ -59,14 +59,6 @@ public class Game_Manager : MonoBehaviour
 
     public GameObject GrabbableWater;
 
-    public GameObject Broom1;
-
-    public GameObject Broom2;
-
-    public GameObject Broom3;
-
-    public GameObject Broom4;
- 
     public GameObject JuhaniHead;
 
     public GameObject JuhaniBody;
@@ -91,6 +83,7 @@ public class Game_Manager : MonoBehaviour
 
     private void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
@@ -103,6 +96,8 @@ public class Game_Manager : MonoBehaviour
 
         //WaterComes.AddListener(WaterIsRising);
 
+        if (GameObject.Find("Water") != null)
+        {
         WaterBubbles = GameObject.Find("Water").GetComponentInChildren<ParticleSystem>();
 
         WaterBubbles.Pause();
@@ -110,6 +105,13 @@ public class Game_Manager : MonoBehaviour
         LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
 
         RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
+
+        Lantern = GameObject.Find("Lantern");
+
+        GrabbableWater = GameObject.Find("GrabbableWater");
+
+        water = GameObject.Find("Water").GetComponent<WaterMovement>();
+        }
 
         ropeClimb = true;
 
@@ -127,14 +129,8 @@ public class Game_Manager : MonoBehaviour
 
         numberOfTheBroom = 0;
 
-        Broom1 = GameObject.Find("BroomInTheJanitorHouse1");
-
-        Broom2 = GameObject.Find("BroomInTheJanitorHouse2");
-
-        Broom3 = GameObject.Find("BroomInTheJanitorHouse3");
-
-        Broom4 = GameObject.Find("BroomInTheJanitorHouse4");
-
+        if (GameObject.Find("JuhaniBody") != null)
+        {
         JuhaniBody = GameObject.Find("JuhaniBody");
 
         JuhaniHead = GameObject.Find("JuhaniHead");
@@ -146,6 +142,7 @@ public class Game_Manager : MonoBehaviour
         JuhaniLeg1 = GameObject.Find("JuhaniLeg1");
 
         JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
+        }
 
         RightController = GameObject.Find("RightController");
 
@@ -155,11 +152,6 @@ public class Game_Manager : MonoBehaviour
 
         LeftGrab = LeftController.GetComponent<VRTK_InteractGrab>();
 
-        Lantern = GameObject.Find("Lantern");
-
-        GrabbableWater = GameObject.Find("GrabbableWater");
-
-        water = GameObject.Find("Water").GetComponent<WaterMovement>();
     }
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
     private void FixedUpdate()

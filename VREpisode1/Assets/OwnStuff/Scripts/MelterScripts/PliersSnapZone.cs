@@ -12,7 +12,7 @@ public class PliersSnapZone : MonoBehaviour
     GameObject Broom;
     public static bool beingReleased;
 
-    void Awake()
+    protected void Awake()
     {
         PlierZone = GetComponentInChildren<VRTK_SnapDropZone>();
         RightController = GameObject.Find("RightController");
@@ -43,8 +43,35 @@ public class PliersSnapZone : MonoBehaviour
             }
         }
     }
+
+    public void ReleaseBroom()
+    {
+        if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject && !beingReleased)
+        {
+            beingReleased = true;
+            PlierZone.ForceUnsnap();
+            foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
+            {
+                col.enabled = false;
+                Debug.Log("released");
+            }
+            StartCoroutine("WaitForRelease");
+        }   
+        else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject && !beingReleased)
+        {
+            beingReleased = true;
+            PlierZone.ForceUnsnap();
+            foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
+            {
+                col.enabled = false;
+                Debug.Log("releasedleft");
+            }
+            StartCoroutine("WaitForRelease");
+        }
+    }
     private void Update()
     {
+       
         if (PlierZone.GetCurrentSnappedObject() == null || !PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
             foreach (MeshCollider col in gameObject.GetComponents<MeshCollider>())
@@ -61,5 +88,10 @@ public class PliersSnapZone : MonoBehaviour
                 }
             }
         }
+    }
+    IEnumerator WaitForRelease()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        beingReleased = false;
     }
 }

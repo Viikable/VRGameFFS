@@ -24,8 +24,8 @@ public class BackpackFunctionality : MonoBehaviour
         LeftHandColliders = VRTK_DeviceFinder.GetControllerLeftHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         RightHandColliders = VRTK_DeviceFinder.GetControllerRightHand().gameObject.transform.GetChild(0).GetChild(2).gameObject;
         backpack = gameObject.AddComponent<BoxCollider>();
-        backpack.size = new Vector3(2.74264f, 4.065854f, 0.675302f);
-        backpack.center = new Vector3(0.06899975f, -0.2205318f, -0.2866777f);
+        backpack.size = new Vector3(2.74264f, 4.065854f, 0.7530473f);
+        backpack.center = new Vector3(0.06899939f, -0.2205359f, -0.1609472f);
         backpack.isTrigger = true;
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
         backpackFull = false;
@@ -43,7 +43,8 @@ public class BackpackFunctionality : MonoBehaviour
         else if (backZone.GetCurrentSnappedObject() == null && backpackFull)
         {
             backpackFull = false;
-            fromBackpackSound.Play();           
+            fromBackpackSound.Play();
+            backZone.GetComponent<Collider>().enabled = true;
         }
         if (!backpackFull)
         {
@@ -66,6 +67,7 @@ public class BackpackFunctionality : MonoBehaviour
         if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null && backpackFull)
         {
             backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>().enabled = true;
+            backZone.GetComponent<Collider>().enabled = false;
         }       
     }
 }
