@@ -73,6 +73,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (melterObject != null && melterObject.GetComponent<MeshRenderer>() != null)
                     {
                         melterObject.GetComponent<MeshRenderer>().enabled = true;
+                        
+                        if (melterObject.GetComponent<Collider>() != null)
+                        {
+                            melterObject.GetComponent<Collider>().enabled = true;
+                        }
+                        if (melterObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in melterObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = true;
+                            }
+                        }
                     }
                 }
             }
@@ -83,6 +95,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (melterObject != null && melterObject.GetComponent<MeshRenderer>() != null)
                     {
                     melterObject.GetComponent<MeshRenderer>().enabled = false;
+
+                        if (melterObject.GetComponent<Collider>() != null)
+                        {
+                            melterObject.GetComponent<Collider>().enabled = false;
+                        }
+                        if (melterObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in melterObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = false;
+                            }
+                        }
                     }
                 }
             }
@@ -93,6 +117,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (MainHallObject != null && MainHallObject.GetComponent<MeshRenderer>() != null)
                     {
                         MainHallObject.GetComponent<MeshRenderer>().enabled = true;
+
+                        if (MainHallObject.GetComponent<Collider>() != null)
+                        {
+                            MainHallObject.GetComponent<Collider>().enabled = true;
+                        }
+                        if (MainHallObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in MainHallObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = true;
+                            }
+                        }
                     }
                 }
             }
@@ -103,6 +139,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (MainHallObject != null && MainHallObject.GetComponent<MeshRenderer>() != null)
                     {
                         MainHallObject.GetComponent<MeshRenderer>().enabled = false;
+
+                        if (MainHallObject.GetComponent<Collider>() != null)
+                        {
+                            MainHallObject.GetComponent<Collider>().enabled = false;
+                        }
+                        if (MainHallObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in MainHallObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = false;
+                            }
+                        }
                     }
                 }
             }
@@ -113,6 +161,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (ShaftsObject != null && ShaftsObject.GetComponent<MeshRenderer>() != null)
                     {
                         ShaftsObject.GetComponent<MeshRenderer>().enabled = true;
+
+                        if (ShaftsObject.GetComponent<Collider>() != null)
+                        {
+                            ShaftsObject.GetComponent<Collider>().enabled = true;
+                        }
+                        if (ShaftsObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in ShaftsObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = true;
+                            }
+                        }
                     }
                 }
             }
@@ -123,6 +183,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (ShaftsObject != null && ShaftsObject.GetComponent<MeshRenderer>() != null)
                     {
                         ShaftsObject.GetComponent<MeshRenderer>().enabled = false;
+
+                        if (ShaftsObject.GetComponent<Collider>() != null)
+                        {
+                            ShaftsObject.GetComponent<Collider>().enabled = false;
+                        }
+                        if (ShaftsObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in ShaftsObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = false;
+                            }
+                        }
                     }
                 }
             }
@@ -133,6 +205,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (OctoRoomObject != null && OctoRoomObject.GetComponent<MeshRenderer>() != null)
                     {
                         OctoRoomObject.GetComponent<MeshRenderer>().enabled = true;
+
+                        if (OctoRoomObject.GetComponent<Collider>() != null)
+                        {
+                            OctoRoomObject.GetComponent<Collider>().enabled = true;
+                        }
+                        if (OctoRoomObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in OctoRoomObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = true;
+                            }
+                        }
                     }
                 }
             }
@@ -143,6 +227,18 @@ public class OptimizeRendering : MonoBehaviour {
                     if (OctoRoomObject != null && OctoRoomObject.GetComponent<MeshRenderer>() != null)
                     {
                         OctoRoomObject.GetComponent<MeshRenderer>().enabled = false;
+
+                        if (OctoRoomObject.GetComponent<Collider>() != null)
+                        {
+                            OctoRoomObject.GetComponent<Collider>().enabled = false;
+                        }
+                        if (OctoRoomObject.GetComponentsInChildren<Collider>() != null)
+                        {
+                            foreach (Collider childCollider in OctoRoomObject.GetComponentsInChildren<Collider>())
+                            {
+                                childCollider.enabled = false;
+                            }
+                        }
                     }
                 }
             }

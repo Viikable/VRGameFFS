@@ -30,7 +30,7 @@ public class SwitchBoxOpening : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(BroomPosition);
+        //Debug.Log(BroomPosition);
         if (SwitchSnap.GetCurrentSnappedObject() != null)
         {
             if (SwitchSnap.GetCurrentSnappedObject().CompareTag("JanitorBroom") && notWaited)
