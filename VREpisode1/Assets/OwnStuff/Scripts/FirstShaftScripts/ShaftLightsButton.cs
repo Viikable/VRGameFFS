@@ -48,7 +48,7 @@ public class ShaftLightsButton : MonoBehaviour {
         if (lightOn && !scared)
         {
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-            foreach (Collider col in GameObject.Find("JuhaniBody").GetComponentsInChildren<Collider>())
+            foreach (Collider col in GameObject.Find("JuhaniHead").GetComponentsInChildren<Collider>())
             {
 
                 if (GeometryUtility.TestPlanesAABB(planes, col.bounds))

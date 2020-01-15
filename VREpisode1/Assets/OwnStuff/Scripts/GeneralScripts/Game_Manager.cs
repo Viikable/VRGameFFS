@@ -81,6 +81,10 @@ public class Game_Manager : MonoBehaviour
 
     public static Game_Manager instance = null;
 
+    [Header("Audio")]
+
+    public AudioSource RopeCreak;
+
     private void Awake()
     {
         if (instance == null)
@@ -143,6 +147,8 @@ public class Game_Manager : MonoBehaviour
         JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
         }
 
+        RopeCreak = GameObject.Find("NOOSE").GetComponent<AudioSource>();
+
         RightController = GameObject.Find("RightController");
 
         LeftController = GameObject.Find("LeftController");
@@ -197,7 +203,7 @@ public class Game_Manager : MonoBehaviour
         {
             lanternIsGrabbed = false;
         }
-        if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
+        if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
         {
             RightGrab.ForceRelease();
             ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
@@ -207,21 +213,24 @@ public class Game_Manager : MonoBehaviour
             }
             foreach (ConfigurableJoint headNoose in GameObject.Find("NOOSE").GetComponents<ConfigurableJoint>())
             {
-                if (headNoose.connectedBody.name == "JuhaniHead" || headNoose.connectedBody.name == "Bone_chest")
+                if (headNoose.connectedBody == JuhaniHead || headNoose.connectedBody.name == "Bone_chest")
                 {
                     Destroy(headNoose);
                 }
             }
             RopeClimb = false;
-            GameObject.Find("JuhaniBody").GetComponent<Rigidbody>().mass = 300;
-            foreach (Rigidbody Juhanirigidpart in GameObject.Find("JuhaniBody").GetComponentsInChildren<Rigidbody>())
+            RopeCreak.Stop();
+            JuhaniBody.GetComponent<Rigidbody>().mass = 1000;
+            JuhaniBody.GetComponent<Rigidbody>().drag = 0.5f;
+            JuhaniBody.GetComponent<Rigidbody>().angularDrag = 0.5f;
+            foreach (Rigidbody Juhanirigidpart in JuhaniBody.GetComponentsInChildren<Rigidbody>())
             {
-                Juhanirigidpart.mass = 500;
+                Juhanirigidpart.mass = 1000;
                 Juhanirigidpart.drag = 0.5f;
                 Juhanirigidpart.angularDrag = 0.5f;
             }
         }
-        else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().name == "JuhaniBody" && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
+        else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
         {
             LeftGrab.ForceRelease();
             ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
@@ -231,19 +240,22 @@ public class Game_Manager : MonoBehaviour
             }
             foreach (ConfigurableJoint headNoose in GameObject.Find("NOOSE").GetComponents<ConfigurableJoint>())
             {
-                if (headNoose.connectedBody.name == "JuhaniHead" || headNoose.connectedBody.name == "Bone_chest")
+                if (headNoose.connectedBody == JuhaniHead || headNoose.connectedBody.name == "Bone_chest")
                 {
                     Destroy(headNoose);
                 }
             }
-            GameObject.Find("JuhaniBody").GetComponent<Rigidbody>().mass = 300;
-            foreach (Rigidbody Juhanirigidpart in GameObject.Find("JuhaniBody").GetComponentsInChildren<Rigidbody>())
+            RopeClimb = false;
+            RopeCreak.Stop();
+            JuhaniBody.GetComponent<Rigidbody>().mass = 1000;
+            JuhaniBody.GetComponent<Rigidbody>().drag = 0.5f;
+            JuhaniBody.GetComponent<Rigidbody>().angularDrag = 0.5f;
+            foreach (Rigidbody Juhanirigidpart in JuhaniBody.GetComponentsInChildren<Rigidbody>())
             {
-                Juhanirigidpart.mass = 500;
+                Juhanirigidpart.mass = 1000;
                 Juhanirigidpart.drag = 0.5f;
                 Juhanirigidpart.angularDrag = 0.5f;
-            }
-            RopeClimb = false;
+            }          
         }
         if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
         {
