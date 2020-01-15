@@ -167,7 +167,10 @@ public class MelterEnterTrigger : MonoBehaviour
         {
             amountOfMeltedObjects -= 1;
             melterText.text = amountOfMeltedObjects.ToString();
+            if (other.GetComponent<MetalHitsTheFan>() != null)
+            {
             other.GetComponent<MetalHitsTheFan>().InsideTheMelter = false;
+            }
         }
         if (amountOfMeltedObjects == 0)
         {

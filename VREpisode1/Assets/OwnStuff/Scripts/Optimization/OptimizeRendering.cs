@@ -73,7 +73,7 @@ public class OptimizeRendering : MonoBehaviour {
                     if (melterObject != null && melterObject.GetComponent<MeshRenderer>() != null)
                     {
                         melterObject.GetComponent<MeshRenderer>().enabled = true;
-                        
+                       
                         if (melterObject.GetComponent<Collider>() != null)
                         {
                             melterObject.GetComponent<Collider>().enabled = true;
@@ -85,6 +85,15 @@ public class OptimizeRendering : MonoBehaviour {
                                 childCollider.enabled = true;
                             }
                         }
+                        //after colliders are on, turn the rigidbody on as well
+                        if (melterObject.GetComponent<MeshCollider>() != null && melterObject.GetComponent<MeshCollider>().convex
+                                || melterObject.GetComponent<MeshCollider>() == null)
+                        {
+                            if (melterObject.GetComponent<Rigidbody>() != null)
+                            {
+                                melterObject.GetComponent<Rigidbody>().isKinematic = false;
+                            }
+                        }
                     }
                 }
             }
@@ -94,8 +103,13 @@ public class OptimizeRendering : MonoBehaviour {
                 {
                     if (melterObject != null && melterObject.GetComponent<MeshRenderer>() != null)
                     {
-                    melterObject.GetComponent<MeshRenderer>().enabled = false;
-
+                        melterObject.GetComponent<MeshRenderer>().enabled = false;
+                        //Kinematic so that the object wont move from its location while not having a collider
+                        if (melterObject.GetComponent<Rigidbody>() != null)
+                        {
+                            Debug.Log("melterKinematics");
+                            melterObject.GetComponent<Rigidbody>().isKinematic = true;
+                        }
                         if (melterObject.GetComponent<Collider>() != null)
                         {
                             melterObject.GetComponent<Collider>().enabled = false;
@@ -129,6 +143,14 @@ public class OptimizeRendering : MonoBehaviour {
                                 childCollider.enabled = true;
                             }
                         }
+                        if (MainHallObject.GetComponent<MeshCollider>() != null && MainHallObject.GetComponent<MeshCollider>().convex
+                                || MainHallObject.GetComponent<MeshCollider>() == null)
+                        {
+                            if (MainHallObject.GetComponent<Rigidbody>() != null)
+                            {
+                                MainHallObject.GetComponent<Rigidbody>().isKinematic = false;
+                            }
+                        }
                     }
                 }
             }
@@ -139,6 +161,11 @@ public class OptimizeRendering : MonoBehaviour {
                     if (MainHallObject != null && MainHallObject.GetComponent<MeshRenderer>() != null)
                     {
                         MainHallObject.GetComponent<MeshRenderer>().enabled = false;
+                        //Kinematic so that the object wont move from its location while not rendering collider or mesh renderer
+                        if (MainHallObject.GetComponent<Rigidbody>() != null)
+                        {
+                            MainHallObject.GetComponent<Rigidbody>().isKinematic = true;
+                        }
 
                         if (MainHallObject.GetComponent<Collider>() != null)
                         {
@@ -173,6 +200,14 @@ public class OptimizeRendering : MonoBehaviour {
                                 childCollider.enabled = true;
                             }
                         }
+                        if (ShaftsObject.GetComponent<MeshCollider>() != null && ShaftsObject.GetComponent<MeshCollider>().convex
+                                || ShaftsObject.GetComponent<MeshCollider>() == null)
+                        {
+                            if (ShaftsObject.GetComponent<Rigidbody>() != null)
+                            {
+                                ShaftsObject.GetComponent<Rigidbody>().isKinematic = false;
+                            }
+                        }
                     }
                 }
             }
@@ -183,6 +218,10 @@ public class OptimizeRendering : MonoBehaviour {
                     if (ShaftsObject != null && ShaftsObject.GetComponent<MeshRenderer>() != null)
                     {
                         ShaftsObject.GetComponent<MeshRenderer>().enabled = false;
+                        if (ShaftsObject.GetComponent<Rigidbody>() != null)
+                        {
+                            ShaftsObject.GetComponent<Rigidbody>().isKinematic = true;
+                        }
 
                         if (ShaftsObject.GetComponent<Collider>() != null)
                         {
@@ -217,6 +256,17 @@ public class OptimizeRendering : MonoBehaviour {
                                 childCollider.enabled = true;
                             }
                         }
+                        if (OctoRoomObject.GetComponent<Rigidbody>() != null)
+                        {
+                            if (OctoRoomObject.GetComponent<MeshCollider>() != null && OctoRoomObject.GetComponent<MeshCollider>().convex
+                                || OctoRoomObject.GetComponent<MeshCollider>() == null)
+                            {
+                                if (OctoRoomObject.GetComponent<Rigidbody>() != null)
+                                {
+                                    OctoRoomObject.GetComponent<Rigidbody>().isKinematic = false;
+                                }
+                            }                                
+                        }
                     }
                 }
             }
@@ -228,6 +278,10 @@ public class OptimizeRendering : MonoBehaviour {
                     {
                         OctoRoomObject.GetComponent<MeshRenderer>().enabled = false;
 
+                        if (OctoRoomObject.GetComponent<Rigidbody>() != null)
+                        {
+                            OctoRoomObject.GetComponent<Rigidbody>().isKinematic = true;
+                        }
                         if (OctoRoomObject.GetComponent<Collider>() != null)
                         {
                             OctoRoomObject.GetComponent<Collider>().enabled = false;

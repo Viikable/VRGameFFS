@@ -39,7 +39,7 @@ public class ResetOutOfFacilityObjectLocation : MonoBehaviour {
             other.GetComponent<LocationReset>().ResetLocation();
             }
         }
-        else if (other.transform.parent.GetComponent<VRTK_InteractableObject>() != null)
+        else if (other.transform.parent.GetComponent<VRTK_InteractableObject>() != null && other.transform.parent.GetComponent<LocationReset>() != null)
         {
             other.transform.parent.GetComponent<LocationReset>().ResetLocation();
         }

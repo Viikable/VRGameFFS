@@ -10,7 +10,7 @@ public class ShaftsOptimizerTriggerIn : MonoBehaviour {
     {
         water = GameObject.Find("Water").GetComponent<WaterMovement>();
         GasLeak = GameObject.Find("ToxicGasLeak").GetComponent<ParticleSystem>();
-        GasLeak.Play();
+        //GasLeak.Play();
     }
 
     private void OnTriggerEnter(Collider other)
