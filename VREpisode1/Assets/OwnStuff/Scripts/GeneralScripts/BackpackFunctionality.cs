@@ -42,24 +42,24 @@ public class BackpackFunctionality : MonoBehaviour
         }
         else if (backZone.GetCurrentSnappedObject() == null && backpackFull)
         {
-            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() == null && Game_Manager.instance.RightGrab.GetGrabbedObject() == null)
-            {
+            //if (Game_Manager.instance.LeftGrab.GetGrabbedObject() == null && Game_Manager.instance.RightGrab.GetGrabbedObject() == null)
+            //{
             backpackFull = false;
             fromBackpackSound.Play();
-            backZone.GetComponent<Collider>().enabled = true;
-            }
-            else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<PackableObject>() == null)
-            {
-                backpackFull = false;
-                fromBackpackSound.Play();
-                backZone.GetComponent<Collider>().enabled = true;
-            }
-            else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<PackableObject>() == null)
-            {
-                backpackFull = false;
-                fromBackpackSound.Play();
-                backZone.GetComponent<Collider>().enabled = true;
-            }
+            //backZone.GetComponent<Collider>().enabled = true;
+            //}
+            //else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<PackableObject>() == null)
+            //{
+            //    backpackFull = false;
+            //    fromBackpackSound.Play();
+            //    backZone.GetComponent<Collider>().enabled = true;
+            //}
+            //else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<PackableObject>() == null)
+            //{
+            //    backpackFull = false;
+            //    fromBackpackSound.Play();
+            //    backZone.GetComponent<Collider>().enabled = true;
+            //}
         }
         if (!backpackFull)
         {
@@ -81,7 +81,7 @@ public class BackpackFunctionality : MonoBehaviour
         // this sets the haptics on ONLY when snapped to backpack
         if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null && backpackFull)
         {
-            backZone.GetComponent<Collider>().enabled = false;
+            //backZone.GetComponent<Collider>().enabled = false;
             backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>().enabled = true;  //could postpone this?
         }       
     }
