@@ -42,9 +42,24 @@ public class BackpackFunctionality : MonoBehaviour
         }
         else if (backZone.GetCurrentSnappedObject() == null && backpackFull)
         {
+            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() == null && Game_Manager.instance.RightGrab.GetGrabbedObject() == null)
+            {
             backpackFull = false;
             fromBackpackSound.Play();
             backZone.GetComponent<Collider>().enabled = true;
+            }
+            else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<PackableObject>() == null)
+            {
+                backpackFull = false;
+                fromBackpackSound.Play();
+                backZone.GetComponent<Collider>().enabled = true;
+            }
+            else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<PackableObject>() == null)
+            {
+                backpackFull = false;
+                fromBackpackSound.Play();
+                backZone.GetComponent<Collider>().enabled = true;
+            }
         }
         if (!backpackFull)
         {
