@@ -54,6 +54,12 @@ public class WaterMovement : MonoBehaviour
     [Tooltip("24s oxygen left sounds")]
     public AudioSource DrowningAlertSounds;
 
+    //ambient water sounds while underwater
+    AudioSource UnderwaterAmbience1;
+    AudioSource UnderwaterAmbience2;
+    AudioSource UnderwaterAmbience3;
+    AudioSource UnderwaterAmbience4;
+
     private BoxFloat floatingBox;
 
     [Header("Colliders")]
@@ -87,9 +93,14 @@ public class WaterMovement : MonoBehaviour
         head = null;
         ropeCheck = true;
         fader = GameObject.Find("PlayArea").GetComponent<VRTK_HeadsetFade>();
+        UnderwaterAmbience1 = transform.Find("UnderwaterAmbience1").GetComponent<AudioSource>();
+        UnderwaterAmbience2 = transform.Find("UnderwaterAmbience2").GetComponent<AudioSource>();
+        UnderwaterAmbience3 = transform.Find("UnderwaterAmbience3").GetComponent<AudioSource>();
+        UnderwaterAmbience4 = transform.Find("UnderwaterAmbience4").GetComponent<AudioSource>();
         //UnderWaterHeadLight = headSet.transform.GetChild(2).GetChild(2).GetComponent<Light>();
         //sManager = GameObject.Find("[VRTK_SDKManager]").GetComponent<VRTK_SDKManager>();
     }
+
     public void TouchedLantern()
     {
         Debug.Log("Lantern is touched, let the waters rise!");
@@ -135,6 +146,24 @@ public class WaterMovement : MonoBehaviour
                 {
                     DrowningAlertSounds.Play();
                 }
+            }
+            //plays underwater ambience only when head is actually underwater
+            if (headIsUnderWater)
+            {
+                if (!UnderwaterAmbience1.isPlaying)
+                {
+                UnderwaterAmbience1.Play();
+                UnderwaterAmbience2.Play();
+                UnderwaterAmbience3.Play();
+                UnderwaterAmbience4.Play();
+                }
+            }
+            else
+            {
+                UnderwaterAmbience1.Stop();
+                UnderwaterAmbience2.Stop();
+                UnderwaterAmbience3.Stop();
+                UnderwaterAmbience4.Stop();
             }
 
             if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater && notDrownedYet)
@@ -188,7 +217,7 @@ public class WaterMovement : MonoBehaviour
             }
             else
             {
-                transform.Translate(Vector3.up * 0.0025f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.00025f * Time.deltaTime, Space.World);
             }
         }      
     }

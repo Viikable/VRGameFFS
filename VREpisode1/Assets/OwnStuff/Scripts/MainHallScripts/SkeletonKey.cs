@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonKey : MonoBehaviour {
+public class SkeletonKey : MonoBehaviour
+{
+    public bool DamagedByWater;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+        DamagedByWater = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "GrabbableWater")
+        {
+            DamagedByWater = true;
+        }
+    }
 }

@@ -221,13 +221,13 @@ public class Game_Manager : MonoBehaviour
             RopeClimb = false;
             RopeCreak.Stop();
             JuhaniBody.GetComponent<Rigidbody>().mass = 1000;
-            JuhaniBody.GetComponent<Rigidbody>().drag = 0.5f;
-            JuhaniBody.GetComponent<Rigidbody>().angularDrag = 0.5f;
+            JuhaniBody.GetComponent<Rigidbody>().drag = 1.5f;
+            JuhaniBody.GetComponent<Rigidbody>().angularDrag = 1.5f;
             foreach (Rigidbody Juhanirigidpart in JuhaniBody.GetComponentsInChildren<Rigidbody>())
             {
                 Juhanirigidpart.mass = 1000;
-                Juhanirigidpart.drag = 0.5f;
-                Juhanirigidpart.angularDrag = 0.5f;
+                Juhanirigidpart.drag = 1.5f;
+                Juhanirigidpart.angularDrag = 1.5f;
             }
         }
         else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
@@ -248,13 +248,13 @@ public class Game_Manager : MonoBehaviour
             RopeClimb = false;
             RopeCreak.Stop();
             JuhaniBody.GetComponent<Rigidbody>().mass = 1000;
-            JuhaniBody.GetComponent<Rigidbody>().drag = 0.5f;
-            JuhaniBody.GetComponent<Rigidbody>().angularDrag = 0.5f;
+            JuhaniBody.GetComponent<Rigidbody>().drag = 1.5f;
+            JuhaniBody.GetComponent<Rigidbody>().angularDrag = 1.5f;
             foreach (Rigidbody Juhanirigidpart in JuhaniBody.GetComponentsInChildren<Rigidbody>())
             {
                 Juhanirigidpart.mass = 1000;
-                Juhanirigidpart.drag = 0.5f;
-                Juhanirigidpart.angularDrag = 0.5f;
+                Juhanirigidpart.drag = 1.5f;
+                Juhanirigidpart.angularDrag = 1.5f;
             }          
         }
         if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)

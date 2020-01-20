@@ -9,13 +9,13 @@ namespace VRTK
 
             if (Game_Manager.instance.RopeClimb)
             {
-                this.GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript
-                    = this.GetComponent<GrabAttachMechanics.VRTK_ClimbableGrabAttach>();
+                GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript
+                    = GetComponent<GrabAttachMechanics.VRTK_ClimbableGrabAttach>();
             }
             else
             {
-                this.GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript
-                    = this.GetComponent<GrabAttachMechanics.VRTK_FixedJointGrabAttach>();
+                GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript
+                    = GetComponent<GrabAttachMechanics.VRTK_FixedJointGrabAttach>();
             }
 
         }
