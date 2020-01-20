@@ -71,6 +71,8 @@ public class Game_Manager : MonoBehaviour
 
     public GameObject JuhaniLeg2;
 
+    public GameObject Noose;
+
     public GameObject RightController;
 
     public GameObject LeftController;
@@ -147,7 +149,9 @@ public class Game_Manager : MonoBehaviour
         JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
         }
 
-        RopeCreak = GameObject.Find("NOOSE").GetComponent<AudioSource>();
+        Noose = GameObject.Find("NOOSE");
+
+        RopeCreak = Noose.GetComponent<AudioSource>();
 
         RightController = GameObject.Find("RightController");
 
@@ -211,9 +215,9 @@ public class Game_Manager : MonoBehaviour
             {
                 Destroy(juhaniJoin);
             }
-            foreach (ConfigurableJoint headNoose in GameObject.Find("NOOSE").GetComponents<ConfigurableJoint>())
+            foreach (ConfigurableJoint headNoose in Noose.GetComponents<ConfigurableJoint>())
             {
-                if (headNoose.connectedBody == JuhaniHead || headNoose.connectedBody.name == "Bone_chest")
+                if (headNoose.connectedBody.name == "JuhaniHead" || headNoose.connectedBody.name == "Bone_chest")
                 {
                     Destroy(headNoose);
                 }
@@ -238,9 +242,9 @@ public class Game_Manager : MonoBehaviour
             {
                 Destroy(juhaniJoin);
             }
-            foreach (ConfigurableJoint headNoose in GameObject.Find("NOOSE").GetComponents<ConfigurableJoint>())
+            foreach (ConfigurableJoint headNoose in Noose.GetComponents<ConfigurableJoint>())
             {
-                if (headNoose.connectedBody == JuhaniHead || headNoose.connectedBody.name == "Bone_chest")
+                if (headNoose.connectedBody.name == "JuhaniHead" || headNoose.connectedBody.name == "Bone_chest")
                 {
                     Destroy(headNoose);
                 }
