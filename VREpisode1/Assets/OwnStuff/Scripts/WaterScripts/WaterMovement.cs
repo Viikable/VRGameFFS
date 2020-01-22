@@ -116,14 +116,18 @@ public class WaterMovement : MonoBehaviour
             if (feet == null && head == null)   //to prevent error when system button is pressed
             {
                 feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
+                Debug.Log(feet);
                 body = headSet.transform.GetChild(3).GetComponent<Collider>();
+                Debug.Log(body);
                 if (HeadsetFollower.activeSelf)
                 {
                     head = headSet.transform.GetChild(2).GetChild(4).GetComponent<Collider>();    //finds the collider child for head
+                    Debug.Log(head);
                 }
                 else
                 {
-                    head = headSet.transform.GetChild(2).GetChild(2).GetComponent<Collider>();
+                    head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();
+                    Debug.Log(head);
                 }
             }
             headsetbody = headSet.GetComponent<Rigidbody>();

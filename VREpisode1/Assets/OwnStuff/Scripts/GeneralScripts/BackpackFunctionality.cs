@@ -6,7 +6,7 @@ using VRTK;
 public class BackpackFunctionality : MonoBehaviour
 {
 
-    public BoxCollider backpack;
+    public BoxCollider backpack;  
     VRTK_SnapDropZone backZone;
     GameObject previouslyGrabbed;
     GameObject backpackObject;
@@ -17,7 +17,7 @@ public class BackpackFunctionality : MonoBehaviour
     public bool righthandEntered;
     public AudioSource toBackpackSound;
     public AudioSource fromBackpackSound;
-
+    bool notDisabled;
 
     void Start()
     {
@@ -26,15 +26,16 @@ public class BackpackFunctionality : MonoBehaviour
         backpack = gameObject.AddComponent<BoxCollider>();
         backpack.size = new Vector3(2.303633f, 2.189791f, 0.4338804f);
         backpack.center = new Vector3(0.02300131f, -0.2983266f, -0.05426104f);
-        backpack.isTrigger = true;
+        backpack.isTrigger = true;          
         backZone = gameObject.GetComponent<VRTK_SnapDropZone>();
         backpackFull = false;
         lefthandEntered = false;
         righthandEntered = false;
+        notDisabled = true;
     }
-       
+
     private void Update()
-    {       
+    {
         if (backZone.GetCurrentSnappedObject() != null && !backpackFull)
         {
             toBackpackSound.Play();
@@ -44,9 +45,10 @@ public class BackpackFunctionality : MonoBehaviour
         {
             //if (Game_Manager.instance.LeftGrab.GetGrabbedObject() == null && Game_Manager.instance.RightGrab.GetGrabbedObject() == null)
             //{
+            notDisabled = true;
             backpackFull = false;
             fromBackpackSound.Play();
-            //backZone.GetComponent<Collider>().enabled = true;
+            //backpack.enabled = true;         
             //}
             //else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<PackableObject>() == null)
             //{
@@ -64,7 +66,7 @@ public class BackpackFunctionality : MonoBehaviour
         if (!backpackFull)
         {
             if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>() != null)
-            {               
+            {
                 if (!Game_Manager.instance.LeftGrab.GetGrabbedObject().CompareTag("PermanentHaptics"))
                 {
                     Game_Manager.instance.LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
@@ -74,17 +76,49 @@ public class BackpackFunctionality : MonoBehaviour
             {
                 if (!Game_Manager.instance.RightGrab.GetGrabbedObject().CompareTag("PermanentHaptics"))
                 {
-                    Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;                   
+                    Game_Manager.instance.RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractHaptics>().enabled = false;
                 }
             }
         }
         // this sets the haptics on ONLY when snapped to backpack
-        if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null && backpackFull)
+        if (backZone.GetCurrentSnappedObject() != null && backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>() != null && backpackFull && notDisabled)
         {
-            //backZone.GetComponent<Collider>().enabled = false;
+            //backpack.enabled = false;     
+            notDisabled = false;
             backZone.GetCurrentSnappedObject().GetComponent<VRTK_InteractHaptics>().enabled = true;  //could postpone this?
-        }       
+            foreach (Collider col in backZone.GetCurrentSnappedObject().GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(WaterMovement.feet, col);
+                Physics.IgnoreCollision(WaterMovement.body, col);
+                Physics.IgnoreCollision(WaterMovement.head, col);
+                Debug.Log("ignoredcol");
+            }
+        }
     }
+        //to make the box collider not collide with everything
+        //if (Time.time >= 0.5f && notDisabled)
+        //{
+        //    notDisabled = false;         
+        //    //int i = 0;
+            //foreach (Collider col in FindObjectsOfType<Collider>())
+            //{
+            //    if (col.gameObject.GetComponent<PackableObject>() == null)
+            //    {
+            //        if (col.gameObject.transform.parent != null && col.gameObject.GetComponentInParent<PackableObject>() == null)
+            //        {
+            //            if (col.gameObject.transform.parent.parent != null && col.gameObject.transform.parent.GetComponentInParent<PackableObject>() == null)
+            //            {
+            //                Physics.IgnoreCollision(col, backpack);
+            //                Debug.Log("colliders" + i);
+            //                i++;
+            //            }
+            //        }                                                                  
+            //    }
+            //    else
+            //    {
+            //        continue;
+            //    }
+            //}          
 }
 
 

@@ -44,32 +44,32 @@ public class JanitorBroomTransformer : MonoBehaviour
             switch (name)
             {
                 case "SeventhPart":
-                    Bottom.GetComponent<MeshRenderer>().material = CharredBroom;
+                    Bottom.GetComponent<MeshRenderer>().material = Bottom.GetComponent<JanitorBroomTransformer>().CharredBroom;
                    
                     break;
                 case "SixthPart":
-                    SeventhPart.GetComponent<MeshRenderer>().material = CharredBroom;
+                    SeventhPart.GetComponent<MeshRenderer>().material = SeventhPart.GetComponent<JanitorBroomTransformer>().CharredBroom;
                     
                     break;
                 case "FifthPart":
-                    SixthPart.GetComponent<MeshRenderer>().material = CharredBroom;
+                    SixthPart.GetComponent<MeshRenderer>().material = SixthPart.GetComponent<JanitorBroomTransformer>().CharredBroom;
                    
                     break;
                 case "FourthPart":
-                    FifthPart.GetComponent<MeshRenderer>().material = CharredBroom;
+                    FifthPart.GetComponent<MeshRenderer>().material = FifthPart.GetComponent<JanitorBroomTransformer>().CharredBroom;
                    
                     break;
                 case "ThirdPart":
-                    FourthPart.GetComponent<MeshRenderer>().material = CharredBroom;
+                    FourthPart.GetComponent<MeshRenderer>().material = FourthPart.GetComponent<JanitorBroomTransformer>().CharredBroom;
                    
                     break;
                 case "SecondPart":
-                    ThirdPart.GetComponent<MeshRenderer>().material = CharredBroom;
+                    ThirdPart.GetComponent<MeshRenderer>().material = ThirdPart.GetComponent<JanitorBroomTransformer>().CharredBroom;
                     
                     break;
                 case "FirstPart":
-                    SecondPart.GetComponent<MeshRenderer>().material = CharredBroom;
-                    FirstPart.GetComponent<MeshRenderer>().material = CharredBroom;      //looks a bit awkward sometimes
+                    SecondPart.GetComponent<MeshRenderer>().material = SecondPart.GetComponent<JanitorBroomTransformer>().CharredBroom;
+                    FirstPart.GetComponent<MeshRenderer>().material = FirstPart.GetComponent<JanitorBroomTransformer>().CharredBroom;      //looks a bit awkward sometimes
                     break;
                 default:                   
                     break;

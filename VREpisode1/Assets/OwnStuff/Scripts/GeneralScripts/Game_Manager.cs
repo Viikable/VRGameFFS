@@ -87,6 +87,8 @@ public class Game_Manager : MonoBehaviour
 
     public AudioSource RopeCreak;
 
+    bool notIgnoredYet;
+
     private void Awake()
     {
         if (instance == null)
@@ -151,7 +153,10 @@ public class Game_Manager : MonoBehaviour
 
         Noose = GameObject.Find("NOOSE");
 
+        if (Noose != null)
+        {
         RopeCreak = Noose.GetComponent<AudioSource>();
+        }
 
         RightController = GameObject.Find("RightController");
 
@@ -161,12 +166,42 @@ public class Game_Manager : MonoBehaviour
 
         LeftGrab = LeftController.GetComponent<VRTK_InteractGrab>();
 
+        notIgnoredYet = true;
     }
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
     private void FixedUpdate()
     {
+
         CheckGrabbedObjects();
+
+        if (Time.time >= 0.75f && notIgnoredYet)
+        {
+            notIgnoredYet = false;
+            IgnoreObjectCollisionsWithPlayer();
+        }
     }
+    private void IgnoreObjectCollisionsWithPlayer()
+    {
+        foreach (VRTK_InteractableObject inter in FindObjectsOfType<VRTK_InteractableObject>())
+        {
+            if (inter.GetComponent<Collider>() != null)
+            {
+                Physics.IgnoreCollision(WaterMovement.feet, inter.GetComponent<Collider>());
+                Physics.IgnoreCollision(WaterMovement.body, inter.GetComponent<Collider>());
+                Physics.IgnoreCollision(WaterMovement.head, inter.GetComponent<Collider>());
+            }
+            if (inter.GetComponentsInChildren<Collider>() != null)
+            {
+                foreach (Collider col in inter.GetComponentsInChildren<Collider>())
+                {
+                    Physics.IgnoreCollision(WaterMovement.feet, col);
+                    Physics.IgnoreCollision(WaterMovement.body, col);
+                    Physics.IgnoreCollision(WaterMovement.head, col);
+                }
+            }
+        }
+    }    
+
     private void WaterIsRising()
     {
 

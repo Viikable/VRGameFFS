@@ -349,8 +349,11 @@ namespace VRTK
         /// </summary>
         public virtual void ResetVelocities()
         {
+            if (bodyRigidbody != null)
+            {
             bodyRigidbody.velocity = Vector3.zero;
             bodyRigidbody.angularVelocity = Vector3.zero;
+            }
         }
 
         /// <summary>
