@@ -3,36 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-public class CanDropSound : MonoBehaviour {
-
-    public AudioSource canDropSound;
-   
-	void Start ()
+public class CanDropSound : CollisionSound {
+ 
+	public override void Start ()
     {
-       
-        canDropSound = transform.GetChild(0).transform.Find("CanDropSound").GetComponent<AudioSource>();
-	}
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!canDropSound.isPlaying && !gameObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
-        {
-            Debug.Log("candrops");
-            if (collision.relativeVelocity.magnitude - 1.5f >= 0.1f)
-            {
-                canDropSound.volume = collision.relativeVelocity.magnitude - 1.5f;
-                Debug.Log("highlevelCollision");
-            }
-            else if (collision.relativeVelocity.magnitude - 1.5f <= 0.1f && collision.relativeVelocity.magnitude - 1.5f >= -0.5f)
-            {
-                canDropSound.volume = 0.1f;
-                Debug.Log("lowlevelCollision");
-            }
-            else
-            {
-                canDropSound.volume = 0f;
-            }
-            canDropSound.Play();
-        }
-    }
+       //canDropSound
+        collisionSound = transform.GetChild(0).transform.Find("CanDropSound").GetComponent<AudioSource>();
+	}  
 }

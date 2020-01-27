@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-public class Game_Manager : MonoBehaviour
+public class Game_Manager : MonoBehaviour 
 {
     //just gonna collect loads of static variables here pm
     [Header("Events")]
@@ -11,7 +11,15 @@ public class Game_Manager : MonoBehaviour
     //[Tooltip("an event which takes care of water movement starting")]
     //public UnityEngine.Events.UnityEvent WaterComes;
 
+    public VRTK_ControllerEvents leftController;
+
+    public VRTK_ControllerEvents rightController;
+
     [Header("Booleans")]
+
+    [SerializeField]
+    [Tooltip("checks if the touchpad is pressed for locomotion")]
+    private bool locomotionOn;
 
     [SerializeField]
     [Tooltip("checks if the octomarker is being unsnapped from a snapzone")]
@@ -44,6 +52,18 @@ public class Game_Manager : MonoBehaviour
     [SerializeField]
     [Tooltip("Toggles between climbable rope and grabbable rope")]
     private int elevatorMoving;
+
+    private bool objectNotGrabbedYetRight;
+
+    private bool objectNotGrabbedYetLeft;
+
+    private bool playerPositionChanged;
+
+    private float playerPositionChangeAmount;
+
+    private Vector3 currentPlayerPosition;
+
+    private Vector3 currentGrabbedObjectLocalPosition;
 
     AudioSource LeftWaterPush;
     AudioSource RightWaterPush;
@@ -88,6 +108,10 @@ public class Game_Manager : MonoBehaviour
     public AudioSource RopeCreak;
 
     bool notIgnoredYet;
+
+    public Transform GrabAttachPointRight;
+
+    public Transform GrabAttachPointLeft;
 
     private void Awake()
     {
@@ -136,6 +160,18 @@ public class Game_Manager : MonoBehaviour
 
         numberOfTheBroom = 0;
 
+        playerPositionChanged = false;
+
+        playerPositionChangeAmount = 0f;
+
+        locomotionOn = false;
+
+        objectNotGrabbedYetRight = true;
+
+        objectNotGrabbedYetLeft = true;
+
+        currentGrabbedObjectLocalPosition = new Vector3(0, 0, 0);
+
         if (GameObject.Find("JuhaniBody") != null)
         {
         JuhaniBody = GameObject.Find("JuhaniBody");
@@ -167,12 +203,53 @@ public class Game_Manager : MonoBehaviour
         LeftGrab = LeftController.GetComponent<VRTK_InteractGrab>();
 
         notIgnoredYet = true;
+
+        GrabAttachPointLeft = LeftGrab.transform.GetChild(0).GetChild(1).transform;
+
+        GrabAttachPointRight = RightGrab.transform.GetChild(0).GetChild(1).transform;
+    }
+
+
+
+
+    /// <summary>
+    /// /ENABLED FUNCTIONALITY OF EVENTS
+    /// </summary>
+    protected void OnEnable()
+    {
+        if (LeftController != null)
+        {
+            leftController.TouchpadPressed += LocomotionOn;
+            leftController.TouchpadReleased += LocomotionOff;          
+        }
+
+        if (RightController != null)
+        {
+            rightController.TouchpadPressed += LocomotionOn;
+            rightController.TouchpadReleased += LocomotionOff;         
+        }
+        if (LeftGrab != null)
+        {
+            LeftGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingLeft;
+            LeftGrab.ControllerUngrabInteractableObject += RegisterObjectDropLeft;      
+        }
+        if (RightGrab != null)
+        {
+            RightGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingRight;
+            RightGrab.ControllerUngrabInteractableObject += RegisterObjectDropRight;           
+        }      
     }
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
     private void FixedUpdate()
     {
 
         CheckGrabbedObjects();
+
+        //if (locomotionOn)
+        //{
+            Debug.Log("resettingLocalpos");
+            CheckGrabbedObjectLocalPositionStays();
+        //}
 
         if (Time.time >= 0.75f && notIgnoredYet)
         {
@@ -204,7 +281,6 @@ public class Game_Manager : MonoBehaviour
 
     private void WaterIsRising()
     {
-
         water.WaterRises = true;
     }
     public void CheckGrabbedObjects()
@@ -218,8 +294,7 @@ public class Game_Manager : MonoBehaviour
                 {
                     WaterBubbles.Play();
                     water.WaterRises = true;
-                    invoked = false;
-                    Debug.Log("invoked");
+                    invoked = false;                  
                     ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
                 }
             }
@@ -232,8 +307,7 @@ public class Game_Manager : MonoBehaviour
                 if (invoked)
                 {
                     water.WaterRises = true;
-                    invoked = false;
-                    Debug.Log("invoked");
+                    invoked = false;                  
                     ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
                 }
             }
@@ -348,6 +422,66 @@ public class Game_Manager : MonoBehaviour
             yield return null;
         }
     }
+   
+    public void CheckGrabbedObjectLocalPositionStays()
+    {
+        Debug.Log(currentGrabbedObjectLocalPosition);
+        if (RightGrab.GetGrabbedObject() != null)
+        {
+            if (currentGrabbedObjectLocalPosition != GrabAttachPointRight.localPosition)
+            {
+                GrabAttachPointRight.localPosition = currentGrabbedObjectLocalPosition;
+            }
+        }
+        else if (LeftGrab.GetGrabbedObject() != null)
+        {
+            if (currentGrabbedObjectLocalPosition != GrabAttachPointLeft.localPosition)
+            {
+                GrabAttachPointLeft.localPosition = currentGrabbedObjectLocalPosition;
+            }
+        }
+    }
+
+    //get grabbed object position
+    protected virtual void RegisterGrabbedObjectLocalPositionWhenGrabbingRight(object sender, ObjectInteractEventArgs e)
+    {
+        if (objectNotGrabbedYetRight)
+        {
+            currentGrabbedObjectLocalPosition = GrabAttachPointRight.localPosition;
+            Debug.Log(GrabAttachPointRight.localPosition);
+            objectNotGrabbedYetRight = false;
+        }
+    }
+
+    protected virtual void RegisterGrabbedObjectLocalPositionWhenGrabbingLeft(object sender, ObjectInteractEventArgs e)
+    {
+        if (objectNotGrabbedYetLeft)
+        {
+            currentGrabbedObjectLocalPosition = GrabAttachPointLeft.localPosition;
+            Debug.Log(GrabAttachPointLeft.localPosition);
+            objectNotGrabbedYetLeft = false;
+        }
+    }
+
+    protected virtual void RegisterObjectDropRight(object sender, ObjectInteractEventArgs e)
+    {
+        objectNotGrabbedYetRight = true;       
+    }
+
+    protected virtual void RegisterObjectDropLeft(object sender, ObjectInteractEventArgs e)
+    {
+        objectNotGrabbedYetLeft = true;
+    }
+
+    public void LocomotionOn(object sender, ControllerInteractionEventArgs e)
+    {
+        locomotionOn = true;
+    }
+
+    protected virtual void LocomotionOff(object sender, ControllerInteractionEventArgs e)
+    {
+        locomotionOn = false;
+    }
 
     //GETTERS AND SETTERS PART BELOW HERE!
 
@@ -364,7 +498,6 @@ public class Game_Manager : MonoBehaviour
 
         set { ropeClimb = value; }
     }
-
 
     public bool IsLanternGrabbed
     {
