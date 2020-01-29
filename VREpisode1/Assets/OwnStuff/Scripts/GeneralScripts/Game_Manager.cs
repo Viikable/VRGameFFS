@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+using VRTK.GrabAttachMechanics;
 
 public class Game_Manager : MonoBehaviour 
 {
@@ -96,6 +97,10 @@ public class Game_Manager : MonoBehaviour
     public GameObject RightController;
 
     public GameObject LeftController;
+
+    public GameObject RightHand;
+
+    public GameObject LeftHand;
 
     public VRTK_InteractGrab RightGrab;
 
@@ -198,6 +203,10 @@ public class Game_Manager : MonoBehaviour
 
         LeftController = GameObject.Find("LeftController");
 
+        RightHand = RightController.transform.GetChild(0).gameObject;
+
+        LeftHand = LeftController.transform.GetChild(0).gameObject;
+
         RightGrab = RightController.GetComponent<VRTK_InteractGrab>();
 
         LeftGrab = LeftController.GetComponent<VRTK_InteractGrab>();
@@ -242,14 +251,13 @@ public class Game_Manager : MonoBehaviour
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
     private void FixedUpdate()
     {
-
         CheckGrabbedObjects();
 
-        //if (locomotionOn)
-        //{
+        if (locomotionOn)
+        {
             Debug.Log("resettingLocalpos");
             CheckGrabbedObjectLocalPositionStays();
-        //}
+        }
 
         if (Time.time >= 0.75f && notIgnoredYet)
         {
@@ -271,7 +279,7 @@ public class Game_Manager : MonoBehaviour
             {
                 foreach (Collider col in inter.GetComponentsInChildren<Collider>())
                 {
-                    Physics.IgnoreCollision(WaterMovement.feet, col);
+                    Physics.IgnoreCollision(WaterMovement.feet, col);                    //testing reasons
                     Physics.IgnoreCollision(WaterMovement.body, col);
                     Physics.IgnoreCollision(WaterMovement.head, col);
                 }
@@ -425,15 +433,14 @@ public class Game_Manager : MonoBehaviour
    
     public void CheckGrabbedObjectLocalPositionStays()
     {
-        Debug.Log(currentGrabbedObjectLocalPosition);
-        if (RightGrab.GetGrabbedObject() != null)
-        {
+        if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.name == "VRTK_ChildOfControllerGrabAttach")
+        {       
             if (currentGrabbedObjectLocalPosition != GrabAttachPointRight.localPosition)
             {
                 GrabAttachPointRight.localPosition = currentGrabbedObjectLocalPosition;
-            }
+            }          
         }
-        else if (LeftGrab.GetGrabbedObject() != null)
+        else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.name == "VRTK_ChildOfControllerGrabAttach")
         {
             if (currentGrabbedObjectLocalPosition != GrabAttachPointLeft.localPosition)
             {
@@ -448,8 +455,11 @@ public class Game_Manager : MonoBehaviour
         if (objectNotGrabbedYetRight)
         {
             currentGrabbedObjectLocalPosition = GrabAttachPointRight.localPosition;
-            Debug.Log(GrabAttachPointRight.localPosition);
+            //Debug.Log(GrabAttachPointRight.localPosition);
             objectNotGrabbedYetRight = false;
+
+            //currentGrabbedObjectLocalPosition = RightGrab.GetGrabbedObject().transform.
+            //    Find("[VRTK][AUTOGEN][RightController][Original][Controller][AttachPoint]").transform.position;
         }
     }
 
@@ -458,8 +468,11 @@ public class Game_Manager : MonoBehaviour
         if (objectNotGrabbedYetLeft)
         {
             currentGrabbedObjectLocalPosition = GrabAttachPointLeft.localPosition;
-            Debug.Log(GrabAttachPointLeft.localPosition);
+            //Debug.Log(GrabAttachPointLeft.localPosition);
             objectNotGrabbedYetLeft = false;
+
+            //currentGrabbedObjectLocalPosition = LeftGrab.GetGrabbedObject().transform.
+            //    Find("[VRTK][AUTOGEN][LeftController][Original][Controller][AttachPoint]").transform.position;
         }
     }
 

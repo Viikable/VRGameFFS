@@ -21,77 +21,113 @@ public class PliersSnapZone : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {      
-        if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject
-                || Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject 
+    {
+        if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject && !beingReleased)
+        {
+            if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
+            {
+                Broom = other.transform.parent.parent.gameObject;
+                Debug.Log(Broom);
+                PlierZone.ForceSnap(Broom);
+                //foreach (MeshCollider col in Broom.GetComponentsInChildren<MeshCollider>())
+                //{
+                //    col.enabled = false;                 
+                //}
+                //foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
+                //{
+                //    col.enabled = true;
+                //    Debug.Log("children");
+                //}
+                Debug.Log("plierbroomcollidersright");
+            }
+        }
+        if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject
                 && !beingReleased)
         {
             if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
             {
-                Broom = other.gameObject;
-                PlierZone.ForceSnap(other.gameObject);
-                foreach (MeshCollider col in other.gameObject.transform.parent.GetComponentsInChildren<MeshCollider>())
-                {
-                    col.enabled = false;
-                    Debug.Log("broomcollidersoff");
-                }
-                foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
-                {
-                    col.enabled = true;
-                    Debug.Log("plierbroomcolliders");
-                }                             
+                Broom = other.transform.parent.parent.gameObject;
+                PlierZone.ForceSnap(Broom);
+                //foreach (MeshCollider col in Broom.transform.parent.GetComponentsInChildren<MeshCollider>())
+                //{
+                //    col.enabled = false;
+                //}
+                //foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
+                //{
+                //    col.enabled = true;
+                //}
+                Debug.Log("plierbroomcollidersleft");
             }
         }
     }
 
-    public void ReleaseBroom()
+    public void ReleaseBroomRight()
     {
         if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject && !beingReleased)
         {
             beingReleased = true;
+            Debug.Log("released");
             PlierZone.ForceUnsnap();
-            foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
-            {
-                col.enabled = false;
-                Debug.Log("released");
-            }
+            //foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
+            //{
+            //    col.enabled = false;
+            //}
+            //if (Broom != null)
+            //{
+            //    foreach (MeshCollider col in Broom.GetComponentsInChildren<MeshCollider>())
+            //    {
+            //        col.enabled = true;
+            //    }
+            //}
             StartCoroutine("WaitForRelease");
-        }   
-        else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject && !beingReleased)
+        }
+    }
+
+    public void ReleaseBroomLeft()
+    {
+        if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject && !beingReleased)
         {
             beingReleased = true;
+            Debug.Log("releasedleft");
             PlierZone.ForceUnsnap();
-            foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
-            {
-                col.enabled = false;
-                Debug.Log("releasedleft");
-            }
+            //foreach (MeshCollider col in gameObject.GetComponentsInChildren<MeshCollider>())
+            //{
+            //    col.enabled = false;
+            //}
+            //if (Broom != null)
+            //{
+            //    foreach (MeshCollider col in Broom.GetComponentsInChildren<MeshCollider>())
+            //    {
+            //        col.enabled = true;                  
+            //    }
+            //}
             StartCoroutine("WaitForRelease");
         }
     }
-    private void Update()
-    {
-       
-        if (PlierZone.GetCurrentSnappedObject() == null || !PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
-        {
-            foreach (MeshCollider col in gameObject.GetComponents<MeshCollider>())
-            {
-                col.enabled = false;
-                Debug.Log("noplierbroomcolliders");
-            }
-            if (Broom != null)
-            {
-                foreach (MeshCollider col in Broom.transform.parent.GetComponentsInChildren<MeshCollider>())
-                {
-                    col.enabled = true;
-                    Debug.Log("broomcolliderson");
-                }
-            }
-        }
-    }
+
+    //private void Update()
+    //{
+
+    //    if (PlierZone.GetCurrentSnappedObject() == null || !PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
+    //    {
+    //        foreach (MeshCollider col in gameObject.GetComponents<MeshCollider>())
+    //        {
+    //            col.enabled = false;
+    //            Debug.Log("noplierbroomcolliders");
+    //        }
+    //        if (Broom != null)
+    //        {
+    //            foreach (MeshCollider col in Broom.transform.parent.GetComponentsInChildren<MeshCollider>())
+    //            {
+    //                col.enabled = true;
+    //                Debug.Log("broomcolliderson");
+    //            }
+    //        }
+    //    }
+    //}
     IEnumerator WaitForRelease()
     {
         yield return new WaitForSecondsRealtime(2f);
-        beingReleased = false;
+        beingReleased = false;             
     }
 }
