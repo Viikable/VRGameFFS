@@ -433,14 +433,15 @@ public class Game_Manager : MonoBehaviour
    
     public void CheckGrabbedObjectLocalPositionStays()
     {
-        if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.name == "VRTK_ChildOfControllerGrabAttach")
+        if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript == RightGrab.GetGrabbedObject().GetComponent<VRTK_ChildOfControllerGrabAttach>())
         {       
             if (currentGrabbedObjectLocalPosition != GrabAttachPointRight.localPosition)
             {
+                Debug.Log("dudd");
                 GrabAttachPointRight.localPosition = currentGrabbedObjectLocalPosition;
             }          
         }
-        else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript.name == "VRTK_ChildOfControllerGrabAttach")
+        else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript == LeftGrab.GetGrabbedObject().GetComponent<VRTK_ChildOfControllerGrabAttach>())
         {
             if (currentGrabbedObjectLocalPosition != GrabAttachPointLeft.localPosition)
             {

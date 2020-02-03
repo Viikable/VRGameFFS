@@ -174,6 +174,8 @@ public class OctopusLightCode : MonoBehaviour
 
     public AudioSource GreenButtonSound;
 
+    public AudioSource OctopusAttentionButtonSound;
+
     public AudioSource HologramAppearsSound;
 
     public AudioSource HologramDisappearsSound;
@@ -285,13 +287,15 @@ public class OctopusLightCode : MonoBehaviour
 
         OctopusAnim = GameObject.Find("OCTOPUS").GetComponent<Animator>();
 
-        YellowButtonSound = transform.Find("YellowButton").GetComponent<AudioSource>();
+        YellowButtonSound = transform.Find("YellowLight/YellowButton").GetComponent<AudioSource>();
 
-        RedButtonSound = transform.Find("RedButton").GetComponent<AudioSource>();
+        RedButtonSound = transform.Find("RedLight/RedButton").GetComponent<AudioSource>();
 
-        CyanButtonSound = transform.Find("CyanButton").GetComponent<AudioSource>();
+        CyanButtonSound = transform.Find("CyanLight/CyanButton").GetComponent<AudioSource>();
 
-        GreenButtonSound = transform.Find("GreenButton").GetComponent<AudioSource>();
+        GreenButtonSound = transform.Find("GreenLight/GreenButton").GetComponent<AudioSource>();
+
+        OctopusAttentionButtonSound = transform.Find("OctopusAttention/AttentionButton").GetComponent<AudioSource>();
 
         MarkerAttachSound = Marker.GetComponent<AudioSource>();
 
@@ -841,6 +845,10 @@ public class OctopusLightCode : MonoBehaviour
     {
         if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
         {
+            if (!OctopusAttentionButtonSound.isPlaying)
+            {
+            OctopusAttentionButtonSound.Play();
+            }
             if (colourCode[0] == "Red")
             {
                 if (colourCode[1] == "Cyan" && colourCode[2] == "Green" && colourCode[3] == "Green")
