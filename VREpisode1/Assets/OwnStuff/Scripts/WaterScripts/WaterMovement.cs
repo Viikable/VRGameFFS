@@ -151,23 +151,27 @@ public class WaterMovement : MonoBehaviour
                     DrowningAlertSounds.Play();
                 }
             }
-            //plays underwater ambience only when head is actually underwater
-            if (headIsUnderWater)
+            if (!UnderwaterAmbience1.isPlaying)
             {
-                if (!UnderwaterAmbience1.isPlaying)
-                {
                 UnderwaterAmbience1.Play();
                 UnderwaterAmbience2.Play();
                 UnderwaterAmbience3.Play();
                 UnderwaterAmbience4.Play();
-                }
+            }
+            //plays underwater ambience only when head is actually underwater
+            if (headIsUnderWater)
+            {
+                UnderwaterAmbience1.volume = 1;
+                UnderwaterAmbience2.volume = 1;
+                UnderwaterAmbience3.volume = 1;
+                UnderwaterAmbience4.volume = 1;
             }
             else
             {
-                UnderwaterAmbience1.Stop();
-                UnderwaterAmbience2.Stop();
-                UnderwaterAmbience3.Stop();
-                UnderwaterAmbience4.Stop();
+                UnderwaterAmbience1.volume = 0.5f;
+                UnderwaterAmbience2.volume = 0.5f;
+                UnderwaterAmbience3.volume = 0.5f;
+                UnderwaterAmbience4.volume = 0.5f;
             }
 
             if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater && notDrownedYet)
@@ -192,7 +196,7 @@ public class WaterMovement : MonoBehaviour
             }
             Debug.Log("nogravity");
             //headsetbody.useGravity = false;
-            Physics.gravity = new Vector3(0, -2.5f, 0);
+            Physics.gravity = new Vector3(0, -2f, 0);
             //headsetbody.AddForce(Physics.gravity * headsetbody.mass / 4);
             
             //if (headsetbody.velocity.y >= 0)
@@ -216,12 +220,12 @@ public class WaterMovement : MonoBehaviour
         {
             if (!reachedTopPuzzle)
             {
-                transform.Translate(Vector3.up * 0.005f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.3f * Time.deltaTime, Space.World);
                 Debug.Log("waterup");
             }
             else
             {
-                transform.Translate(Vector3.up * 0.00025f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.0025f, Space.World);
             }
         }      
     }

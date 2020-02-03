@@ -112,6 +112,8 @@ public class Game_Manager : MonoBehaviour
 
     public AudioSource RopeCreak;
 
+    public AudioSource WaterBreakingSound;
+
     bool notIgnoredYet;
 
     public Transform GrabAttachPointRight;
@@ -199,6 +201,8 @@ public class Game_Manager : MonoBehaviour
         RopeCreak = Noose.GetComponent<AudioSource>();
         }
 
+        WaterBreakingSound = GetComponent<AudioSource>();
+
         RightController = GameObject.Find("RightController");
 
         LeftController = GameObject.Find("LeftController");
@@ -217,8 +221,6 @@ public class Game_Manager : MonoBehaviour
 
         GrabAttachPointRight = RightGrab.transform.GetChild(0).GetChild(1).transform;
     }
-
-
 
 
     /// <summary>
@@ -301,6 +303,7 @@ public class Game_Manager : MonoBehaviour
                 lanternIsGrabbed = true;
                 if (invoked)
                 {
+                    WaterBreakingSound.Play();
                     WaterBubbles.Play();
                     water.WaterRises = true;
                     invoked = false;                  
@@ -315,6 +318,7 @@ public class Game_Manager : MonoBehaviour
                 lanternIsGrabbed = true;
                 if (invoked)
                 {
+                    WaterBreakingSound.Play();
                     water.WaterRises = true;
                     invoked = false;                  
                     ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
