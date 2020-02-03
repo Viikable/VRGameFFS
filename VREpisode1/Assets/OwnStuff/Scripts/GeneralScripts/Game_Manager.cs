@@ -282,6 +282,7 @@ public class Game_Manager : MonoBehaviour
                     Physics.IgnoreCollision(WaterMovement.feet, col);                    //testing reasons
                     Physics.IgnoreCollision(WaterMovement.body, col);
                     Physics.IgnoreCollision(WaterMovement.head, col);
+                    //Debug.Log(col.gameObject.name);
                 }
             }
         }
