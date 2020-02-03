@@ -29,7 +29,11 @@ public class OpenBoxUnSnapTrigger : MonoBehaviour
     {       
         if (other.CompareTag("Marker") && markerCanSnap)
         {
-            OpenBoxSnap.ForceSnap(Marker);         
+            OpenBoxSnap.ForceSnap(Marker);
+            if (!OctopusLightCode.MarkerAttachSound.isPlaying)
+            {
+                OctopusLightCode.MarkerAttachSound.Play();
+            }
             MarkerReleaseButton.stayPressed = true;  //remember to set this true so the release button gets activated again after releasing marker
         }      
     }

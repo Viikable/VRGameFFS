@@ -5,6 +5,7 @@ namespace VRTK
 {
     public class BoxDetecter : MonoBehaviour
     {
+        //handles stacking boxes in first shaft by enabling invisible boxes to the place of the snapped box in order to make them stay on still while on top of each other
         VRTK_SnapDropZone boxSnap;
         bool notSnapped;
         GameObject previouslySnapped;

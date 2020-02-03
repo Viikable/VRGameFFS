@@ -52,7 +52,7 @@ public class OctopusLightCode : MonoBehaviour
     string[] colourCode;
 
     [SerializeField]
-    [Tooltip("This describes the object where the marker is attatched to atm")]
+    [Tooltip("This describes the object/location where the marker is attached to atm")]
     string currentMarkedLocation;
 
     [SerializeField]
@@ -164,7 +164,24 @@ public class OctopusLightCode : MonoBehaviour
 
     Animator OctopusAnim;
 
+    //Audio
+    [Header("Audio")]
+    public AudioSource YellowButtonSound;
+
+    public AudioSource CyanButtonSound;
+
+    public AudioSource RedButtonSound;
+
+    public AudioSource GreenButtonSound;
+
+    public AudioSource HologramAppearsSound;
+
+    public AudioSource HologramDisappearsSound;
+
+    public static AudioSource MarkerAttachSound;
+
     //these colliders will be activated when the marker snaps to a given snapzone, creating the illusory colliders for it
+    [Header("Ghostcolliders")]
     public GameObject OpenBoxMarkerGhostColliderContainer1;
 
     public GameObject OpenBoxMarkerGhostColliderContainer2;
@@ -267,6 +284,16 @@ public class OctopusLightCode : MonoBehaviour
         SirenAnim = GameObject.Find("Research_siren_Animated").GetComponent<Animator>();
 
         OctopusAnim = GameObject.Find("OCTOPUS").GetComponent<Animator>();
+
+        YellowButtonSound = transform.Find("YellowButton").GetComponent<AudioSource>();
+
+        RedButtonSound = transform.Find("RedButton").GetComponent<AudioSource>();
+
+        CyanButtonSound = transform.Find("CyanButton").GetComponent<AudioSource>();
+
+        GreenButtonSound = transform.Find("GreenButton").GetComponent<AudioSource>();
+
+        MarkerAttachSound = Marker.GetComponent<AudioSource>();
 
         OpenBoxMarkerGhostColliderContainer1 = OpenBox.transform.Find("MarkerGhostCollider1").gameObject;
         OpenBoxMarkerGhostColliderContainer2 = OpenBox.transform.Find("MarkerGhostCollider2").gameObject;
@@ -408,6 +435,7 @@ public class OctopusLightCode : MonoBehaviour
     public void AnimateHologram(string objectToBeAnimated)
     {     
         hologramInProgress = true;
+        HologramAppearsSound.Play();
         if (objectToBeAnimated == "OpenBox")
         {
             OpenBoxAnim.SetBool("Close", true);
@@ -507,6 +535,7 @@ public class OctopusLightCode : MonoBehaviour
         PoolAnim.SetBool("Lower", false);
         SirenAnim.SetBool("Play", false);
         hologramInProgress = false;
+        HologramDisappearsSound.Play();
     }
 
     //checking what colour combination has been entered
@@ -539,6 +568,7 @@ public class OctopusLightCode : MonoBehaviour
             {
                 CodeCube4.GetComponent<MeshRenderer>().material = ButtonRed;
             }
+            RedButtonSound.Play();
             StartCoroutine("WaitForPress");
         }
         if (GreenLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
@@ -567,6 +597,7 @@ public class OctopusLightCode : MonoBehaviour
             {
                 CodeCube4.GetComponent<MeshRenderer>().material = ButtonGreen;
             }
+            GreenButtonSound.Play();
             StartCoroutine("WaitForPress");
         }
         if (YellowLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
@@ -595,6 +626,7 @@ public class OctopusLightCode : MonoBehaviour
             {
                 CodeCube4.GetComponent<MeshRenderer>().material = ButtonYellow;
             }
+            YellowButtonSound.Play();
             StartCoroutine("WaitForPress");
         }
         if (CyanLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
@@ -623,6 +655,7 @@ public class OctopusLightCode : MonoBehaviour
             {
                 CodeCube4.GetComponent<MeshRenderer>().material = ButtonCyan;
             }
+            CyanButtonSound.Play();
             StartCoroutine("WaitForPress");
         }
         if (combinationNumber == 4 && !codeEntered)
@@ -1003,8 +1036,8 @@ public class OctopusLightCode : MonoBehaviour
     }
 
     //a specific method for animating the octopus
-    public void AnimateOctopus(string animationName)
     //here we can confirm the opposites of the words we get from research objects
+    public void AnimateOctopus(string animationName)
     {
         octoAnimInProgress = true;
         if (animationName == "OCTO_CONFUSED")

@@ -30,6 +30,10 @@ public class SirenUnSnapTrigger : MonoBehaviour {
         if (other.CompareTag("Marker") && markerCanSnap)
         {
             SirenSnap.ForceSnap(Marker);
+            if (!OctopusLightCode.MarkerAttachSound.isPlaying)
+            {
+            OctopusLightCode.MarkerAttachSound.Play();
+            }
             MarkerReleaseButton.stayPressed = true;  //remember to set this true so the release button gets activated again after releasing marker
         }
     }

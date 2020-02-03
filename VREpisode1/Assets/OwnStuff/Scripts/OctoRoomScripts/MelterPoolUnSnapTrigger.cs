@@ -30,6 +30,10 @@ public class MelterPoolUnSnapTrigger : MonoBehaviour {
         if (other.CompareTag("Marker") && markerCanSnap)
         {
             ResearchPoolSnap.ForceSnap(Marker);
+            if (!OctopusLightCode.MarkerAttachSound.isPlaying)
+            {
+                OctopusLightCode.MarkerAttachSound.Play();
+            }
             MarkerReleaseButton.stayPressed = true;  //remember to set this true so the release button gets activated again after releasing marker
         }
     }
