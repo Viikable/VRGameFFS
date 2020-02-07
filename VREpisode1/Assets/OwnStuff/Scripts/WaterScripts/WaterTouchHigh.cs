@@ -24,21 +24,26 @@ public class WaterTouchHigh : MonoBehaviour {
             {
                 water.Splash.Play();
             }
-            WaterMovement.headIsUnderWater = false;
             Debug.Log("head exited water");
             water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
             //touchedWater = false;
             WaterMovement.fader.Unfade(0.25f);
-
+            //if (WaterMovement.headIsUnderWater)
+            //{
+            //ToxicGasPush.PlayerBody.isKinematic = true;
+            //StartCoroutine("TurnBackToNonKinematic");
+            //}
+            WaterMovement.headIsUnderWater = false;
             //if (ButtonSwimming.swimUp)
             //{
             //    GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = true;
             //}
         }
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    IEnumerator TurnBackToNonKinematic()
+    {
+        yield return new WaitForEndOfFrame();
+        ToxicGasPush.PlayerBody.isKinematic = false;
+    }
+    
 }

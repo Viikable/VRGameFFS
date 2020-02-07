@@ -196,18 +196,25 @@ public class WaterMovement : MonoBehaviour
             }
             Debug.Log("nogravity");
             //headsetbody.useGravity = false;
+            if (headIsUnderWater)
+            {
             Physics.gravity = new Vector3(0, -2f, 0);
+            }
+            else
+            {
+                Physics.gravity.Set(0, -9.81f, 0);
+            }
             //headsetbody.AddForce(Physics.gravity * headsetbody.mass / 4);
-            
-            //if (headsetbody.velocity.y >= 0)
-            //{
-            //    Debug.Log("now changes");
-            //    headsetbody.AddForce(new Vector3(0, -9, 0));
-            //}
-            //else
-            //{
-            //    return;
-            //}
+
+                //if (headsetbody.velocity.y >= 0)
+                //{
+                //    Debug.Log("now changes");
+                //    headsetbody.AddForce(new Vector3(0, -9, 0));
+                //}
+                //else
+                //{
+                //    return;
+                //}
         }
         else if (headsetbody != null)
         {

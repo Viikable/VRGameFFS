@@ -8,7 +8,7 @@ public class ToxicGasPush : MonoBehaviour {
     bool notEnded;
     public Rigidbody pushedObject;
     public GameObject CameraRig;
-    Rigidbody PlayerBody;
+    public static Rigidbody PlayerBody;
 
     private void Start()
     {

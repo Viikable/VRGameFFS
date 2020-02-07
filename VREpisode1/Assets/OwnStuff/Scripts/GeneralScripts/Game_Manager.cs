@@ -74,7 +74,6 @@ public class Game_Manager : MonoBehaviour
 
     [Header("Gameobjects")]
 
-    public ParticleSystem WaterBubbles;
 
     public GameObject Lantern;
 
@@ -101,6 +100,10 @@ public class Game_Manager : MonoBehaviour
     public GameObject RightHand;
 
     public GameObject LeftHand;
+
+    [Header("Other")]
+
+    public ParticleSystem WaterBubbles;
 
     public VRTK_InteractGrab RightGrab;
 

@@ -13,7 +13,7 @@ public class ClimbableHeadAppears : MonoBehaviour {
     ParticleSystem ToxicGasMouth;
     GameObject ToxicGasLeak;
     bool notDone;
-    [Header("This tells whether Juhanihead has been attached to the leak or not, it cannot be removed after attaching")]
+    [Tooltip("This tells whether Juhanihead has been attached to the leak or not, it cannot be removed after attaching")]
     public static bool toxicLeakChanged;
 
     void Start () {
