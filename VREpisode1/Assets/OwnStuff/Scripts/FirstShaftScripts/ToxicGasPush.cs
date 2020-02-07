@@ -57,7 +57,7 @@ public class ToxicGasPush : MonoBehaviour {
             }
             else
             {
-                pushedObject.AddForce(new Vector3(0f, 0f, -4f), ForceMode.Impulse);
+                pushedObject.AddForce(new Vector3(0f, 0f, -20f), ForceMode.Impulse);
             }
             beingPushed = false;
         }

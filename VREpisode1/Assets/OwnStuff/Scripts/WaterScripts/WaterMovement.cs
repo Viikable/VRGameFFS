@@ -220,7 +220,7 @@ public class WaterMovement : MonoBehaviour
         {
             if (!reachedTopPuzzle)
             {
-                transform.Translate(Vector3.up * 0.3f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
                 Debug.Log("waterup");
             }
             else

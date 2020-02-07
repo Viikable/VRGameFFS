@@ -22,8 +22,11 @@ public class ShaftsOptimizerTriggerOutToMainHall : MonoBehaviour {
             OptimizeRendering.insideShafts = false;
             OptimizeRendering.insideMainHall = true;
             OptimizeRendering.renderingChanged = false;
-            GasLeak.Stop();
             ResetOutOfFacilityObjectLocation.PlayerResetLocation = "MainHall";
+            if (!ClimbableHeadAppears.toxicLeakChanged)
+            {
+            GasLeak.Stop();
+            }
         }
     }
 }
