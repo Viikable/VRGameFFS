@@ -30,10 +30,10 @@ public class BoxFloat : MonoBehaviour {
         //{
         //    other.transform.parent = transform;
         //}
-        //if (other.name == "ShaftCeiling")
-        //{
-        //    stop = true;
-        //}
+        if (other.name == "WaterSlower")
+        {
+            startMoving = false;
+        }
     }
     //private void OnTriggerExit(Collider other)
     //{

@@ -254,7 +254,7 @@ public class Game_Manager : MonoBehaviour
         }
     }
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
-    private void FixedUpdate()
+    private void Update()
     {
         CheckGrabbedObjects();
 
@@ -402,7 +402,7 @@ public class Game_Manager : MonoBehaviour
             {
                 RightWaterPush.Play();
             }
-            Physics.gravity.Set(0, -9.81f, 0);
+            Physics.gravity.Set(0, -19.81f, 0);
             StartCoroutine(WaitForSecondsRealtimeRight());
         }
         else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
@@ -412,7 +412,7 @@ public class Game_Manager : MonoBehaviour
                 LeftWaterPush.Play();
             }
             Debug.Log("grabbedWater");
-            Physics.gravity.Set(0, -9.81f, 0);
+            Physics.gravity.Set(0, -19.81f, 0);
             StartCoroutine(WaitForSecondsRealtimeLeft());
         }
     }
