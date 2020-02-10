@@ -21,11 +21,10 @@ public class ClimbableHeadAppears : MonoBehaviour {
         JuhaniHeadCollider2 = GameObject.Find("JuhaniClimbableHeadCollider2");
         JuhaniMouthCollider = GameObject.Find("JuhaniUnClimbableMouthCollider");
         JuhaniClimbableHeadset = GameObject.Find("JuhaniHeadClimbableHeadset");
-        ToxicGasLeak = GameObject.Find("ToxicGasLeaks");
+        ToxicGasLeak = GameObject.Find("ToxicGasLeak");
         ToxicGas = ToxicGasLeak.GetComponent<ParticleSystem>();
         ToxicGasMouth = GameObject.Find("ToxicGasLeakMouth").GetComponent<ParticleSystem>();
-        ToxicGasUnderWater = GameObject.Find("ToxicGasLeakUnderWater").GetComponent<ParticleSystem>();
-        ToxicGasMouth.Stop();
+        ToxicGasUnderWater = GameObject.Find("ToxicGasLeakUnderWater").GetComponent<ParticleSystem>();       
         notDone = true;
     }
     void Update()

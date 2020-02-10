@@ -402,6 +402,7 @@ public class Game_Manager : MonoBehaviour
             {
                 RightWaterPush.Play();
             }
+            Physics.gravity.Set(0, -9.81f, 0);
             StartCoroutine(WaitForSecondsRealtimeRight());
         }
         else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
@@ -411,6 +412,7 @@ public class Game_Manager : MonoBehaviour
                 LeftWaterPush.Play();
             }
             Debug.Log("grabbedWater");
+            Physics.gravity.Set(0, -9.81f, 0);
             StartCoroutine(WaitForSecondsRealtimeLeft());
         }
     }
@@ -430,6 +432,7 @@ public class Game_Manager : MonoBehaviour
         {
             Debug.Log("ReleasedWater");
             RightGrab.ForceRelease();
+            Physics.gravity.Set(0, -2.5f, 0);
         }
         else
         {
@@ -441,6 +444,7 @@ public class Game_Manager : MonoBehaviour
         if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
         {
             LeftGrab.ForceRelease();
+            Physics.gravity.Set(0, -2.5f, 0);
         }
         else
         {
