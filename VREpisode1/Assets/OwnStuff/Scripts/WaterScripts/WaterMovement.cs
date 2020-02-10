@@ -55,10 +55,10 @@ public class WaterMovement : MonoBehaviour
     public AudioSource DrowningAlertSounds;
 
     //ambient water sounds while underwater
-    AudioSource UnderwaterAmbience1;
-    AudioSource UnderwaterAmbience2;
-    AudioSource UnderwaterAmbience3;
-    AudioSource UnderwaterAmbience4;
+    public AudioSource UnderwaterAmbience1;
+    public AudioSource UnderwaterAmbience2;
+    public AudioSource UnderwaterAmbience3;
+    public AudioSource UnderwaterAmbience4;
 
     private BoxFloat floatingBox;
 
@@ -106,7 +106,6 @@ public class WaterMovement : MonoBehaviour
         Debug.Log("Lantern is touched, let the waters rise!");
 
     }
-
 
     void FixedUpdate()
     {
@@ -196,9 +195,16 @@ public class WaterMovement : MonoBehaviour
             }
             Debug.Log("nogravity");
             //headsetbody.useGravity = false;
-            Physics.gravity = new Vector3(0, -2f, 0);
+            if (headIsUnderWater)
+            {
+                Physics.gravity = new Vector3(0, -2.5f, 0);
+            }
+            else
+            {
+                Physics.gravity.Set(0, -9.81f, 0);
+            }
             //headsetbody.AddForce(Physics.gravity * headsetbody.mass / 4);
-            
+
             //if (headsetbody.velocity.y >= 0)
             //{
             //    Debug.Log("now changes");
@@ -218,16 +224,18 @@ public class WaterMovement : MonoBehaviour
 
         if (WaterRises)
         {
+            //while the water hasn't hit the top of the ceiling the speed remains the same
             if (!reachedTopPuzzle)
             {
-                transform.Translate(Vector3.up * 0.3f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
                 Debug.Log("waterup");
             }
+            //after hitting the ceiling the speed slows down until stopping eventually when it reaches the air lock to octoroom
             else
             {
-                transform.Translate(Vector3.up * 0.0025f, Space.World);
+                transform.Translate(Vector3.up * 0.005f * Time.deltaTime, Space.World);
             }
-        }      
+        }
     }
     public bool WaterRises
     {
@@ -236,5 +244,5 @@ public class WaterMovement : MonoBehaviour
         set { waterRises = value; }
     }
 }
-    
+
 

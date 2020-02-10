@@ -10,29 +10,31 @@ public class ShaftTopOpening : MonoBehaviour
     bool notOpen;
     SkeletonKey SecondShaftKeyCard;
     AudioSource DamagedKeyCardSound;
-	
-	void Start ()
+    public Light TalosPuzzleLight;
+
+    void Start()
     {
         ShaftTopZone = GetComponent<VRTK_SnapDropZone>();
         TopShaftHatch = GameObject.Find("GateShaftEnd").GetComponent<Animator>();
         notOpen = true;
         SecondShaftKeyCard = GameObject.Find("ShaftKey").GetComponent<SkeletonKey>();
         DamagedKeyCardSound = GetComponent<AudioSource>();
-	}
-	
-	void Update ()
+    }
+
+    void Update()
     {
-		if (ShaftTopZone.GetCurrentSnappedObject() != null && notOpen)
+        if (ShaftTopZone.GetCurrentSnappedObject() != null && notOpen)
         {
-            if (!SecondShaftKeyCard.DamagedByWater)
+            if (!SecondShaftKeyCard.damagedByWater)
             {
-            TopShaftHatch.SetBool("Open", true);            
-            notOpen = false;
+                TopShaftHatch.SetBool("Open", true);
+                notOpen = false;
+                TalosPuzzleLight.enabled = true;
             }
             else
-            {                
-            DamagedKeyCardSound.Play();
+            {
+                DamagedKeyCardSound.Play();
             }
         }
-	}
+    }
 }

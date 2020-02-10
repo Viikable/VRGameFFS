@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class SkeletonKey : MonoBehaviour
 {
-    public bool DamagedByWater;
+    public bool damagedByWater;
+    public AudioSource DamagedSound;
+
 
     void Start()
     {
-        DamagedByWater = false;
+        damagedByWater = false;
+        DamagedSound = GetComponentInChildren<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "GrabbableWater")
+        if (other.name == "GrabbableWater" && !damagedByWater)
         {
-            DamagedByWater = true;
+            damagedByWater = true;
+            DamagedSound.Play();
         }
     }
 }

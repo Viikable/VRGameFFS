@@ -4,7 +4,7 @@ using UnityEngine;
 using VRTK;
 using VRTK.GrabAttachMechanics;
 
-public class Game_Manager : MonoBehaviour 
+public class Game_Manager : MonoBehaviour
 {
     //just gonna collect loads of static variables here pm
     [Header("Events")]
@@ -74,7 +74,6 @@ public class Game_Manager : MonoBehaviour
 
     [Header("Gameobjects")]
 
-    public ParticleSystem WaterBubbles;
 
     public GameObject Lantern;
 
@@ -101,6 +100,10 @@ public class Game_Manager : MonoBehaviour
     public GameObject RightHand;
 
     public GameObject LeftHand;
+
+    [Header("Other")]
+
+    public ParticleSystem WaterBubbles;
 
     public VRTK_InteractGrab RightGrab;
 
@@ -136,19 +139,19 @@ public class Game_Manager : MonoBehaviour
 
         if (GameObject.Find("Water") != null)
         {
-        WaterBubbles = GameObject.Find("Water").GetComponentInChildren<ParticleSystem>();
+            WaterBubbles = GameObject.Find("Water").GetComponentInChildren<ParticleSystem>();
 
-        WaterBubbles.Pause();
+            WaterBubbles.Pause();
 
-        LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
+            LeftWaterPush = GameObject.Find("LeftWaterPush").GetComponent<AudioSource>();
 
-        RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
+            RightWaterPush = GameObject.Find("RightWaterPush").GetComponent<AudioSource>();
 
-        Lantern = GameObject.Find("Lantern");
+            Lantern = GameObject.Find("Lantern");
 
-        GrabbableWater = GameObject.Find("GrabbableWater");
+            GrabbableWater = GameObject.Find("GrabbableWater");
 
-        water = GameObject.Find("Water").GetComponent<WaterMovement>();
+            water = GameObject.Find("Water").GetComponent<WaterMovement>();
         }
 
         ropeClimb = true;
@@ -157,7 +160,7 @@ public class Game_Manager : MonoBehaviour
 
         lanternIsGrabbed = false;
 
-        lanternLightIsOn = false;      
+        lanternLightIsOn = false;
 
         beingUnSnapped = false;
 
@@ -181,24 +184,24 @@ public class Game_Manager : MonoBehaviour
 
         if (GameObject.Find("JuhaniBody") != null)
         {
-        JuhaniBody = GameObject.Find("JuhaniBody");
+            JuhaniBody = GameObject.Find("JuhaniBody");
 
-        JuhaniHead = GameObject.Find("JuhaniHead");
+            JuhaniHead = GameObject.Find("JuhaniHead");
 
-        JuhaniHand1 = GameObject.Find("JuhaniHand1");
+            JuhaniHand1 = GameObject.Find("JuhaniHand1");
 
-        JuhaniHand2 = GameObject.Find("JuhaniHand2");
+            JuhaniHand2 = GameObject.Find("JuhaniHand2");
 
-        JuhaniLeg1 = GameObject.Find("JuhaniLeg1");
+            JuhaniLeg1 = GameObject.Find("JuhaniLeg1");
 
-        JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
+            JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
         }
 
         Noose = GameObject.Find("NOOSE");
 
         if (Noose != null)
         {
-        RopeCreak = Noose.GetComponent<AudioSource>();
+            RopeCreak = Noose.GetComponent<AudioSource>();
         }
 
         WaterBreakingSound = GetComponent<AudioSource>();
@@ -231,24 +234,24 @@ public class Game_Manager : MonoBehaviour
         if (LeftController != null)
         {
             leftController.TouchpadPressed += LocomotionOn;
-            leftController.TouchpadReleased += LocomotionOff;          
+            leftController.TouchpadReleased += LocomotionOff;
         }
 
         if (RightController != null)
         {
             rightController.TouchpadPressed += LocomotionOn;
-            rightController.TouchpadReleased += LocomotionOff;         
+            rightController.TouchpadReleased += LocomotionOff;
         }
         if (LeftGrab != null)
         {
             LeftGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingLeft;
-            LeftGrab.ControllerUngrabInteractableObject += RegisterObjectDropLeft;      
+            LeftGrab.ControllerUngrabInteractableObject += RegisterObjectDropLeft;
         }
         if (RightGrab != null)
         {
             RightGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingRight;
-            RightGrab.ControllerUngrabInteractableObject += RegisterObjectDropRight;           
-        }      
+            RightGrab.ControllerUngrabInteractableObject += RegisterObjectDropRight;
+        }
     }
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
     private void FixedUpdate()
@@ -288,7 +291,7 @@ public class Game_Manager : MonoBehaviour
                 }
             }
         }
-    }    
+    }
 
     private void WaterIsRising()
     {
@@ -305,8 +308,12 @@ public class Game_Manager : MonoBehaviour
                 {
                     WaterBreakingSound.Play();
                     WaterBubbles.Play();
+                    water.UnderwaterAmbience1.Play();
+                    water.UnderwaterAmbience2.Play();
+                    water.UnderwaterAmbience3.Play();
+                    water.UnderwaterAmbience4.Play();
                     water.WaterRises = true;
-                    invoked = false;                  
+                    invoked = false;
                     ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
                 }
             }
@@ -319,8 +326,13 @@ public class Game_Manager : MonoBehaviour
                 if (invoked)
                 {
                     WaterBreakingSound.Play();
+                    WaterBubbles.Play();
+                    water.UnderwaterAmbience1.Play();
+                    water.UnderwaterAmbience2.Play();
+                    water.UnderwaterAmbience3.Play();
+                    water.UnderwaterAmbience4.Play();
                     water.WaterRises = true;
-                    invoked = false;                  
+                    invoked = false;
                     ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
                 }
             }
@@ -381,7 +393,7 @@ public class Game_Manager : MonoBehaviour
                 Juhanirigidpart.mass = 1000;
                 Juhanirigidpart.drag = 1.5f;
                 Juhanirigidpart.angularDrag = 1.5f;
-            }          
+            }
         }
         if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
         {
@@ -435,16 +447,16 @@ public class Game_Manager : MonoBehaviour
             yield return null;
         }
     }
-   
+
     public void CheckGrabbedObjectLocalPositionStays()
     {
         if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript == RightGrab.GetGrabbedObject().GetComponent<VRTK_ChildOfControllerGrabAttach>())
-        {       
+        {
             if (currentGrabbedObjectLocalPosition != GrabAttachPointRight.localPosition)
             {
                 Debug.Log("dudd");
                 GrabAttachPointRight.localPosition = currentGrabbedObjectLocalPosition;
-            }          
+            }
         }
         else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript == LeftGrab.GetGrabbedObject().GetComponent<VRTK_ChildOfControllerGrabAttach>())
         {
@@ -484,7 +496,7 @@ public class Game_Manager : MonoBehaviour
 
     protected virtual void RegisterObjectDropRight(object sender, ObjectInteractEventArgs e)
     {
-        objectNotGrabbedYetRight = true;       
+        objectNotGrabbedYetRight = true;
     }
 
     protected virtual void RegisterObjectDropLeft(object sender, ObjectInteractEventArgs e)
