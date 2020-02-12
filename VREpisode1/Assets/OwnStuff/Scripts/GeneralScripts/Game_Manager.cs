@@ -402,7 +402,7 @@ public class Game_Manager : MonoBehaviour
             {
                 RightWaterPush.Play();
             }
-            Physics.gravity.Set(0, -19.81f, 0);
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
             StartCoroutine(WaitForSecondsRealtimeRight());
         }
         else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
@@ -412,7 +412,7 @@ public class Game_Manager : MonoBehaviour
                 LeftWaterPush.Play();
             }
             Debug.Log("grabbedWater");
-            Physics.gravity.Set(0, -19.81f, 0);
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
             StartCoroutine(WaitForSecondsRealtimeLeft());
         }
     }
@@ -431,25 +431,25 @@ public class Game_Manager : MonoBehaviour
         if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
         {
             Debug.Log("ReleasedWater");
-            RightGrab.ForceRelease();
-            Physics.gravity.Set(0, -2.5f, 0);
+            RightGrab.ForceRelease();          
         }
         else
         {
             yield return null;
         }
+        ToxicGasPush.PlayerBody.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
     }
     IEnumerator ReleaseOrNotLeft()
     {
         if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
         {
-            LeftGrab.ForceRelease();
-            Physics.gravity.Set(0, -2.5f, 0);
+            LeftGrab.ForceRelease();           
         }
         else
         {
             yield return null;
         }
+        ToxicGasPush.PlayerBody.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
     }
 
     public void CheckGrabbedObjectLocalPositionStays()

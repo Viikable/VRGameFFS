@@ -29,8 +29,8 @@ public class WaterTouchHigh : MonoBehaviour
             WaterMovement.fader.Unfade(0.25f);
             WaterMovement.headIsUnderWater = false;
             //test
-            ToxicGasPush.PlayerBody.isKinematic = true;
-            StartCoroutine("TurnBackToNonKinematic");
+            //ToxicGasPush.PlayerBody.isKinematic = true;
+            //StartCoroutine("TurnBackToNonKinematic");
         }
     }
     IEnumerator TurnBackToNonKinematic()

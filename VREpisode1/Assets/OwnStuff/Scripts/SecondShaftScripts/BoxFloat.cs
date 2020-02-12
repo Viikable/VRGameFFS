@@ -7,22 +7,18 @@ using VRTK.GrabAttachMechanics;
 public class BoxFloat : MonoBehaviour
 {
     //goal, make the box float with physics and get up to the water level if pushed down by objects
-    private bool startMoving;
-    private bool notTouched;
-    public int whatSideofTheBoxDown;
-
+    public static bool startMoving;
+    public static bool tooDeep;
+    public static Rigidbody boxBody;
+    
     float rotationSpeed;
 
     float totalRotationsX;
     float totalRotationsY;
     float totalRotationsZ;
-    //Animator FloatAnim;
-    //private Collider BoxFloatUpsideMarker1;
-    //private Collider BoxFloatUpsideMarker2;
-    //private Collider BoxFloatUpsideMarker3;
-    //private Collider BoxFloatUpsideMarker4;
-    //private Collider BoxFloatUpsideMarker5;
-    //private Collider BoxFloatUpsideMarker6;
+
+    [Tooltip("This detects if the box is underwater too much and lifts it up automatically")]
+    Collider MiddleMark;
 
     Transform x0y0z0;
 
@@ -72,27 +68,16 @@ public class BoxFloat : MonoBehaviour
 
     private void Start()
     {
-        whatSideofTheBoxDown = 0;
         startMoving = false;
-        notTouched = true;
-        rotationSpeed = 20f;
+        tooDeep = false;       
+        rotationSpeed = 14f;
         totalRotationsX = 0;
         totalRotationsY = 0;
         totalRotationsZ = 0;
-        //FloatAnim = transform.parent.GetComponent<Animator>();
-        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker1").GetComponent<Collider>();
-        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker2").GetComponent<Collider>();
-        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker3").GetComponent<Collider>();
-        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker4").GetComponent<Collider>();
-        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker5").GetComponent<Collider>();
-        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker6").GetComponent<Collider>();
+        boxBody = GetComponent<Rigidbody>();
 
-        //Marker1Rotation = BoxFloatUpsideMarker1.transform.rotation.eulerAngles;
-        //Marker2Rotation = BoxFloatUpsideMarker2.transform.rotation.eulerAngles;
-        //Marker3Rotation = BoxFloatUpsideMarker3.transform.rotation.eulerAngles;
-        //Marker4Rotation = BoxFloatUpsideMarker4.transform.rotation.eulerAngles;
-        //Marker5Rotation = BoxFloatUpsideMarker5.transform.rotation.eulerAngles;
-        //Marker6Rotation = BoxFloatUpsideMarker6.transform.rotation.eulerAngles;
+        MiddleMark = transform.Find("BoxFloatMiddleMark").GetComponent<Collider>();
+       
         x0y0z0 = transform.Find("x0y0z0");
 
         x90 = transform.Find("x90");
@@ -133,24 +118,24 @@ public class BoxFloat : MonoBehaviour
         x90Negy90Negz90Neg = transform.Find("x90Negy90Negz90Neg");
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.name == "GrabbableWater" && notTouched)
-        {
-            notTouched = false;
-            StartCoroutine("WaitForRealism");
-        }
-        if (other.name == "WaterSlower")
-        {
-            startMoving = false;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.name == "GrabbableWater" && notTouched)
+    //    {
+    //        notTouched = false;
+    //        StartCoroutine("WaitForRealism");
+    //    }
+    //    if (other.name == "WaterSlower")
+    //    {
+    //        startMoving = false;
+    //    }
+    //}
 
-    IEnumerator WaitForRealism()
-    {
-        yield return new WaitForSecondsRealtime(1.5f);
-        startMoving = true;
-    }
+    //IEnumerator WaitForRealism()
+    //{
+    //    yield return new WaitForSecondsRealtime(1.5f);
+    //    startMoving = true;
+    //}
 
     void FixedUpdate()
     {
@@ -166,14 +151,18 @@ public class BoxFloat : MonoBehaviour
         if (startMoving)
         {
             GetComponent<Rigidbody>().useGravity = false;
-            //FloatAnim.SetBool("Float", true);
+            
             GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
-            //GetComponent<VRTK_InteractableObject>().isGrabbable = false;
-            //GetComponent<Rigidbody>().freezeRotation = true;
-            //GetComponent<Rigidbody>().isKinematic = true;
-            //if (whatSideofTheBoxDown == 0)
-            //{
-            transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
+
+            if (!tooDeep)
+            {
+                //GetComponent<Rigidbody>().AddForce(Vector3.up * 1500 * Time.deltaTime);                
+                transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
+            }
+            else
+            {
+                boxBody.AddForce(Vector3.up * 0.25f, ForceMode.Acceleration);
+            }
         }
     }
     //check whether any axis rotation is not "straight" and fixes it
@@ -250,6 +239,10 @@ public class BoxFloat : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            futureXRotation = Mathf.FloorToInt(transform.rotation.eulerAngles.y);
+        }
         //ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
         if (transform.rotation.eulerAngles.z % 90 != 0 && transform.rotation.eulerAngles.z != 0)
         {
@@ -282,6 +275,10 @@ public class BoxFloat : MonoBehaviour
                     //transform.Rotate(0 + realRotation, 0, 0, Space.World);
                 }
             }
+        }
+        else
+        {
+            futureXRotation = Mathf.FloorToInt(transform.rotation.eulerAngles.z);
         }
         //FUTURE
 

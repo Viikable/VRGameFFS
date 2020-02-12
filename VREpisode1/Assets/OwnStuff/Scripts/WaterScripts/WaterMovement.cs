@@ -188,7 +188,7 @@ public class WaterMovement : MonoBehaviour
                 //player dies here, lose control, sink to bottom, fade to black
                 fader.Fade(Color.black, 3f);                      
             }
-            Debug.Log("nogravity");
+            //Debug.Log("nogravity");
             //headsetbody.useGravity = false;
             if (headIsUnderWater)
             {
@@ -223,7 +223,7 @@ public class WaterMovement : MonoBehaviour
             if (!reachedTopPuzzle)
             {
                 transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
-                Debug.Log("waterup");
+                //Debug.Log("waterup");
             }
             //after hitting the ceiling the speed slows down until stopping eventually when it reaches the air lock to octoroom
             else
