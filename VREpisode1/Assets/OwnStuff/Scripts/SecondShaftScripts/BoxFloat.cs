@@ -18,7 +18,6 @@ public class BoxFloat : MonoBehaviour {
         FloatAnim = transform.parent.GetComponent<Animator>();
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "GrabbableWater" && notTouched)
@@ -35,13 +34,6 @@ public class BoxFloat : MonoBehaviour {
             startMoving = false;
         }
     }
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.name == "Lantern")
-    //    {
-    //        other.transform.parent = null;
-    //    }
-    //}
     
     IEnumerator WaitForRealism()
     {

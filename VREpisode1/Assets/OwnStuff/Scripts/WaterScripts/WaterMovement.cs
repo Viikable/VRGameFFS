@@ -186,12 +186,7 @@ public class WaterMovement : MonoBehaviour
                 RightController.GetComponent<VRTK_ControllerEvents>().enabled = false;
                 head.GetComponent<Rigidbody>().isKinematic = false;
                 //player dies here, lose control, sink to bottom, fade to black
-                fader.Fade(Color.black, 5f);
-                //Light [] lights = FindObjectsOfType<Light>();
-                //for (int i = 0; i < lights.Length; i++)
-                //{
-                //    lights[i].enabled = false;
-                //}               
+                fader.Fade(Color.black, 3f);                      
             }
             Debug.Log("nogravity");
             //headsetbody.useGravity = false;
