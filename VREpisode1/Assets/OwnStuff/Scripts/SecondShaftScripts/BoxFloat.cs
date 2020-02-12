@@ -104,27 +104,33 @@ public class BoxFloat : MonoBehaviour
 
         x90y90 = transform.Find("x90y90");
         x90z90 = transform.Find("x90z90");
+        y90z90 = transform.Find("y90z90");
+
         x90y90Neg = transform.Find("x90y90Neg");
+        x90Negy90 = transform.Find("x90Negy90");
+        x90Negy90Neg = transform.Find("x90Negy90Neg");
+
+
         x90z90Neg = transform.Find("x90z90Neg");
+        x90Negz90 = transform.Find("x90Negz90");
+        x90Negz90Neg = transform.Find("x90Negz90Neg");
 
-        x90Negy90 = transform.Find("y90x90");
-        x90Negz90 = transform.Find("y90z90");
-        y90x90Neg = transform.Find("y90x90Neg");
+
         y90z90Neg = transform.Find("y90z90Neg");
-
-        z90x90 = transform.Find("z90x90");
-        z90y90 = transform.Find("z90y90");
-        z90x90Neg = transform.Find("z90x90Neg");
-        z90y90Neg = transform.Find("z90y90Neg");
-
+        y90Negz90 = transform.Find("y90Negz90");
+        y90Negz90Neg = transform.Find("y90Negz90Neg");
+     
         x90y90z90 = transform.Find("x90y90z90");
+
         x90y90z90Neg = transform.Find("x90y90z90Neg");
+        x90y90Negz90 = transform.Find("x90y90Negz90");
+        x90y90Negz90Neg = transform.Find("x90y90Negz90Neg");
 
-        y90x90z90 = transform.Find("y90x90z90");
-        y90x90z90Neg = transform.Find("y90x90z90Neg");
+        x90Negy90z90 = transform.Find("x90Negy90z90");
 
-        z90x90y90 = transform.Find("z90x90y90");
-        z90x90y90Neg = transform.Find("z90x90y90Neg");
+        x90Negy90Negz90 = transform.Find("x90Negy90Negz90");
+        x90Negy90z90Neg = transform.Find("x90Negy90z90Neg");
+        x90Negy90Negz90Neg = transform.Find("x90Negy90Negz90Neg");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -142,18 +148,17 @@ public class BoxFloat : MonoBehaviour
 
     IEnumerator WaitForRealism()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
         startMoving = true;
     }
 
     void FixedUpdate()
     {
-        RotationFixer();
 
         if (startMoving)
         {
             MovementStart();
-
+            RotationFixer();
         }
     }
     public void MovementStart()
@@ -164,8 +169,8 @@ public class BoxFloat : MonoBehaviour
             //FloatAnim.SetBool("Float", true);
             GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
             //GetComponent<VRTK_InteractableObject>().isGrabbable = false;
-            GetComponent<Rigidbody>().freezeRotation = true;
-            GetComponent<Rigidbody>().isKinematic = true;
+            //GetComponent<Rigidbody>().freezeRotation = true;
+            //GetComponent<Rigidbody>().isKinematic = true;
             //if (whatSideofTheBoxDown == 0)
             //{
             transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
@@ -313,7 +318,7 @@ public class BoxFloat : MonoBehaviour
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90Neg.localRotation, step);
                 }
             }
-            else
+            else //if futureYRotation == -90
             {
                 if (futureZRotation == 0)
                 {
@@ -321,11 +326,11 @@ public class BoxFloat : MonoBehaviour
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90Neg.localRotation, step);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Negz90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Negz90Neg.localRotation, step);
                 }
             }
         }
@@ -339,41 +344,41 @@ public class BoxFloat : MonoBehaviour
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negz90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negz90Neg.localRotation, step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90z90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90z90Neg.localRotation, step);
                 }
             }
             else
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Neg.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Negz90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Negz90Neg.localRotation, step);
                 }
             }
         }
@@ -383,46 +388,45 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    //no need to move
-                    Debug.Log("futureRotation zero");
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x0y0z0.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, z90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, z90Neg.localRotation, step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90z90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90z90Neg.localRotation, step);
                 }
             }
             else
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Neg.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Negz90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Negz90Neg.localRotation, step);
                 }
             }
         }
@@ -437,26 +441,26 @@ public class BoxFloat : MonoBehaviour
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90z90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90z90Neg.localRotation, step);
                 }
             }
             else if (futureXRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90Neg.localRotation, step);
                 }
             }
             //if futureXRotation is -90
@@ -464,260 +468,258 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90z90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90z90Neg.localRotation, step);
                 }
             }
-            if (futureYRotation == -90)
+        }
+        else if (futureYRotation == -90)
+        {
+            if (futureXRotation == 0)
+            {
+                if (futureZRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Neg.localRotation, step);
+                }
+                else if (futureZRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Negz90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Negz90Neg.localRotation, step);
+                }
+            }
+            else if (futureXRotation == 90)
+            {
+                if (futureZRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Neg.localRotation, step);
+                }
+                else if (futureZRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Negz90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Negz90Neg.localRotation, step);
+                }
+            }
+            //if futureXRotation is -90
+            else
+            {
+                if (futureZRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Neg.localRotation, step);
+                }
+                else if (futureZRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Negz90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Negz90Neg.localRotation, step);
+                }
+            }
+        }
+        else if (futureYRotation == 0)
+        {
+            if (futureXRotation == 0)
+            {
+                if (futureZRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x0y0z0.localRotation, step);                
+                }
+                else if (futureZRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, z90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, z90Neg.localRotation, step);
+                }
+            }
+            else if (futureXRotation == 90)
+            {
+                if (futureZRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90.localRotation, step);
+                }
+                else if (futureZRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90z90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90z90Neg.localRotation, step);
+                }
+            }
+            //if futureXRotation is -90
+            else
+            {
+                if (futureZRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Neg.localRotation, step);
+                }
+                else if (futureZRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negz90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negz90Neg.localRotation, step);
+                }
+            }
+        }
+        //Zstart
+        if (futureZRotation == 90)
+        {
+            if (futureYRotation == 0)
             {
                 if (futureXRotation == 0)
                 {
-                    if (futureZRotation == 0)
-                    {
-                        transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Neg.localRotation, step);
-                    }
-                    else if (futureZRotation == 90)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, z90.localRotation, step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    if (futureZRotation == 0)
-                    {
-
-                    }
-                    else if (futureZRotation == 90)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90z90.localRotation, step);
                 }
-                //if futureXRotation is -90
                 else
                 {
-                    if (futureZRotation == 0)
-                    {
-
-                    }
-                    else if (futureZRotation == 90)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90z90.localRotation, step);
                 }
-                if (futureYRotation == 0)
+            }
+            else if (futureYRotation == 90)
+            {
+                if (futureXRotation == 0)
                 {
-                    if (futureXRotation == 0)
-                    {
-                        if (futureZRotation == 0)
-                        {
-                            //no need to move
-                            Debug.Log("futureRotation zero y");
-                        }
-                        else if (futureZRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else if (futureXRotation == 90)
-                    {
-                        if (futureZRotation == 0)
-                        {
-
-                        }
-                        else if (futureZRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    //if futureXRotation is -90
-                    else
-                    {
-                        if (futureZRotation == 0)
-                        {
-
-                        }
-                        else if (futureZRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90z90.localRotation, step);
                 }
-
-                //Zstart
-                if (futureZRotation == 90)
+                else if (futureXRotation == 90)
                 {
-                    if (futureYRotation == 0)
-                    {
-                        if (futureXRotation == 0)
-                        {
-                            transform.rotation = Quaternion.RotateTowards(transform.rotation, z90.localRotation, step);
-                        }
-                        else if (futureXRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else if (futureYRotation == 90)
-                    {
-                        if (futureXRotation == 0)
-                        {
-
-                        }
-                        else if (futureXRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else
-                    {
-                        if (futureZRotation == 0)
-                        {
-
-                        }
-                        else if (futureZRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90.localRotation, step);
                 }
-                if (futureZRotation == -90)
+                else
                 {
-                    if (futureYRotation == 0)
-                    {
-                        if (futureXRotation == 0)
-                        {
-                            transform.rotation = Quaternion.RotateTowards(transform.rotation, z90Neg.localRotation, step);
-                        }
-                        else if (futureXRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else if (futureYRotation == 90)
-                    {
-                        if (futureXRotation == 0)
-                        {
-
-                        }
-                        else if (futureXRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else
-                    {
-                        if (futureZRotation == 0)
-                        {
-
-                        }
-                        else if (futureZRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90z90.localRotation, step);
                 }
-                if (futureZRotation == 0)
+            }
+            else
+            {
+                if (futureXRotation == 0)
                 {
-                    if (futureYRotation == 0)
-                    {
-                        if (futureXRotation == 0)
-                        {
-                            //no need to move
-                        }
-                        else if (futureXRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else if (futureYRotation == 90)
-                    {
-                        if (futureXRotation == 0)
-                        {
-
-                        }
-                        else if (futureXRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else
-                    {
-                        if (futureZRotation == 0)
-                        {
-
-                        }
-                        else if (futureZRotation == 90)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Negz90.localRotation, step);
+                }
+                else if (futureXRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Negz90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Negz90.localRotation, step);
+                }
+            }
+        }
+        else if (futureZRotation == -90)
+        {
+            if (futureYRotation == 0)
+            {
+                if (futureXRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, z90Neg.localRotation, step);
+                }
+                else if (futureXRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90z90Neg.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negz90Neg.localRotation, step);
+                }
+            }
+            else if (futureYRotation == 90)
+            {
+                if (futureXRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90z90Neg.localRotation, step);
+                }
+                else if (futureXRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90Neg.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90z90Neg.localRotation, step);
+                }
+            }
+            else
+            {
+                if (futureXRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Negz90Neg.localRotation, step);
+                }
+                else if (futureXRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Negz90Neg.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Negz90Neg.localRotation, step);
+                }
+            }
+        }
+        else if (futureZRotation == 0)
+        {
+            if (futureYRotation == 0)
+            {
+                if (futureXRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x0y0z0.localRotation, step);
+                }
+                else if (futureXRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Neg.localRotation, step);
+                }
+            }
+            else if (futureYRotation == 90)
+            {
+                if (futureXRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90.localRotation, step);
+                }
+                else if (futureXRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90.localRotation, step);
+                }
+            }
+            else
+            {
+                if (futureXRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Neg.localRotation, step);
+                }
+                else if (futureXRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Neg.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Negy90Neg.localRotation, step);
                 }
             }
         }
