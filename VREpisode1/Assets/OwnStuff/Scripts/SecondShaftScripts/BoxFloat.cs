@@ -26,6 +26,9 @@ public class BoxFloat : MonoBehaviour
 
     Transform x0y0z0;
 
+    //if no x, y or z it is 0
+
+    // only one non-zero
     Transform x90;
     Transform y90;
     Transform z90;
@@ -33,35 +36,35 @@ public class BoxFloat : MonoBehaviour
     Transform y90Neg;
     Transform z90Neg;
 
+    //two non-zero
     Transform x90y90;
     Transform x90z90;
-    Transform x90y90Neg;
-    Transform x90z90Neg;
-
-    Transform y90x90;
     Transform y90z90;
-    Transform y90x90Neg;
+
+    Transform x90y90Neg;
+    Transform x90Negy90;
+    Transform x90Negy90Neg;
+
+    Transform x90z90Neg;
+    Transform x90Negz90;
+    Transform x90Negz90Neg;
+   
     Transform y90z90Neg;
+    Transform y90Negz90;
+    Transform y90Negz90Neg;
 
-    Transform z90x90;
-    Transform z90y90;
-    Transform z90x90Neg;
-    Transform z90y90Neg;
-
+    //all three non-zero
     Transform x90y90z90;
-    Transform x90z90y90;
+
+    Transform x90y90Negz90;
     Transform x90y90z90Neg;
-    Transform x90z90y90Neg;
+    Transform x90y90Negz90Neg;
 
-    Transform y90x90z90;
-    Transform y90z90x90;
-    Transform y90x90z90Neg;
-    Transform y90z90x90Neg;
+    Transform x90Negy90z90;
 
-    Transform z90x90y90;
-    Transform z90y90x90;
-    Transform z90x90y90Neg;
-    Transform z90y90x90Neg;
+    Transform x90Negy90Negz90;
+    Transform x90Negy90z90Neg;
+    Transform x90Negy90Negz90Neg;
 
     int futureXRotation;
     int futureYRotation;
@@ -104,8 +107,8 @@ public class BoxFloat : MonoBehaviour
         x90y90Neg = transform.Find("x90y90Neg");
         x90z90Neg = transform.Find("x90z90Neg");
 
-        y90x90 = transform.Find("y90x90");
-        y90z90 = transform.Find("y90z90");
+        x90Negy90 = transform.Find("y90x90");
+        x90Negz90 = transform.Find("y90z90");
         y90x90Neg = transform.Find("y90x90Neg");
         y90z90Neg = transform.Find("y90z90Neg");
 
@@ -115,20 +118,13 @@ public class BoxFloat : MonoBehaviour
         z90y90Neg = transform.Find("z90y90Neg");
 
         x90y90z90 = transform.Find("x90y90z90");
-        x90z90y90 = transform.Find("x90z90y90");
         x90y90z90Neg = transform.Find("x90y90z90Neg");
-        x90z90y90Neg = transform.Find("x90z90y90Neg");
 
         y90x90z90 = transform.Find("y90x90z90");
-        y90z90x90 = transform.Find("y90z90x90");
         y90x90z90Neg = transform.Find("y90x90z90Neg");
-        y90z90x90Neg = transform.Find("y90z90x90Neg");
 
         z90x90y90 = transform.Find("z90x90y90");
-        z90y90x90 = transform.Find("z90y90x90");
         z90x90y90Neg = transform.Find("z90x90y90Neg");
-        z90y90x90Neg = transform.Find("z90y90x90Neg");
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -306,26 +302,26 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90.localRotation, step);
                 }
                 else
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90Neg.localRotation, step);
                 }
             }
             else
             {
                 if (futureZRotation == 0)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90Neg.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
-
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90y90z90Neg.localRotation, step);
                 }
                 else
                 {
