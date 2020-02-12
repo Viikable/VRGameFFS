@@ -12,20 +12,19 @@ public class BoxFloat : MonoBehaviour
     public int whatSideofTheBoxDown;
 
     float rotationSpeed;
-    //Animator FloatAnim;
-    private Collider BoxFloatUpsideMarker1;
-    private Collider BoxFloatUpsideMarker2;
-    private Collider BoxFloatUpsideMarker3;
-    private Collider BoxFloatUpsideMarker4;
-    private Collider BoxFloatUpsideMarker5;
-    private Collider BoxFloatUpsideMarker6;
 
-    //Vector3 Marker1Rotation;
-    //Vector3 Marker2Rotation;
-    //Vector3 Marker3Rotation;
-    //Vector3 Marker4Rotation;
-    //Vector3 Marker5Rotation;
-    //Vector3 Marker6Rotation;
+    float totalRotationsX;
+    float totalRotationsY;
+    float totalRotationsZ;
+    //Animator FloatAnim;
+    //private Collider BoxFloatUpsideMarker1;
+    //private Collider BoxFloatUpsideMarker2;
+    //private Collider BoxFloatUpsideMarker3;
+    //private Collider BoxFloatUpsideMarker4;
+    //private Collider BoxFloatUpsideMarker5;
+    //private Collider BoxFloatUpsideMarker6;
+
+    Transform x0y0z0;
 
     Transform x90;
     Transform y90;
@@ -33,6 +32,36 @@ public class BoxFloat : MonoBehaviour
     Transform x90Neg;
     Transform y90Neg;
     Transform z90Neg;
+
+    Transform x90y90;
+    Transform x90z90;
+    Transform x90y90Neg;
+    Transform x90z90Neg;
+
+    Transform y90x90;
+    Transform y90z90;
+    Transform y90x90Neg;
+    Transform y90z90Neg;
+
+    Transform z90x90;
+    Transform z90y90;
+    Transform z90x90Neg;
+    Transform z90y90Neg;
+
+    Transform x90y90z90;
+    Transform x90z90y90;
+    Transform x90y90z90Neg;
+    Transform x90z90y90Neg;
+
+    Transform y90x90z90;
+    Transform y90z90x90;
+    Transform y90x90z90Neg;
+    Transform y90z90x90Neg;
+
+    Transform z90x90y90;
+    Transform z90y90x90;
+    Transform z90x90y90Neg;
+    Transform z90y90x90Neg;
 
     int futureXRotation;
     int futureYRotation;
@@ -44,13 +73,16 @@ public class BoxFloat : MonoBehaviour
         startMoving = false;
         notTouched = true;
         rotationSpeed = 20f;
+        totalRotationsX = 0;
+        totalRotationsY = 0;
+        totalRotationsZ = 0;
         //FloatAnim = transform.parent.GetComponent<Animator>();
-        BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker1").GetComponent<Collider>();
-        BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker2").GetComponent<Collider>();
-        BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker3").GetComponent<Collider>();
-        BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker4").GetComponent<Collider>();
-        BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker5").GetComponent<Collider>();
-        BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker6").GetComponent<Collider>();
+        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker1").GetComponent<Collider>();
+        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker2").GetComponent<Collider>();
+        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker3").GetComponent<Collider>();
+        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker4").GetComponent<Collider>();
+        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker5").GetComponent<Collider>();
+        //BoxFloatUpsideMarker1 = transform.Find("FloatingBox/BoxFloatUpsideMarker6").GetComponent<Collider>();
 
         //Marker1Rotation = BoxFloatUpsideMarker1.transform.rotation.eulerAngles;
         //Marker2Rotation = BoxFloatUpsideMarker2.transform.rotation.eulerAngles;
@@ -58,13 +90,45 @@ public class BoxFloat : MonoBehaviour
         //Marker4Rotation = BoxFloatUpsideMarker4.transform.rotation.eulerAngles;
         //Marker5Rotation = BoxFloatUpsideMarker5.transform.rotation.eulerAngles;
         //Marker6Rotation = BoxFloatUpsideMarker6.transform.rotation.eulerAngles;
+        x0y0z0 = transform.Find("x0y0z0");
 
-        x90 = transform.Find("90x");
-        y90 = transform.Find("90y");
-        z90 = transform.Find("90z");
-        x90Neg = transform.Find("90xNeg");
-        y90Neg = transform.Find("90yNeg");
-        z90Neg = transform.Find("90zNeg");
+        x90 = transform.Find("x90");
+        y90 = transform.Find("y90");
+        z90 = transform.Find("z90");
+        x90Neg = transform.Find("x90Neg");
+        y90Neg = transform.Find("y90Neg");
+        z90Neg = transform.Find("z90Neg");
+
+        x90y90 = transform.Find("x90y90");
+        x90z90 = transform.Find("x90z90");
+        x90y90Neg = transform.Find("x90y90Neg");
+        x90z90Neg = transform.Find("x90z90Neg");
+
+        y90x90 = transform.Find("y90x90");
+        y90z90 = transform.Find("y90z90");
+        y90x90Neg = transform.Find("y90x90Neg");
+        y90z90Neg = transform.Find("y90z90Neg");
+
+        z90x90 = transform.Find("z90x90");
+        z90y90 = transform.Find("z90y90");
+        z90x90Neg = transform.Find("z90x90Neg");
+        z90y90Neg = transform.Find("z90y90Neg");
+
+        x90y90z90 = transform.Find("x90y90z90");
+        x90z90y90 = transform.Find("x90z90y90");
+        x90y90z90Neg = transform.Find("x90y90z90Neg");
+        x90z90y90Neg = transform.Find("x90z90y90Neg");
+
+        y90x90z90 = transform.Find("y90x90z90");
+        y90z90x90 = transform.Find("y90z90x90");
+        y90x90z90Neg = transform.Find("y90x90z90Neg");
+        y90z90x90Neg = transform.Find("y90z90x90Neg");
+
+        z90x90y90 = transform.Find("z90x90y90");
+        z90y90x90 = transform.Find("z90y90x90");
+        z90x90y90Neg = transform.Find("z90x90y90Neg");
+        z90y90x90Neg = transform.Find("z90y90x90Neg");
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -118,12 +182,12 @@ public class BoxFloat : MonoBehaviour
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         if (transform.rotation.eulerAngles.x % 90 != 0 && transform.rotation.eulerAngles.x != 0)
         {
-            int totalRotations = Mathf.FloorToInt(transform.rotation.eulerAngles.x / 90);
-            float realRotation = transform.rotation.eulerAngles.x - totalRotations;
+            totalRotationsX = Mathf.FloorToInt(transform.rotation.eulerAngles.x / 90);
+            float realRotationX = transform.rotation.eulerAngles.x - totalRotationsX;
 
-            if (realRotation >= 0)
+            if (realRotationX >= 0)
             {
-                if (realRotation >= 45f)
+                if (realRotationX >= 45f)
                 {
                     futureXRotation = 90;
                     //transform.Rotate(90 - realRotation, 0, 0, Space.World);
@@ -136,7 +200,7 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
-                if (realRotation <= -45f)
+                if (realRotationX <= -45f)
                 {
                     futureXRotation = -90;
                     //transform.Rotate(90 - realRotation, 0, 0, Space.World);
@@ -148,15 +212,19 @@ public class BoxFloat : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            futureXRotation = Mathf.FloorToInt(transform.rotation.eulerAngles.x);
+        }
         //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
         if (transform.rotation.eulerAngles.y % 90 != 0 && transform.rotation.eulerAngles.y != 0)
         {
-            int totalRotations = Mathf.FloorToInt(transform.rotation.eulerAngles.y / 90);
-            float realRotation = transform.rotation.eulerAngles.y - totalRotations;
+            totalRotationsY = Mathf.FloorToInt(transform.rotation.eulerAngles.y / 90);
+            float realRotationY = transform.rotation.eulerAngles.y - totalRotationsY;
 
-            if (realRotation >= 0)
+            if (realRotationY >= 0)
             {
-                if (realRotation >= 45f)
+                if (realRotationY >= 45f)
                 {
                     futureYRotation = 90;
                     //transform.Rotate(90 - realRotation, 0, 0, Space.World);
@@ -169,7 +237,7 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
-                if (realRotation <= -45f)
+                if (realRotationY <= -45f)
                 {
                     futureYRotation = -90;
                     //transform.Rotate(90 - realRotation, 0, 0, Space.World);
@@ -184,12 +252,12 @@ public class BoxFloat : MonoBehaviour
         //ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
         if (transform.rotation.eulerAngles.z % 90 != 0 && transform.rotation.eulerAngles.z != 0)
         {
-            int totalRotations = Mathf.FloorToInt(transform.rotation.eulerAngles.z / 90);
-            float realRotation = transform.rotation.eulerAngles.z - totalRotations;
+            totalRotationsZ = Mathf.FloorToInt(transform.rotation.eulerAngles.z / 90);
+            float realRotationZ = transform.rotation.eulerAngles.z - totalRotationsZ;
 
-            if (realRotation >= 0)
+            if (realRotationZ >= 0)
             {
-                if (realRotation >= 45f)
+                if (realRotationZ >= 45f)
                 {
                     futureZRotation = 90;
                     //transform.Rotate(90 - realRotation, 0, 0, Space.World);
@@ -202,7 +270,7 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
-                if (realRotation <= -45f)
+                if (realRotationZ <= -45f)
                 {
                     futureZRotation = -90;
                     //transform.Rotate(90 - realRotation, 0, 0, Space.World);
@@ -224,6 +292,54 @@ public class BoxFloat : MonoBehaviour
                 if (futureZRotation == 0)
                 {
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, x90.localRotation, step);
+                }
+                else if (futureZRotation == 90)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90z90.localRotation, step);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90z90Neg.localRotation, step);
+                }
+            }
+            else if (futureYRotation == 90)
+            {
+                if (futureZRotation == 0)
+                {
+
+                }
+                else if (futureZRotation == 90)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                if (futureZRotation == 0)
+                {
+
+                }
+                else if (futureZRotation == 90)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
+        if (futureXRotation == -90)
+        {
+            if (futureYRotation == 0)
+            {
+                if (futureZRotation == 0)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90Neg.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {
@@ -263,12 +379,55 @@ public class BoxFloat : MonoBehaviour
                 {
 
                 }
-
             }
-
-            if (futureZRotation == 0)
+        }
+        if (futureXRotation == 0)
+        {
+            if (futureYRotation == 0)
             {
+                if (futureZRotation == 0)
+                {
+                    //no need to move
+                    Debug.Log("futureRotation zero");
+                }
+                else if (futureZRotation == 90)
+                {
 
+                }
+                else
+                {
+
+                }
+            }
+            else if (futureYRotation == 90)
+            {
+                if (futureZRotation == 0)
+                {
+
+                }
+                else if (futureZRotation == 90)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                if (futureZRotation == 0)
+                {
+
+                }
+                else if (futureZRotation == 90)
+                {
+
+                }
+                else
+                {
+
+                }
             }
         }
         //YStart
@@ -319,69 +478,253 @@ public class BoxFloat : MonoBehaviour
                 {
 
                 }
-
             }
-       
-        //Zstart
-        if (futureZRotation == 90)
-        {
-            if (futureYRotation == 0)
+            if (futureYRotation == -90)
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, z90.localRotation, step);
+                    if (futureZRotation == 0)
+                    {
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, y90Neg.localRotation, step);
+                    }
+                    else if (futureZRotation == 90)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else if (futureXRotation == 90)
                 {
+                    if (futureZRotation == 0)
+                    {
 
+                    }
+                    else if (futureZRotation == 90)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                 }
+                //if futureXRotation is -90
                 else
                 {
+                    if (futureZRotation == 0)
+                    {
 
+                    }
+                    else if (futureZRotation == 90)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                 }
-            }
-            else if (futureYRotation == 90)
-            {
-                if (futureXRotation == 0)
+                if (futureYRotation == 0)
                 {
+                    if (futureXRotation == 0)
+                    {
+                        if (futureZRotation == 0)
+                        {
+                            //no need to move
+                            Debug.Log("futureRotation zero y");
+                        }
+                        else if (futureZRotation == 90)
+                        {
 
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else if (futureXRotation == 90)
+                    {
+                        if (futureZRotation == 0)
+                        {
+
+                        }
+                        else if (futureZRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    //if futureXRotation is -90
+                    else
+                    {
+                        if (futureZRotation == 0)
+                        {
+
+                        }
+                        else if (futureZRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
                 }
-                else if (futureXRotation == 90)
+
+                //Zstart
+                if (futureZRotation == 90)
                 {
+                    if (futureYRotation == 0)
+                    {
+                        if (futureXRotation == 0)
+                        {
+                            transform.rotation = Quaternion.RotateTowards(transform.rotation, z90.localRotation, step);
+                        }
+                        else if (futureXRotation == 90)
+                        {
 
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else if (futureYRotation == 90)
+                    {
+                        if (futureXRotation == 0)
+                        {
+
+                        }
+                        else if (futureXRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (futureZRotation == 0)
+                        {
+
+                        }
+                        else if (futureZRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
                 }
-                else
+                if (futureZRotation == -90)
                 {
+                    if (futureYRotation == 0)
+                    {
+                        if (futureXRotation == 0)
+                        {
+                            transform.rotation = Quaternion.RotateTowards(transform.rotation, z90Neg.localRotation, step);
+                        }
+                        else if (futureXRotation == 90)
+                        {
 
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else if (futureYRotation == 90)
+                    {
+                        if (futureXRotation == 0)
+                        {
+
+                        }
+                        else if (futureXRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (futureZRotation == 0)
+                        {
+
+                        }
+                        else if (futureZRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
                 }
-            }
-            else
-            {
                 if (futureZRotation == 0)
                 {
+                    if (futureYRotation == 0)
+                    {
+                        if (futureXRotation == 0)
+                        {
+                            //no need to move
+                        }
+                        else if (futureXRotation == 90)
+                        {
 
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else if (futureYRotation == 90)
+                    {
+                        if (futureXRotation == 0)
+                        {
+
+                        }
+                        else if (futureXRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (futureZRotation == 0)
+                        {
+
+                        }
+                        else if (futureZRotation == 90)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
                 }
-                else if (futureZRotation == 90)
-                {
-
-                }
-                else
-                {
-
-                }
-
-            }
-
-            if (futureZRotation == 0)
-            {
-
             }
         }
-
-
-
-
-        // Rotate our transform a step closer to the target's.
     }
 }
 
