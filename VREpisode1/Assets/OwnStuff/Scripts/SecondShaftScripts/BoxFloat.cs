@@ -161,7 +161,7 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
-                boxBody.AddForce(Vector3.up * 0.25f, ForceMode.Acceleration);
+                boxBody.AddForce(Vector3.up * 0.5f, ForceMode.Acceleration);
             }
         }
     }
