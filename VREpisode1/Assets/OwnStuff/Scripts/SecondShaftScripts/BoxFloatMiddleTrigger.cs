@@ -18,30 +18,31 @@ public class BoxFloatMiddleTrigger : MonoBehaviour {
             StartCoroutine("WaitForRealism");
             BoxFloat.tooDeep = false;
         }
-        if (other.name == "HighWaterTrigger" && BoxFloat.tooDeep)
+        if (other.name == "BoxFloatColliderTriggerHigh" && BoxFloat.tooDeep)
         {
             BoxFloat.tooDeep = false;
             Debug.Log("toodeep false");
-            BoxFloat.boxBody.isKinematic = true;
-            StartCoroutine("KinematicFrame");          
+            BoxFloat.boxBody.constraints = RigidbodyConstraints.FreezeAll;
+            StartCoroutine("KinematicFrame");
         }
     }
 
     IEnumerator WaitForRealism()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.25f);
         BoxFloat.startMoving = true;
     }
 
     IEnumerator KinematicFrame()
     {
         yield return new WaitForEndOfFrame();
-        BoxFloat.boxBody.isKinematic = false;
+        BoxFloat.boxBody.constraints = RigidbodyConstraints.None;
+        //BoxFloat.boxBody.isKinematic = false;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.name == "BoxFloatColliderTrigger")
+        if (other.name == "BoxFloatColliderTriggerLow")
         {
             BoxFloat.tooDeep = true;
             Debug.Log("toodeep true");

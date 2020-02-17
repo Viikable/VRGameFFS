@@ -9,7 +9,6 @@ public class SkeletonKey : MonoBehaviour
     public AudioSource DamagedSound;
     public GameObject GrabbableWater;
 
-
     void Start()
     {
         damagedByWater = false;
@@ -28,39 +27,39 @@ public class SkeletonKey : MonoBehaviour
         {
             if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
             {
-                Lantern.lefthandTouchingWaterObject = true;
+                Lantern.lefthandPartsTouchingWaterObject += 1;
             }
             else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
             {
-                Lantern.righthandTouchingWaterObject = true;
+                Lantern.righthandPartsTouchingWaterObject += 1;
             }
         }
     }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
-        {
-            if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
-            {
-                Lantern.lefthandTouchingWaterObject = true;
-            }
-            else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
-            {
-                Lantern.righthandTouchingWaterObject = true;
-            }
-        }
-    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
+    //    {
+    //        if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
+    //        {
+    //            Lantern.lefthandPartsTouchingWaterObject = true;
+    //        }
+    //        else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
+    //        {
+    //            Lantern.righthandPartsTouchingWaterObject = true;
+    //        }
+    //    }
+    //}
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
         {
             if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
             {
-                Lantern.lefthandTouchingWaterObject = false;
+                Lantern.lefthandPartsTouchingWaterObject -= 1;
             }
             else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
             {
-                Lantern.righthandTouchingWaterObject = false;
+                Lantern.righthandPartsTouchingWaterObject -= 1;
             }
         }
     }

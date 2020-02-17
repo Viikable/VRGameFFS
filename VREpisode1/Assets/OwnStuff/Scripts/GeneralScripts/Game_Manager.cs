@@ -432,24 +432,26 @@ public class Game_Manager : MonoBehaviour
         {
             Debug.Log("ReleasedWater");
             RightGrab.ForceRelease();          
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
         }
         else
         {
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
             yield return null;
         }
-        ToxicGasPush.PlayerBody.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
     }
     IEnumerator ReleaseOrNotLeft()
     {
         if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
         {
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
             LeftGrab.ForceRelease();           
         }
         else
         {
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
             yield return null;
-        }
-        ToxicGasPush.PlayerBody.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
+        }      
     }
 
     public void CheckGrabbedObjectLocalPositionStays()

@@ -176,6 +176,7 @@ public class WaterMovement : MonoBehaviour
             if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater && notDrownedYet)
             {
                 DrowningAlertSounds.Stop();
+                fader.Fade(Color.black, 1.5f);                      
                 notDrownedYet = false;
                 Drowned.Play();
                 Debug.Log("drowned");
@@ -184,15 +185,14 @@ public class WaterMovement : MonoBehaviour
                 LeftController.GetComponent<VRTK_ControllerEvents>().enabled = false;
                 RightController.GetComponent<VRTK_InteractGrab>().enabled = false;
                 RightController.GetComponent<VRTK_ControllerEvents>().enabled = false;
-                head.GetComponent<Rigidbody>().isKinematic = false;
+                //head.GetComponent<Rigidbody>().isKinematic = false;
                 //player dies here, lose control, sink to bottom, fade to black
-                fader.Fade(Color.black, 3f);                      
             }
             //Debug.Log("nogravity");
             //headsetbody.useGravity = false;
             if (headIsUnderWater)
             {
-                Physics.gravity = new Vector3(0, -2.5f, 0);
+                Physics.gravity = new Vector3(0, -7.5f, 0);
             }
             else
             {

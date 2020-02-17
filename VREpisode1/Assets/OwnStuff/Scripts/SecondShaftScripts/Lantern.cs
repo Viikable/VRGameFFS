@@ -11,10 +11,10 @@ public class Lantern : MonoBehaviour {
     public GameObject GrabbableWater;
 
     [Tooltip("This detects if left hand is near touching an object which can be grabbed underwater")]
-    public static bool lefthandTouchingWaterObject;
+    public static int lefthandPartsTouchingWaterObject;
 
     [Tooltip("This detects if right hand is near touching an object which can be grabbed underwater")]
-    public static bool righthandTouchingWaterObject;
+    public static int righthandPartsTouchingWaterObject;
 
     [Tooltip("This indicates whether water is currently grabbable for either controller or not")]
     public static bool waterGrabbingNotAllowed;
@@ -25,8 +25,8 @@ public class Lantern : MonoBehaviour {
         DamagedSound = GetComponentInChildren<AudioSource>();
         LanternLight = GetComponent<Light>();
         GrabbableWater = GameObject.Find("Water/GrabbableWater");
-        lefthandTouchingWaterObject = false;
-        righthandTouchingWaterObject = false;
+        lefthandPartsTouchingWaterObject = 0;
+        righthandPartsTouchingWaterObject = 0;
         waterGrabbingNotAllowed = false;
     }
 
@@ -42,48 +42,48 @@ public class Lantern : MonoBehaviour {
         {
             if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
             {
-                lefthandTouchingWaterObject = true;                                 
+                lefthandPartsTouchingWaterObject += 1;                                 
             }
             else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
             {
-                righthandTouchingWaterObject = true;             
+                righthandPartsTouchingWaterObject += 1;             
             }
         }
     }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
-        {
-            if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
-            {
-                lefthandTouchingWaterObject = true;
-            }
-            else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
-            {
-                righthandTouchingWaterObject = true;
-            }
-        }
-    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
+    //    {
+    //        if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
+    //        {
+    //            lefthandPartsTouchingWaterObject = true;
+    //        }
+    //        else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
+    //        {
+    //            righthandPartsTouchingWaterObject = true;
+    //        }
+    //    }
+    //}
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
         {
             if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
             {
-                lefthandTouchingWaterObject = false;
+                lefthandPartsTouchingWaterObject -= 1;
             }
             else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
             {
-                righthandTouchingWaterObject = false;              
+                righthandPartsTouchingWaterObject -= 1;              
             }
         }
     }
     //checks whether waterGrabbing is allowed currently or not and which hand can grab water if any or both
-    private void Update()
+    private void FixedUpdate()
     {
         //Debug.Log(lefthandTouchingWaterObject + "lefthandtouch");
         //Debug.Log(righthandTouchingWaterObject + "righthandtouch");
-        if (lefthandTouchingWaterObject && righthandTouchingWaterObject)
+        if (lefthandPartsTouchingWaterObject > 0 && righthandPartsTouchingWaterObject > 0)
         {
             waterGrabbingNotAllowed = true;
             Debug.Log("WaterGrabNotAllowed");
@@ -101,17 +101,19 @@ public class Lantern : MonoBehaviour {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().enabled = true;
         }
         //allows both if no hands are near objects, otherwise only one of the hands
-        if (!lefthandTouchingWaterObject && !righthandTouchingWaterObject)
+        if (lefthandPartsTouchingWaterObject == 0 && righthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.Both;
         }
-        else if (lefthandTouchingWaterObject && !righthandTouchingWaterObject)
+        else if (lefthandPartsTouchingWaterObject >= 5 && righthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.RightOnly;
+            Debug.Log("Rightonly");
         }
-        else if (righthandTouchingWaterObject && !lefthandTouchingWaterObject)
+        else if (righthandPartsTouchingWaterObject >= 5  && lefthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.LeftOnly;
+            Debug.Log("Leftonly");
         }
     }
 }

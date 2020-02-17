@@ -70,7 +70,7 @@ public class BoxFloat : MonoBehaviour
     {
         startMoving = false;
         tooDeep = false;       
-        rotationSpeed = 14f;
+        rotationSpeed = 16f;
         totalRotationsX = 0;
         totalRotationsY = 0;
         totalRotationsZ = 0;
@@ -147,21 +147,19 @@ public class BoxFloat : MonoBehaviour
     }
     public void MovementStart()
     {
-        if (startMoving)
-        {
-            GetComponent<Rigidbody>().useGravity = false;
-            
-            GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
+        GetComponent<Rigidbody>().useGravity = false;
 
-            if (!tooDeep)
-            {
-                //GetComponent<Rigidbody>().AddForce(Vector3.up * 1500 * Time.deltaTime);                
-                transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
-            }
-            else
-            {
-                boxBody.AddForce(Vector3.up * 2.5f, ForceMode.Acceleration);
-            }           
+        GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
+
+        if (!tooDeep)
+        {
+            //GetComponent<Rigidbody>().AddForce(Vector3.up * 1500 * Time.deltaTime);                
+            transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
+            boxBody.AddForce(Vector3.down * 0.75f, ForceMode.Acceleration);
+        }
+        else
+        {
+            boxBody.AddForce(Vector3.up * 0.75f, ForceMode.Acceleration);
         }
     }
     //check whether any axis rotation is not "straight" and fixes it
