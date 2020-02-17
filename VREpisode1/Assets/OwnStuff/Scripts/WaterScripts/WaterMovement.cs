@@ -136,15 +136,15 @@ public class WaterMovement : MonoBehaviour
         {
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer * 3 / 4 && headIsUnderWater)
             {
-                Debug.Log("3/4 oxygen left");
+                //Debug.Log("3/4 oxygen left");
             }
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer / 2 && headIsUnderWater)
             {
-                Debug.Log("half oxygen left");
+                //Debug.Log("half oxygen left");
             }
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + 24f && headIsUnderWater && notDrownedYet)
             {
-                Debug.Log("24s oxygen left");
+                //Debug.Log("24s oxygen left");
                 if (!DrowningAlertSounds.isPlaying)
                 {
                     DrowningAlertSounds.Play();

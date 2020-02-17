@@ -139,7 +139,6 @@ public class BoxFloat : MonoBehaviour
 
     void FixedUpdate()
     {
-
         if (startMoving)
         {
             MovementStart();
@@ -161,8 +160,8 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
-                boxBody.AddForce(Vector3.up * 0.5f, ForceMode.Acceleration);
-            }
+                boxBody.AddForce(Vector3.up * 2.5f, ForceMode.Acceleration);
+            }           
         }
     }
     //check whether any axis rotation is not "straight" and fixes it

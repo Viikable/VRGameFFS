@@ -28,11 +28,11 @@ public class HandsLighting : MonoBehaviour
         {
             if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null || Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
             {
-                if (!Game_Manager.instance.RightGrab.GetGrabbedObject().CompareTag("Rope"))
+                if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && !Game_Manager.instance.RightGrab.GetGrabbedObject().CompareTag("Rope"))
                 {
                     Game_Manager.instance.RightGrab.ForceRelease();
                 }
-                if (!Game_Manager.instance.LeftGrab.GetGrabbedObject().CompareTag("Rope"))
+                if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && !Game_Manager.instance.LeftGrab.GetGrabbedObject().CompareTag("Rope"))
                 {
                     Game_Manager.instance.LeftGrab.ForceRelease();
                 }

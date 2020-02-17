@@ -23,7 +23,7 @@ public class BoxFloatMiddleTrigger : MonoBehaviour {
             BoxFloat.tooDeep = false;
             Debug.Log("toodeep false");
             BoxFloat.boxBody.isKinematic = true;
-            //StartCoroutine("KinematicFrame");          
+            StartCoroutine("KinematicFrame");          
         }
     }
 
