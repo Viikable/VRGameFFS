@@ -68,7 +68,7 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
         return damagedByWater;
     }
     //checks whether waterGrabbing is allowed currently or not and which hand can grab water if any or both
-    protected void FixedUpdate()
+    private void FixedUpdate()
     {
         //Debug.Log(lefthandTouchingWaterObject + "lefthandtouch");
         //Debug.Log(righthandTouchingWaterObject + "righthandtouch");
@@ -93,13 +93,14 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
         if (lefthandPartsTouchingWaterObject == 0 && righthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.Both;
+            Debug.Log("WaterGraballowed");
         }
-        else if (lefthandPartsTouchingWaterObject >= 5 && righthandPartsTouchingWaterObject == 0)
+        else if (lefthandPartsTouchingWaterObject >= 1 && righthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.RightOnly;
             Debug.Log("Rightonly");
         }
-        else if (righthandPartsTouchingWaterObject >= 5  && lefthandPartsTouchingWaterObject == 0)
+        else if (righthandPartsTouchingWaterObject >= 1  && lefthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.LeftOnly;
             Debug.Log("Leftonly");
