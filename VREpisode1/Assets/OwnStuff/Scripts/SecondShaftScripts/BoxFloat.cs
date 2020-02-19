@@ -154,11 +154,11 @@ public class BoxFloat : MonoBehaviour
             //if we are grabbing the box it needs more force to rise up again
             if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject)
             {
-                boxBody.AddForce(new Vector3(0f, 1f, 0) * 2.75f, ForceMode.Acceleration);
+                boxBody.AddForce(new Vector3(0f, 1f, 0) * 3.75f, ForceMode.Acceleration);
             }
             else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject)
             {
-                boxBody.AddForce(new Vector3(0f, 1f, 0) * 2.75f, ForceMode.Acceleration);
+                boxBody.AddForce(new Vector3(0f, 1f, 0) * 3.75f, ForceMode.Acceleration);
             }
             else
             {
@@ -293,45 +293,45 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {                   
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else //if futureYRotation == -90
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -341,45 +341,45 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -389,45 +389,45 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x0y0z0.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x0y0z0.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -438,30 +438,30 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureXRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             //if futureXRotation is -90
@@ -469,15 +469,15 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -487,30 +487,30 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureXRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             //if futureXRotation is -90
@@ -518,15 +518,15 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -536,30 +536,30 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x0y0z0.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);                
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x0y0z0.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);                
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureXRotation == 90)
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             //if futureXRotation is -90
@@ -567,15 +567,15 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureZRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsY, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -586,45 +586,45 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -634,45 +634,45 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90z90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Negz90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }
@@ -682,45 +682,45 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x0y0z0.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x0y0z0.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else if (futureYRotation == 90)
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
             else
             {
                 if (futureXRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else if (futureXRotation == 90)
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90y90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
                 else
                 {
-                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Neg.localRotation.eulerAngles + new Vector3(totalRotationsZ, 0, 0)), step);
+                    transform.rotation = Quaternion.RotateTowards(Quaternion.Euler(transform.rotation.eulerAngles), Quaternion.Euler(x90Negy90Neg.localRotation.eulerAngles + new Vector3(totalRotationsX, totalRotationsY, totalRotationsZ)), step);
                 }
             }
         }

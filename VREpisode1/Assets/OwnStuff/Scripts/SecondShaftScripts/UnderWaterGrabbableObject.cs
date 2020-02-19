@@ -34,7 +34,10 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
         if (other.gameObject == GrabbableWater && !damagedByWater)
         {
             damagedByWater = true;
+            if (DamagedSound != null)
+            {
             DamagedSound.Play();        
+            }
         }
         if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
         {
@@ -92,8 +95,7 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
         //allows both if no hands are near objects, otherwise only one of the hands
         if (lefthandPartsTouchingWaterObject == 0 && righthandPartsTouchingWaterObject == 0)
         {
-            GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.Both;
-            Debug.Log("WaterGraballowed");
+            GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.Both;         
         }
         else if (lefthandPartsTouchingWaterObject >= 1 && righthandPartsTouchingWaterObject == 0)
         {
