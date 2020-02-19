@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-public class SkeletonKey : MonoBehaviour
-{
-    public bool damagedByWater;
-    public AudioSource DamagedSound;
-    public GameObject GrabbableWater;
-
-    void Start()
+public class SkeletonKey : UnderWaterGrabbableObject
+{    
+    //the same as in FloatingObject, just testing
+    protected override void Start()
     {
         damagedByWater = false;
         DamagedSound = GetComponentInChildren<AudioSource>();
         GrabbableWater = GameObject.Find("Water/GrabbableWater");
     }
-
-    private void OnTriggerEnter(Collider other)
+    
+    protected override void OnTriggerEnter(Collider other)
     {
-        if (other.name == "GrabbableWater" && !damagedByWater)
+        if (other.gameObject == GrabbableWater && !damagedByWater)
         {
             damagedByWater = true;
             DamagedSound.Play();
@@ -27,42 +24,30 @@ public class SkeletonKey : MonoBehaviour
         {
             if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
             {
-                Lantern.lefthandPartsTouchingWaterObject += 1;
+                lefthandPartsTouchingWaterObject += 1;
             }
             else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
             {
-                Lantern.righthandPartsTouchingWaterObject += 1;
+                righthandPartsTouchingWaterObject += 1;
             }
         }
     }
-    //private void OnTriggerStay(Collider other)
+    //this method is inherited
+
+    //private void OnTriggerExit(Collider other)
     //{
     //    if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
     //    {
     //        if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
     //        {
-    //            Lantern.lefthandPartsTouchingWaterObject = true;
+    //            lefthandPartsTouchingWaterObject -= 1;
     //        }
     //        else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
     //        {
-    //            Lantern.righthandPartsTouchingWaterObject = true;
+    //            righthandPartsTouchingWaterObject -= 1;
     //        }
     //    }
     //}
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.parent != null && other.transform.parent.name == "HandColliders")
-        {
-            if (other.transform.parent.parent.name == "VRTK_LeftBasicHand")
-            {
-                Lantern.lefthandPartsTouchingWaterObject -= 1;
-            }
-            else if (other.transform.parent.parent.name == "VRTK_RightBasicHand")
-            {
-                Lantern.righthandPartsTouchingWaterObject -= 1;
-            }
-        }
-    }
 }
 
 

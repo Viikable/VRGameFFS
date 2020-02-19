@@ -192,7 +192,7 @@ public class WaterMovement : MonoBehaviour
             //headsetbody.useGravity = false;
             if (headIsUnderWater)
             {
-                Physics.gravity = new Vector3(0, -7.5f, 0);
+                Physics.gravity = new Vector3(0, -2.5f, 0);
             }
             else
             {

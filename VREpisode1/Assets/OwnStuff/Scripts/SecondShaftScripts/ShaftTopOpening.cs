@@ -25,7 +25,7 @@ public class ShaftTopOpening : MonoBehaviour
     {
         if (ShaftTopZone.GetCurrentSnappedObject() != null && notOpen)
         {
-            if (!SecondShaftKeyCard.damagedByWater)
+            if (!SecondShaftKeyCard.IsDamagedByWater())
             {
                 TopShaftHatch.SetBool("Open", true);
                 notOpen = false;

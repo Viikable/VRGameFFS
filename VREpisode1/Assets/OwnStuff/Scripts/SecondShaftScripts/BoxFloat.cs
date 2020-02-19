@@ -13,6 +13,10 @@ public class BoxFloat : MonoBehaviour
     
     float rotationSpeed;
 
+    [Tooltip("This float randomizes the x and z force to the box to make floating more realistic")]
+    float waveRandomizer;
+
+    //the amount of 90 degree rotations currently on the box, for example 540 degree rotation has 6x90 degree rotations in it
     float totalRotationsX;
     float totalRotationsY;
     float totalRotationsZ;
@@ -69,8 +73,14 @@ public class BoxFloat : MonoBehaviour
     private void Start()
     {
         startMoving = false;
+
         tooDeep = false;       
+
         rotationSpeed = 16f;
+
+        waveRandomizer = Random.Range(-1f, 1f);
+
+
         totalRotationsX = 0;
         totalRotationsY = 0;
         totalRotationsZ = 0;
@@ -117,26 +127,7 @@ public class BoxFloat : MonoBehaviour
         x90Negy90z90Neg = transform.Find("x90Negy90z90Neg");
         x90Negy90Negz90Neg = transform.Find("x90Negy90Negz90Neg");
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.name == "GrabbableWater" && notTouched)
-    //    {
-    //        notTouched = false;
-    //        StartCoroutine("WaitForRealism");
-    //    }
-    //    if (other.name == "WaterSlower")
-    //    {
-    //        startMoving = false;
-    //    }
-    //}
-
-    //IEnumerator WaitForRealism()
-    //{
-    //    yield return new WaitForSecondsRealtime(1.5f);
-    //    startMoving = true;
-    //}
-
+    
     void FixedUpdate()
     {
         if (startMoving)
@@ -153,13 +144,26 @@ public class BoxFloat : MonoBehaviour
 
         if (!tooDeep)
         {
+
             //GetComponent<Rigidbody>().AddForce(Vector3.up * 1500 * Time.deltaTime);                
             transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
-            boxBody.AddForce(Vector3.down * 0.75f, ForceMode.Acceleration);
+            boxBody.AddForce(new Vector3(0f, -1f, 0) * 0.75f, ForceMode.Acceleration);
         }
         else
         {
-            boxBody.AddForce(Vector3.up * 0.75f, ForceMode.Acceleration);
+            //if we are grabbing the box it needs more force to rise up again
+            if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject)
+            {
+                boxBody.AddForce(new Vector3(0f, 1f, 0) * 2.75f, ForceMode.Acceleration);
+            }
+            else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject)
+            {
+                boxBody.AddForce(new Vector3(0f, 1f, 0) * 2.75f, ForceMode.Acceleration);
+            }
+            else
+            {
+            boxBody.AddForce(new Vector3(0f, 1f, 0) * 0.75f, ForceMode.Acceleration);
+            }           
         }
     }
     //check whether any axis rotation is not "straight" and fixes it

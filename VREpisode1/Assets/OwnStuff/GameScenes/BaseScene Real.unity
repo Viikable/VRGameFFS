@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 4553820}
   m_Layer: 0
   m_Name: Wooden box.013
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7514,7 +7514,7 @@ GameObject:
   - component: {fileID: 135881768}
   m_Layer: 0
   m_Name: Wooden box.001
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8560,8 +8560,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150296804}
-  m_LocalRotation: {x: -0.044320315, y: 0.9556126, z: 0.2000961, w: 0.21166442}
-  m_LocalPosition: {x: 10.373246, y: -56.09919, z: 177.08228}
+  m_LocalRotation: {x: -0.053672817, y: 0.8931982, z: 0.432467, w: 0.11085369}
+  m_LocalPosition: {x: 10.853588, y: -50.76872, z: 173.9032}
   m_LocalScale: {x: 3.5370698, y: 3.5370686, z: 3.537069}
   m_Children: []
   m_Father: {fileID: 1883036897}
@@ -8761,7 +8761,7 @@ GameObject:
   - component: {fileID: 153266873}
   m_Layer: 0
   m_Name: Wooden box.016
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9856,7 +9856,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 175419913}
-  - component: {fileID: 175419912}
   - component: {fileID: 175419920}
   - component: {fileID: 175419919}
   - component: {fileID: 175419918}
@@ -9864,31 +9863,26 @@ GameObject:
   - component: {fileID: 175419916}
   - component: {fileID: 175419915}
   - component: {fileID: 175419914}
+  - component: {fileID: 175419921}
+  - component: {fileID: 175419912}
   m_Layer: 0
   m_Name: FloatingParent
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &175419912
-Animator:
-  serializedVersion: 3
+--- !u!114 &175419912
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 175419911}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a55bb59e831dfc548bb982d55b8475bd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f8312aacb25a84da4b7b777dbf7b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &175419913
 Transform:
   m_ObjectHideFlags: 0
@@ -10048,6 +10042,18 @@ MonoBehaviour:
   objectHighlighter: {fileID: 0}
   touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
+--- !u!65 &175419921
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 175419911}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.85, y: 0.85, z: 0.85}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &180715101
 Prefab:
   m_ObjectHideFlags: 0
@@ -12822,7 +12828,7 @@ GameObject:
   - component: {fileID: 212363942}
   m_Layer: 0
   m_Name: Wooden box.002
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27330,7 +27336,7 @@ GameObject:
   - component: {fileID: 443680907}
   m_Layer: 0
   m_Name: Wooden box.010
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29686,7 +29692,7 @@ GameObject:
   - component: {fileID: 481167865}
   m_Layer: 0
   m_Name: Wooden box.012
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35226,7 +35232,7 @@ GameObject:
   - component: {fileID: 572834367}
   m_Layer: 0
   m_Name: Wooden box.005
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36078,8 +36084,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 592416906}
-  m_LocalRotation: {x: -0.016008915, y: 0.97578263, z: 0.20431948, w: 0.07645571}
-  m_LocalPosition: {x: 19.16917, y: -8.200362, z: 34.0772}
+  m_LocalRotation: {x: 0.007105725, y: 0.8999312, z: 0.43572697, w: -0.014675619}
+  m_LocalPosition: {x: 19.05169, y: -6.6933317, z: 33.175835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -47425,7 +47431,7 @@ GameObject:
   - component: {fileID: 830341171}
   m_Layer: 0
   m_Name: Wooden box.009
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52607,7 +52613,7 @@ GameObject:
   - component: {fileID: 902957697}
   m_Layer: 0
   m_Name: Wooden box.018
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59804,7 +59810,7 @@ GameObject:
   - component: {fileID: 1053768077}
   m_Layer: 0
   m_Name: Wooden box.003
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60229,7 +60235,7 @@ GameObject:
   - component: {fileID: 1058110996}
   m_Layer: 0
   m_Name: Wooden box.011
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67310,6 +67316,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 53ba36aa41c884658897f9bf152ffd65, type: 3}
+      propertyPath: m_TagString
+      value: FloatingObject
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53ba36aa41c884658897f9bf152ffd65, type: 3}
   m_IsPrefabAsset: 0
@@ -67332,7 +67342,7 @@ GameObject:
   - component: {fileID: 1199327056}
   m_Layer: 0
   m_Name: Wooden box.014
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71530,31 +71540,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4667231831130914, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.4566998
+      value: 0.007105725
       objectReference: {fileID: 0}
     - target: {fileID: 4667231831130914, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.49338663
+      value: 0.8999312
       objectReference: {fileID: 0}
     - target: {fileID: 4667231831130914, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.34367052
+      value: 0.43572697
       objectReference: {fileID: 0}
     - target: {fileID: 4667231831130914, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.6556566
+      value: -0.014675619
       objectReference: {fileID: 0}
     - target: {fileID: 4667231831130914, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 20.215342
+      value: 28.035448
       objectReference: {fileID: 0}
     - target: {fileID: 4667231831130914, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -17.682457
+      value: -8.110183
       objectReference: {fileID: 0}
     - target: {fileID: 4667231831130914, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 18.883554
+      value: 21.612661
       objectReference: {fileID: 0}
     - target: {fileID: 4392387891661548, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_LocalPosition.y
@@ -71776,6 +71786,11 @@ Prefab:
     - target: {fileID: 1902305927812220, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
       propertyPath: m_Name
       value: LowWaterTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 114294855210209974, guid: ddf6ecab435c4b945a7fee86cc3150fe,
+        type: 2}
+      propertyPath: waterRises
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 23612487370281532, guid: ddf6ecab435c4b945a7fee86cc3150fe, type: 2}
@@ -86298,10 +86313,22 @@ SphereCollider:
   m_GameObject: {fileID: 1516639978}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1516639980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1516639978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a401c4804d5a3429f7448a2160eca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LanternLight: {fileID: 0}
 --- !u!1001 &1517161214
 Prefab:
   m_ObjectHideFlags: 0
@@ -88310,7 +88337,7 @@ GameObject:
   - component: {fileID: 1544777128}
   m_Layer: 0
   m_Name: Wooden box.017
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91264,7 +91291,7 @@ GameObject:
   - component: {fileID: 1576224346}
   m_Layer: 0
   m_Name: Wooden box.008
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95719,7 +95746,7 @@ GameObject:
   - component: {fileID: 1640057355}
   m_Layer: 0
   m_Name: Wooden box.019
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96667,7 +96694,7 @@ GameObject:
   - component: {fileID: 1658333338}
   m_Layer: 0
   m_Name: Wooden box.015
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96873,7 +96900,7 @@ GameObject:
   - component: {fileID: 1662659049}
   m_Layer: 0
   m_Name: Wooden box.006
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98686,7 +98713,7 @@ GameObject:
   - component: {fileID: 1705152937}
   m_Layer: 0
   m_Name: Wooden box.004
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98893,9 +98920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d05aa0d1ecfdb41859b78c260b0711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagedByWater: 0
-  DamagedSound: {fileID: 1257156555}
-  GrabbableWater: {fileID: 0}
 --- !u!114 &1706913494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102265,7 +102289,7 @@ GameObject:
   - component: {fileID: 1772507676}
   m_Layer: 0
   m_Name: Wooden box.007
-  m_TagString: Untagged
+  m_TagString: FloatingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
