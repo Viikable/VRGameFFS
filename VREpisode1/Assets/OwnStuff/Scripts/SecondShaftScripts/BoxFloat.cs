@@ -13,6 +13,8 @@ public class BoxFloat : MonoBehaviour
     
     float rotationSpeed;
 
+    Vector3 newDirection;
+
     [Tooltip("This float randomizes the x and z force to the box to make floating more realistic")]
     float waveRandomizer;
 
@@ -146,7 +148,7 @@ public class BoxFloat : MonoBehaviour
         {
 
             //GetComponent<Rigidbody>().AddForce(Vector3.up * 1500 * Time.deltaTime);                
-            transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.up * 0.2f * Time.fixedDeltaTime, Space.World);
             boxBody.AddForce(new Vector3(0f, -1f, 0) * 0.75f, ForceMode.Acceleration);
         }
         else
@@ -191,6 +193,7 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
+                totalRotationsX = -totalRotationsX;
                 if (realRotationX <= -45f)
                 {
                     futureXRotation = -90;
@@ -228,6 +231,7 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
+                totalRotationsY = -totalRotationsY;
                 if (realRotationY <= -45f)
                 {
                     futureYRotation = -90;
@@ -265,6 +269,7 @@ public class BoxFloat : MonoBehaviour
             }
             else
             {
+                totalRotationsZ = -totalRotationsZ;
                 if (realRotationZ <= -45f)
                 {
                     futureZRotation = -90;
@@ -290,7 +295,9 @@ public class BoxFloat : MonoBehaviour
             {
                 if (futureZRotation == 0)
                 {
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, x90.localRotation, step);
+                    newDirection = Vector3.RotateTowards(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z), new Vector3(x90.localRotation.eulerAngles.x + totalRotationsX * 90f, x90.localRotation.eulerAngles.y + totalRotationsY * 90f, x90.localRotation.eulerAngles.z + totalRotationsZ * 90f), step, 0.0f);
+                    transform.rotation = Quaternion.LookRotation(newDirection);
+                    //transform.rotation = Quaternion.RotateTowards(transform.rotation, x90.localRotation, step);
                 }
                 else if (futureZRotation == 90)
                 {

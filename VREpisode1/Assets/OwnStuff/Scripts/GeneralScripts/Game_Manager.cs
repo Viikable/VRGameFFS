@@ -365,20 +365,20 @@ public class Game_Manager : MonoBehaviour
                 {
                     if (RightGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
                     {
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
                     }
                     else if (RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
                     }
                     else if (RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
                     }
                 }
@@ -386,20 +386,20 @@ public class Game_Manager : MonoBehaviour
                 {
                     if (RightGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
                     {
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
                     }
                     else if (RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
                     }
                     else if (RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
                     }
                 }
@@ -466,20 +466,20 @@ public class Game_Manager : MonoBehaviour
                 {
                     if (LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
                     {
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
                     }
                     else if (LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
                     }
                     else if (LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3f, ForceMode.Impulse);
                     }
                 }
@@ -487,25 +487,25 @@ public class Game_Manager : MonoBehaviour
                 {
                     if (LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
                     {
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
                     }
                     else if (LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
                     }
                     else if (LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
                         LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
                     }
                 }
             }
-        }
+        }         
     }
     
     IEnumerator WaitForSecondsRealtimeRight()
@@ -524,11 +524,11 @@ public class Game_Manager : MonoBehaviour
         {
             Debug.Log("ReleasedWater");
             RightGrab.ForceRelease();          
-            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
         else
         {
-            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
             yield return null;
         }
     }
@@ -536,12 +536,12 @@ public class Game_Manager : MonoBehaviour
     {
         if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
         {
-            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
             LeftGrab.ForceRelease();           
         }
         else
         {
-            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 2.5f, ForceMode.Impulse);
+            ToxicGasPush.PlayerBody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
             yield return null;
         }      
     }
@@ -551,8 +551,7 @@ public class Game_Manager : MonoBehaviour
         if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript == RightGrab.GetGrabbedObject().GetComponent<VRTK_ChildOfControllerGrabAttach>())
         {
             if (currentGrabbedObjectLocalPosition != GrabAttachPointRight.localPosition)
-            {
-                Debug.Log("dudd");
+            {               
                 GrabAttachPointRight.localPosition = currentGrabbedObjectLocalPosition;
             }
         }

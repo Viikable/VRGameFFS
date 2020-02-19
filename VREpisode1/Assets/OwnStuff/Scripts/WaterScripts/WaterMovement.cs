@@ -222,13 +222,13 @@ public class WaterMovement : MonoBehaviour
             //while the water hasn't hit the top of the ceiling the speed remains the same
             if (!reachedTopPuzzle)
             {
-                transform.Translate(Vector3.up * 0.2f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.2f * Time.fixedDeltaTime, Space.World);
                 //Debug.Log("waterup");
             }
             //after hitting the ceiling the speed slows down until stopping eventually when it reaches the air lock to octoroom
             else
             {
-                transform.Translate(Vector3.up * 0.005f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.005f * Time.fixedDeltaTime, Space.World);
             }
         }
     }
