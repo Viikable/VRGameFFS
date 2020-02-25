@@ -180,13 +180,11 @@ public class BoxFloat : MonoBehaviour
             {
                 if (realRotationX >= 45f)
                 {
-                    futureXRotation = 90;
-                    //transform.Rotate(90 - realRotation, 0, 0, Space.World);
+                    futureXRotation = 90;                    
                 }
                 else
                 {
-                    futureXRotation = 0;
-                    //transform.Rotate(0 + realRotation, 0, 0, Space.World);
+                    futureXRotation = 0;                   
                 }
             }
             else
@@ -194,13 +192,11 @@ public class BoxFloat : MonoBehaviour
                 totalRotationsX = -totalRotationsX;
                 if (realRotationX <= -45f)
                 {
-                    futureXRotation = -90;
-                    //transform.Rotate(90 - realRotation, 0, 0, Space.World);
+                    futureXRotation = -90;                  
                 }
                 else
                 {
-                    futureXRotation = 0;
-                    //transform.Rotate(0 + realRotation, 0, 0, Space.World);
+                    futureXRotation = 0;                   
                 }
             }
         }
@@ -218,13 +214,11 @@ public class BoxFloat : MonoBehaviour
             {
                 if (realRotationY >= 45f)
                 {
-                    futureYRotation = 90;
-                    //transform.Rotate(90 - realRotation, 0, 0, Space.World);
+                    futureYRotation = 90;                  
                 }
                 else
                 {
-                    futureYRotation = 0;
-                    //transform.Rotate(0 + realRotation, 0, 0, Space.World);
+                    futureYRotation = 0;                  
                 }
             }
             else
@@ -232,13 +226,11 @@ public class BoxFloat : MonoBehaviour
                 totalRotationsY = -totalRotationsY;
                 if (realRotationY <= -45f)
                 {
-                    futureYRotation = -90;
-                    //transform.Rotate(90 - realRotation, 0, 0, Space.World);
+                    futureYRotation = -90;                  
                 }
                 else
                 {
-                    futureYRotation = 0;
-                    //transform.Rotate(0 + realRotation, 0, 0, Space.World);
+                    futureYRotation = 0;                    
                 }
             }
         }
@@ -256,13 +248,11 @@ public class BoxFloat : MonoBehaviour
             {
                 if (realRotationZ >= 45f)
                 {
-                    futureZRotation = 90;
-                    //transform.Rotate(90 - realRotation, 0, 0, Space.World);
+                    futureZRotation = 90;                   
                 }
                 else
                 {
-                    futureZRotation = 0;
-                    //transform.Rotate(0 + realRotation, 0, 0, Space.World);
+                    futureZRotation = 0;                  
                 }
             }
             else
@@ -270,13 +260,11 @@ public class BoxFloat : MonoBehaviour
                 totalRotationsZ = -totalRotationsZ;
                 if (realRotationZ <= -45f)
                 {
-                    futureZRotation = -90;
-                    //transform.Rotate(90 - realRotation, 0, 0, Space.World);
+                    futureZRotation = -90;                  
                 }
                 else
                 {
-                    futureZRotation = 0;
-                    //transform.Rotate(0 + realRotation, 0, 0, Space.World);
+                    futureZRotation = 0;                   
                 }
             }
         }

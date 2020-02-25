@@ -328,7 +328,7 @@ namespace VRTK
 
         protected virtual bool IsClimbableObject(GameObject obj)
         {
-            if (obj.GetComponent<VRTK_InteractableObject>() != null)      //modified by Taneli, used to not have the null check and else
+            if (obj != null && obj.GetComponent<VRTK_InteractableObject>() != null)      //modified by Taneli, used to not have the null check and else
             {
                 VRTK_InteractableObject interactObject = obj.GetComponent<VRTK_InteractableObject>();
                 return (interactObject != null && interactObject.grabAttachMechanicScript && interactObject.grabAttachMechanicScript.IsClimbable());
