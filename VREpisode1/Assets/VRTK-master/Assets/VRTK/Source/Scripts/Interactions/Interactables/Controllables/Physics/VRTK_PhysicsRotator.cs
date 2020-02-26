@@ -294,17 +294,7 @@ namespace VRTK.Controllables.PhysicsBased
 
                 OnValueChanged(payload);
 
-                if (currentAngle >= maxThreshold && !AtMaxLimit())
-                {
-                    atMaxLimit = true;
-                    OnMaxLimitReached(payload);
-                }
-                else if (currentAngle <= (angleLimits.minimum + minMaxThresholdAngle) && !AtMinLimit())
-                {
-                    atMinLimit = true;
-                    OnMinLimitReached(payload);
-                }
-                else if (currentAngle > minThreshold && currentAngle < maxThreshold)
+                if (currentAngle > minThreshold && currentAngle < maxThreshold)
                 {
                     if (AtMinLimit())
                     {
@@ -316,7 +306,30 @@ namespace VRTK.Controllables.PhysicsBased
                     }
                     atMinLimit = false;
                     atMaxLimit = false;
+                    Debug.Log("neither");
                 }
+                else if (currentAngle >= maxThreshold && !AtMaxLimit())
+                {
+                    atMaxLimit = true;
+                    if (AtMinLimit())
+                    {
+                        atMinLimit = false;
+                        //OnMinLimitExited(payload);
+                    }
+                    OnMaxLimitReached(payload);
+                    Debug.Log("max");
+                }
+                else if (currentAngle <= minThreshold && !AtMinLimit())
+                {
+                    atMinLimit = true;
+                    if (AtMaxLimit())
+                    {
+                        atMaxLimit = false;
+                        //OnMaxLimitExited(payload);
+                    }
+                    OnMinLimitReached(payload);
+                    Debug.Log("min");
+                }              
 
                 previousValue = GetValue();
             }

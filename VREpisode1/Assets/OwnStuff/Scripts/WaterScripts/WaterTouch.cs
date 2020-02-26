@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterTouch : MonoBehaviour {
+public class WaterTouch : MonoBehaviour
+{
     WaterMovement water;
     public static bool dontLightHands;
 
@@ -13,7 +14,7 @@ public class WaterTouch : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other == WaterMovement.feet)
+        if (other == WaterMovement.feet && !WaterMovement.touchedWater)
         {
             Debug.Log("feet entered water");
             if (!water.Splash.isPlaying)

@@ -179,21 +179,11 @@ namespace VRTK.Controllables.PhysicsBased
                 OnValueChanged(payload);
                 float minThreshold = minMaxLimitThreshold;
                 float maxThreshold = 1f - minMaxLimitThreshold;
-
-                if (currentPosition >= maxThreshold && !AtMaxLimit())
-                {
-                    atMaxLimit = true;
-                    OnMaxLimitReached(payload);
-                    //Debug.Log("currpos greater than maxThreshhold");
-                    StayPressed();
-                }
-                else if (currentPosition <= minThreshold && !AtMinLimit())
-                {
-                    //Debug.Log("minlimit");
-                    atMinLimit = true;
-                    OnMinLimitReached(payload);
-                }
-                else if (currentPosition > minThreshold && currentPosition < maxThreshold)
+                Debug.Log(minThreshold + "min");
+                Debug.Log(maxThreshold + "max");
+                Debug.Log(currentPosition + "curr");
+                //ALWAYS PUT THE NEGATIVE ANGLE FIRST IN INSPECTOR
+                if (currentPosition > minThreshold && currentPosition < maxThreshold)
                 {
                     if (AtMinLimit())
                     {
@@ -207,8 +197,30 @@ namespace VRTK.Controllables.PhysicsBased
                     atMinLimit = false;
                     atMaxLimit = false;
                 }
+                else if (currentPosition >= maxThreshold && !AtMaxLimit())
+                {
+                    atMaxLimit = true;
+                    if (AtMinLimit())
+                    {
+                        atMinLimit = false;
+                        //OnMinLimitExited(payload);
+                    }
+                    OnMaxLimitReached(payload);
+                    //Debug.Log("currpos greater than maxThreshhold");
+                    StayPressed();
+                }
+                else if (currentPosition <= minThreshold && !AtMinLimit())
+                {
+                    //Debug.Log("minlimit");
+                    atMinLimit = true;
+                    if (AtMaxLimit())
+                    {
+                        atMaxLimit = false;
+                        //OnMaxLimitExited(payload);
+                    }
+                    OnMinLimitReached(payload);
+                }
             }
-
             if (IsResting())
             {
                 OnRestingPointReached(EventPayload());

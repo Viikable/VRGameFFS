@@ -8,13 +8,13 @@ public class ToxicGasPush : MonoBehaviour {
     bool notEnded;
     public Rigidbody pushedObject;
     public GameObject CameraRig;
-    Rigidbody PlayerBody;
+    public static Rigidbody PlayerBody;
 
     private void Start()
     {
         beingPushed = false;
         notEnded = true;
-        pushedObject = null;
+        pushedObject = null;     
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,7 +57,7 @@ public class ToxicGasPush : MonoBehaviour {
             }
             else
             {
-                pushedObject.AddForce(new Vector3(0f, 0f, -4f), ForceMode.Impulse);
+                pushedObject.AddForce(new Vector3(0f, 0f, -100f), ForceMode.Impulse);
             }
             beingPushed = false;
         }

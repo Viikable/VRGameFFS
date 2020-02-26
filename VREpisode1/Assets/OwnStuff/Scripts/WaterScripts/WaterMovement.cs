@@ -55,10 +55,10 @@ public class WaterMovement : MonoBehaviour
     public AudioSource DrowningAlertSounds;
 
     //ambient water sounds while underwater
-    AudioSource UnderwaterAmbience1;
-    AudioSource UnderwaterAmbience2;
-    AudioSource UnderwaterAmbience3;
-    AudioSource UnderwaterAmbience4;
+    public AudioSource UnderwaterAmbience1;
+    public AudioSource UnderwaterAmbience2;
+    public AudioSource UnderwaterAmbience3;
+    public AudioSource UnderwaterAmbience4;
 
     private BoxFloat floatingBox;
 
@@ -107,7 +107,6 @@ public class WaterMovement : MonoBehaviour
 
     }
 
-
     void FixedUpdate()
     {
 
@@ -137,42 +136,47 @@ public class WaterMovement : MonoBehaviour
         {
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer * 3 / 4 && headIsUnderWater)
             {
-                Debug.Log("3/4 oxygen left");
+                //Debug.Log("3/4 oxygen left");
             }
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer / 2 && headIsUnderWater)
             {
-                Debug.Log("half oxygen left");
+                //Debug.Log("half oxygen left");
             }
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + 24f && headIsUnderWater && notDrownedYet)
             {
-                Debug.Log("24s oxygen left");
+                //Debug.Log("24s oxygen left");
                 if (!DrowningAlertSounds.isPlaying)
                 {
                     DrowningAlertSounds.Play();
                 }
             }
-            //plays underwater ambience only when head is actually underwater
-            if (headIsUnderWater)
+            if (!UnderwaterAmbience1.isPlaying)
             {
-                if (!UnderwaterAmbience1.isPlaying)
-                {
                 UnderwaterAmbience1.Play();
                 UnderwaterAmbience2.Play();
                 UnderwaterAmbience3.Play();
                 UnderwaterAmbience4.Play();
-                }
+            }
+            //plays underwater ambience only when head is actually underwater
+            if (headIsUnderWater)
+            {
+                UnderwaterAmbience1.volume = 1;
+                UnderwaterAmbience2.volume = 1;
+                UnderwaterAmbience3.volume = 1;
+                UnderwaterAmbience4.volume = 1;
             }
             else
             {
-                UnderwaterAmbience1.Stop();
-                UnderwaterAmbience2.Stop();
-                UnderwaterAmbience3.Stop();
-                UnderwaterAmbience4.Stop();
+                UnderwaterAmbience1.volume = 0.5f;
+                UnderwaterAmbience2.volume = 0.5f;
+                UnderwaterAmbience3.volume = 0.5f;
+                UnderwaterAmbience4.volume = 0.5f;
             }
 
             if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater && notDrownedYet)
             {
                 DrowningAlertSounds.Stop();
+                fader.Fade(Color.black, 1.5f);                      
                 notDrownedYet = false;
                 Drowned.Play();
                 Debug.Log("drowned");
@@ -181,20 +185,21 @@ public class WaterMovement : MonoBehaviour
                 LeftController.GetComponent<VRTK_ControllerEvents>().enabled = false;
                 RightController.GetComponent<VRTK_InteractGrab>().enabled = false;
                 RightController.GetComponent<VRTK_ControllerEvents>().enabled = false;
-                head.GetComponent<Rigidbody>().isKinematic = false;
+                //head.GetComponent<Rigidbody>().isKinematic = false;
                 //player dies here, lose control, sink to bottom, fade to black
-                fader.Fade(Color.black, 5f);
-                //Light [] lights = FindObjectsOfType<Light>();
-                //for (int i = 0; i < lights.Length; i++)
-                //{
-                //    lights[i].enabled = false;
-                //}               
             }
-            Debug.Log("nogravity");
+            //Debug.Log("nogravity");
             //headsetbody.useGravity = false;
-            Physics.gravity = new Vector3(0, -2.5f, 0);
+            if (headIsUnderWater)
+            {
+                Physics.gravity = new Vector3(0, -2.5f, 0);
+            }
+            else
+            {
+                Physics.gravity.Set(0, -9.81f, 0);
+            }
             //headsetbody.AddForce(Physics.gravity * headsetbody.mass / 4);
-            
+
             //if (headsetbody.velocity.y >= 0)
             //{
             //    Debug.Log("now changes");
@@ -214,16 +219,18 @@ public class WaterMovement : MonoBehaviour
 
         if (WaterRises)
         {
+            //while the water hasn't hit the top of the ceiling the speed remains the same
             if (!reachedTopPuzzle)
             {
-                transform.Translate(Vector3.up * 0.005f * Time.deltaTime, Space.World);
-                Debug.Log("waterup");
+                transform.Translate(Vector3.up * 0.2f * Time.fixedDeltaTime, Space.World);
+                //Debug.Log("waterup");
             }
+            //after hitting the ceiling the speed slows down until stopping eventually when it reaches the air lock to octoroom
             else
             {
-                transform.Translate(Vector3.up * 0.00025f * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * 0.005f * Time.fixedDeltaTime, Space.World);
             }
-        }      
+        }
     }
     public bool WaterRises
     {
@@ -232,5 +239,5 @@ public class WaterMovement : MonoBehaviour
         set { waterRises = value; }
     }
 }
-    
+
 

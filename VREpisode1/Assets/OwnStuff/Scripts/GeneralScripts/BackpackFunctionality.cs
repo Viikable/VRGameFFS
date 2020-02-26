@@ -94,31 +94,52 @@ public class BackpackFunctionality : MonoBehaviour
                 Debug.Log("ignoredcol");
             }
         }
-    }
         //to make the box collider not collide with everything
         //if (Time.time >= 0.5f && notDisabled)
         //{
-        //    notDisabled = false;         
-        //    //int i = 0;
-            //foreach (Collider col in FindObjectsOfType<Collider>())
-            //{
-            //    if (col.gameObject.GetComponent<PackableObject>() == null)
-            //    {
-            //        if (col.gameObject.transform.parent != null && col.gameObject.GetComponentInParent<PackableObject>() == null)
-            //        {
-            //            if (col.gameObject.transform.parent.parent != null && col.gameObject.transform.parent.GetComponentInParent<PackableObject>() == null)
-            //            {
-            //                Physics.IgnoreCollision(col, backpack);
-            //                Debug.Log("colliders" + i);
-            //                i++;
-            //            }
-            //        }                                                                  
-            //    }
-            //    else
-            //    {
-            //        continue;
-            //    }
-            //}          
+        //    notDisabled = false;
+        //    int i = 0;
+        //    foreach (Collider col in FindObjectsOfType<Collider>())
+        //    {
+        //        if (col.gameObject.GetComponent<PackableObject>() == null)
+        //        {
+        //            if (col.gameObject.transform.parent != null && col.gameObject.GetComponentInParent<PackableObject>() == null)
+        //            {
+        //                if (col.gameObject.transform.parent.parent != null && col.gameObject.transform.parent.GetComponentInParent<PackableObject>() == null)
+        //                {
+        //                    Physics.IgnoreCollision(col, backpack);
+        //                    Debug.Log(col.gameObject.name + i);
+        //                    i++;
+        //                }
+        //                else if (col.gameObject.transform.parent.parent == null)
+        //                {
+        //                    Physics.IgnoreCollision(col, backpack);
+        //                    Debug.Log(col.gameObject.name + i);
+        //                    i++;
+        //                }
+        //                else
+        //                {
+        //                    continue;
+        //                }
+        //            }
+        //            else if (col.gameObject.transform.parent == null)
+        //            {
+        //                Physics.IgnoreCollision(col, backpack);
+        //                Debug.Log(col.gameObject.name + i);
+        //                i++;
+        //            } 
+        //            else
+        //            {
+        //                continue;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            continue;
+        //        }
+        //    }
+        //}
+    }
 }
 
 

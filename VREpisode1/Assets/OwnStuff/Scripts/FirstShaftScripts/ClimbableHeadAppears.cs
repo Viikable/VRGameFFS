@@ -8,8 +8,11 @@ public class ClimbableHeadAppears : MonoBehaviour {
     GameObject JuhaniMouthCollider;
     GameObject JuhaniHeadCollider1;
     GameObject JuhaniHeadCollider2;
+    GameObject JuhaniClimbableHeadset;
+    GameObject ToxicGasLeak;
     ParticleSystem ToxicGas;
     ParticleSystem ToxicGasMouth;
+    ParticleSystem ToxicGasUnderWater;
     bool notDone;
 
     void Start () {
@@ -17,23 +20,23 @@ public class ClimbableHeadAppears : MonoBehaviour {
         JuhaniHeadCollider1 = GameObject.Find("JuhaniClimbableHeadCollider1");
         JuhaniHeadCollider2 = GameObject.Find("JuhaniClimbableHeadCollider2");
         JuhaniMouthCollider = GameObject.Find("JuhaniUnClimbableMouthCollider");
-        ToxicGas = GameObject.Find("ToxicGasLeak").GetComponent<ParticleSystem>();
+        JuhaniClimbableHeadset = GameObject.Find("JuhaniHeadClimbableHeadset");
+        ToxicGasLeak = GameObject.Find("ToxicGasLeak");
+        ToxicGas = ToxicGasLeak.GetComponent<ParticleSystem>();
         ToxicGasMouth = GameObject.Find("ToxicGasLeakMouth").GetComponent<ParticleSystem>();
-        ToxicGasMouth.Stop();
+        ToxicGasUnderWater = GameObject.Find("ToxicGasLeakUnderWater").GetComponent<ParticleSystem>();       
         notDone = true;
     }
-    void Update() {
-        if (WallCrack.GetCurrentSnappedObject() != null)
+    void Update()
+    {
+        if (WallCrack.GetCurrentSnappedObject() != null && notDone)
         {
             JuhaniHeadCollider1.GetComponent<Collider>().enabled = true;
             JuhaniHeadCollider2.GetComponent<Collider>().enabled = true;
             JuhaniMouthCollider.GetComponent<Collider>().enabled = true;
-            GameObject.Find("JuhaniHeadClimbableHeadset").GetComponent<MeshRenderer>().enabled = true;
-            if (notDone)
-            {
-                notDone = false;
-                StartCoroutine("WaitForHead");
-            }
+            JuhaniClimbableHeadset.GetComponent<MeshRenderer>().enabled = true;
+            notDone = false;
+            StartCoroutine("WaitForHead");
         }
     }
     IEnumerator WaitForHead()
@@ -41,6 +44,10 @@ public class ClimbableHeadAppears : MonoBehaviour {
         yield return new WaitForSecondsRealtime(0.25f);
         Destroy(WallCrack.GetCurrentSnappedObject());
         ToxicGas.Stop();
+        foreach (Collider col in ToxicGasLeak.GetComponentsInChildren<Collider>())
+        {
+            col.enabled = false;
+        }
         ToxicGasMouth.Play();
     }
 }

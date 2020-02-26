@@ -16,41 +16,41 @@ public class MoltenTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("JanitorBroom"))
+        if (other.CompareTag("JanitorBroom") && other.GetComponent<JanitorBroomTransformer>() != null)
         {           
             other.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider1" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("FirstPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("FirstPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider2" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("SecondPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("SecondPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider3" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("ThirdPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("ThirdPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider4" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("FourthPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("FourthPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider5" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("FifthPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("FifthPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider6" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("SixthPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("SixthPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider7" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("SeventhPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("SeventhPart").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
         if (other.name == "BroomCollider8" && PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
         {
-            PlierZone.GetCurrentSnappedObject().transform.Find("Bottom").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
+            PlierZone.GetCurrentSnappedObject().transform.GetChild(0).transform.Find("Bottom").gameObject.GetComponent<JanitorBroomTransformer>().changeBroomColour = true;
         }
     }
 }
