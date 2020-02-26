@@ -182,7 +182,7 @@ namespace VRTK.Controllables.PhysicsBased
                 Debug.Log(minThreshold + "min");
                 Debug.Log(maxThreshold + "max");
                 Debug.Log(currentPosition + "curr");
-
+                //ALWAYS PUT THE NEGATIVE ANGLE FIRST IN INSPECTOR
                 if (currentPosition > minThreshold && currentPosition < maxThreshold)
                 {
                     if (AtMinLimit())
@@ -200,7 +200,11 @@ namespace VRTK.Controllables.PhysicsBased
                 else if (currentPosition >= maxThreshold && !AtMaxLimit())
                 {
                     atMaxLimit = true;
-                    atMinLimit = false;
+                    if (AtMinLimit())
+                    {
+                        atMinLimit = false;
+                        //OnMinLimitExited(payload);
+                    }
                     OnMaxLimitReached(payload);
                     //Debug.Log("currpos greater than maxThreshhold");
                     StayPressed();
@@ -209,7 +213,11 @@ namespace VRTK.Controllables.PhysicsBased
                 {
                     //Debug.Log("minlimit");
                     atMinLimit = true;
-                    atMaxLimit = false;
+                    if (AtMaxLimit())
+                    {
+                        atMaxLimit = false;
+                        //OnMaxLimitExited(payload);
+                    }
                     OnMinLimitReached(payload);
                 }
             }
