@@ -179,21 +179,11 @@ namespace VRTK.Controllables.PhysicsBased
                 OnValueChanged(payload);
                 float minThreshold = minMaxLimitThreshold;
                 float maxThreshold = 1f - minMaxLimitThreshold;
+                Debug.Log(minThreshold + "min");
+                Debug.Log(maxThreshold + "max");
+                Debug.Log(currentPosition + "curr");
 
-                if (currentPosition >= maxThreshold && !AtMaxLimit())
-                {
-                    atMaxLimit = true;
-                    OnMaxLimitReached(payload);
-                    //Debug.Log("currpos greater than maxThreshhold");
-                    StayPressed();
-                }
-                else if (currentPosition <= minThreshold && !AtMinLimit())
-                {
-                    //Debug.Log("minlimit");
-                    atMinLimit = true;
-                    OnMinLimitReached(payload);
-                }
-                else if (currentPosition > minThreshold && currentPosition < maxThreshold)
+                if (currentPosition > minThreshold && currentPosition < maxThreshold)
                 {
                     if (AtMinLimit())
                     {
@@ -207,8 +197,22 @@ namespace VRTK.Controllables.PhysicsBased
                     atMinLimit = false;
                     atMaxLimit = false;
                 }
+                else if (currentPosition >= maxThreshold && !AtMaxLimit())
+                {
+                    atMaxLimit = true;
+                    atMinLimit = false;
+                    OnMaxLimitReached(payload);
+                    //Debug.Log("currpos greater than maxThreshhold");
+                    StayPressed();
+                }
+                else if (currentPosition <= minThreshold && !AtMinLimit())
+                {
+                    //Debug.Log("minlimit");
+                    atMinLimit = true;
+                    atMaxLimit = false;
+                    OnMinLimitReached(payload);
+                }
             }
-
             if (IsResting())
             {
                 OnRestingPointReached(EventPayload());
