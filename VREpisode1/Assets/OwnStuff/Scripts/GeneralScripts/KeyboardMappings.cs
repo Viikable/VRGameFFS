@@ -727,7 +727,7 @@ public class KeyboardMappings : MonoBehaviour {
     //creates a line which appears and disappears like waiting for more text
     IEnumerator IdleAnimation()
     {
-        if (!buttonBeingPressed)
+        while (!buttonBeingPressed)
         {
             MonitorScreen.text += "_";
             yield return new WaitForSecondsRealtime(0.35f);
