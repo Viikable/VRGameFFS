@@ -59,7 +59,7 @@ public class KeyboardMappings : MonoBehaviour {
     void Start ()
     {
         //MONITOR SCREEN
-        MonitorScreen = GetComponent<TextMeshPro>();
+        MonitorScreen = transform.Find("MonitorScreen").GetComponent<TextMeshPro>();
 
 
         //CONTROL VARIABLES
@@ -71,38 +71,37 @@ public class KeyboardMappings : MonoBehaviour {
         
         
         //ALPHABET
-        A = transform.Find("A_Container").GetComponent<VRTK_PhysicsPusher>();
-        B = transform.Find("B_Container").GetComponent<VRTK_PhysicsPusher>();
-        C = transform.Find("C_Container").GetComponent<VRTK_PhysicsPusher>();
-        D = transform.Find("D_Container").GetComponent<VRTK_PhysicsPusher>();
-        E = transform.Find("E_Container").GetComponent<VRTK_PhysicsPusher>();
-        F = transform.Find("F_Container").GetComponent<VRTK_PhysicsPusher>();
-        G = transform.Find("G_Container").GetComponent<VRTK_PhysicsPusher>();
-        H = transform.Find("H_Container").GetComponent<VRTK_PhysicsPusher>();
-        I = transform.Find("I_Container").GetComponent<VRTK_PhysicsPusher>();
-        J = transform.Find("J_Container").GetComponent<VRTK_PhysicsPusher>();
-        K = transform.Find("K_Container").GetComponent<VRTK_PhysicsPusher>();
-        L = transform.Find("L").GetComponent<VRTK_PhysicsPusher>();
-        M = transform.Find("M").GetComponent<VRTK_PhysicsPusher>();
-        N = transform.Find("N").GetComponent<VRTK_PhysicsPusher>();
-        O = transform.Find("O").GetComponent<VRTK_PhysicsPusher>();
-        P = transform.Find("P").GetComponent<VRTK_PhysicsPusher>();
-        Q = transform.Find("Q").GetComponent<VRTK_PhysicsPusher>();
-        R = transform.Find("R").GetComponent<VRTK_PhysicsPusher>();
-        S = transform.Find("S").GetComponent<VRTK_PhysicsPusher>();
-        T = transform.Find("T").GetComponent<VRTK_PhysicsPusher>();
-        U = transform.Find("U").GetComponent<VRTK_PhysicsPusher>();
-        V = transform.Find("V").GetComponent<VRTK_PhysicsPusher>();
-        W = transform.Find("W").GetComponent<VRTK_PhysicsPusher>();
-        X = transform.Find("X").GetComponent<VRTK_PhysicsPusher>();
-        Y = transform.Find("Y").GetComponent<VRTK_PhysicsPusher>();
-        Z = transform.Find("Z").GetComponent<VRTK_PhysicsPusher>();
-        Å = transform.Find("Å").GetComponent<VRTK_PhysicsPusher>();
-        Ä = transform.Find("Ä").GetComponent<VRTK_PhysicsPusher>();
-        Ö = transform.Find("Ö").GetComponent<VRTK_PhysicsPusher>();
+        A = transform.Find("A_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        B = transform.Find("B_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        C = transform.Find("C_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        D = transform.Find("D_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        E = transform.Find("E_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        F = transform.Find("F_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        G = transform.Find("G_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        H = transform.Find("H_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        I = transform.Find("I_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        J = transform.Find("J_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        K = transform.Find("K_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        L = transform.Find("L_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        M = transform.Find("M_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        N = transform.Find("N_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        O = transform.Find("O_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        P = transform.Find("P_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Q = transform.Find("Q_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        R = transform.Find("R_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        S = transform.Find("S_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        T = transform.Find("T_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        U = transform.Find("U_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        V = transform.Find("V_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        W = transform.Find("W_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        X = transform.Find("X_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Y = transform.Find("Y_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Z = transform.Find("Z_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Å = transform.Find("Å_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Ä = transform.Find("Ä_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Ö = transform.Find("Ö_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
 
-        BackSpace = transform.Find("BackSpace").GetComponent<VRTK_PhysicsPusher>();
-
+        BackSpace = transform.Find("BACKSPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
 
     }
 	
@@ -488,11 +487,13 @@ public class KeyboardMappings : MonoBehaviour {
     {
         while (!buttonBeingPressed)
         {
+            yield return new WaitForSecondsRealtime(0.1f);
             MonitorScreen.text += "_";
             yield return new WaitForSecondsRealtime(0.1f);
             if (!buttonBeingPressed)
             {
                 MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                Debug.Log("removechar");
             }
             yield return new WaitForSecondsRealtime(0.1f);         
         }

@@ -179,9 +179,9 @@ namespace VRTK.Controllables.PhysicsBased
                 OnValueChanged(payload);
                 float minThreshold = minMaxLimitThreshold;
                 float maxThreshold = 1f - minMaxLimitThreshold;
-                Debug.Log(minThreshold + "min");
-                Debug.Log(maxThreshold + "max");
-                Debug.Log(currentPosition + "curr");
+                //Debug.Log(minThreshold + "min");
+                //Debug.Log(maxThreshold + "max");
+                //Debug.Log(currentPosition + "curr");
                 //ALWAYS PUT THE NEGATIVE ANGLE FIRST IN INSPECTOR
                 if (currentPosition > minThreshold && currentPosition < maxThreshold)
                 {
