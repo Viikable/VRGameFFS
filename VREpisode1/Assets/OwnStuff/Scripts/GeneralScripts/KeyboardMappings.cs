@@ -14,14 +14,15 @@ public class KeyboardMappings : MonoBehaviour {
     //CONTROL VARIABLES
     [Tooltip("Indicates if any buttons are currently being pressed," +
     " this so that the monitor can go to sleep mode or do an idle animation when a certain time occurs without presses")]
-    public static bool buttonBeingPressed;
+    public bool buttonBeingPressed;
 
     [Tooltip("This character is the one most recently added to the screen")]
     public static string latestAddition;
 
-    bool idle;
+    public bool idle;
 
-
+    public bool caps; 
+ 
     //ALPHABET
     VRTK_PhysicsPusher A;
     VRTK_PhysicsPusher B;
@@ -53,7 +54,16 @@ public class KeyboardMappings : MonoBehaviour {
     VRTK_PhysicsPusher Ä;
     VRTK_PhysicsPusher Ö;
 
+
+    //Special control buttons
     VRTK_PhysicsPusher BackSpace;
+    VRTK_PhysicsPusher Enter;
+    VRTK_PhysicsPusher CapsLock;
+    VRTK_PhysicsPusher Tab;
+    VRTK_PhysicsPusher Space;
+    VRTK_PhysicsPusher Shift_Left;
+    VRTK_PhysicsPusher Shift_Right;
+    VRTK_PhysicsPusher Delete;
 
 
     void Start ()
@@ -68,8 +78,7 @@ public class KeyboardMappings : MonoBehaviour {
         latestAddition = "";
 
         idle = false;
-        
-        
+                  
         //ALPHABET
         A = transform.Find("A_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         B = transform.Find("B_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
@@ -102,7 +111,10 @@ public class KeyboardMappings : MonoBehaviour {
         Ö = transform.Find("Ö_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
 
         BackSpace = transform.Find("BACKSPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-
+        CapsLock = transform.Find("CAPSLOCK_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Enter = transform.Find("ENTER_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Space = transform.Find("SPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Delete = transform.Find("DELETE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
     }
 	
 	
@@ -118,366 +130,596 @@ public class KeyboardMappings : MonoBehaviour {
 
     private void MonitorButtonPressCheck()
     {
-        if (A.AtMaxLimit())
+        if (A.AtMaxLimit() && !buttonBeingPressed)
         {
             //This takes the last char and compares if it is _ by changing text and _ to CharArray first
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length-1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
             }
-            MonitorScreen.text += "A";
+            if (caps)
+            {
+                MonitorScreen.text += "A";
+            }
+            else
+            {
+                MonitorScreen.text += "a";
+            }
             buttonBeingPressed = true;
             latestAddition = "A";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (B.AtMaxLimit())
+        if (B.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "B";
+            if (caps)
+            {
+                MonitorScreen.text += "B";
+            }
+            else
+            {
+                MonitorScreen.text += "b";
+            }
             buttonBeingPressed = true;
             latestAddition = "B";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (C.AtMaxLimit())
+        if (C.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "C";
+            if (caps)
+            {
+                MonitorScreen.text += "C";
+            }
+            else
+            {
+                MonitorScreen.text += "c";
+            }
             buttonBeingPressed = true;
             latestAddition = "C";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (D.AtMaxLimit())
+        if (D.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "D";
+            if (caps)
+            {
+                MonitorScreen.text += "D";
+            }
+            else
+            {
+                MonitorScreen.text += "d";
+            }
             buttonBeingPressed = true;
             latestAddition = "D";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (E.AtMaxLimit())
+        if (E.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "E";
+            if (caps)
+            {
+                MonitorScreen.text += "E";
+            }
+            else
+            {
+                MonitorScreen.text += "e";
+            }
             buttonBeingPressed = true;
             latestAddition = "E";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (F.AtMaxLimit())
+        if (F.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "F";
+            if (caps)
+            {
+                MonitorScreen.text += "F";
+            }
+            else
+            {
+                MonitorScreen.text += "f";
+            }
             buttonBeingPressed = true;
             latestAddition = "F";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (G.AtMaxLimit())
+        if (G.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "G";
+            if (caps)
+            {
+                MonitorScreen.text += "G";
+            }
+            else
+            {
+                MonitorScreen.text += "g";
+            }
             buttonBeingPressed = true;
             latestAddition = "G";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (H.AtMaxLimit())
+        if (H.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "H";
+            if (caps)
+            {
+                MonitorScreen.text += "H";
+            }
+            else
+            {
+                MonitorScreen.text += "h";
+            }
             buttonBeingPressed = true;
             latestAddition = "H";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (I.AtMaxLimit())
+        if (I.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "I";
+            if (caps)
+            {
+                MonitorScreen.text += "I";
+            }
+            else
+            {
+                MonitorScreen.text += "i";
+            }
             buttonBeingPressed = true;
             latestAddition = "I";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (J.AtMaxLimit())
+        if (J.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "J";
+            if (caps)
+            {
+                MonitorScreen.text += "J";
+            }
+            else
+            {
+                MonitorScreen.text += "j";
+            }
             buttonBeingPressed = true;
             latestAddition = "J";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (K.AtMaxLimit())
+        if (K.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "K";
+            if (caps)
+            {
+                MonitorScreen.text += "K";
+            }
+            else
+            {
+                MonitorScreen.text += "k";
+            }
             buttonBeingPressed = true;
             latestAddition = "K";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (L.AtMaxLimit())
+        if (L.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "L";
+            if (caps)
+            {
+                MonitorScreen.text += "L";
+            }
+            else
+            {
+                MonitorScreen.text += "l";
+            }
             buttonBeingPressed = true;
             latestAddition = "L";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (M.AtMaxLimit())
+        if (M.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "M";
+            if (caps)
+            {
+                MonitorScreen.text += "M";
+            }
+            else
+            {
+                MonitorScreen.text += "m";
+            }
             buttonBeingPressed = true;
             latestAddition = "M";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (N.AtMaxLimit())
+        if (N.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "N";
+            if (caps)
+            {
+                MonitorScreen.text += "N";
+            }
+            else
+            {
+                MonitorScreen.text += "n";
+            }
             buttonBeingPressed = true;
             latestAddition = "N";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (O.AtMaxLimit())
+        if (O.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "O";
+            if (caps)
+            {
+                MonitorScreen.text += "O";
+            }
+            else
+            {
+                MonitorScreen.text += "o";
+            }
             buttonBeingPressed = true;
             latestAddition = "O";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (P.AtMaxLimit())
+        if (P.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "P";
+            if (caps)
+            {
+                MonitorScreen.text += "P";
+            }
+            else
+            {
+                MonitorScreen.text += "p";
+            }
             buttonBeingPressed = true;
             latestAddition = "P";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (Q.AtMaxLimit())
+        if (Q.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "Q";
+            if (caps)
+            {
+                MonitorScreen.text += "Q";
+            }
+            else
+            {
+                MonitorScreen.text += "q";
+            }
             buttonBeingPressed = true;
             latestAddition = "Q";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (R.AtMaxLimit())
+        if (R.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "R";
+            if (caps)
+            {
+                MonitorScreen.text += "R";
+            }
+            else
+            {
+                MonitorScreen.text += "r";
+            }
             buttonBeingPressed = true;
             latestAddition = "R";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (S.AtMaxLimit())
+        if (S.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "S";
+            if (caps)
+            {
+                MonitorScreen.text += "S";
+            }
+            else
+            {
+                MonitorScreen.text += "s";
+            }
             buttonBeingPressed = true;
             latestAddition = "S";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (T.AtMaxLimit())
+        if (T.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "T";
+            if (caps)
+            {
+                MonitorScreen.text += "T";
+            }
+            else
+            {
+                MonitorScreen.text += "t";
+            }
             buttonBeingPressed = true;
             latestAddition = "T";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (U.AtMaxLimit())
+        if (U.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "U";
+            if (caps)
+            {
+                MonitorScreen.text += "U";
+            }
+            else
+            {
+                MonitorScreen.text += "u";
+            }
             buttonBeingPressed = true;
             latestAddition = "U";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (V.AtMaxLimit())
+        if (V.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "V";
+            if (caps)
+            {
+                MonitorScreen.text += "V";
+            }
+            else
+            {
+                MonitorScreen.text += "v";
+            }
             buttonBeingPressed = true;
             latestAddition = "V";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (W.AtMaxLimit())
+        if (W.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "W";
+            if (caps)
+            {
+                MonitorScreen.text += "W";
+            }
+            else
+            {
+                MonitorScreen.text += "w";
+            }
             buttonBeingPressed = true;
             latestAddition = "W";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (X.AtMaxLimit())
+        if (X.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "X";
+            if (caps)
+            {
+                MonitorScreen.text += "X";
+            }
+            else
+            {
+                MonitorScreen.text += "x";
+            }
             buttonBeingPressed = true;
             latestAddition = "X";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (Y.AtMaxLimit())
+        if (Y.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "Y";
+            if (caps)
+            {
+                MonitorScreen.text += "Y";
+            }
+            else
+            {
+                MonitorScreen.text += "y";
+            }
             buttonBeingPressed = true;
             latestAddition = "Y";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (Z.AtMaxLimit())
+        if (Z.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "Z";
+            if (caps)
+            {
+                MonitorScreen.text += "Z";
+            }
+            else
+            {
+                MonitorScreen.text += "z";
+            }
             buttonBeingPressed = true;
             latestAddition = "Z";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (Å.AtMaxLimit())
+        if (Å.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "Å";
+            if (caps)
+            {
+                MonitorScreen.text += "Å";
+            }
+            else
+            {
+                MonitorScreen.text += "å";
+            }
             buttonBeingPressed = true;
             latestAddition = "Å";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (Ä.AtMaxLimit())
+        if (Ä.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "Ä";
+            if (caps)
+            {
+                MonitorScreen.text += "Ä";
+            }
+            else
+            {
+                MonitorScreen.text += "ä";
+            }
             buttonBeingPressed = true;
             latestAddition = "Ä";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-        if (Ö.AtMaxLimit())
+        if (Ö.AtMaxLimit() && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            MonitorScreen.text += "Ö";
+            if (caps)
+            {
+                MonitorScreen.text += "Ö";
+            }
+            else
+            {
+                MonitorScreen.text += "ö";
+            }
             buttonBeingPressed = true;
             latestAddition = "Ö";
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
-
-        if (BackSpace.AtMaxLimit())
+        //Special control buttons
+        if ((BackSpace.AtMaxLimit() || Delete.AtMaxLimit()) && !buttonBeingPressed)
         {
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
             //removes the last character
             MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
             buttonBeingPressed = true;
-            StopAllCoroutines();
+            StopCoroutine("IdleCheck");         
+            StartCoroutine("IdleCheck");          
+        }
+        if ((Space.AtMaxLimit() || Enter.AtMaxLimit()) && !buttonBeingPressed)
+        {
+            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            {
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+            }
+            
+            MonitorScreen.text += " ";
+            buttonBeingPressed = true;
+            StopCoroutine("IdleCheck");
+            StartCoroutine("IdleCheck");
+        }
+        if (CapsLock.AtMaxLimit() && !buttonBeingPressed)
+        {          
+           //changes keys to capital or not
+           if (caps)
+            {
+                caps = false;
+            }
+           else
+            {
+                caps = true;
+            }          
+            buttonBeingPressed = true;
+            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
     }
@@ -485,9 +727,8 @@ public class KeyboardMappings : MonoBehaviour {
     //creates a line which appears and disappears like waiting for more text
     IEnumerator IdleAnimation()
     {
-        while (!buttonBeingPressed)
+        if (!buttonBeingPressed)
         {
-
             MonitorScreen.text += "_";
             yield return new WaitForSecondsRealtime(0.35f);
             if (!buttonBeingPressed)
@@ -505,8 +746,8 @@ public class KeyboardMappings : MonoBehaviour {
     //waits for 3 seconds to see if another button is pressed which stops the coroutine from turning buttonBeingPressed to false, thus enabling "IdleAnimation"
     IEnumerator IdleCheck()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(0.4f);
         buttonBeingPressed = false;
         idle = false;
-    }
+    }   
 }
