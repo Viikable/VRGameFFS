@@ -475,7 +475,7 @@ public class KeyboardMappings : MonoBehaviour {
                 MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
             //removes the last character
-            MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
+            MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
             buttonBeingPressed = true;
             StopAllCoroutines();
             StartCoroutine("IdleCheck");
@@ -487,15 +487,15 @@ public class KeyboardMappings : MonoBehaviour {
     {
         while (!buttonBeingPressed)
         {
-            yield return new WaitForSecondsRealtime(0.1f);
+
             MonitorScreen.text += "_";
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.35f);
             if (!buttonBeingPressed)
-            {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
-                Debug.Log("removechar");
+            {               
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);              
             }
-            yield return new WaitForSecondsRealtime(0.1f);         
+            yield return new WaitForSecondsRealtime(0.35f);
+            //idle = false;
         }
         if (buttonBeingPressed)  
         {
