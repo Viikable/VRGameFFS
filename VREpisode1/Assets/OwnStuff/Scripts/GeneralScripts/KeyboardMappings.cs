@@ -4,6 +4,7 @@ using UnityEngine;
 using VRTK;
 using VRTK.Controllables.PhysicsBased;
 using TMPro;
+using System;
 
 public class KeyboardMappings : MonoBehaviour {
 
@@ -132,10 +133,12 @@ public class KeyboardMappings : MonoBehaviour {
     {
         if (A.AtMaxLimit() && !buttonBeingPressed)
         {
+            StopAllCoroutines();
+            buttonBeingPressed = true;
             //This takes the last char and compares if it is _ by changing text and _ to CharArray first
             if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length-1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
             }
             if (caps)
             {
@@ -145,14 +148,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "a";
             }
-            buttonBeingPressed = true;
             latestAddition = "A";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (B.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -164,14 +167,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "b";
             }
-            buttonBeingPressed = true;
             latestAddition = "B";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (C.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -183,14 +186,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "c";
             }
-            buttonBeingPressed = true;
             latestAddition = "C";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (D.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -202,14 +205,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "d";
             }
-            buttonBeingPressed = true;
             latestAddition = "D";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (E.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -221,14 +224,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "e";
             }
-            buttonBeingPressed = true;
             latestAddition = "E";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (F.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -240,14 +243,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "f";
             }
-            buttonBeingPressed = true;
             latestAddition = "F";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (G.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -259,14 +262,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "g";
             }
-            buttonBeingPressed = true;
             latestAddition = "G";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (H.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -278,14 +281,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "h";
             }
-            buttonBeingPressed = true;
             latestAddition = "H";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (I.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -297,14 +300,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "i";
             }
-            buttonBeingPressed = true;
             latestAddition = "I";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (J.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -316,14 +319,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "j";
             }
-            buttonBeingPressed = true;
             latestAddition = "J";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (K.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -335,14 +338,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "k";
             }
-            buttonBeingPressed = true;
             latestAddition = "K";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (L.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -354,14 +357,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "l";
             }
-            buttonBeingPressed = true;
             latestAddition = "L";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (M.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -373,14 +376,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "m";
             }
-            buttonBeingPressed = true;
             latestAddition = "M";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (N.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -392,14 +395,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "n";
             }
-            buttonBeingPressed = true;
             latestAddition = "N";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (O.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -411,14 +414,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "o";
             }
-            buttonBeingPressed = true;
             latestAddition = "O";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (P.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -430,14 +433,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "p";
             }
-            buttonBeingPressed = true;
             latestAddition = "P";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (Q.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -449,14 +452,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "q";
             }
-            buttonBeingPressed = true;
             latestAddition = "Q";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (R.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -468,14 +471,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "r";
             }
-            buttonBeingPressed = true;
             latestAddition = "R";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (S.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -487,14 +490,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "s";
             }
-            buttonBeingPressed = true;
             latestAddition = "S";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (T.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -506,14 +509,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "t";
             }
-            buttonBeingPressed = true;
             latestAddition = "T";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (U.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -525,14 +528,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "u";
             }
-            buttonBeingPressed = true;
             latestAddition = "U";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (V.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -544,14 +547,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "v";
             }
-            buttonBeingPressed = true;
             latestAddition = "V";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (W.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -563,14 +566,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "w";
             }
-            buttonBeingPressed = true;
             latestAddition = "W";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (X.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -582,14 +585,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "x";
             }
-            buttonBeingPressed = true;
             latestAddition = "X";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (Y.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -601,14 +604,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "y";
             }
-            buttonBeingPressed = true;
             latestAddition = "Y";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (Z.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -620,14 +623,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "z";
             }
-            buttonBeingPressed = true;
             latestAddition = "Z";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (Å.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -639,14 +642,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "å";
             }
-            buttonBeingPressed = true;
             latestAddition = "Å";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (Ä.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -658,14 +661,14 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "ä";
             }
-            buttonBeingPressed = true;
             latestAddition = "Ä";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (Ö.AtMaxLimit() && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
@@ -677,34 +680,35 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "ö";
             }
-            buttonBeingPressed = true;
             latestAddition = "Ö";
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         //Special control buttons
         if ((BackSpace.AtMaxLimit() || Delete.AtMaxLimit()) && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();         
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
             //removes the last character
-            MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
-            buttonBeingPressed = true;
-            StopCoroutine("IdleCheck");         
+            if (MonitorScreen.text.Length != 0)
+            {
+            MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+            }
             StartCoroutine("IdleCheck");          
         }
         if ((Space.AtMaxLimit() || Enter.AtMaxLimit()) && !buttonBeingPressed)
         {
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
             
             MonitorScreen.text += " ";
-            buttonBeingPressed = true;
-            StopCoroutine("IdleCheck");
             StartCoroutine("IdleCheck");
         }
         if (CapsLock.AtMaxLimit() && !buttonBeingPressed)
@@ -719,7 +723,19 @@ public class KeyboardMappings : MonoBehaviour {
                 caps = true;
             }          
             buttonBeingPressed = true;
-            StopCoroutine("IdleCheck");
+            StopAllCoroutines();
+            StartCoroutine("IdleCheck");
+        }
+        if (Enter.AtMaxLimit() && !buttonBeingPressed)
+        {
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            {
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+            }
+
+            MonitorScreen.text += Environment.NewLine;           
             StartCoroutine("IdleCheck");
         }
     }
@@ -727,26 +743,23 @@ public class KeyboardMappings : MonoBehaviour {
     //creates a line which appears and disappears like waiting for more text
     IEnumerator IdleAnimation()
     {
-        while (!buttonBeingPressed)
+        while (!buttonBeingPressed && idle)
         {
             MonitorScreen.text += "_";
+            Debug.Log("addedline");
             yield return new WaitForSecondsRealtime(0.35f);
-            if (!buttonBeingPressed)
-            {               
+            if (!buttonBeingPressed && MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            {
+                Debug.Log("removedline");
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);              
             }
-            yield return new WaitForSecondsRealtime(0.35f);
-            //idle = false;
-        }
-        if (buttonBeingPressed)  
-        {
-            idle = false;
-        }
+            yield return new WaitForSecondsRealtime(0.35f);           
+        }   
     }
-    //waits for 3 seconds to see if another button is pressed which stops the coroutine from turning buttonBeingPressed to false, thus enabling "IdleAnimation"
+    //waits for 0.25 seconds to see if another button is pressed which stops the coroutine from turning buttonBeingPressed to false, thus enabling "IdleAnimation"
     IEnumerator IdleCheck()
     {
-        yield return new WaitForSecondsRealtime(0.4f);
+        yield return new WaitForSecondsRealtime(0.25f);
         buttonBeingPressed = false;
         idle = false;
     }   
