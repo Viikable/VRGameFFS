@@ -11,7 +11,6 @@ public class KeyboardMappings : MonoBehaviour {
     //MONITOR SCREEN
     TextMeshPro MonitorScreen;
 
-
     //CONTROL VARIABLES
     [Tooltip("Indicates if any buttons are currently being pressed," +
     " this so that the monitor can go to sleep mode or do an idle animation when a certain time occurs without presses")]
@@ -734,7 +733,6 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-
             MonitorScreen.text += Environment.NewLine;           
             StartCoroutine("IdleCheck");
         }
