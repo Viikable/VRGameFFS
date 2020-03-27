@@ -128,7 +128,7 @@ public class KeyboardMappings : MonoBehaviour {
         Delete = transform.Find("DELETE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
 
         //STARTLINE fixes text lining up correctly
-        MonitorScreen.text += Environment.NewLine + "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
+        MonitorScreen.text += "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
     }
 	
 	
