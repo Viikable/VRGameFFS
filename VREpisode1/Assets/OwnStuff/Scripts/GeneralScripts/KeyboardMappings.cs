@@ -5,6 +5,7 @@ using VRTK;
 using VRTK.Controllables.PhysicsBased;
 using TMPro;
 using System;
+using System.Text;
 
 public class KeyboardMappings : MonoBehaviour {
 
@@ -16,11 +17,17 @@ public class KeyboardMappings : MonoBehaviour {
     " this so that the monitor can go to sleep mode or do an idle animation when a certain time occurs without presses")]
     public bool buttonBeingPressed;
 
-    [Tooltip("This character is the one most recently added to the screen")]
-    public static string latestAddition;
+    [SerializeField]
+    [Tooltip("Stores all the characters which are added to the current command, resetted and checked by pressing Enter")]
+    public StringBuilder addedCharacters;
 
+    [Tooltip("Indexes the characters in the added Characters array so that the commands can be easily interperated no matter how much text on screen")]
+    public int characterCount;
+
+    [Tooltip("This tells whether the terminal is on idle mode or not, in idle mode the _ starts showing on and off")]
     public bool idle;
 
+    [Tooltip("CAPS on or off")]  //commands are not case-sensitive currently, like in a real terminal
     public bool caps; 
  
     //ALPHABET
@@ -74,8 +81,10 @@ public class KeyboardMappings : MonoBehaviour {
 
         //CONTROL VARIABLES
         buttonBeingPressed = false;
+      
+        characterCount = 0;
 
-        latestAddition = "";
+        addedCharacters = new StringBuilder();
 
         idle = false;
                   
@@ -110,11 +119,16 @@ public class KeyboardMappings : MonoBehaviour {
         Ä = transform.Find("Ä_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         Ö = transform.Find("Ö_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
 
+
+        //CONTROL BUTTONS
         BackSpace = transform.Find("BACKSPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         CapsLock = transform.Find("CAPSLOCK_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         Enter = transform.Find("ENTER_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         Space = transform.Find("SPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         Delete = transform.Find("DELETE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+
+        //STARTLINE fixes text lining up correctly
+        MonitorScreen.text += Environment.NewLine + "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
     }
 	
 	
@@ -126,6 +140,7 @@ public class KeyboardMappings : MonoBehaviour {
             idle = true;
             StartCoroutine("IdleAnimation");
         }
+        Debug.Log(addedCharacters.ToString());
 	}
 
     private void MonitorButtonPressCheck()
@@ -135,9 +150,9 @@ public class KeyboardMappings : MonoBehaviour {
             StopAllCoroutines();
             buttonBeingPressed = true;
             //This takes the last char and compares if it is _ by changing text and _ to CharArray first
-            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length-1] == "_".ToCharArray()[0])
+            if (MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
-                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length-1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
             if (caps)
             {
@@ -147,7 +162,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "a";
             }
-            latestAddition = "A";
+            addedCharacters.Append("A");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (B.AtMaxLimit() && !buttonBeingPressed)
@@ -166,7 +182,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "b";
             }
-            latestAddition = "B";
+            addedCharacters.Append("B");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (C.AtMaxLimit() && !buttonBeingPressed)
@@ -185,7 +202,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "c";
             }
-            latestAddition = "C";
+            addedCharacters.Append("C");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (D.AtMaxLimit() && !buttonBeingPressed)
@@ -204,7 +222,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "d";
             }
-            latestAddition = "D";
+            addedCharacters.Append("D");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (E.AtMaxLimit() && !buttonBeingPressed)
@@ -223,7 +242,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "e";
             }
-            latestAddition = "E";
+            addedCharacters.Append("E");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (F.AtMaxLimit() && !buttonBeingPressed)
@@ -242,7 +262,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "f";
             }
-            latestAddition = "F";
+            addedCharacters.Append("F");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (G.AtMaxLimit() && !buttonBeingPressed)
@@ -261,7 +282,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "g";
             }
-            latestAddition = "G";
+            addedCharacters.Append("G");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (H.AtMaxLimit() && !buttonBeingPressed)
@@ -280,7 +302,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "h";
             }
-            latestAddition = "H";
+            addedCharacters.Append("H");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (I.AtMaxLimit() && !buttonBeingPressed)
@@ -299,7 +322,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "i";
             }
-            latestAddition = "I";
+            addedCharacters.Append("I");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (J.AtMaxLimit() && !buttonBeingPressed)
@@ -318,7 +342,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "j";
             }
-            latestAddition = "J";
+            addedCharacters.Append("J");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (K.AtMaxLimit() && !buttonBeingPressed)
@@ -337,7 +362,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "k";
             }
-            latestAddition = "K";
+            addedCharacters.Append("K");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (L.AtMaxLimit() && !buttonBeingPressed)
@@ -356,7 +382,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "l";
             }
-            latestAddition = "L";
+            addedCharacters.Append("L");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (M.AtMaxLimit() && !buttonBeingPressed)
@@ -375,7 +402,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "m";
             }
-            latestAddition = "M";
+            addedCharacters.Append("M");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (N.AtMaxLimit() && !buttonBeingPressed)
@@ -394,7 +422,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "n";
             }
-            latestAddition = "N";
+            addedCharacters.Append("N");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (O.AtMaxLimit() && !buttonBeingPressed)
@@ -413,7 +442,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "o";
             }
-            latestAddition = "O";
+            addedCharacters.Append("O");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (P.AtMaxLimit() && !buttonBeingPressed)
@@ -432,7 +462,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "p";
             }
-            latestAddition = "P";
+            addedCharacters.Append("P");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (Q.AtMaxLimit() && !buttonBeingPressed)
@@ -451,7 +482,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "q";
             }
-            latestAddition = "Q";
+            addedCharacters.Append("Q");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (R.AtMaxLimit() && !buttonBeingPressed)
@@ -470,7 +502,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "r";
             }
-            latestAddition = "R";
+            addedCharacters.Append("R");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (S.AtMaxLimit() && !buttonBeingPressed)
@@ -489,7 +522,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "s";
             }
-            latestAddition = "S";
+            addedCharacters.Append("S");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (T.AtMaxLimit() && !buttonBeingPressed)
@@ -508,7 +542,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "t";
             }
-            latestAddition = "T";
+            addedCharacters.Append("T");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (U.AtMaxLimit() && !buttonBeingPressed)
@@ -527,7 +562,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "u";
             }
-            latestAddition = "U";
+            addedCharacters.Append("U");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (V.AtMaxLimit() && !buttonBeingPressed)
@@ -546,7 +582,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "v";
             }
-            latestAddition = "V";
+            addedCharacters.Append("V");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (W.AtMaxLimit() && !buttonBeingPressed)
@@ -565,7 +602,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "w";
             }
-            latestAddition = "W";
+            addedCharacters.Append("W");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (X.AtMaxLimit() && !buttonBeingPressed)
@@ -584,7 +622,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "x";
             }
-            latestAddition = "X";
+            addedCharacters.Append("X");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (Y.AtMaxLimit() && !buttonBeingPressed)
@@ -603,7 +642,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "y";
             }
-            latestAddition = "Y";
+            addedCharacters.Append("Y");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (Z.AtMaxLimit() && !buttonBeingPressed)
@@ -622,7 +662,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "z";
             }
-            latestAddition = "Z";
+            addedCharacters.Append("Z");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (Å.AtMaxLimit() && !buttonBeingPressed)
@@ -641,7 +682,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "å";
             }
-            latestAddition = "Å";
+            addedCharacters.Append("Å");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (Ä.AtMaxLimit() && !buttonBeingPressed)
@@ -660,7 +702,8 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "ä";
             }
-            latestAddition = "Ä";
+            addedCharacters.Append("Ä");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (Ö.AtMaxLimit() && !buttonBeingPressed)
@@ -679,26 +722,33 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text += "ö";
             }
-            latestAddition = "Ö";
+            addedCharacters.Append("Ö");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         //Special control buttons
         if ((BackSpace.AtMaxLimit() || Delete.AtMaxLimit()) && !buttonBeingPressed)
         {
-            StopAllCoroutines();         
+            StopAllCoroutines();
             buttonBeingPressed = true;
             if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            //removes the last character
-            if (MonitorScreen.text.Length != 0)
+            //removes the last character, but keeps a space between the start and § 
+            if (MonitorScreen.text.Length != 0 && addedCharacters.Length > 0)
             {
-            MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            StartCoroutine("IdleCheck");          
+            //removes the last character and shortens characterCount to match
+            if (addedCharacters.Length > 0)
+            {
+            addedCharacters.Remove(addedCharacters.Length - 1, 1);
+            characterCount--;
+            }
+            StartCoroutine("IdleCheck");
         }
-        if ((Space.AtMaxLimit() || Enter.AtMaxLimit()) && !buttonBeingPressed)
+        if (Space.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -706,23 +756,25 @@ public class KeyboardMappings : MonoBehaviour {
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
             }
-            
+
             MonitorScreen.text += " ";
+            addedCharacters.Append(" ");
+            characterCount++;
             StartCoroutine("IdleCheck");
         }
         if (CapsLock.AtMaxLimit() && !buttonBeingPressed)
-        {          
-           //changes keys to capital or not
-           if (caps)
+        {
+            //changes keys to capital or not
+            if (caps)
             {
                 caps = false;
             }
-           else
+            else
             {
                 caps = true;
-            }          
+            }
             buttonBeingPressed = true;
-            StopAllCoroutines();
+            StopAllCoroutines();            
             StartCoroutine("IdleCheck");
         }
         if (Enter.AtMaxLimit() && !buttonBeingPressed)
@@ -732,10 +784,30 @@ public class KeyboardMappings : MonoBehaviour {
             if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
             {
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
-            }
-            MonitorScreen.text += Environment.NewLine;           
+            }                     
+            MonitorScreen.text += Environment.NewLine;
+            CodeCheck();
             StartCoroutine("IdleCheck");
         }
+    }
+
+    private void CodeCheck()
+    {
+        //no need to worry about CAPS as the characters are stored only as upper keys
+        if (addedCharacters.ToString() == "CONSTART")
+        {
+            //starts the conveyorbelt
+            MonitorScreen.text += " " + "CONVEYOR BELT STARTING..";
+            MonitorScreen.text += Environment.NewLine + "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
+        }
+        else
+        {
+            MonitorScreen.text += " " + "COMMAND NOT FOUND";
+            MonitorScreen.text += Environment.NewLine + "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
+        }
+        characterCount = 0;
+        //clears the stringbuilder
+        addedCharacters.Clear();       
     }
 
     //creates a line which appears and disappears like waiting for more text
