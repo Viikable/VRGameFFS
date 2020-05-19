@@ -14,14 +14,14 @@ public class KeyboardMappings : MonoBehaviour {
 
     //CONTROL VARIABLES
     [Tooltip("Indicates if any buttons are currently being pressed," +
-    " this so that the monitor can go to sleep mode or do an idle animation when a certain time occurs without presses")]
+    "this so that the monitor can go to sleep mode or do an idle animation when a certain time occurs without presses")]
     public bool buttonBeingPressed;
 
     [SerializeField]
     [Tooltip("Stores all the characters which are added to the current command, resetted and checked by pressing Enter")]
     public StringBuilder addedCharacters;
 
-    [Tooltip("Indexes the characters in the added Characters array so that the commands can be easily interperated no matter how much text on screen")]
+    [Tooltip("Indexes the characters in the addedCharacters StringBuilder so that the commands can be easily interperated no matter how much text on screen")]
     public int characterCount;
 
     [Tooltip("This tells whether the terminal is on idle mode or not, in idle mode the _ starts showing on and off")]
@@ -831,6 +831,6 @@ public class KeyboardMappings : MonoBehaviour {
     {
         yield return new WaitForSecondsRealtime(0.25f);
         buttonBeingPressed = false;
-        idle = false;
+        idle = false;         //actually makes idle true as there is a clause in update for that, looks slightly confusing have to admit
     }   
 }
