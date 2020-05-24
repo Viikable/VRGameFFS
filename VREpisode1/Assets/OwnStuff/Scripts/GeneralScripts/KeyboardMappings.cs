@@ -6,11 +6,14 @@ using VRTK.Controllables.PhysicsBased;
 using TMPro;
 using System;
 using System.Text;
+using UnityEngine.UI;
 
 public class KeyboardMappings : MonoBehaviour {
 
     //MONITOR SCREEN
-    TextMeshPro MonitorScreen;
+    TextMeshProUGUI MonitorScreen;
+
+    Scrollbar bar;
 
     //CONTROL VARIABLES
     [Tooltip("Indicates if any buttons are currently being pressed," +
@@ -71,13 +74,19 @@ public class KeyboardMappings : MonoBehaviour {
     VRTK_PhysicsPusher Shift_Left;
     VRTK_PhysicsPusher Shift_Right;
     VRTK_PhysicsPusher Delete;
+    VRTK_PhysicsPusher Escape;
+
+    // for scrolling the expanded command list
+    VRTK_PhysicsPusher Down;
+    VRTK_PhysicsPusher Up;
 
 
     void Start ()
     {
         //MONITOR SCREEN
-        MonitorScreen = transform.Find("MonitorScreen").GetComponent<TextMeshPro>();
+        MonitorScreen = GameObject.Find("MonitorCanvas/Scrollparent/Viewport/MonitorScreen").GetComponent<TextMeshProUGUI>();
 
+        bar = GameObject.Find("MonitorCanvas/Scrollparent/Scrollbar").GetComponent<Scrollbar>();
 
         //CONTROL VARIABLES
         buttonBeingPressed = false;
@@ -126,6 +135,10 @@ public class KeyboardMappings : MonoBehaviour {
         Enter = transform.Find("ENTER_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         Space = transform.Find("SPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
         Delete = transform.Find("DELETE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Escape = transform.Find("ESC_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+
+        Down = transform.Find("DOWN_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Up = transform.Find("UP_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
 
         //STARTLINE fixes text lining up correctly
         MonitorScreen.text += "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
@@ -775,6 +788,10 @@ public class KeyboardMappings : MonoBehaviour {
             }
             buttonBeingPressed = true;
             StopAllCoroutines();            
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            {
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+            }
             StartCoroutine("IdleCheck");
         }
         if (Enter.AtMaxLimit() && !buttonBeingPressed)
@@ -787,6 +804,39 @@ public class KeyboardMappings : MonoBehaviour {
             }                     
             MonitorScreen.text += Environment.NewLine;
             CodeCheck();
+            StartCoroutine("IdleCheck");
+        }
+        if (Escape.AtMaxLimit() && !buttonBeingPressed)
+        {
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            {
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+            }
+            MonitorScreen.text = "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ".ToString();
+            StartCoroutine("IdleCheck");
+        }
+        if (Down.AtMaxLimit() && !buttonBeingPressed)
+        {
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            {
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+            }
+            bar.value -= 0.1f;        
+            StartCoroutine("IdleCheck");
+        }
+        if (Up.AtMaxLimit() && !buttonBeingPressed)
+        {
+            StopAllCoroutines();
+            buttonBeingPressed = true;
+            if (MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
+            {
+                MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);
+            }
+            bar.value += 0.1f;
             StartCoroutine("IdleCheck");
         }
     }
