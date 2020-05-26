@@ -804,6 +804,7 @@ public class KeyboardMappings : MonoBehaviour {
             }                     
             MonitorScreen.text += Environment.NewLine;
             CodeCheck();
+            StartCoroutine("BarDown");
             StartCoroutine("IdleCheck");
         }
         if (Escape.AtMaxLimit() && !buttonBeingPressed)
@@ -882,5 +883,10 @@ public class KeyboardMappings : MonoBehaviour {
         yield return new WaitForSecondsRealtime(0.25f);
         buttonBeingPressed = false;
         idle = false;         //actually makes idle true as there is a clause in update for that, looks slightly confusing have to admit
-    }   
+    }  
+    IEnumerator BarDown()
+    {
+        yield return new WaitForEndOfFrame();
+        bar.value = 0f;
+    }
 }
