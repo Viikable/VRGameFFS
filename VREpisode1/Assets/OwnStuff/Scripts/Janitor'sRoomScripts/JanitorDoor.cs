@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class JanitorDoor : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    public GameObject JanitorDoorContainer;
+
+	void Start ()
+    {
+        JanitorDoorContainer = GameObject.Find("JanitorDoor");
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	
+	void Update ()
+    {
 		
 	}
 }

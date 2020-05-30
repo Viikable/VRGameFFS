@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 public class KeyboardMappings : MonoBehaviour {
 
+    //Is the current monitor going to be active based on fusebox setting or not
+    protected static bool machineryActive;
+
     //MONITOR SCREEN
     protected TextMeshProUGUI MonitorScreen;
 
@@ -83,6 +86,8 @@ public class KeyboardMappings : MonoBehaviour {
 
     protected virtual void Start ()
     {
+        machineryActive = false;
+
         //MONITOR SCREEN
         MonitorScreen = GameObject.Find("MonitorCanvas/Scrollparent/Viewport/MonitorScreen").GetComponent<TextMeshProUGUI>();
 
@@ -146,14 +151,22 @@ public class KeyboardMappings : MonoBehaviour {
 	
 	
 	protected virtual void Update ()
-    {      
-        MonitorButtonPressCheck();        
-        if (!buttonBeingPressed && !idle)
+    {
+        //if machinery is off then shows no text and doesn't react to buttonpresses
+        if (machineryActive)
         {
-            idle = true;
-            StartCoroutine("IdleAnimation");
+            MonitorButtonPressCheck();
+            if (!buttonBeingPressed && !idle)
+            {
+                idle = true;
+                StartCoroutine("IdleAnimation");
+            }           
         }
-        Debug.Log(addedCharacters.ToString());
+        else
+        {
+            StopAllCoroutines();
+            MonitorScreen.text = "";
+        }
 	}
 
     protected void MonitorButtonPressCheck()
@@ -888,5 +901,15 @@ public class KeyboardMappings : MonoBehaviour {
     {
         yield return new WaitForEndOfFrame();
         bar.value = 0f;
+    }
+
+    public static void ActivateMonitor()
+    {
+        machineryActive = true;
+    }
+
+    public static void DeactivateMonitor()
+    {
+        machineryActive = false;
     }
 }

@@ -75,7 +75,6 @@ public class BridgeKeyConfiguration : KeyboardMappings {
 
         //STARTLINE fixes text lining up correctly
         MonitorScreen.text = "BridgePC_Main@DESKTOP-BRIDGE EYE128 /e" + Environment.NewLine + "$" + " ";
-
     }
 
     protected override void CodeCheck()
@@ -148,5 +147,15 @@ public class BridgeKeyConfiguration : KeyboardMappings {
             MonitorScreen.text += " " + "PLEASE INSERT KEY";
             MonitorScreen.text += Environment.NewLine + "BridgePC_Main@DESKTOP-BRIDGE EYE128 /e" + Environment.NewLine + "$" + " ";
         }
+    }
+
+    public static void ActivateMonitor()
+    {
+        machineryActive = true;
+    }
+
+    public static void DeactivateMonitor()
+    {
+        machineryActive = false;
     }
 }
