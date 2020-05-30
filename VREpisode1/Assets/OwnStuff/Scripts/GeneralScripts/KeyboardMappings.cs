@@ -11,9 +11,9 @@ using UnityEngine.UI;
 public class KeyboardMappings : MonoBehaviour {
 
     //MONITOR SCREEN
-    TextMeshProUGUI MonitorScreen;
+    protected TextMeshProUGUI MonitorScreen;
 
-    Scrollbar bar;
+    protected Scrollbar bar;
 
     //CONTROL VARIABLES
     [Tooltip("Indicates if any buttons are currently being pressed," +
@@ -34,54 +34,54 @@ public class KeyboardMappings : MonoBehaviour {
     public bool caps; 
  
     //ALPHABET
-    VRTK_PhysicsPusher A;
-    VRTK_PhysicsPusher B;
-    VRTK_PhysicsPusher C;
-    VRTK_PhysicsPusher D;
-    VRTK_PhysicsPusher E;
-    VRTK_PhysicsPusher F;
-    VRTK_PhysicsPusher G;
-    VRTK_PhysicsPusher H;
-    VRTK_PhysicsPusher I;
-    VRTK_PhysicsPusher J;
-    VRTK_PhysicsPusher K;
-    VRTK_PhysicsPusher L;
-    VRTK_PhysicsPusher M;
-    VRTK_PhysicsPusher N;
-    VRTK_PhysicsPusher O;
-    VRTK_PhysicsPusher P;
-    VRTK_PhysicsPusher Q;
-    VRTK_PhysicsPusher R;
-    VRTK_PhysicsPusher S;
-    VRTK_PhysicsPusher T;
-    VRTK_PhysicsPusher U;
-    VRTK_PhysicsPusher V;
-    VRTK_PhysicsPusher W;
-    VRTK_PhysicsPusher X;
-    VRTK_PhysicsPusher Y;
-    VRTK_PhysicsPusher Z;
-    VRTK_PhysicsPusher Å;
-    VRTK_PhysicsPusher Ä;
-    VRTK_PhysicsPusher Ö;
+    protected VRTK_PhysicsPusher A;
+    protected VRTK_PhysicsPusher B;
+    protected VRTK_PhysicsPusher C;
+    protected VRTK_PhysicsPusher D;
+    protected VRTK_PhysicsPusher E;
+    protected VRTK_PhysicsPusher F;
+    protected VRTK_PhysicsPusher G;
+    protected VRTK_PhysicsPusher H;
+    protected VRTK_PhysicsPusher I;
+    protected VRTK_PhysicsPusher J;
+    protected VRTK_PhysicsPusher K;
+    protected VRTK_PhysicsPusher L;
+    protected VRTK_PhysicsPusher M;
+    protected VRTK_PhysicsPusher N;
+    protected VRTK_PhysicsPusher O;
+    protected VRTK_PhysicsPusher P;
+    protected VRTK_PhysicsPusher Q;
+    protected VRTK_PhysicsPusher R;
+    protected VRTK_PhysicsPusher S;
+    protected VRTK_PhysicsPusher T;
+    protected VRTK_PhysicsPusher U;
+    protected VRTK_PhysicsPusher V;
+    protected VRTK_PhysicsPusher W;
+    protected VRTK_PhysicsPusher X;
+    protected VRTK_PhysicsPusher Y;
+    protected VRTK_PhysicsPusher Z;
+    protected VRTK_PhysicsPusher Å;
+    protected VRTK_PhysicsPusher Ä;
+    protected VRTK_PhysicsPusher Ö;
 
 
     //Special control buttons
-    VRTK_PhysicsPusher BackSpace;
-    VRTK_PhysicsPusher Enter;
-    VRTK_PhysicsPusher CapsLock;
-    VRTK_PhysicsPusher Tab;
-    VRTK_PhysicsPusher Space;
-    VRTK_PhysicsPusher Shift_Left;
-    VRTK_PhysicsPusher Shift_Right;
-    VRTK_PhysicsPusher Delete;
-    VRTK_PhysicsPusher Escape;
+    protected VRTK_PhysicsPusher BackSpace;
+    protected VRTK_PhysicsPusher Enter;
+    protected VRTK_PhysicsPusher CapsLock;
+    protected VRTK_PhysicsPusher Tab;
+    protected VRTK_PhysicsPusher Space;
+    protected VRTK_PhysicsPusher Shift_Left;
+    protected VRTK_PhysicsPusher Shift_Right;
+    protected VRTK_PhysicsPusher Delete;
+    protected VRTK_PhysicsPusher Escape;
 
     // for scrolling the expanded command list
-    VRTK_PhysicsPusher Down;
-    VRTK_PhysicsPusher Up;
+    protected VRTK_PhysicsPusher Down;
+    protected VRTK_PhysicsPusher Up;
 
 
-    void Start ()
+    protected virtual void Start ()
     {
         //MONITOR SCREEN
         MonitorScreen = GameObject.Find("MonitorCanvas/Scrollparent/Viewport/MonitorScreen").GetComponent<TextMeshProUGUI>();
@@ -145,7 +145,7 @@ public class KeyboardMappings : MonoBehaviour {
     }
 	
 	
-	void Update ()
+	protected virtual void Update ()
     {      
         MonitorButtonPressCheck();        
         if (!buttonBeingPressed && !idle)
@@ -156,7 +156,7 @@ public class KeyboardMappings : MonoBehaviour {
         Debug.Log(addedCharacters.ToString());
 	}
 
-    private void MonitorButtonPressCheck()
+    protected void MonitorButtonPressCheck()
     {
         if (A.AtMaxLimit() && !buttonBeingPressed)
         {
@@ -179,7 +179,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (B.AtMaxLimit() && !buttonBeingPressed)
+        else if (B.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -199,7 +199,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (C.AtMaxLimit() && !buttonBeingPressed)
+        else if (C.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -219,7 +219,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (D.AtMaxLimit() && !buttonBeingPressed)
+        else if (D.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -239,7 +239,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (E.AtMaxLimit() && !buttonBeingPressed)
+        else if (E.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -259,7 +259,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (F.AtMaxLimit() && !buttonBeingPressed)
+        else if (F.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -279,7 +279,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (G.AtMaxLimit() && !buttonBeingPressed)
+        else if (G.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -299,7 +299,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (H.AtMaxLimit() && !buttonBeingPressed)
+        else if (H.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -319,7 +319,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (I.AtMaxLimit() && !buttonBeingPressed)
+        else if (I.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -339,7 +339,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (J.AtMaxLimit() && !buttonBeingPressed)
+        else if (J.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -359,7 +359,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (K.AtMaxLimit() && !buttonBeingPressed)
+        else if (K.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -379,7 +379,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (L.AtMaxLimit() && !buttonBeingPressed)
+        else if (L.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -399,7 +399,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (M.AtMaxLimit() && !buttonBeingPressed)
+        else if (M.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -419,7 +419,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (N.AtMaxLimit() && !buttonBeingPressed)
+        else if (N.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -439,7 +439,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (O.AtMaxLimit() && !buttonBeingPressed)
+        else if (O.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -459,7 +459,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (P.AtMaxLimit() && !buttonBeingPressed)
+        else if (P.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -479,7 +479,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (Q.AtMaxLimit() && !buttonBeingPressed)
+        else if (Q.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -499,7 +499,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (R.AtMaxLimit() && !buttonBeingPressed)
+        else if (R.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -519,7 +519,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (S.AtMaxLimit() && !buttonBeingPressed)
+        else if (S.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -539,7 +539,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (T.AtMaxLimit() && !buttonBeingPressed)
+        else if (T.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -559,7 +559,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (U.AtMaxLimit() && !buttonBeingPressed)
+        else if (U.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -579,7 +579,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (V.AtMaxLimit() && !buttonBeingPressed)
+        else if (V.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -599,7 +599,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (W.AtMaxLimit() && !buttonBeingPressed)
+        else if (W.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -619,7 +619,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (X.AtMaxLimit() && !buttonBeingPressed)
+        else if (X.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -639,7 +639,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (Y.AtMaxLimit() && !buttonBeingPressed)
+        else if (Y.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -659,7 +659,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (Z.AtMaxLimit() && !buttonBeingPressed)
+        else if (Z.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -679,7 +679,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (Å.AtMaxLimit() && !buttonBeingPressed)
+        else if (Å.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -699,7 +699,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (Ä.AtMaxLimit() && !buttonBeingPressed)
+        else if (Ä.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -719,7 +719,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (Ö.AtMaxLimit() && !buttonBeingPressed)
+        else if (Ö.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -740,7 +740,7 @@ public class KeyboardMappings : MonoBehaviour {
             StartCoroutine("IdleCheck");
         }
         //Special control buttons
-        if ((BackSpace.AtMaxLimit() || Delete.AtMaxLimit()) && !buttonBeingPressed)
+        else if ((BackSpace.AtMaxLimit() || Delete.AtMaxLimit()) && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -761,7 +761,7 @@ public class KeyboardMappings : MonoBehaviour {
             }
             StartCoroutine("IdleCheck");
         }
-        if (Space.AtMaxLimit() && !buttonBeingPressed)
+        else if (Space.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -775,7 +775,7 @@ public class KeyboardMappings : MonoBehaviour {
             characterCount++;
             StartCoroutine("IdleCheck");
         }
-        if (CapsLock.AtMaxLimit() && !buttonBeingPressed)
+        else if (CapsLock.AtMaxLimit() && !buttonBeingPressed)
         {
             //changes keys to capital or not
             if (caps)
@@ -794,7 +794,7 @@ public class KeyboardMappings : MonoBehaviour {
             }
             StartCoroutine("IdleCheck");
         }
-        if (Enter.AtMaxLimit() && !buttonBeingPressed)
+        else if (Enter.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -807,7 +807,7 @@ public class KeyboardMappings : MonoBehaviour {
             StartCoroutine("BarDown");
             StartCoroutine("IdleCheck");
         }
-        if (Escape.AtMaxLimit() && !buttonBeingPressed)
+        else if (Escape.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -818,7 +818,7 @@ public class KeyboardMappings : MonoBehaviour {
             MonitorScreen.text = "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ".ToString();
             StartCoroutine("IdleCheck");
         }
-        if (Down.AtMaxLimit() && !buttonBeingPressed)
+        else if (Down.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -829,7 +829,7 @@ public class KeyboardMappings : MonoBehaviour {
             bar.value -= 0.1f;        
             StartCoroutine("IdleCheck");
         }
-        if (Up.AtMaxLimit() && !buttonBeingPressed)
+        else if (Up.AtMaxLimit() && !buttonBeingPressed)
         {
             StopAllCoroutines();
             buttonBeingPressed = true;
@@ -842,7 +842,7 @@ public class KeyboardMappings : MonoBehaviour {
         }
     }
 
-    private void CodeCheck()
+    protected virtual void CodeCheck()
     {
         //no need to worry about CAPS as the characters are stored only as upper keys
         if (addedCharacters.ToString() == "CONSTART")
@@ -862,29 +862,29 @@ public class KeyboardMappings : MonoBehaviour {
     }
 
     //creates a line which appears and disappears like waiting for more text
-    IEnumerator IdleAnimation()
+    protected IEnumerator IdleAnimation()
     {
         while (!buttonBeingPressed && idle)
         {
             MonitorScreen.text += "_";
-            Debug.Log("addedline");
+            
             yield return new WaitForSecondsRealtime(0.35f);
+
             if (!buttonBeingPressed && MonitorScreen.text.Length != 0 && MonitorScreen.text.ToCharArray()[MonitorScreen.text.Length - 1] == "_".ToCharArray()[0])
-            {
-                Debug.Log("removedline");
+            {               
                 MonitorScreen.text = MonitorScreen.text.Remove(MonitorScreen.text.Length - 1);              
             }
             yield return new WaitForSecondsRealtime(0.35f);           
         }   
     }
     //waits for 0.25 seconds to see if another button is pressed which stops the coroutine from turning buttonBeingPressed to false, thus enabling "IdleAnimation"
-    IEnumerator IdleCheck()
+    protected IEnumerator IdleCheck()
     {
         yield return new WaitForSecondsRealtime(0.25f);
         buttonBeingPressed = false;
         idle = false;         //actually makes idle true as there is a clause in update for that, looks slightly confusing have to admit
     }  
-    IEnumerator BarDown()
+    protected IEnumerator BarDown()
     {
         yield return new WaitForEndOfFrame();
         bar.value = 0f;

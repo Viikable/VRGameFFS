@@ -61,6 +61,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         MainFacilityLightsContainer = GameObject.Find("MainFacilityLightsContainer");
 
+        MainFacilityDoorsOpen = false;
+
         //Bridge
         BridgeLights = transform.Find("BridgeLights").GetComponent<VRTK_SnapDropZone>();
         BridgeMachinery = transform.Find("BridgeMachinery").GetComponent<VRTK_SnapDropZone>();
@@ -68,12 +70,16 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         BridgeLightsContainer = GameObject.Find("BridgeLightsContainer");
 
+        BridgeDoorsOpen = false;
+
         //Melter
         MelterLights = transform.Find("MelterLights").GetComponent<VRTK_SnapDropZone>();
         MelterMachinery = transform.Find("MelterMachinery").GetComponent<VRTK_SnapDropZone>();
         MelterDoors = transform.Find("MelterDoors").GetComponent<VRTK_SnapDropZone>();
 
         MelterLightsContainer = GameObject.Find("MelterLightsContainer");
+
+        MelterDoorsOpen = false;
 
     }
 	
@@ -209,37 +215,45 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (MaintenanceDoors.GetCurrentSnappedObject() != null)
         {
             //turn MaintenanceDoors on
+            MaintenanceDoorsOpen = true;
         }
         else
         {
             //turn MaintenanceDoors off
+            MaintenanceDoorsOpen = false;
         }
 
         if (MainFacilityDoors.GetCurrentSnappedObject() != null)
         {
             //turn MainFacilityDoors on
+            MainFacilityDoorsOpen = true;
         }
         else
         {
             //turn MainFacilityDoors off
+            MainFacilityDoorsOpen = false;
         }
 
         if (BridgeDoors.GetCurrentSnappedObject() != null)
         {
             //turn BridgeDoors on
+            BridgeDoorsOpen = true;
         }
         else
         {
             //turn BridgeDoors off
+            BridgeDoorsOpen = false;
         }
 
         if (MelterDoors.GetCurrentSnappedObject() != null)
         {
             //turn MelterDoors on
+            MelterDoorsOpen = true;
         }
         else
         {
             //turn MelterDoors off
+            MelterDoorsOpen = false;
         }
     }
 }
