@@ -498,6 +498,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             MainFacilityAndCorridorDoorAnim.SetBool("OPENMFSIDE", false);
             MainFacilityAndBridgeDoorAnim.SetBool("OPENMFSIDE", false);
+            MainFacilityAndMelterDoorAnim.SetBool("OPENMFSIDE", false);
         }
 
         //BRIDGE INNER DOOR
@@ -578,4 +579,17 @@ public class FuseboxFunctionality : MonoBehaviour {
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityAndBridgeDoorAnim.SetBool("OPENBRIDGESIDE", false);
     }
+
+    IEnumerator DelayedAutomaticCloseMFToMelter()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        MainFacilityAndMelterDoorAnim.SetBool("OPENMFSIDE", false);
+    }
+
+    IEnumerator DelayedAutomaticCloseMelterToMF()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        MainFacilityAndMelterDoorAnim.SetBool("OPENMELTERSIDE", false);
+    }
+
 }
