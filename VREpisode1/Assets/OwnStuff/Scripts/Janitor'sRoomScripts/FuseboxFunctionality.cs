@@ -6,7 +6,7 @@ using VRTK.Controllables.PhysicsBased;
 
 public class FuseboxFunctionality : MonoBehaviour {
 
-    //Maintenance
+    [Header("Maintenance")]
     public VRTK_SnapDropZone MaintenanceLights;
     public VRTK_SnapDropZone MaintenanceMachinery;
     public VRTK_SnapDropZone MaintenanceDoors;
@@ -18,13 +18,17 @@ public class FuseboxFunctionality : MonoBehaviour {
     public VRTK_SnapDropZone JanitorDoorInner;
     public VRTK_SnapDropZone JanitorDoorOuter;
 
+    public Animator JanitorDoorAnim;
+
     public VRTK_SnapDropZone BonsaiDoorInner;
     public VRTK_SnapDropZone BonsaiDoorOuter;
+
+    public Animator BonsaiDoorAnim;
 
     //public VRTK_SnapDropZone CorridorDoorToMainFacility;  actually works with a button
     public VRTK_PhysicsPusher CorridorDoorToMainFacility;
 
-    //Main Facility
+    [Header("MainFacility")]
     public VRTK_SnapDropZone MainFacilityLights;
     public VRTK_SnapDropZone MainFacilityMachinery;
     public VRTK_SnapDropZone MainFacilityDoors;
@@ -38,8 +42,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public VRTK_SnapDropZone MainFacilityDoorToBridge;
     public VRTK_SnapDropZone MainFacilityDoorToMelter;
-
-    //Bridge
+   
+    [Header("Bridge")]
     public VRTK_SnapDropZone BridgeLights;
     public VRTK_SnapDropZone BridgeMachinery;
     public VRTK_SnapDropZone BridgeDoors;
@@ -49,8 +53,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public static bool BridgeDoorsPowered;
 
     public VRTK_SnapDropZone BridgeDoorToMainFacility;
-
-    //Melter
+   
+    [Header("Melter")]
     public VRTK_SnapDropZone MelterLights;
     public VRTK_SnapDropZone MelterMachinery;
     public VRTK_SnapDropZone MelterDoors;
@@ -61,6 +65,11 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public VRTK_SnapDropZone MelterDoorToMainFacility;
 
+    [Header("DoubleDoorAnimators")]
+
+    public Animator MainFacilityAndBridgeDoorAnim;
+
+    public Animator MainFacilityAndMelterDoorAnim;
 
     void Start () {
 
@@ -71,13 +80,17 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         MaintenanceLightsContainer = GameObject.Find("MaintenanceLightsContainer");
 
-        MaintenanceDoorsPowered = true;
+        MaintenanceDoorsPowered = false;
 
         JanitorDoorInner = GameObject.Find("JanitorDoorInner").GetComponentInChildren<VRTK_SnapDropZone>();
         JanitorDoorOuter = GameObject.Find("JanitorDoorOuter").GetComponentInChildren<VRTK_SnapDropZone>();
 
+        JanitorDoorAnim = GameObject.Find("DoorToJanitorRoom").GetComponent<Animator>();
+
         BonsaiDoorInner = GameObject.Find("BonsaiDoorInner").GetComponentInChildren<VRTK_SnapDropZone>();
         BonsaiDoorOuter = GameObject.Find("BonsaiDoorOuter").GetComponentInChildren<VRTK_SnapDropZone>();
+
+        BonsaiDoorAnim = GameObject.Find("BonsaiRoomDoor").GetComponent<Animator>();
 
         CorridorDoorToMainFacility = GameObject.Find("CorridorDoorToMainFacility").GetComponentInChildren<VRTK_PhysicsPusher>(); 
 
@@ -93,6 +106,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         MainFacilityDoorToCorridor = GameObject.Find("MainFacilityDoorToCorridor").GetComponentInChildren<VRTK_PhysicsPusher>();
 
         MainFacilityDoorToBridge = GameObject.Find("MainFacilityDoorToBridge").GetComponentInChildren<VRTK_SnapDropZone>();
+       
         MainFacilityDoorToMelter = GameObject.Find("MainFacilityDoorToMelter").GetComponentInChildren<VRTK_SnapDropZone>();
 
         //Bridge
@@ -116,6 +130,12 @@ public class FuseboxFunctionality : MonoBehaviour {
         MelterDoorsPowered = false;
 
         MelterDoorToMainFacility = GameObject.Find("MelterDoorToMainFacility").GetComponentInChildren<VRTK_SnapDropZone>();
+
+        //Double Door Animators
+
+        MainFacilityAndBridgeDoorAnim = GameObject.Find("MF_DoorToBridge").GetComponent<Animator>();
+
+        MainFacilityAndMelterDoorAnim = GameObject.Find("ME_DoorToMelter").GetComponent<Animator>();
     }
 	
 	
@@ -315,13 +335,14 @@ public class FuseboxFunctionality : MonoBehaviour {
                     && JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
                 {
                     //Open Janitor door (from the inside)
+                    StopCoroutine("DelayedAutomaticCloseJanitor");
+                    JanitorDoorAnim.SetBool("OPEN", true);                  
                 }
             }
             else if (JanitorDoorInner.GetCurrentSnappedObject() != null && JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
             {
                 //show that the key is wrong to the player
             }
-
             if (JanitorDoorOuter.GetCurrentSnappedObject() != null && JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation
@@ -330,11 +351,21 @@ public class FuseboxFunctionality : MonoBehaviour {
                     && JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
                 {
                     //Open Janitor door (from the outside)
+                    StopCoroutine("DelayedAutomaticCloseJanitor");
+                    JanitorDoorAnim.SetBool("OPEN", true);
                 }
             }
             else if (JanitorDoorOuter.GetCurrentSnappedObject() != null && JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
             {
                 //show that the key is wrong to the player
+            }
+
+            //check when to close the door (no correct key in either lock)
+            if (JanitorDoorAnim.GetBool("OPEN") &&
+               (JanitorDoorInner.GetCurrentSnappedObject() == null || JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+               && (JanitorDoorOuter.GetCurrentSnappedObject() == null || JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
+            {
+                StartCoroutine("DelayedAutomaticCloseJanitor");
             }
 
             if (BonsaiDoorInner.GetCurrentSnappedObject() != null && BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2)
@@ -344,7 +375,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                 if (BonsaiDoorOuter.GetCurrentSnappedObject() == null || (BonsaiDoorOuter.GetCurrentSnappedObject() != null
                     && BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
                 {
-                    //Open Janitor door (from the inside)
+                    //Open Bonsai door (from the inside)
+                    StopCoroutine("DelayedAutomaticCloseBonsai");
+                    BonsaiDoorAnim.SetBool("OPEN", true);
                 }
             }
             else if (BonsaiDoorInner.GetCurrentSnappedObject() != null && BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
@@ -421,6 +454,11 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //show that the key is wrong to the player
             }
         }
+    }
 
+    IEnumerator DelayedAutomaticCloseJanitor()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        JanitorDoorAnim.SetBool("OPEN", false);
     }
 }

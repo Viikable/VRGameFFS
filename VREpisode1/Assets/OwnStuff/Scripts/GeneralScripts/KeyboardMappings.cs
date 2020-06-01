@@ -18,7 +18,7 @@ public class KeyboardMappings : MonoBehaviour {
 
     protected Scrollbar bar;
 
-    //CONTROL VARIABLES
+    [Header("Control Variables")]
     [Tooltip("Indicates if any buttons are currently being pressed," +
     "this so that the monitor can go to sleep mode or do an idle animation when a certain time occurs without presses")]
     public bool buttonBeingPressed;

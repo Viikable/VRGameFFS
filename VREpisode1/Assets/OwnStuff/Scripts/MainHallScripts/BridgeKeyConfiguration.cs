@@ -149,12 +149,12 @@ public class BridgeKeyConfiguration : KeyboardMappings {
         }
     }
 
-    public static void ActivateMonitor()
+    public new static void ActivateMonitor()
     {
         machineryActive = true;
     }
 
-    public static void DeactivateMonitor()
+    public new static void DeactivateMonitor()
     {
         machineryActive = false;
     }
