@@ -67,6 +67,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     [Header("DoubleDoorAnimators")]
 
+    public Animator MainFacilityAndCorridorDoorAnim;
+
     public Animator MainFacilityAndBridgeDoorAnim;
 
     public Animator MainFacilityAndMelterDoorAnim;
@@ -132,6 +134,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         MelterDoorToMainFacility = GameObject.Find("MelterDoorToMainFacility").GetComponentInChildren<VRTK_SnapDropZone>();
 
         //Double Door Animators
+
+        MainFacilityAndCorridorDoorAnim = GameObject.Find("MainFacilityAndCorridorDoor").GetComponent<Animator>();
 
         MainFacilityAndBridgeDoorAnim = GameObject.Find("MF_DoorToBridge").GetComponent<Animator>();
 
@@ -329,10 +333,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             if (JanitorDoorInner.GetCurrentSnappedObject() != null && JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1)
             {
-                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation
-                //not a problem in double doors
-                if (JanitorDoorOuter.GetCurrentSnappedObject() == null || (JanitorDoorOuter.GetCurrentSnappedObject() != null
-                    && JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
+                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation               
+                if (JanitorDoorOuter.GetCurrentSnappedObject() == null || JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
                 {
                     //Open Janitor door (from the inside)
                     StopCoroutine("DelayedAutomaticCloseJanitor");
@@ -345,10 +347,8 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             if (JanitorDoorOuter.GetCurrentSnappedObject() != null && JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1)
             {
-                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation
-                //not a problem in double doors
-                if (JanitorDoorInner.GetCurrentSnappedObject() == null || (JanitorDoorInner.GetCurrentSnappedObject() != null
-                    && JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
+                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
+                if (JanitorDoorInner.GetCurrentSnappedObject() == null || JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
                 {
                     //Open Janitor door (from the outside)
                     StopCoroutine("DelayedAutomaticCloseJanitor");
@@ -370,10 +370,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             if (BonsaiDoorInner.GetCurrentSnappedObject() != null && BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2)
             {
-                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation
-                //not a problem in double doors
-                if (BonsaiDoorOuter.GetCurrentSnappedObject() == null || (BonsaiDoorOuter.GetCurrentSnappedObject() != null
-                    && BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
+                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation            
+                if (BonsaiDoorOuter.GetCurrentSnappedObject() == null || BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                 {
                     //Open Bonsai door (from the inside)
                     StopCoroutine("DelayedAutomaticCloseBonsai");
@@ -387,19 +385,47 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             if (BonsaiDoorOuter.GetCurrentSnappedObject() != null && BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2)
             {
-                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation
-                //not a problem in double doors
-                if (BonsaiDoorInner.GetCurrentSnappedObject() == null || (BonsaiDoorInner.GetCurrentSnappedObject() != null
-                    && BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
+                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
+                if (BonsaiDoorInner.GetCurrentSnappedObject() == null || BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                 {
-                    //Open Janitor door (from the outside)
+                    //Open Bonsai door (from the outside)
+                    StopCoroutine("DelayedAutomaticCloseBonsai");
+                    BonsaiDoorAnim.SetBool("OPEN", true);
                 }
             }
             else if (BonsaiDoorOuter.GetCurrentSnappedObject() != null && BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
             {
                 //show that the key is wrong to the player
             }
-            //CorridorDoorToMainFacility doesn't need a keycard
+
+            if (BonsaiDoorAnim.GetBool("OPEN") &&
+               (BonsaiDoorInner.GetCurrentSnappedObject() == null || BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+               && (BonsaiDoorOuter.GetCurrentSnappedObject() == null || BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
+            {
+                StartCoroutine("DelayedAutomaticCloseBonsai");
+            }
+
+            //CorridorDoorToMainFacility doesn't need a keycard, only button press
+            //press starts a countdown of 10s, maybe visible in the door/panel? pressing again resets countdown
+            if (CorridorDoorToMainFacility.AtMaxLimit())
+            {
+                StopCoroutine("DelayedAutomaticCloseCorridorToMF");
+                MainFacilityAndCorridorDoorAnim.SetBool("OPENCORRIDORSIDE", true);
+                StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                if (MainFacilityDoorsPowered)
+                {
+                    StopCoroutine("DelayedAutomaticCloseMFToCorridor");
+                    MainFacilityAndCorridorDoorAnim.SetBool("OPENMFSIDE", true);
+                    StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+                }
+            }
+        }
+        //in case no power doors shut instantly automatically no matter the key
+        else
+        {
+            JanitorDoorAnim.SetBool("OPEN", false);
+            BonsaiDoorAnim.SetBool("OPEN", false);
+            MainFacilityAndCorridorDoorAnim.SetBool("OPENCORRIDORSIDE", false);
         }
 
         //MAIN FACILITY DOORS
@@ -408,37 +434,98 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         if (MainFacilityDoorsPowered)
         {
-            if (MainFacilityDoorToBridge.GetCurrentSnappedObject() != null && MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3)
+            //corridor door has a button no key
+            if (MainFacilityDoorToCorridor.AtMaxLimit())
             {
-                //open the door
+                StopCoroutine("DelayedAutomaticCloseMFToCorridor");
+                MainFacilityAndCorridorDoorAnim.SetBool("OPENCORRIDORSIDE", true);
+                StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+                if (MaintenanceDoorsPowered) //not possible that this is not true in this scenario by design
+                {
+                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");
+                    MainFacilityAndCorridorDoorAnim.SetBool("OPENMFSIDE", true);
+                    StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                }
+            }
+
+            if (MainFacilityDoorToBridge.GetCurrentSnappedObject() != null && MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
+                && (BridgeDoorToMainFacility.GetCurrentSnappedObject() == null || BridgeDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
+            {
+                //open the door to Bridge 
+                StopCoroutine("DelayedAutomaticCloseMFToBridge");
+                MainFacilityAndBridgeDoorAnim.SetBool("OPENMFSIDE", true);
+                if (BridgeDoorsPowered)
+                {
+                    StopCoroutine("DelayedAutomaticCloseBridgeToMF");
+                    MainFacilityAndBridgeDoorAnim.SetBool("OPENBRIDGESIDE", true);
+                }
             }
             else if (MainFacilityDoorToBridge.GetCurrentSnappedObject() != null && MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
             {
                 //show that the key is wrong to the player
             }
-
-            if (MainFacilityDoorToMelter.GetCurrentSnappedObject() != null && MainFacilityDoorToMelter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2)
+            //start automatic closing if open and no key on either side
+            if (MainFacilityAndBridgeDoorAnim.GetBool("OPENMFSIDE") && (MainFacilityDoorToBridge.GetCurrentSnappedObject() == null
+                 || MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3) 
+                 && (BridgeDoorToMainFacility.GetCurrentSnappedObject() == null || BridgeDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
+            {                      
+                 StartCoroutine("DelayedAutomaticCloseMFToBridge");
+                 if (MainFacilityAndBridgeDoorAnim.GetBool("OPENBRIDGESIDE"))
+                 {
+                    StartCoroutine("DelayedAutomaticCloseBridgeToMF");
+                 }
+            }
+            //Melter door MF side
+            if (MainFacilityDoorToMelter.GetCurrentSnappedObject() != null && MainFacilityDoorToMelter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
+                && (MelterDoorToMainFacility.GetCurrentSnappedObject() == null || MelterDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
             {
-                //open the door
+                //open the door to melter from MF
+                StopCoroutine("DelayedAutomaticCloseMFToMelter");
+                MainFacilityAndMelterDoorAnim.SetBool("OPENMFSIDE", true);
+                if (MelterDoorsPowered)
+                {
+                    StopCoroutine("DelayedAutomaticCloseMelterToMF");
+                    MainFacilityAndMelterDoorAnim.SetBool("OPENMELTERSIDE", true);
+                }
             }
             else if (MainFacilityDoorToMelter.GetCurrentSnappedObject() != null && MainFacilityDoorToMelter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
             {
                 //show that the key is wrong to the player
             }
         }
+        //in case no power doors shut instantly automatically no matter the key
+        else
+        {
+            MainFacilityAndCorridorDoorAnim.SetBool("OPENMFSIDE", false);
+            MainFacilityAndBridgeDoorAnim.SetBool("OPENMFSIDE", false);
+        }
 
         //BRIDGE INNER DOOR
 
         if (BridgeDoorsPowered)
         {
-            if (BridgeDoorToMainFacility.GetCurrentSnappedObject() != null && BridgeDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3)
+            if (BridgeDoorToMainFacility.GetCurrentSnappedObject() != null && BridgeDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
+            && (MainFacilityDoorToBridge.GetCurrentSnappedObject() == null || MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
             {
                 //open the door
+                StopCoroutine("DelayedAutomaticCloseBridgeToMF");
+                MainFacilityAndBridgeDoorAnim.SetBool("OPENBRIDGESIDE", true);
+                StartCoroutine("DelayedAutomaticCloseBridgeToMF");
+                if (MainFacilityDoorsPowered)
+                {
+                    StopCoroutine("DelayedAutomaticCloseMFToBridge");
+                    MainFacilityAndBridgeDoorAnim.SetBool("OPENMFSIDE", true);
+                    StartCoroutine("DelayedAutomaticCloseMFToBridge");
+                }
             }
             else if (BridgeDoorToMainFacility.GetCurrentSnappedObject() != null && BridgeDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
             {
                 //show that the key is wrong to the player
             }
+        }
+        else
+        {
+            MainFacilityAndBridgeDoorAnim.SetBool("OPENBRIDGESIDE", false);
         }
 
         //MELTER DOOR
@@ -460,5 +547,35 @@ public class FuseboxFunctionality : MonoBehaviour {
     {
         yield return new WaitForSecondsRealtime(10f);
         JanitorDoorAnim.SetBool("OPEN", false);
+    }
+
+    IEnumerator DelayedAutomaticCloseBonsai()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        BonsaiDoorAnim.SetBool("OPEN", false);
+    }
+
+    IEnumerator DelayedAutomaticCloseCorridorToMF()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        MainFacilityAndCorridorDoorAnim.SetBool("OPENCORRIDORSIDE", false);
+    }
+
+    IEnumerator DelayedAutomaticCloseMFToCorridor()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        MainFacilityAndCorridorDoorAnim.SetBool("OPENMFSIDE", false);
+    }
+
+    IEnumerator DelayedAutomaticCloseMFToBridge()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        MainFacilityAndBridgeDoorAnim.SetBool("OPENMFSIDE", false);
+    }
+
+    IEnumerator DelayedAutomaticCloseBridgeToMF()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        MainFacilityAndBridgeDoorAnim.SetBool("OPENBRIDGESIDE", false);
     }
 }
