@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+using VRTK.Controllables.PhysicsBased;
 
 public class FuseboxFunctionality : MonoBehaviour {
 
@@ -20,7 +21,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public VRTK_SnapDropZone BonsaiDoorInner;
     public VRTK_SnapDropZone BonsaiDoorOuter;
 
-    public VRTK_SnapDropZone CorridorDoorToMainFacility;
+    //public VRTK_SnapDropZone CorridorDoorToMainFacility;  actually works with a button
+    public VRTK_PhysicsPusher CorridorDoorToMainFacility;
 
     //Main Facility
     public VRTK_SnapDropZone MainFacilityLights;
@@ -31,7 +33,9 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public static bool MainFacilityDoorsPowered;
 
-    public VRTK_SnapDropZone MainFacilityDoorToCorridor;
+    //button too
+    public VRTK_PhysicsPusher MainFacilityDoorToCorridor;
+
     public VRTK_SnapDropZone MainFacilityDoorToBridge;
     public VRTK_SnapDropZone MainFacilityDoorToMelter;
 
@@ -69,13 +73,13 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         MaintenanceDoorsPowered = true;
 
-        JanitorDoorInner = GameObject.Find("JanitorDoorInner").GetComponent<VRTK_SnapDropZone>();
-        JanitorDoorOuter = GameObject.Find("JanitorDoorOuter").GetComponent<VRTK_SnapDropZone>();
+        JanitorDoorInner = GameObject.Find("JanitorDoorInner").GetComponentInChildren<VRTK_SnapDropZone>();
+        JanitorDoorOuter = GameObject.Find("JanitorDoorOuter").GetComponentInChildren<VRTK_SnapDropZone>();
 
-        BonsaiDoorInner = GameObject.Find("BonsaiDoorInner").GetComponent<VRTK_SnapDropZone>();
-        BonsaiDoorOuter = GameObject.Find("BonsaiDoorOuter").GetComponent<VRTK_SnapDropZone>();
+        BonsaiDoorInner = GameObject.Find("BonsaiDoorInner").GetComponentInChildren<VRTK_SnapDropZone>();
+        BonsaiDoorOuter = GameObject.Find("BonsaiDoorOuter").GetComponentInChildren<VRTK_SnapDropZone>();
 
-        CorridorDoorToMainFacility = GameObject.Find("CorridorDoorToMainFacility").GetComponent<VRTK_SnapDropZone>();
+        CorridorDoorToMainFacility = GameObject.Find("CorridorDoorToMainFacility").GetComponentInChildren<VRTK_PhysicsPusher>(); 
 
         //Main facility
         MainFacilityLights = transform.Find("MainFacilityLights").GetComponent<VRTK_SnapDropZone>();
@@ -86,9 +90,10 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         MainFacilityDoorsPowered = false;
 
-        MainFacilityDoorToCorridor = GameObject.Find("MainFacilityDoorToCorridor").GetComponent<VRTK_SnapDropZone>();
-        MainFacilityDoorToBridge = GameObject.Find("MainFacilityDoorToBridge").GetComponent<VRTK_SnapDropZone>();
-        MainFacilityDoorToMelter = GameObject.Find("MainFacilityDoorToMelter").GetComponent<VRTK_SnapDropZone>();
+        MainFacilityDoorToCorridor = GameObject.Find("MainFacilityDoorToCorridor").GetComponentInChildren<VRTK_PhysicsPusher>();
+
+        MainFacilityDoorToBridge = GameObject.Find("MainFacilityDoorToBridge").GetComponentInChildren<VRTK_SnapDropZone>();
+        MainFacilityDoorToMelter = GameObject.Find("MainFacilityDoorToMelter").GetComponentInChildren<VRTK_SnapDropZone>();
 
         //Bridge
         BridgeLights = transform.Find("BridgeLights").GetComponent<VRTK_SnapDropZone>();
@@ -99,7 +104,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         BridgeDoorsPowered = false;
 
-        BridgeDoorToMainFacility = GameObject.Find("BridgeDoorToMainFacility").GetComponent<VRTK_SnapDropZone>();
+        BridgeDoorToMainFacility = GameObject.Find("BridgeDoorToMainFacility").GetComponentInChildren<VRTK_SnapDropZone>();
 
         //Melter
         MelterLights = transform.Find("MelterLights").GetComponent<VRTK_SnapDropZone>();
@@ -110,7 +115,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         MelterDoorsPowered = false;
 
-        MelterDoorToMainFacility = GameObject.Find("MelterDoorToMainFacility").GetComponent<VRTK_SnapDropZone>();
+        MelterDoorToMainFacility = GameObject.Find("MelterDoorToMainFacility").GetComponentInChildren<VRTK_SnapDropZone>();
     }
 	
 	
