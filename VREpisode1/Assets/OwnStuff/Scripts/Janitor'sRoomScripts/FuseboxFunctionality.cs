@@ -24,6 +24,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool janitorDoorOpening;
     public bool janitorDoorClosing;
 
+    public bool janitorDoorClosingSoon;
+
     public Animator JanitorDoorAnim;
 
     public VRTK_SnapDropZone BonsaiDoorInner;
@@ -35,6 +37,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool bonsaiDoorOpening;
     public bool bonsaiDoorClosing;
 
+    public bool bonsaiDoorClosingSoon;
+
     public Animator BonsaiDoorAnim;
 
     //public VRTK_SnapDropZone CorridorDoorToMainFacility;  actually works with a button
@@ -45,6 +49,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public bool corridorToMFDoorOpening;
     public bool corridorToMFDoorClosing;
+
+    public bool corridorToMFDoorClosingSoon;
 
     [Header("MainFacility")]
     public VRTK_SnapDropZone MainFacilityLights;
@@ -64,6 +70,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool mfToCorridorDoorOpening;
     public bool mfToCorridorDoorClosing;
 
+    public bool mfToCorridorDoorClosingSoon;
+
     public VRTK_SnapDropZone MainFacilityDoorToBridge;
 
     public bool mfToBridgeDoorOpen;
@@ -72,6 +80,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool mfToBridgeDoorOpening;
     public bool mfToBridgeDoorClosing;
 
+    public bool mfToBridgeDoorClosingSoon;
+
     public VRTK_SnapDropZone MainFacilityDoorToMelter;
 
     public bool mfToMelterDoorOpen;
@@ -79,6 +89,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public bool mfToMelterDoorOpening;
     public bool mfToMelterDoorClosing;
+
+    public bool mfToMelterDoorClosingSoon;
 
     [Header("Bridge")]
     public VRTK_SnapDropZone BridgeLights;
@@ -97,6 +109,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool bridgeToMFDoorOpening;
     public bool bridgeToMFDoorClosing;
 
+    public bool bridgeToMFDoorClosingSoon;
+
     [Header("Melter")]
     public VRTK_SnapDropZone MelterLights;
     public VRTK_SnapDropZone MelterMachinery;
@@ -113,6 +127,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public bool melterToMFDoorOpening;
     public bool melterToMFDoorClosing;
+
+    public bool melterToMFDoorClosingSoon;
 
     [Header("DoubleDoorAnimators")]
 
@@ -142,6 +158,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         janitorDoorOpening = false;
         janitorDoorClosing = false;
 
+        janitorDoorClosingSoon = false;
+
         JanitorDoorAnim = GameObject.Find("DoorToJanitorRoom").GetComponent<Animator>();
 
         BonsaiDoorInner = GameObject.Find("BonsaiDoorInner").GetComponentInChildren<VRTK_SnapDropZone>();
@@ -153,6 +171,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiDoorOpening = false;
         bonsaiDoorClosing = false;
 
+        bonsaiDoorClosingSoon = false;
+
         BonsaiDoorAnim = GameObject.Find("BonsaiRoomDoor").GetComponent<Animator>();
 
         CorridorDoorToMainFacility = GameObject.Find("CorridorDoorToMainFacility").GetComponentInChildren<VRTK_PhysicsPusher>();
@@ -162,6 +182,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         corridorToMFDoorOpening = false;
         corridorToMFDoorClosing = false;
+
+        corridorToMFDoorClosingSoon = false;
 
         //Main facility
         MainFacilityLights = transform.Find("MainFacilityLights").GetComponent<VRTK_SnapDropZone>();
@@ -180,6 +202,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToCorridorDoorOpening = false;
         mfToCorridorDoorClosing = false;
 
+        mfToCorridorDoorClosingSoon = false;
+
         MainFacilityDoorToBridge = GameObject.Find("MainFacilityDoorToBridge").GetComponentInChildren<VRTK_SnapDropZone>();
 
         mfToBridgeDoorOpen = false;
@@ -188,6 +212,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToBridgeDoorOpening = false;
         mfToBridgeDoorClosing = false;
 
+        mfToBridgeDoorClosingSoon = false;
+
         MainFacilityDoorToMelter = GameObject.Find("MainFacilityDoorToMelter").GetComponentInChildren<VRTK_SnapDropZone>();
 
         mfToMelterDoorOpen = false;
@@ -195,6 +221,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         mfToMelterDoorOpening = false;
         mfToMelterDoorClosing = false;
+
+        mfToMelterDoorClosingSoon = false;
 
         //Bridge
         BridgeLights = transform.Find("BridgeLights").GetComponent<VRTK_SnapDropZone>();
@@ -213,6 +241,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         bridgeToMFDoorOpening = false;
         bridgeToMFDoorClosing = false;
 
+        bridgeToMFDoorClosingSoon = false;
+
         //Melter
         MelterLights = transform.Find("MelterLights").GetComponent<VRTK_SnapDropZone>();
         MelterMachinery = transform.Find("MelterMachinery").GetComponent<VRTK_SnapDropZone>();
@@ -229,6 +259,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         melterToMFDoorOpening = false;
         melterToMFDoorClosing = false;
+
+        melterToMFDoorClosingSoon = false;
 
         //Double Door Animators
 
@@ -436,9 +468,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     //Open Janitor door (from the inside)                                                                                   
                     StartCoroutine("JanitorDoorOpening");                   
                 }
-                else //aka it is open
+                else if (janitorDoorClosingSoon) //aka it is open and no correct key in it
                 {
-                    StopCoroutine("DelayedAutomaticCloseJanitor");  //ends the 10 second countdown of door closing     
+                    StopCoroutine("DelayedAutomaticCloseJanitor");  //ends the 10 second countdown of door closing
+                    janitorDoorClosingSoon = false;
                 }
             }
             else if (JanitorDoorInner.GetCurrentSnappedObject() != null && JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
@@ -454,9 +487,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     //Open Janitor door (from the outside)                                                                        
                     StartCoroutine("JanitorDoorOpening");
                 }
-                else //aka it is open
+                else if (janitorDoorClosingSoon) //aka it is open and no correct key in it
                 {
-                    StopCoroutine("DelayedAutomaticCloseJanitor");  //ends the 10 second countdown of door closing     
+                    StopCoroutine("DelayedAutomaticCloseJanitor");  //ends the 10 second countdown of door closing
+                    janitorDoorClosingSoon = false;
                 }
             }
             else if (JanitorDoorOuter.GetCurrentSnappedObject() != null && JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
@@ -465,8 +499,8 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
 
             //check when to close the door (no correct key in either lock)
-            if (janitorDoorOpen &&
-               (JanitorDoorInner.GetCurrentSnappedObject() == null || JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+            if (janitorDoorOpen && !janitorDoorClosingSoon 
+               && (JanitorDoorInner.GetCurrentSnappedObject() == null || JanitorDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
                && (JanitorDoorOuter.GetCurrentSnappedObject() == null || JanitorDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
             {
                 //waits 10 seconds and then starts closing the door for 3 s
@@ -482,9 +516,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     //Open Bonsai door (from the inside)                                  
                     StartCoroutine("BonsaiDoorOpening");
                 }
-                else //aka it is open
+                else if (bonsaiDoorClosingSoon)//aka it is open and no correct key in it
                 {
-                    StopCoroutine("DelayedAutomaticCloseBonsai");  //ends the 10 second countdown of door closing     
+                    StopCoroutine("DelayedAutomaticCloseBonsai");  //ends the 10 second countdown of door closing
+                    bonsaiDoorClosingSoon = false;
                 }
             }
             else if (BonsaiDoorInner.GetCurrentSnappedObject() != null && BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
@@ -500,9 +535,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     //Open Bonsai door (from the inside)                                  
                     StartCoroutine("BonsaiDoorOpening");
                 }
-                else //aka it is open
+                else if (bonsaiDoorClosingSoon)//aka it is open and no correct key in it
                 {
-                    StopCoroutine("DelayedAutomaticCloseBonsai");  //ends the 10 second countdown of door closing (if there was no key on the other side, otherwise stops a nonexisting co-routine)     
+                    StopCoroutine("DelayedAutomaticCloseBonsai");  //ends the 10 second countdown of door closing 
+                    bonsaiDoorClosingSoon = false;
                 }
             }
             else if (BonsaiDoorOuter.GetCurrentSnappedObject() != null && BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
@@ -510,8 +546,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //show that the key is wrong to the player
             }
 
-            if (bonsaiDoorOpen &&
-               (BonsaiDoorInner.GetCurrentSnappedObject() == null || BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+            if (bonsaiDoorOpen && !bonsaiDoorClosingSoon 
+               && (BonsaiDoorInner.GetCurrentSnappedObject() == null || BonsaiDoorInner.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                && (BonsaiDoorOuter.GetCurrentSnappedObject() == null || BonsaiDoorOuter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
             {
                 StartCoroutine("DelayedAutomaticCloseBonsai");               
@@ -528,9 +564,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StartCoroutine("CorridorToMFDoorOpening");              
                 }
                 //if open already, then reset door timer
-                else
+                else if (corridorToMFDoorClosingSoon)  //the bool doesn't rly do a lot, could remove maybe
                 {
-                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");
+                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");    //stop earlier timer, start a new one              
+                    StartCoroutine("DelayedAutomaticCloseCorridorToMF");
                 }
                 //if MF powered
                 if (mainFacilityDoorsPowered && !mfToCorridorDoorClosing && !mfToCorridorDoorOpening)
@@ -540,9 +577,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("MFToCorridorDoorOpening");
                     }
-                    else //aka it is open
+                    else if (mfToCorridorDoorClosingSoon) //aka it is open 
                     {
-                        StopCoroutine("DelayedAutomaticCloseMFToCorridor");  //ends the 10 second countdown of door closing     
+                        StopCoroutine("DelayedAutomaticCloseMFToCorridor");  //ends the 10 second countdown of door closing 
+                        StartCoroutine("DelayedAutomaticCloseMFToCorridor");
                     }
                 }
             }
@@ -569,9 +607,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StartCoroutine("MFToCorridorDoorOpening");
                 }
                 //if open already, then reset door timer
-                else
+                else if (mfToCorridorDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToCorridor");
+                    StartCoroutine("DelayedAutomaticCloseMFToCorridor");
                 }
                 //if corridor powered
                 if (maintenanceDoorsPowered && !corridorToMFDoorOpening && !corridorToMFDoorClosing)
@@ -581,9 +620,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("CorridorToMFDoorOpening");
                     }
-                    else //aka it is open
+                    else if (corridorToMFDoorClosingSoon) //aka it is open
                     {
-                        StopCoroutine("DelayedAutomaticCloseCorridorToMF");  //ends the 10 second countdown of door closing     
+                        StopCoroutine("DelayedAutomaticCloseCorridorToMF");  //ends the 10 second countdown of door closing
+                        StartCoroutine("DelayedAutomaticCloseCorridorToMF");
                     }
                 }
             }
@@ -596,9 +636,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StartCoroutine("MFToBridgeDoorOpening");
                 }
-                else
+                else if (mfToBridgeDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToBridge");
+                    mfToCorridorDoorClosingSoon = false;
                 }
                 if (bridgeDoorsPowered && !bridgeToMFDoorOpening && !bridgeToMFDoorClosing) //probably unnecessary to check for closing and opening here too
                 {
@@ -606,9 +647,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("BridgeToMFDoorOpening");
                     }
-                    else
+                    else if (bridgeToMFDoorClosingSoon)
                     {
                         StopCoroutine("DelayedAutomaticCloseBridgeToMF");
+                        bridgeToMFDoorClosingSoon = false;
                     }
                 }
             }
@@ -617,12 +659,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //show that the key is wrong to the player
             }
             //start automatic closing if open and no key on either side
-            if (mfToBridgeDoorOpen && 
-                (MainFacilityDoorToBridge.GetCurrentSnappedObject() == null || MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3) 
+            if (mfToBridgeDoorOpen && !mfToBridgeDoorClosingSoon
+                 && (MainFacilityDoorToBridge.GetCurrentSnappedObject() == null || MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3) 
                  && (BridgeDoorToMainFacility.GetCurrentSnappedObject() == null || BridgeDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
             {                      
                  StartCoroutine("DelayedAutomaticCloseMFToBridge");
-                 if (bridgeDoorsPowered && bridgeToMFDoorOpen)
+                 if (bridgeDoorsPowered && bridgeToMFDoorOpen && !bridgeToMFDoorClosingSoon)
                  {
                     StartCoroutine("DelayedAutomaticCloseBridgeToMF");
                  }
@@ -636,9 +678,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StartCoroutine("MFToMelterDoorOpening");
                 }
-                else
+                else if (mfToMelterDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToMelter");
+                    mfToMelterDoorClosingSoon = false;
                 }
                 if (melterDoorsPowered && !melterToMFDoorOpening && !melterToMFDoorClosing) //probably unnecessary to check for closing and opening here too
                 {
@@ -646,9 +689,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("MelterToMFDoorOpening");
                     }
-                    else
+                    else if (melterToMFDoorClosingSoon)
                     {
                         StopCoroutine("DelayedAutomaticCloseMelterToMF");
+                        melterToMFDoorClosingSoon = false;
                     }
                 }
             }
@@ -657,12 +701,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //show that the key is wrong to the player
             }
 
-            if (mfToMelterDoorOpen 
+            if (mfToMelterDoorOpen && !mfToMelterDoorClosingSoon
                 && (MainFacilityDoorToMelter.GetCurrentSnappedObject() == null || MainFacilityDoorToMelter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                 && (MelterDoorToMainFacility.GetCurrentSnappedObject() == null || MelterDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
             {
                 StartCoroutine("DelayedAutomaticCloseMFToMelter");
-                if (melterDoorsPowered && melterToMFDoorOpen)
+                if (melterDoorsPowered && melterToMFDoorOpen && !melterToMFDoorClosingSoon)
                 {
                     StartCoroutine("DelayedAutomaticCloseMelterToMF");
                 }
@@ -688,9 +732,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StartCoroutine("BridgeToMFDoorOpening");
                 }
-                else
+                else if (bridgeToMFDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseBridgeToMF");
+                    bridgeToMFDoorClosingSoon = false;
                 }
                 if (mainFacilityDoorsPowered && !mfToBridgeDoorOpening && !mfToBridgeDoorClosing) //probably unnecessary to check for closing and opening here too
                 {
@@ -698,9 +743,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("MFToBridgeDoorOpening");
                     }
-                    else
+                    else if (mfToBridgeDoorClosingSoon)
                     {
                         StopCoroutine("DelayedAutomaticCloseMFToBridge");
+                        mfToBridgeDoorClosingSoon = false;
                     }
                 }
             }
@@ -709,12 +755,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //show that the key is wrong to the player
             }
            
-            if (bridgeToMFDoorOpen
+            if (bridgeToMFDoorOpen && !bridgeToMFDoorClosingSoon
                 && (BridgeDoorToMainFacility.GetCurrentSnappedObject() == null || BridgeDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
                 && (MainFacilityDoorToBridge.GetCurrentSnappedObject() == null || MainFacilityDoorToBridge.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
             {
                 StartCoroutine("DelayedAutomaticCloseBridgeToMF");
-                if (mainFacilityDoorsPowered && mfToBridgeDoorOpen)
+                if (mainFacilityDoorsPowered && mfToBridgeDoorOpen && !mfToBridgeDoorClosingSoon)
                 {
                     StartCoroutine("DelayedAutomaticCloseMFToBridge");
                 }
@@ -737,9 +783,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StartCoroutine("MelterToMFDoorOpening");
                 }
-                else
+                else if (melterToMFDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMelterToMF");
+                    melterToMFDoorClosingSoon = false;
                 }
                 if (mainFacilityDoorsPowered && !mfToMelterDoorOpening && !mfToMelterDoorClosing) //probably unnecessary to check for closing and opening here too
                 {
@@ -747,9 +794,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("MFToMelterDoorOpening");
                     }
-                    else
+                    else if (mfToMelterDoorClosingSoon)
                     {
                         StopCoroutine("DelayedAutomaticCloseMFToMelter");
+                        mfToMelterDoorClosingSoon = false;
                     }
                 }
             }
@@ -758,12 +806,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //show that the key is wrong to the player
             }
 
-            if (melterToMFDoorOpen
+            if (melterToMFDoorOpen && !melterToMFDoorClosingSoon
                 && (MelterDoorToMainFacility.GetCurrentSnappedObject() == null || MelterDoorToMainFacility.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                 && (MainFacilityDoorToMelter.GetCurrentSnappedObject() == null || MainFacilityDoorToMelter.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
             {
                 StartCoroutine("DelayedAutomaticCloseMelterToMF");
-                if (mainFacilityDoorsPowered && mfToMelterDoorOpen)
+                if (mainFacilityDoorsPowered && mfToMelterDoorOpen && !mfToMelterDoorClosingSoon)
                 {
                     StartCoroutine("DelayedAutomaticCloseMFToMelter");
                 }
@@ -773,10 +821,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseJanitor()
     {
+        janitorDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         JanitorDoorAnim.SetBool("OPEN", false);
         janitorDoorClosing = true;
         janitorDoorOpen = false;
+        janitorDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f);
         janitorDoorClosing = false;
         janitorDoorClosed = true;
@@ -794,10 +844,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseBonsai()
     {
+        bonsaiDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         BonsaiDoorAnim.SetBool("OPEN", false);
         bonsaiDoorClosing = true;
         bonsaiDoorOpen = false;
+        bonsaiDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
         bonsaiDoorClosed = true;
         bonsaiDoorClosing = false;
@@ -815,10 +867,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseCorridorToMF()
     {
+        corridorToMFDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityAndCorridorDoorAnim.SetBool("OPENCORRIDORSIDE", false);
         corridorToMFDoorClosing = true;
         corridorToMFDoorOpen = false;
+        corridorToMFDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f);
         corridorToMFDoorClosed = true;
         corridorToMFDoorClosing = false;
@@ -838,10 +892,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseMFToCorridor()
     {
+        mfToCorridorDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityAndCorridorDoorAnim.SetBool("OPENMFSIDE", false);
         mfToCorridorDoorClosing = true;
         mfToCorridorDoorOpen = false;
+        mfToCorridorDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f);
         mfToCorridorDoorClosed = true;
         mfToCorridorDoorClosing = false;
@@ -861,10 +917,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseMFToBridge()
     {
+        mfToBridgeDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityAndBridgeDoorAnim.SetBool("OPENMFSIDE", false);
         mfToBridgeDoorClosing = true;
         mfToBridgeDoorOpen = false;
+        mfToBridgeDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f);
         mfToBridgeDoorClosed = true;
         mfToBridgeDoorClosing = false;
@@ -882,10 +940,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseBridgeToMF()
     {
+        bridgeToMFDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityAndBridgeDoorAnim.SetBool("OPENBRIDGESIDE", false);
         bridgeToMFDoorClosing = true;
         bridgeToMFDoorOpen = false;
+        bridgeToMFDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f);
         bridgeToMFDoorClosed = true;
         bridgeToMFDoorClosing = false;
@@ -903,10 +963,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseMFToMelter()
     {
+        mfToMelterDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityAndMelterDoorAnim.SetBool("OPENMFSIDE", false);
         mfToMelterDoorClosing = true;
         mfToMelterDoorOpen = false;
+        mfToMelterDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f);
         mfToMelterDoorClosed = true;
         mfToMelterDoorClosing = false;
@@ -924,10 +986,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator DelayedAutomaticCloseMelterToMF()
     {
+        melterToMFDoorClosingSoon = true;
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityAndMelterDoorAnim.SetBool("OPENMELTERSIDE", false);
         melterToMFDoorClosing = true;
         melterToMFDoorOpen = false;
+        melterToMFDoorClosingSoon = false;
         yield return new WaitForSecondsRealtime(3f);
         melterToMFDoorClosed = true;
         melterToMFDoorClosing = false;
