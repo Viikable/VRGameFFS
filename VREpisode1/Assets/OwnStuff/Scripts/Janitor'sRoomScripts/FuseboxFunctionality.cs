@@ -984,7 +984,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MFToMelterDoorOpening()
     {
-        MainFacilityAndBridgeDoorAnim.SetBool("OPENMFSIDE", true);
+        MainFacilityAndMelterDoorAnim.SetBool("OPENMFSIDE", true);
         mfToMelterDoorOpening = true;
         mfToMelterDoorClosed = false;
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
@@ -1007,7 +1007,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MelterToMFDoorOpening()
     {
-        MainFacilityAndBridgeDoorAnim.SetBool("OPENMELTERSIDE", true);
+        MainFacilityAndMelterDoorAnim.SetBool("OPENMELTERSIDE", true);
         melterToMFDoorOpening = true;
         melterToMFDoorClosed = false;
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
