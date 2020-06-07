@@ -16,6 +16,8 @@ public class BridgeKeyConfiguration : KeyboardMappings {
     {
         BridgeKeyActivator = GameObject.Find("BridgeKeyActivator").transform.Find("BridgeKeyActivatorSnapZone").GetComponent<VRTK_SnapDropZone>();
 
+        machineryActive = false;
+
         //MONITOR SCREEN
         MonitorScreen = GameObject.Find("BridgeMonitorCanvas/Scrollparent/Viewport/MonitorScreen").GetComponent<TextMeshProUGUI>();
 
@@ -149,13 +151,35 @@ public class BridgeKeyConfiguration : KeyboardMappings {
         }
     }
 
-    public new static void ActivateMonitor()
+    protected override void Update()
     {
-        machineryActive = true;
+        if (machineryActive)
+        {
+            if (MonitorScreen.text == "")
+            {
+                MonitorScreen.text = "BridgePC_Main@DESKTOP-BRIDGE EYE128 /e" + Environment.NewLine + "$" + " ";
+            }
+            MonitorButtonPressCheck();
+            if (!buttonBeingPressed && !idle)
+            {
+                idle = true;
+                StartCoroutine("IdleAnimation");             
+            }
+        }
+        else
+        {
+            StopAllCoroutines();
+            MonitorScreen.text = "";
+        }
     }
 
-    public new static void DeactivateMonitor()
-    {
-        machineryActive = false;
-    }
+    //public new static void ActivateMonitor()
+    //{
+    //    machineryActive = true;
+    //}
+
+    //public new static void DeactivateMonitor()
+    //{
+    //    machineryActive = false;
+    //}
 }

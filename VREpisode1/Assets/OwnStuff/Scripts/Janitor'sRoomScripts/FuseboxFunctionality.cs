@@ -6,6 +6,12 @@ using VRTK.Controllables.PhysicsBased;
 
 public class FuseboxFunctionality : MonoBehaviour {
 
+    [Header("Machinery")]
+
+    public BridgeKeyConfiguration BridgeTerminal;
+
+    public KeyboardMappings MelterTerminal;
+
     [Header("Maintenance")]
     public VRTK_SnapDropZone MaintenanceLights;
     public VRTK_SnapDropZone MaintenanceMachinery;
@@ -384,23 +390,25 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (BridgeMachinery.GetCurrentSnappedObject() != null)
         {
             //turn BridgeMachinery on
-            BridgeKeyConfiguration.ActivateMonitor();
+            BridgeTerminal.ActivateMonitor();
+            Debug.Log("Bridge on");
         }
         else
         {
             //turn BridgeMachinery off
-            BridgeKeyConfiguration.DeactivateMonitor();
+            BridgeTerminal.DeactivateMonitor();
+            Debug.Log("Bridge off");
         }
 
         if (MelterMachinery.GetCurrentSnappedObject() != null)
         {
             //turn MelterMachinery on
-            KeyboardMappings.ActivateMonitor();
+            MelterTerminal.ActivateMonitor();
         }
         else
         {
             //turn MelterMachinery off
-            KeyboardMappings.DeactivateMonitor();
+            MelterTerminal.DeactivateMonitor();
         }
     }
 

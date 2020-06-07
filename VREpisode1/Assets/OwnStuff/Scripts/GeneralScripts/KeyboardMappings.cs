@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class KeyboardMappings : MonoBehaviour {
 
     //Is the current monitor going to be active based on fusebox setting or not
-    protected static bool machineryActive;
+    protected bool machineryActive;
 
     //MONITOR SCREEN
     protected TextMeshProUGUI MonitorScreen;
@@ -155,6 +155,10 @@ public class KeyboardMappings : MonoBehaviour {
         //if machinery is off then shows no text and doesn't react to buttonpresses
         if (machineryActive)
         {
+            if (MonitorScreen.text == "")
+            {
+                MonitorScreen.text = "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
+            }
             MonitorButtonPressCheck();
             if (!buttonBeingPressed && !idle)
             {
@@ -903,12 +907,12 @@ public class KeyboardMappings : MonoBehaviour {
         bar.value = 0f;
     }
 
-    public static void ActivateMonitor()
+    public void ActivateMonitor()
     {
         machineryActive = true;
     }
 
-    public static void DeactivateMonitor()
+    public void DeactivateMonitor()
     {
         machineryActive = false;
     }
