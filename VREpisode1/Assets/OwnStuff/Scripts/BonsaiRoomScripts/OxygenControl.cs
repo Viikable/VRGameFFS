@@ -18,7 +18,16 @@ public class OxygenControl : MonoBehaviour {
 
     [Tooltip("Tells the base amount of time respective to the oxygen level as a default")]
     float survivalTime;
-  
+
+    [Tooltip("The factorial for a room which tells how much more the player's oxygen decreases per second when the oxygen level is constantly lowering. This value is different for each oxygen level name.")]
+    float oxygenLevelLowersFactorial;
+
+    [Tooltip("The factorial for a room which tells how much more the player's oxygen increases per second when the oxygen level is constantly lowering. This value is different for each oxygen level name.")]
+    float oxygenLevelIncreasesFactorial;
+
+    [Tooltip("The speed of oxygen percentage increasing in the room based on the room size")]
+    float accelerationSpeed;
+
     [Tooltip("Tells how quickly the oxygen divides itself between rooms when a door is opened to another space")]
     float oxygenSpreadSpeed;
 
@@ -78,37 +87,49 @@ public class OxygenControl : MonoBehaviour {
         if (currentRoomOxygenPercentage > 75f)
         {
             currentOxygenLevel = OxygenLevelName.Safe;
-            survivalTime = Mathf.Infinity;  
+            survivalTime = 120f;
+            oxygenLevelLowersFactorial = 0f;
+            oxygenLevelIncreasesFactorial = 0f;
         }
         else if (currentRoomOxygenPercentage <= 75f && currentRoomOxygenPercentage >= 50f)
         {
-            currentOxygenLevel = OxygenLevelName.Okay;
-            survivalTime = 120f;
+            currentOxygenLevel = OxygenLevelName.Okay;         
+            oxygenLevelLowersFactorial = 0.25f;
+            oxygenLevelIncreasesFactorial = 0.75f;
         }
         else if (currentRoomOxygenPercentage < 50f && currentRoomOxygenPercentage > 25f)
         {
-            currentOxygenLevel = OxygenLevelName.Alarming;
-            survivalTime = 60f;
+            currentOxygenLevel = OxygenLevelName.Alarming;           
+            oxygenLevelLowersFactorial = 0.5f;
+            oxygenLevelIncreasesFactorial = 0.5f;
         }
-        else if (currentRoomOxygenPercentage < 25f)
+        else if (currentRoomOxygenPercentage <= 25f)
         {
-            currentOxygenLevel = OxygenLevelName.Deadly;
-            survivalTime = 30f;
+            currentOxygenLevel = OxygenLevelName.Deadly;            
+            oxygenLevelLowersFactorial = 0.75f;
+            oxygenLevelIncreasesFactorial = 0.25f;
         }
     }
-
+    // the changing speed of oxygen levels only affects how quickly the OxygenLevelName changes, the individual changing speed does not affect otherwise to the player's remaining oxygen
     private void OxygenLevelChanges()
     {
-        if (previousRoomOxygenPercentage != currentRoomOxygenPercentage)
+        //player's oxygen changing speed if oxygen percentage in the room is currently changing
+        if (previousRoomOxygenPercentage != currentRoomOxygenPercentage && currentOxygenLevel != OxygenLevelName.Safe)
         {
             if (currentRoomOxygenPercentage < previousRoomOxygenPercentage)
             {
-                playerOxygen -= 0.02f * survivalTime; 
+                // take into account the room size
+                playerOxygen -= 1 + oxygenLevelLowersFactorial;
             }
             else if (currentRoomOxygenPercentage > previousRoomOxygenPercentage)
-            {
-                playerOxygen += 0.02f * survivalTime;
+            {               
+                playerOxygen -= 1 - oxygenLevelIncreasesFactorial;             
             }
+        }
+        //here we check the player's oxygen changing speed if the oxygen percentage in the room is not changing currently
+        else if (previousRoomOxygenPercentage == currentRoomOxygenPercentage && currentOxygenLevel != OxygenLevelName.Safe)
+        {
+
         }
     }
 
