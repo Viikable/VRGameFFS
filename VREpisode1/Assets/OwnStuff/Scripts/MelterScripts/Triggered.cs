@@ -10,8 +10,7 @@ public class Triggered : MonoBehaviour {
     {
         if (other.name == "Trigger")
         {
-            this.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            Debug.Log("triggered");
+            this.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;          
         }
     }
 }

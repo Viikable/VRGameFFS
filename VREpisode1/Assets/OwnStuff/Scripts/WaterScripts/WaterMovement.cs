@@ -134,6 +134,7 @@ public class WaterMovement : MonoBehaviour
 
         if (touchedWater)
         {
+            GameObject.Find("PlayArea").GetComponent<VRTK_BodyPhysics>().fallRestriction = VRTK_BodyPhysics.FallingRestrictors.AlwaysRestrict;
             if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer * 3 / 4 && headIsUnderWater)
             {
                 //Debug.Log("3/4 oxygen left");
@@ -213,6 +214,7 @@ public class WaterMovement : MonoBehaviour
         else if (headsetbody != null)
         {
             Physics.gravity.Set(0, -9.81f, 0);
+            GameObject.Find("PlayArea").GetComponent<VRTK_BodyPhysics>().fallRestriction = VRTK_BodyPhysics.FallingRestrictors.EitherController;
             //headsetbody.useGravity = true;
             //Debug.Log("gravity");
         }

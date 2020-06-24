@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+using TMPro;
 using VRTK.GrabAttachMechanics;
 
 public class Game_Manager : MonoBehaviour
