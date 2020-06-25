@@ -8,7 +8,7 @@ public class BonsaiRoomLocationTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Player") || other.transform.parent.CompareTag("Player"))
         {
-            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "BonsaiRoom";
+            ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.BonsaiRoom;
         }
     }
 }

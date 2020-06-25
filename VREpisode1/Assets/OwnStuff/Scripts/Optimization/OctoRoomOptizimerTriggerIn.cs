@@ -19,7 +19,7 @@ public class OctoRoomOptizimerTriggerIn : MonoBehaviour {
             OptimizeRendering.insideShafts = false;
             OptimizeRendering.insideMelterArea = false;
             OptimizeRendering.renderingChanged = false;
-            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "OctoRoom";
+            ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.OctopusRoom;
         }
     }  
 }

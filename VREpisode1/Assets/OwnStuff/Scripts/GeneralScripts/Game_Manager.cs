@@ -321,13 +321,13 @@ public class Game_Manager : MonoBehaviour
                     water.UnderwaterAmbience4.Play();
                     water.WaterRises = true;
                     invoked = false;
-                    ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
+                    ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.SecondShaft;
                 }
             }
             else if (RightGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 RightGrab.ForceRelease();
-                ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
+                ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
                     Destroy(juhaniJoin);
@@ -423,13 +423,13 @@ public class Game_Manager : MonoBehaviour
                     water.UnderwaterAmbience4.Play();
                     water.WaterRises = true;
                     invoked = false;
-                    ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
+                    ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.SecondShaft;
                 }
             }
             else if (LeftGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 LeftGrab.ForceRelease();
-                ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
+                ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
                     Destroy(juhaniJoin);

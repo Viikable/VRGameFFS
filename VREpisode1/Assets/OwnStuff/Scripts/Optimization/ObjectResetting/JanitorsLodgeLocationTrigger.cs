@@ -8,7 +8,7 @@ public class JanitorsLodgeLocationTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Player") || other.transform.parent.CompareTag("Player"))
         {
-            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "JanitorsLodge";
+            ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.JanitorRoom;
         }
     }
 }

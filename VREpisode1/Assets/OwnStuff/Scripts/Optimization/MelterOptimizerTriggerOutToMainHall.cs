@@ -19,7 +19,6 @@ public class MelterOptimizerTriggerOutToMainHall : MonoBehaviour {
             OptimizeRendering.insideMelterArea = false;
             OptimizeRendering.insideMainHall = true;           
             OptimizeRendering.renderingChanged = false;
-            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "MainHall";
         }
     }
 }

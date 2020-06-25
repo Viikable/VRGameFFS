@@ -34,7 +34,7 @@ public class ShaftLightsButton : MonoBehaviour {
             ShaftLightSound.Play();
             lightOn = true;
             StartCoroutine("Wait");
-            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
+            ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
         }
         else if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && lightOn && !processing)
         {

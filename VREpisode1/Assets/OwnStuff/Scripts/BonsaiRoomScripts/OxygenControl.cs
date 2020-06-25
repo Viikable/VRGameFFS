@@ -25,8 +25,26 @@ public class OxygenControl : MonoBehaviour {
     [Tooltip("The factorial for the current oxygen level name which tells how much more the player's oxygen decreases per second when the oxygen level stays the same. This value is different for each oxygen level name.")]
     private float oxygenLevelStaysFactorial;
 
-    [Tooltip("Tells how quickly the oxygen divides itself between rooms when a door is opened to another space")]
-    private float oxygenSpreadSpeed;
+    [Tooltip("Tells the default oxygen spread speed which will be timed based on room size differences")]
+    private float defaultOxygenSpreadSpeedFactor;
+
+    [Tooltip("Tells how quickly the oxygen amount is changing in Bonsai Room (and whether it is positive or negative change")]
+    private float oxygenSpreadSpeedBonsai;
+
+    [Tooltip("Tells how quickly the oxygen amount is changing in MF Lobby (and whether it is positive or negative change")]
+    private float oxygenSpreadSpeedMFLobby;
+
+    [Tooltip("Tells how quickly the oxygen amount is changing in MF Bridge (and whether it is positive or negative change")]
+    private float oxygenSpreadSpeedMFBridge;
+
+    [Tooltip("Tells how quickly the oxygen amount is changing in Janitor Room (and whether it is positive or negative change")]
+    private float oxygenSpreadSpeedJanitor;
+
+    [Tooltip("Tells how quickly the oxygen amount is changing in Maintenance Corridor (and whether it is positive or negative change")]
+    private float oxygenSpreadSpeedCorridor;
+
+    [Tooltip("Tells how quickly the oxygen amount is changing in Melter Room (and whether it is positive or negative change")]
+    private float oxygenSpreadSpeedMelter;
 
     [Tooltip("Tells the amount of oxygen the player currently has remaining")]
     private float playerOxygen;
@@ -35,22 +53,42 @@ public class OxygenControl : MonoBehaviour {
     private bool secondPassed;
 
     [Tooltip("Tells the amount of oxygen in MF lobby.")]
-    private float mainFacilityLobbyOxygen;
+    private int mainFacilityLobbyOxygen;
 
     [Tooltip("Tells the amount of oxygen in MF Bridge.")]
-    private float mainFacilityBridgeOxygen;
+    private int mainFacilityBridgeOxygen;
 
     [Tooltip("Tells the amount of oxygen in Bonsai Room.")]
-    private float bonsaiRoomOxygen;
+    private int bonsaiRoomOxygen;
 
     [Tooltip("Tells the amount of oxygen in Janitor Room.")]
-    private float janitorRoomOxygen;
+    private int janitorRoomOxygen;
 
     [Tooltip("Tells the amount of oxygen in Maintenance Corridor.")]
-    private float maintenanceCorridorOxygen;
+    private int maintenanceCorridorOxygen;
 
     [Tooltip("Tells the amount of oxygen in Melter Room.")]
-    private float melterRoomOxygen;
+    private int melterRoomOxygen;
+
+    [Tooltip("Tells the relative size of the airspace in the main hall lobby")]
+    private int mainHallLobbyRoomSizeFactorial;
+
+    [Tooltip("Tells the relative size of the airspace in the main hall bridge")]
+    private int mainHallBridgeRoomSizeFactorial;
+
+    [Tooltip("Tells the relative size of the airspace in the bonsai Room")]
+    private int bonsaiRoomSizeFactorial;
+
+    [Tooltip("Tells the relative size of the airspace in the janitor Room")]
+    private int janitorRoomSizeFactorial;
+
+    [Tooltip("Tells the relative size of the airspace in the melter Room")]
+    private int melterRoomSizeFactorial;
+
+    [Tooltip("Tells the relative size of the airspace in the maintenance corridor")]
+    private int maintenanceCorridorRoomSizeFactorial;
+
+    public FuseboxFunctionality fuseBox;
 
     //these are the four possible oxygen levels in an area
     public enum OxygenLevelName
@@ -63,19 +101,36 @@ public class OxygenControl : MonoBehaviour {
 
     private void Awake()
     {
-        oxygenSpreadSpeed = 0.02f;
+        defaultOxygenSpreadSpeedFactor = 2;
         currentOxygenLevel = OxygenLevelName.Safe;
+
+        oxygenSpreadSpeedBonsai = 0f;
+        oxygenSpreadSpeedCorridor = 0f;
+        oxygenSpreadSpeedJanitor = 0f;
+        oxygenSpreadSpeedMelter = 0f;
+        oxygenSpreadSpeedMFBridge = 0f;
+        oxygenSpreadSpeedMFLobby = 0f;
+
         playerOxygen = 120f;
         currentRoomOxygenPercentage = 100;
         previousRoomOxygenPercentage = 100;
         secondPassed = true;
 
-        mainFacilityBridgeOxygen = 0f;
-        mainFacilityLobbyOxygen = 0f;
-        bonsaiRoomOxygen = 0f;
-        janitorRoomOxygen = 0f;
-        maintenanceCorridorOxygen = 0f;
-        melterRoomOxygen = 0f;
+        mainFacilityBridgeOxygen = 0;
+        mainFacilityLobbyOxygen = 0;
+        bonsaiRoomOxygen = 0;
+        janitorRoomOxygen = 0;
+        maintenanceCorridorOxygen = 0;
+        melterRoomOxygen = 0;
+
+        mainHallLobbyRoomSizeFactorial = 2;
+        mainHallBridgeRoomSizeFactorial = 10;
+        bonsaiRoomSizeFactorial = 8;
+        janitorRoomSizeFactorial = 10;
+        melterRoomSizeFactorial = 6;
+        maintenanceCorridorRoomSizeFactorial = 7;
+
+        fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
     }
 
 
@@ -85,9 +140,10 @@ public class OxygenControl : MonoBehaviour {
         if (secondPassed)
         {
             secondPassed = false;
+            IsOxygenSpreading();
             CheckCurrentRoomOxygenPercentage();
             CheckCurrentOxygenLevelName();
-            OxygenLevelChanges();
+            PlayerOxygenLevelChanges();
             StartCoroutine("WaitASecond");
         }
     }
@@ -97,23 +153,68 @@ public class OxygenControl : MonoBehaviour {
         // if all lights are green for example, which means MF lobby gets 80% oxygen
         if (firstLight == Color.green && secondLight == Color.green && thirdLight == Color.green && fourthLight == Color.green)
         {
-            mainFacilityLobbyOxygen = 80f;
-
-            mainFacilityBridgeOxygen = 0f;          
-            bonsaiRoomOxygen = 0f;
-            janitorRoomOxygen = 0f;
-            maintenanceCorridorOxygen = 0f;
-            melterRoomOxygen = 0f;
+            mainFacilityLobbyOxygen = 80;
+            mainFacilityBridgeOxygen = 0;          
+            bonsaiRoomOxygen = 0;
+            janitorRoomOxygen = 0;
+            maintenanceCorridorOxygen = 0;
+            melterRoomOxygen = 0;
         }
     }
+    //checks whether doors are open to any other room from the current room
+    private void IsOxygenSpreading()
+    {
+        if (ResetOutOfFacilityObjectLocation.playerLocation == ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.MaintenanceCorridor)
+        {
+            if (fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing ||fuseBox.corridorToBonsaiDoorOpening)
+            {
+                OxygenSpreads("Corridor", "Bonsai");
+            }
+        }
 
+    }
+
+    private void OxygenSpreads(string currentLocation, string spreadingLocation1, string spreadingLocation2 = null, string spreadingLocation3 = null, string spreadingLocation4 = null)
+    {
+        if (currentLocation == "Corridor")
+        {
+            if (spreadingLocation1 == "Bonsai" && spreadingLocation2 == null)
+            {
+                // >1 because 1 won't divide between the rooms, try to code min value to be 2 or 0
+                if (bonsaiRoomOxygen > 1 || maintenanceCorridorOxygen > 1)
+                {
+                    oxygenSpreadSpeedBonsai = Mathf.RoundToInt(bonsaiRoomSizeFactorial / maintenanceCorridorRoomSizeFactorial * defaultOxygenSpreadSpeedFactor);
+                    oxygenSpreadSpeedCorridor = Mathf.RoundToInt(maintenanceCorridorRoomSizeFactorial / bonsaiRoomSizeFactorial * defaultOxygenSpreadSpeedFactor);
+                    if (bonsaiRoomOxygen > maintenanceCorridorOxygen)
+                    {
+                        oxygenSpreadSpeedBonsai = -oxygenSpreadSpeedBonsai;
+                    }
+                    else if (maintenanceCorridorOxygen > bonsaiRoomOxygen)
+                    {
+                        oxygenSpreadSpeedCorridor = -oxygenSpreadSpeedCorridor;
+                    }
+                    else  //if the oxygen levels are the same
+                    {
+                        oxygenSpreadSpeedBonsai = 0;
+                        oxygenSpreadSpeedCorridor = 0;
+                    }
+
+                }
+            }
+        }
+
+        //at the end, the actual spreading of oxygen
+    }
 
     private void CheckCurrentRoomOxygenPercentage()
     {
         //to be able to compare the changes in the oxygen level
         previousRoomOxygenPercentage = currentRoomOxygenPercentage;
         //check player's current location and then the oxygen in that location, doors will help in this. Register player moving through doors. Collider after door, middle space own detection
-
+        if (ResetOutOfFacilityObjectLocation.playerLocation == ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.MainHallLobby)
+        {
+            currentRoomOxygenPercentage = mainFacilityLobbyOxygen;
+        }
     }
 
 	private void CheckCurrentOxygenLevelName()
@@ -121,27 +222,27 @@ public class OxygenControl : MonoBehaviour {
         //to be able to start the indicators when oxygen level changes
         previousOxygenLevel = currentOxygenLevel;
 
-        if (currentRoomOxygenPercentage > 75f)
+        if (currentRoomOxygenPercentage > 75)
         {
             //resets oxygen level to max if this level is reached
             currentOxygenLevel = OxygenLevelName.Safe;
             playerOxygen = 120f;         
         }
-        else if (currentRoomOxygenPercentage <= 75f && currentRoomOxygenPercentage >= 50f)
+        else if (currentRoomOxygenPercentage <= 75 && currentRoomOxygenPercentage >= 50)
         {
             currentOxygenLevel = OxygenLevelName.Okay;         
             oxygenLevelLowersFactorial = 0.25f;
             oxygenLevelIncreasesFactorial = 0.75f;
             oxygenLevelStaysFactorial = 0f;
         }
-        else if (currentRoomOxygenPercentage < 50f && currentRoomOxygenPercentage > 25f)
+        else if (currentRoomOxygenPercentage < 50 && currentRoomOxygenPercentage > 25)
         {
             currentOxygenLevel = OxygenLevelName.Alarming;           
             oxygenLevelLowersFactorial = 0.5f;
             oxygenLevelIncreasesFactorial = 0.5f;
             oxygenLevelStaysFactorial = 0.25f;
         }
-        else if (currentRoomOxygenPercentage <= 25f)
+        else if (currentRoomOxygenPercentage <= 25)
         {
             currentOxygenLevel = OxygenLevelName.Deadly;            
             oxygenLevelLowersFactorial = 0.75f;
@@ -150,7 +251,7 @@ public class OxygenControl : MonoBehaviour {
         }
     }
     // the changing speed of oxygen levels only affects how quickly the OxygenLevelName changes, the individual changing speed does not affect otherwise to the player's remaining oxygen
-    private void OxygenLevelChanges()
+    private void PlayerOxygenLevelChanges()
     {
         //player's oxygen changing speed if oxygen percentage in the room is currently changing and not Safe
         if (previousRoomOxygenPercentage != currentRoomOxygenPercentage && currentOxygenLevel != OxygenLevelName.Safe)
