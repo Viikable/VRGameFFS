@@ -29,22 +29,22 @@ public class OxygenControl : MonoBehaviour {
     private float defaultOxygenSpreadSpeedFactor;
 
     [Tooltip("Tells how quickly the oxygen amount is changing in Bonsai Room (and whether it is positive or negative change")]
-    private float oxygenSpreadSpeedBonsai;
+    private int oxygenSpreadSpeedBonsai;
 
     [Tooltip("Tells how quickly the oxygen amount is changing in MF Lobby (and whether it is positive or negative change")]
-    private float oxygenSpreadSpeedMFLobby;
+    private int oxygenSpreadSpeedMFLobby;
 
     [Tooltip("Tells how quickly the oxygen amount is changing in MF Bridge (and whether it is positive or negative change")]
-    private float oxygenSpreadSpeedMFBridge;
+    private int oxygenSpreadSpeedMFBridge;
 
     [Tooltip("Tells how quickly the oxygen amount is changing in Janitor Room (and whether it is positive or negative change")]
-    private float oxygenSpreadSpeedJanitor;
+    private int oxygenSpreadSpeedJanitor;
 
     [Tooltip("Tells how quickly the oxygen amount is changing in Maintenance Corridor (and whether it is positive or negative change")]
-    private float oxygenSpreadSpeedCorridor;
+    private int oxygenSpreadSpeedCorridor;
 
     [Tooltip("Tells how quickly the oxygen amount is changing in Melter Room (and whether it is positive or negative change")]
-    private float oxygenSpreadSpeedMelter;
+    private int oxygenSpreadSpeedMelter;
 
     [Tooltip("Tells the amount of oxygen the player currently has remaining")]
     private float playerOxygen;
@@ -104,12 +104,12 @@ public class OxygenControl : MonoBehaviour {
         defaultOxygenSpreadSpeedFactor = 2;
         currentOxygenLevel = OxygenLevelName.Safe;
 
-        oxygenSpreadSpeedBonsai = 0f;
-        oxygenSpreadSpeedCorridor = 0f;
-        oxygenSpreadSpeedJanitor = 0f;
-        oxygenSpreadSpeedMelter = 0f;
-        oxygenSpreadSpeedMFBridge = 0f;
-        oxygenSpreadSpeedMFLobby = 0f;
+        oxygenSpreadSpeedBonsai = 0;
+        oxygenSpreadSpeedCorridor = 0;
+        oxygenSpreadSpeedJanitor = 0;
+        oxygenSpreadSpeedMelter = 0;
+        oxygenSpreadSpeedMFBridge = 0;
+        oxygenSpreadSpeedMFLobby = 0;
 
         playerOxygen = 120f;
         currentRoomOxygenPercentage = 100;
@@ -161,22 +161,20 @@ public class OxygenControl : MonoBehaviour {
             melterRoomOxygen = 0;
         }
     }
-    //checks whether doors are open to any other room from the current room
+    //checks whether doors between rooms are currently open
     private void IsOxygenSpreading()
     {
-        if (ResetOutOfFacilityObjectLocation.playerLocation == ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.MaintenanceCorridor)
+        //Bonsai and corridor
+        if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
+            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening))
         {
-            if (fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing ||fuseBox.corridorToBonsaiDoorOpening)
-            {
-                OxygenSpreads("Corridor", "Bonsai");
-            }
-        }
-
+            OxygenSpreads("Corridor", "Bonsai");
+        }       
     }
 
-    private void OxygenSpreads(string currentLocation, string spreadingLocation1, string spreadingLocation2 = null, string spreadingLocation3 = null, string spreadingLocation4 = null)
+    private void OxygenSpreads(string spreadingLocation0, string spreadingLocation1, string spreadingLocation2 = null, string spreadingLocation3 = null, string spreadingLocation4 = null)
     {
-        if (currentLocation == "Corridor")
+        if (spreadingLocation0 == "Corridor")
         {
             if (spreadingLocation1 == "Bonsai" && spreadingLocation2 == null)
             {
@@ -186,7 +184,7 @@ public class OxygenControl : MonoBehaviour {
                     oxygenSpreadSpeedBonsai = Mathf.RoundToInt(bonsaiRoomSizeFactorial / maintenanceCorridorRoomSizeFactorial * defaultOxygenSpreadSpeedFactor);
                     oxygenSpreadSpeedCorridor = Mathf.RoundToInt(maintenanceCorridorRoomSizeFactorial / bonsaiRoomSizeFactorial * defaultOxygenSpreadSpeedFactor);
                     if (bonsaiRoomOxygen > maintenanceCorridorOxygen)
-                    {
+                    {                                                                   
                         oxygenSpreadSpeedBonsai = -oxygenSpreadSpeedBonsai;
                     }
                     else if (maintenanceCorridorOxygen > bonsaiRoomOxygen)
@@ -198,12 +196,11 @@ public class OxygenControl : MonoBehaviour {
                         oxygenSpreadSpeedBonsai = 0;
                         oxygenSpreadSpeedCorridor = 0;
                     }
-
+                    bonsaiRoomOxygen += oxygenSpreadSpeedBonsai;
+                    maintenanceCorridorOxygen += oxygenSpreadSpeedCorridor;
                 }
             }
         }
-
-        //at the end, the actual spreading of oxygen
     }
 
     private void CheckCurrentRoomOxygenPercentage()
