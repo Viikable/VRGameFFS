@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class OxygenControl : MonoBehaviour {
 
@@ -52,20 +53,38 @@ public class OxygenControl : MonoBehaviour {
     [Tooltip("Tells the amount of oxygen in MF lobby.")]
     private float mainFacilityLobbyOxygen;
 
+    [Tooltip("Text field for displaying MFLobby oxygen level")]
+    private TextMeshPro MFLobbyOxygenDisplay;
+
     [Tooltip("Tells the amount of oxygen in MF Bridge.")]
     private float mainFacilityBridgeOxygen;
+
+    [Tooltip("Text field for displaying MFBridge oxygen level")]
+    private TextMeshPro MFBridgeOxygenDisplay;
 
     [Tooltip("Tells the amount of oxygen in Bonsai Room.")]
     private float bonsaiRoomOxygen;
 
+    [Tooltip("Text field for displaying Bonsai oxygen level")]
+    private TextMeshPro BonsaiOxygenDisplay;
+
     [Tooltip("Tells the amount of oxygen in Janitor Room.")]
     private float janitorRoomOxygen;
 
+    [Tooltip("Text field for displaying Janitor oxygen level")]
+    private TextMeshPro JanitorOxygenDisplay;
+
     [Tooltip("Tells the amount of oxygen in Maintenance Corridor.")]
-    private float maintenanceCorridorOxygen;
+    private float CorridorOxygen;
+
+    [Tooltip("Text field for displaying Corridor oxygen level")]
+    private TextMeshPro CorridorOxygenDisplay;
 
     [Tooltip("Tells the amount of oxygen in Melter Room.")]
     private float melterRoomOxygen;
+
+    [Tooltip("Text field for displaying Melter oxygen level")]
+    private TextMeshPro MelterOxygenDisplay;
 
     [Tooltip("The combined oxygen between rooms which are connected, used to calculate spreading")]
     private float combinedOxygen;
@@ -119,11 +138,17 @@ public class OxygenControl : MonoBehaviour {
         secondPassed = true;
 
         mainFacilityBridgeOxygen = 0;
-        mainFacilityLobbyOxygen = 0;
+        MFBridgeOxygenDisplay = GameObject.Find("MFBridgeOxygenDisplay").GetComponent<TextMeshPro>();
+        mainFacilityLobbyOxygen = 30;
+        MFLobbyOxygenDisplay = GameObject.Find("MFLobbyOxygenDisplay").GetComponent<TextMeshPro>();
         bonsaiRoomOxygen = 0;
+        BonsaiOxygenDisplay = GameObject.Find("BonsaiOxygenDisplay").GetComponent<TextMeshPro>();
         janitorRoomOxygen = 0;
-        maintenanceCorridorOxygen = 0;
+        JanitorOxygenDisplay = GameObject.Find("JanitorOxygenDisplay").GetComponent<TextMeshPro>();
+        CorridorOxygen = 60;
+        CorridorOxygenDisplay = GameObject.Find("CorridorOxygenDisplay").GetComponent<TextMeshPro>();
         melterRoomOxygen = 0;
+        MelterOxygenDisplay = GameObject.Find("MelterOxygenDisplay").GetComponent<TextMeshPro>();
         combinedOxygen = 0;
         targetOxygenSpreadLevel = 0;
 
@@ -145,6 +170,7 @@ public class OxygenControl : MonoBehaviour {
         {
             secondPassed = false;
             IsOxygenSpreading();
+            DisplayRoomOxygenLevels();
             CheckCurrentRoomOxygenPercentage();
             CheckCurrentOxygenLevelName();
             PlayerOxygenLevelChanges();
@@ -161,7 +187,7 @@ public class OxygenControl : MonoBehaviour {
             mainFacilityBridgeOxygen = 0;          
             bonsaiRoomOxygen = 0;
             janitorRoomOxygen = 0;
-            maintenanceCorridorOxygen = 0;
+            CorridorOxygen = 0;
             melterRoomOxygen = 0;
         }
     }
@@ -187,8 +213,8 @@ public class OxygenControl : MonoBehaviour {
             && (fuseBox.janitorToCorridorDoorOpen || fuseBox.janitorToCorridorDoorClosing || fuseBox.janitorToCorridorDoorOpening)
             && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)
             && (fuseBox.corridorToMFDoorOpen || fuseBox.corridorToMFDoorClosing || fuseBox.corridorToMFDoorOpening)
-            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening))          
-        {          
+            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening))
+        {
             OxygenSpreads(true, true, true, true, false, 4);
         }
         //all but Bonsai Door open
@@ -204,7 +230,7 @@ public class OxygenControl : MonoBehaviour {
         }
         //all but Janitor Door open
         else if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
-            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)          
+            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)
             && (fuseBox.corridorToMFDoorOpen || fuseBox.corridorToMFDoorClosing || fuseBox.corridorToMFDoorOpening)
             && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening)
             && (fuseBox.mfToMelterDoorOpen || fuseBox.mfToMelterDoorClosing || fuseBox.mfToMelterDoorOpening)
@@ -217,7 +243,7 @@ public class OxygenControl : MonoBehaviour {
         else if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
             && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)
             && (fuseBox.janitorToCorridorDoorOpen || fuseBox.janitorToCorridorDoorClosing || fuseBox.janitorToCorridorDoorOpening)
-            && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)           
+            && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)
             && (fuseBox.mfToMelterDoorOpen || fuseBox.mfToMelterDoorClosing || fuseBox.mfToMelterDoorOpening)
             && (fuseBox.melterToMFDoorOpen || fuseBox.melterToMFDoorClosing || fuseBox.melterToMFDoorOpening))
         {
@@ -229,7 +255,7 @@ public class OxygenControl : MonoBehaviour {
         else if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)
            && (fuseBox.janitorToCorridorDoorOpen || fuseBox.janitorToCorridorDoorClosing || fuseBox.janitorToCorridorDoorOpening)
-           && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening))                
+           && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening))
         {
             //first parameter refers to bonsaiRoom, second Janitor, third corridor, 4th MF and 5th Melter
             OxygenSpreads(true, true, true, false, false, 3);
@@ -238,16 +264,16 @@ public class OxygenControl : MonoBehaviour {
         else if ((fuseBox.janitorToCorridorDoorOpen || fuseBox.janitorToCorridorDoorClosing || fuseBox.janitorToCorridorDoorOpening)
             && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)
             && (fuseBox.corridorToMFDoorOpen || fuseBox.corridorToMFDoorClosing || fuseBox.corridorToMFDoorOpening)
-            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening))    
+            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening))
         {
             //first parameter refers to bonsaiRoom, second Janitor, third corridor, 4th MF and 5th Melter
             OxygenSpreads(false, true, true, true, false, 3);
         }
         //all but Melter and Janitor doors 
         else if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
-            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)           
+            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)
             && (fuseBox.corridorToMFDoorOpen || fuseBox.corridorToMFDoorClosing || fuseBox.corridorToMFDoorOpening)
-            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening))         
+            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening))
         {
             //first parameter refers to bonsaiRoom, second Janitor, third corridor, 4th MF and 5th Melter
             OxygenSpreads(true, false, true, true, false, 3);
@@ -263,33 +289,26 @@ public class OxygenControl : MonoBehaviour {
         }
         //all but MF + corridor door and Janitor door, this creates 2 different oxygen spread zones SPECIAL CASE
         else if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
-            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)
-            && (fuseBox.janitorToCorridorDoorOpen || fuseBox.janitorToCorridorDoorClosing || fuseBox.janitorToCorridorDoorOpening)
-            && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)
-            && (fuseBox.corridorToMFDoorOpen || fuseBox.corridorToMFDoorClosing || fuseBox.corridorToMFDoorOpening)
-            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening)
+            && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)                  
             && (fuseBox.mfToMelterDoorOpen || fuseBox.mfToMelterDoorClosing || fuseBox.mfToMelterDoorOpening)
             && (fuseBox.melterToMFDoorOpen || fuseBox.melterToMFDoorClosing || fuseBox.melterToMFDoorOpening))
         {
             //2 different zones requires the method to be called two times with the separate zones, melter+MF and corridor+Bonsai
-            OxygenSpreads(true, true, true, false, true, 5);
+            OxygenSpreads(false, false, false, true, true, 2);
+            OxygenSpreads(true, false, true, false, false, 2);
         }
         // all but MF + Corridor door and Melter Door
         else if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
             && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening)
             && (fuseBox.janitorToCorridorDoorOpen || fuseBox.janitorToCorridorDoorClosing || fuseBox.janitorToCorridorDoorOpening)
-            && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)
-            && (fuseBox.corridorToMFDoorOpen || fuseBox.corridorToMFDoorClosing || fuseBox.corridorToMFDoorOpening)
-            && (fuseBox.mfToCorridorDoorOpen || fuseBox.mfToCorridorDoorClosing || fuseBox.mfToCorridorDoorOpening)
-            && (fuseBox.mfToMelterDoorOpen || fuseBox.mfToMelterDoorClosing || fuseBox.mfToMelterDoorOpening)
-            && (fuseBox.melterToMFDoorOpen || fuseBox.melterToMFDoorClosing || fuseBox.melterToMFDoorOpening))
+            && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening))          
         {
             //first parameter refers to bonsaiRoom, second Janitor, third corridor, 4th MF and 5th Melter
-            OxygenSpreads(true, true, true, true, true, 5);
+            OxygenSpreads(true, true, true, false, false, 3);
         }
         //all but MF + corridor door and Bonsai door, this creates 2 different oxygen spread zones SPECIAL CASE
         else if ((fuseBox.janitorToCorridorDoorOpen || fuseBox.janitorToCorridorDoorClosing || fuseBox.janitorToCorridorDoorOpening)
-            && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)           
+            && (fuseBox.corridorToJanitorDoorOpen || fuseBox.corridorToJanitorDoorClosing || fuseBox.corridorToJanitorDoorOpening)
             && (fuseBox.mfToMelterDoorOpen || fuseBox.mfToMelterDoorClosing || fuseBox.mfToMelterDoorOpening)
             && (fuseBox.melterToMFDoorOpen || fuseBox.melterToMFDoorClosing || fuseBox.melterToMFDoorOpening))
         {
@@ -297,9 +316,6 @@ public class OxygenControl : MonoBehaviour {
             OxygenSpreads(false, false, false, true, true, 2);
             OxygenSpreads(false, true, true, false, false, 2);
         }
-
-
-
         //Bonsai and corridor
         else if ((fuseBox.corridorToBonsaiDoorOpen || fuseBox.corridorToBonsaiDoorClosing || fuseBox.corridorToBonsaiDoorOpening)
                  && (fuseBox.bonsaiToCorridorDoorOpen || fuseBox.bonsaiToCorridorDoorClosing || fuseBox.bonsaiToCorridorDoorOpening))
@@ -314,9 +330,9 @@ public class OxygenControl : MonoBehaviour {
         //all doors open (highly unlikely case)
         if (bonsaiSpreading && janitorSpreading && corridorSpreading && mfSpreading && melterSpreading)
         {
-            if (bonsaiRoomOxygen > 0 || maintenanceCorridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
+            if (bonsaiRoomOxygen > 0 || CorridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + maintenanceCorridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
+                combinedOxygen = bonsaiRoomOxygen + CorridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
@@ -347,13 +363,13 @@ public class OxygenControl : MonoBehaviour {
                 {
                     janitorRoomOxygen -= oxygenSpreadSpeedJanitor;
                 }
-                if (maintenanceCorridorOxygen < targetOxygenSpreadLevel)
+                if (CorridorOxygen < targetOxygenSpreadLevel)
                 {
-                    maintenanceCorridorOxygen += oxygenSpreadSpeedCorridor;
+                    CorridorOxygen += oxygenSpreadSpeedCorridor;
                 }
                 else
                 {
-                    maintenanceCorridorOxygen -= oxygenSpreadSpeedCorridor;
+                    CorridorOxygen -= oxygenSpreadSpeedCorridor;
                 }
                 if (mainFacilityLobbyOxygen < targetOxygenSpreadLevel)
                 {
@@ -376,9 +392,9 @@ public class OxygenControl : MonoBehaviour {
         // no melter
         else if (bonsaiSpreading && janitorSpreading && corridorSpreading && mfSpreading && !melterSpreading)
         {
-            if (bonsaiRoomOxygen > 0 || maintenanceCorridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0)
+            if (bonsaiRoomOxygen > 0 || CorridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + maintenanceCorridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen;
+                combinedOxygen = bonsaiRoomOxygen + CorridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
@@ -407,13 +423,13 @@ public class OxygenControl : MonoBehaviour {
                 {
                     janitorRoomOxygen -= oxygenSpreadSpeedJanitor;
                 }
-                if (maintenanceCorridorOxygen < targetOxygenSpreadLevel)
+                if (CorridorOxygen < targetOxygenSpreadLevel)
                 {
-                    maintenanceCorridorOxygen += oxygenSpreadSpeedCorridor;
+                    CorridorOxygen += oxygenSpreadSpeedCorridor;
                 }
                 else
                 {
-                    maintenanceCorridorOxygen -= oxygenSpreadSpeedCorridor;
+                    CorridorOxygen -= oxygenSpreadSpeedCorridor;
                 }
                 if (mainFacilityLobbyOxygen < targetOxygenSpreadLevel)
                 {
@@ -428,9 +444,9 @@ public class OxygenControl : MonoBehaviour {
         // no bonsai
         else if (!bonsaiSpreading && janitorSpreading && corridorSpreading && mfSpreading && melterSpreading)
         {
-            if (maintenanceCorridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
+            if (CorridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = maintenanceCorridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
+                combinedOxygen = CorridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
@@ -451,13 +467,13 @@ public class OxygenControl : MonoBehaviour {
                 {
                     janitorRoomOxygen -= oxygenSpreadSpeedJanitor;
                 }
-                if (maintenanceCorridorOxygen < targetOxygenSpreadLevel)
+                if (CorridorOxygen < targetOxygenSpreadLevel)
                 {
-                    maintenanceCorridorOxygen += oxygenSpreadSpeedCorridor;
+                    CorridorOxygen += oxygenSpreadSpeedCorridor;
                 }
                 else
                 {
-                    maintenanceCorridorOxygen -= oxygenSpreadSpeedCorridor;
+                    CorridorOxygen -= oxygenSpreadSpeedCorridor;
                 }
                 if (mainFacilityLobbyOxygen < targetOxygenSpreadLevel)
                 {
@@ -480,9 +496,9 @@ public class OxygenControl : MonoBehaviour {
         // no janitor
         else if (bonsaiSpreading && !janitorSpreading && corridorSpreading && mfSpreading && melterSpreading)
         {
-            if (bonsaiRoomOxygen > 0 || maintenanceCorridorOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
+            if (bonsaiRoomOxygen > 0 || CorridorOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + maintenanceCorridorOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
+                combinedOxygen = bonsaiRoomOxygen + CorridorOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
@@ -503,13 +519,13 @@ public class OxygenControl : MonoBehaviour {
                 {
                     bonsaiRoomOxygen -= oxygenSpreadSpeedBonsai;
                 }             
-                if (maintenanceCorridorOxygen < targetOxygenSpreadLevel)
+                if (CorridorOxygen < targetOxygenSpreadLevel)
                 {
-                    maintenanceCorridorOxygen += oxygenSpreadSpeedCorridor;
+                    CorridorOxygen += oxygenSpreadSpeedCorridor;
                 }
                 else
                 {
-                    maintenanceCorridorOxygen -= oxygenSpreadSpeedCorridor;
+                    CorridorOxygen -= oxygenSpreadSpeedCorridor;
                 }
                 if (mainFacilityLobbyOxygen < targetOxygenSpreadLevel)
                 {
@@ -532,9 +548,9 @@ public class OxygenControl : MonoBehaviour {
         //no mf or melter
         else if (bonsaiSpreading && janitorSpreading && corridorSpreading && !mfSpreading && !melterSpreading)
         {
-            if (bonsaiRoomOxygen > 0 || maintenanceCorridorOxygen > 0 || janitorRoomOxygen > 0)
+            if (bonsaiRoomOxygen > 0 || CorridorOxygen > 0 || janitorRoomOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + maintenanceCorridorOxygen + janitorRoomOxygen;
+                combinedOxygen = bonsaiRoomOxygen + CorridorOxygen + janitorRoomOxygen;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms               
                 oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial /
@@ -542,7 +558,7 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedJanitor = janitorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / (amountOfRooms - 1));
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    (bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));
 
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
@@ -561,13 +577,13 @@ public class OxygenControl : MonoBehaviour {
                 {
                     janitorRoomOxygen -= oxygenSpreadSpeedJanitor;
                 }
-                if (maintenanceCorridorOxygen < targetOxygenSpreadLevel)
+                if (CorridorOxygen < targetOxygenSpreadLevel)
                 {
-                    maintenanceCorridorOxygen += oxygenSpreadSpeedCorridor;
+                    CorridorOxygen += oxygenSpreadSpeedCorridor;
                 }
                 else
                 {
-                    maintenanceCorridorOxygen -= oxygenSpreadSpeedCorridor;
+                    CorridorOxygen -= oxygenSpreadSpeedCorridor;
                 }              
             }
         }
@@ -576,15 +592,15 @@ public class OxygenControl : MonoBehaviour {
         {
             if (janitorSpreading && !corridorSpreading && !mfSpreading && !melterSpreading)
             {
-                if (bonsaiRoomOxygen > 0 || maintenanceCorridorOxygen > 0)
+                if (bonsaiRoomOxygen > 0 || CorridorOxygen > 0)
                 {
-                    oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial / maintenanceCorridorRoomSizeFactorial * defaultOxygenSpreadSpeedFactor);
-                    oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial / bonsaiRoomSizeFactorial * defaultOxygenSpreadSpeedFactor);
-                    if (bonsaiRoomOxygen > maintenanceCorridorOxygen)
+                    oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial / maintenanceCorridorRoomSizeFactorial * defaultOxygenSpreadSpeedFactor;
+                    oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial / bonsaiRoomSizeFactorial * defaultOxygenSpreadSpeedFactor;
+                    if (bonsaiRoomOxygen > CorridorOxygen)
                     {
                         oxygenSpreadSpeedBonsai = -oxygenSpreadSpeedBonsai;
                     }
-                    else if (maintenanceCorridorOxygen > bonsaiRoomOxygen)
+                    else if (CorridorOxygen > bonsaiRoomOxygen)
                     {
                         oxygenSpreadSpeedCorridor = -oxygenSpreadSpeedCorridor;
                     }
@@ -594,12 +610,125 @@ public class OxygenControl : MonoBehaviour {
                         oxygenSpreadSpeedCorridor = 0;
                     }
                     bonsaiRoomOxygen += oxygenSpreadSpeedBonsai;
-                    maintenanceCorridorOxygen += oxygenSpreadSpeedCorridor;
+                    CorridorOxygen += oxygenSpreadSpeedCorridor;
                 }
             }
         }
 
 
+
+    }
+
+    private void DisplayRoomOxygenLevels()
+    {
+        MFLobbyOxygenDisplay.text = mainFacilityLobbyOxygen.ToString("#.00");
+        MFBridgeOxygenDisplay.text = mainFacilityBridgeOxygen.ToString("#.00");
+        BonsaiOxygenDisplay.text = bonsaiRoomOxygen.ToString("#.00");
+        MelterOxygenDisplay.text = melterRoomOxygen.ToString("#.00");
+        JanitorOxygenDisplay.text = janitorRoomOxygen.ToString("#.00");
+        CorridorOxygenDisplay.text = CorridorOxygen.ToString("#.00");
+
+        if (mainFacilityLobbyOxygen <= 25)
+        {
+            MFLobbyOxygenDisplay.color = Color.red;
+        }
+        else if (mainFacilityLobbyOxygen > 25 && mainFacilityLobbyOxygen < 50)
+        {
+            MFLobbyOxygenDisplay.color = Color.yellow;
+        }
+        else if (mainFacilityLobbyOxygen >= 50 && mainFacilityLobbyOxygen <= 75)
+        {
+            MFLobbyOxygenDisplay.color = Color.green;
+        }
+        else if (mainFacilityLobbyOxygen > 75)
+        {
+            MFLobbyOxygenDisplay.color = Color.blue;
+        }
+
+        if (mainFacilityBridgeOxygen <= 25)
+        {
+            MFBridgeOxygenDisplay.color = Color.red;
+        }
+        else if (mainFacilityBridgeOxygen > 25 && mainFacilityBridgeOxygen < 50)
+        {
+            MFBridgeOxygenDisplay.color = Color.yellow;
+        }
+        else if (mainFacilityBridgeOxygen >= 50 && mainFacilityBridgeOxygen <= 75)
+        {
+            MFBridgeOxygenDisplay.color = Color.green;
+        }
+        else if (mainFacilityBridgeOxygen > 75)
+        {
+            MFBridgeOxygenDisplay.color = Color.blue;
+        }
+
+        if (bonsaiRoomOxygen <= 25)
+        {
+            BonsaiOxygenDisplay.color = Color.red;
+        }
+        else if (bonsaiRoomOxygen > 25 && bonsaiRoomOxygen < 50)
+        {
+            BonsaiOxygenDisplay.color = Color.yellow;
+        }
+        else if (bonsaiRoomOxygen >= 50 && bonsaiRoomOxygen <= 75)
+        {
+            BonsaiOxygenDisplay.color = Color.green;
+        }
+        else if (bonsaiRoomOxygen > 75)
+        {
+            BonsaiOxygenDisplay.color = Color.blue;
+        }
+
+        if (melterRoomOxygen <= 25)
+        {
+            MelterOxygenDisplay.color = Color.red;
+        }
+        else if (melterRoomOxygen > 25 && melterRoomOxygen < 50)
+        {
+            MelterOxygenDisplay.color = Color.yellow;
+        }
+        else if (melterRoomOxygen >= 50 && melterRoomOxygen <= 75)
+        {
+            MelterOxygenDisplay.color = Color.green;
+        }
+        else if (melterRoomOxygen > 75)
+        {
+            MelterOxygenDisplay.color = Color.blue;
+        }
+
+        if (janitorRoomOxygen <= 25)
+        {
+            JanitorOxygenDisplay.color = Color.red;
+        }
+        else if (janitorRoomOxygen > 25 && janitorRoomOxygen < 50)
+        {
+            JanitorOxygenDisplay.color = Color.yellow;
+        }
+        else if (janitorRoomOxygen >= 50 && janitorRoomOxygen <= 75)
+        {
+            JanitorOxygenDisplay.color = Color.green;
+        }
+        else if (janitorRoomOxygen > 75)
+        {
+            JanitorOxygenDisplay.color = Color.blue;
+        }
+
+        if (CorridorOxygen <= 25)
+        {
+            CorridorOxygenDisplay.color = Color.red;
+        }
+        else if (CorridorOxygen > 25 && CorridorOxygen < 50)
+        {
+            CorridorOxygenDisplay.color = Color.yellow;
+        }
+        else if (CorridorOxygen >= 50 && CorridorOxygen <= 75)
+        {
+            CorridorOxygenDisplay.color = Color.green;
+        }
+        else if (CorridorOxygen > 75)
+        {
+            CorridorOxygenDisplay.color = Color.blue;
+        }
 
     }
 
@@ -626,7 +755,7 @@ public class OxygenControl : MonoBehaviour {
         }
         else if (ResetOutOfFacilityObjectLocation.playerLocation == ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.MaintenanceCorridor)
         {
-            currentRoomOxygenPercentage = maintenanceCorridorOxygen;
+            currentRoomOxygenPercentage = CorridorOxygen;
         }
         else if (ResetOutOfFacilityObjectLocation.playerLocation == ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.MelterRoom)
         {
