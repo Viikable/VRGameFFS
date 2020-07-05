@@ -551,51 +551,46 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             if (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1
                && !janitorToCorridorDoorClosing && !janitorToCorridorDoorOpening)
-            {                             
+            {
                 if (janitorToCorridorDoorClosed)
-                    {                    
+                {
                     //Open Janitor door (from the inside)                                                                                   
-                    StartCoroutine("InnerJanitorDoorOpening");                   
+                    StartCoroutine("InnerJanitorDoorOpening");
                 }
                 else if (janitorToCorridorDoorClosingSoon) //aka it is open and no correct key in it
                 {
                     StopCoroutine("DelayedAutomaticCloseInnerJanitor");  //ends the 10 second countdown of door closing
                     janitorToCorridorDoorClosingSoon = false;
                 }
+                if (corridorDoorsPowered && !corridorToJanitorDoorOpening && !corridorToJanitorDoorClosing) //probably unnecessary to check for closing and opening here too
+                {
+                    if (corridorToJanitorDoorClosed)
+                    {
+                        StartCoroutine("OuterJanitorDoorOpening");
+                    }
+                    else if (corridorToJanitorDoorClosingSoon)
+                    {
+                        StopCoroutine("DelayedAutomaticCloseOuterJanitor");
+                        corridorToJanitorDoorClosingSoon = false;
+                    }
+                }
             }
             else if (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
             {
-                //show that the key is wrong to the player
+                //show that the key is wrong to the player, play sound
             }
-            if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1
-               && !janitorToCorridorDoorClosing && !janitorToCorridorDoorOpening)
-            {
-                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
-                if (janitorToCorridorDoorClosed)
-                {
-                    //Open Janitor door (from the outside)                                                                        
-                    StartCoroutine("JanitorDoorOpening");
-                }
-                else if (janitorToCorridorDoorClosingSoon) //aka it is open and no correct key in it
-                {
-                    StopCoroutine("DelayedAutomaticCloseJanitor");  //ends the 10 second countdown of door closing
-                    janitorToCorridorDoorClosingSoon = false;
-                }
-            }
-            else if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
-            {
-                //show that the key is wrong to the player
-            }
-
             //check when to close the door (no correct key in either lock)
-            if (janitorToCorridorDoorOpen && !janitorToCorridorDoorClosingSoon 
+            if (janitorToCorridorDoorOpen && !janitorToCorridorDoorClosingSoon
                && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
                && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
             {
                 //waits 10 seconds and then starts closing the door for 3 s
-                StartCoroutine("DelayedAutomaticCloseJanitor");              
+                StartCoroutine("DelayedAutomaticCloseInnerJanitor");
             }
-
+        }
+        //BONSAI DOOR
+        if (bonsaiDoorPowered)
+        {
             if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
                 && !bonsaiToCorridorDoorClosing && !bonsaiToCorridorDoorOpening)
             {
@@ -603,54 +598,49 @@ public class FuseboxFunctionality : MonoBehaviour {
                 if (bonsaiToCorridorDoorClosed)
                 {
                     //Open Bonsai door (from the inside)                                  
-                    StartCoroutine("BonsaiDoorOpening");
+                    StartCoroutine("InnerBonsaiDoorOpening");
                 }
                 else if (bonsaiToCorridorDoorClosingSoon)//aka it is open and no correct key in it
                 {
-                    StopCoroutine("DelayedAutomaticCloseBonsai");  //ends the 10 second countdown of door closing
+                    StopCoroutine("DelayedAutomaticCloseInnerBonsai");  //ends the 10 second countdown of door closing
                     bonsaiToCorridorDoorClosingSoon = false;
+                }
+                if (corridorDoorsPowered && !corridorToBonsaiDoorOpening && !corridorToBonsaiDoorClosing) //probably unnecessary to check for closing and opening here too
+                {
+                    if (corridorToBonsaiDoorClosed)
+                    {
+                        StartCoroutine("OuterBonsaiDoorOpening");
+                    }
+                    else if (corridorToBonsaiDoorClosingSoon)
+                    {
+                        StopCoroutine("DelayedAutomaticCloseOuterBonsai");
+                        corridorToBonsaiDoorClosingSoon = false;
+                    }
                 }
             }
             else if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
             {
                 //show that the key is wrong to the player
-            }
-
-            if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2 
-                && !bonsaiToCorridorDoorClosing && !bonsaiToCorridorDoorOpening)
-            {
-                if (bonsaiToCorridorDoorClosed)
-                {
-                    //Open Bonsai door (from the inside)                                  
-                    StartCoroutine("BonsaiDoorOpening");
-                }
-                else if (bonsaiToCorridorDoorClosingSoon)//aka it is open and no correct key in it
-                {
-                    StopCoroutine("DelayedAutomaticCloseBonsai");  //ends the 10 second countdown of door closing 
-                    bonsaiToCorridorDoorClosingSoon = false;
-                }
-            }
-            else if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-            {
-                //show that the key is wrong to the player
-            }
-
-            if (bonsaiToCorridorDoorOpen && !bonsaiToCorridorDoorClosingSoon 
+            }       
+            if (bonsaiToCorridorDoorOpen && !bonsaiToCorridorDoorClosingSoon
                && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
             {
-                StartCoroutine("DelayedAutomaticCloseBonsai");               
+                StartCoroutine("DelayedAutomaticCloseInnerBonsai");
             }
-
-            //CorridorDoorToMainFacility doesn't need a keycard, only button press
-            //press starts a countdown of 10s, maybe visible in the door/panel? pressing again resets countdown
-            //door has to be fully closed in order to open
+        }
+        //CorridorDoorToMainFacility doesn't need a keycard, only button press
+        //press starts a countdown of 10s, maybe visible in the door/panel? pressing again resets countdown
+        //door has to be fully closed in order to open
+        if (corridorDoorsPowered)
+        {
+            // corridor to MF
             if (CorridorDoorToMainFacilityButton.AtMaxLimit() && !corridorToMFDoorOpening && !corridorToMFDoorClosing)
             {
                 //if closed, then open
                 if (corridorToMFDoorClosed)
-                {                                            
-                    StartCoroutine("CorridorToMFDoorOpening");              
+                {
+                    StartCoroutine("CorridorToMFDoorOpening");
                 }
                 //if open already, then reset door timer
                 else if (corridorToMFDoorClosingSoon)  //the bool doesn't rly do a lot, could remove maybe
@@ -673,14 +663,91 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                 }
             }
-        }
+            //corridor to Janitor
+            if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1 
+                && !corridorToJanitorDoorClosing && !corridorToJanitorDoorOpening)
+            {
+                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
+                if (corridorToJanitorDoorClosed)
+                {
+                    //Open Janitor door (from the outside)                                                                        
+                    StartCoroutine("OuterJanitorDoorOpening");
+                }
+                else if (corridorToJanitorDoorClosingSoon) //aka it is open and no correct key in it
+                {
+                    StopCoroutine("DelayedAutomaticCloseOuterJanitor");  //ends the 10 second countdown of door closing
+                    corridorToJanitorDoorClosingSoon = false;
+                }
+                if (janitorDoorPowered && !janitorToCorridorDoorOpening && !corridorToBonsaiDoorClosing) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
+                {
+                    if (janitorToCorridorDoorClosed)
+                    {
+                        StartCoroutine("InnerJanitorDoorOpening");
+                    }
+                    else if (janitorToCorridorDoorClosingSoon)
+                    {
+                        StopCoroutine("DelayedAutomaticCloseInnerJanitor");
+                        janitorToCorridorDoorClosingSoon = false;
+                    }
+                }
+            }
+            else if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+            {
+                //show that the key is wrong to the player
+            }
+            if (corridorToJanitorDoorOpen && !corridorToJanitorDoorClosingSoon
+               && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+               && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
+            {
+                StartCoroutine("DelayedAutomaticCloseOuterJanitor");
+            }
+            //corridor To Bonsai
+
+            if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
+                && !corridorToBonsaiDoorClosing && !corridorToBonsaiDoorOpening)
+            {
+                //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
+                if (corridorToBonsaiDoorClosed)
+                {
+                    //Open Bonsai door (from the outside)                                                                        
+                    StartCoroutine("OuterBonsaiDoorOpening");
+                }
+                else if (corridorToBonsaiDoorClosingSoon) //aka it is open and no correct key in it
+                {
+                    StopCoroutine("DelayedAutomaticCloseOuterBonsai");  //ends the 10 second countdown of door closing
+                    corridorToBonsaiDoorClosingSoon = false;
+                }
+                if (bonsaiDoorPowered && !bonsaiToCorridorDoorOpening && !corridorToBonsaiDoorClosing) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
+                {
+                    if (bonsaiToCorridorDoorClosed)
+                    {
+                        StartCoroutine("InnerBonsaiDoorOpening");
+                    }
+                    else if (bonsaiToCorridorDoorClosingSoon)
+                    {
+                        StopCoroutine("DelayedAutomaticCloseInnerBonsai");
+                        bonsaiToCorridorDoorClosingSoon = false;
+                    }
+                }
+            }
+            else if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+            {
+                //show that the key is wrong to the player
+            }
+            if (corridorToBonsaiDoorOpen && !corridorToBonsaiDoorClosingSoon
+               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
+            {
+                StartCoroutine("DelayedAutomaticCloseOuterBonsai");
+            }
+        }    
         //in case no power doors get stuck in the position they are in
-        else
-        {
-            //JanitorDoorAnim.SetBool("OPEN", false);
-            //BonsaiDoorAnim.SetBool("OPEN", false);
-            //MainFacilityAndCorridorDoorAnim.SetBool("OPENCORRIDORSIDE", false);
-        }
+        //else
+        //{
+        //    //JanitorDoorAnim.SetBool("OPEN", false);
+        //    //BonsaiDoorAnim.SetBool("OPEN", false);
+        //    //MainFacilityAndCorridorDoorAnim.SetBool("OPENCORRIDORSIDE", false);
+        //}
 
         //MAIN FACILITY DOORS
 
