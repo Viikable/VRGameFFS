@@ -188,11 +188,12 @@ public class OxygenControl : MonoBehaviour {
         if (secondPassed)
         {          
             secondPassed = false;
+            RefreshUnconnectedRooms();
             IsOxygenSpreading();
             DisplayRoomOxygenLevels();
             CheckCurrentRoomOxygenPercentage();
             CheckCurrentOxygenLevelName();
-            PlayerOxygenLevelChanges();
+            PlayerOxygenLevelChanges();            
             StartCoroutine("WaitASecond");
         }
     }
