@@ -188,7 +188,7 @@ public class OxygenControl : MonoBehaviour {
         if (secondPassed)
         {          
             secondPassed = false;
-            RefreshUnconnectedRooms();
+            //RefreshUnconnectedRooms();
             IsOxygenSpreading();
             DisplayRoomOxygenLevels();
             CheckCurrentRoomOxygenPercentage();
