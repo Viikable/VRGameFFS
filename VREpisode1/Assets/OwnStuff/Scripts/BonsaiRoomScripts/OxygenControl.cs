@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -53,6 +54,9 @@ public class OxygenControl : MonoBehaviour {
     [Tooltip("Tells the amount of oxygen in MF lobby.")]
     private float mainFacilityLobbyOxygen;
 
+    [Tooltip("Tells the position in the oxygen amount hierarchy of the MFLobby area.")]
+    private int mfLobbyPositionInOxygenHierarchy;
+
     [Tooltip("Text field for displaying MFLobby oxygen level")]
     private TextMeshPro MFLobbyOxygenDisplay;
 
@@ -65,11 +69,17 @@ public class OxygenControl : MonoBehaviour {
     [Tooltip("Tells the amount of oxygen in Bonsai Room.")]
     private float bonsaiRoomOxygen;
 
+    [Tooltip("Tells the position in the oxygen amount hierarchy of the bonsai room.")]
+    private int bonsaiRoomPositionInOxygenHierarchy;
+
     [Tooltip("Text field for displaying Bonsai oxygen level")]
     private TextMeshPro BonsaiOxygenDisplay;
 
     [Tooltip("Tells the amount of oxygen in Janitor Room.")]
     private float janitorRoomOxygen;
+
+    [Tooltip("Tells the position in the oxygen amount hierarchy of the janitor room.")]
+    private int janitorRoomPositionInOxygenHierarchy;
 
     [Tooltip("Text field for displaying Janitor oxygen level")]
     private TextMeshPro JanitorOxygenDisplay;
@@ -77,11 +87,17 @@ public class OxygenControl : MonoBehaviour {
     [Tooltip("Tells the amount of oxygen in Maintenance Corridor.")]
     private float corridorOxygen;
 
+    [Tooltip("Tells the position in the oxygen amount hierarchy of the corridor.")]
+    private int corridorPositionInOxygenHierarchy;
+
     [Tooltip("Text field for displaying Corridor oxygen level")]
     private TextMeshPro CorridorOxygenDisplay;
 
     [Tooltip("Tells the amount of oxygen in Melter Room.")]
     private float melterRoomOxygen;
+
+    [Tooltip("Tells the position in the oxygen amount hierarchy of the melter room.")]
+    private int melterRoomPositionInOxygenHierarchy;
 
     [Tooltip("Text field for displaying Melter oxygen level")]
     private TextMeshPro MelterOxygenDisplay;
@@ -109,6 +125,9 @@ public class OxygenControl : MonoBehaviour {
 
     [Tooltip("Tells the relative size of the airspace in the maintenance corridor")]
     private float maintenanceCorridorRoomSizeFactorial;
+
+    [Tooltip("The hierarchy of the oxygenLevels, sorted in OxygenSpreads method from least to most relative amount of oxygen.")]
+    private int[] oxygenHierarchy;
 
     public FuseboxFunctionality fuseBox;
     //COLOURS
@@ -145,31 +164,36 @@ public class OxygenControl : MonoBehaviour {
         oxygenSpreadSpeedMFLobby = 0f;
 
         playerOxygen = 120f;
-        currentRoomOxygenPercentage = 100;
-        previousRoomOxygenPercentage = 100;
+        currentRoomOxygenPercentage = 100f;
+        previousRoomOxygenPercentage = 100f;
         secondPassed = true;
 
-        mainFacilityBridgeOxygen = 20;
+        mainFacilityBridgeOxygen = 20f;
         MFBridgeOxygenDisplay = GameObject.Find("MFBridgeOxygenDisplay").GetComponent<TextMeshPro>();
-        mainFacilityLobbyOxygen = 30;
+        mainFacilityLobbyOxygen = 30f;
+        mfLobbyPositionInOxygenHierarchy = 0;
         MFLobbyOxygenDisplay = GameObject.Find("MFLobbyOxygenDisplay").GetComponent<TextMeshPro>();
-        bonsaiRoomOxygen = 40;
+        bonsaiRoomOxygen = 40f;
+        bonsaiRoomPositionInOxygenHierarchy = 0;
         BonsaiOxygenDisplay = GameObject.Find("BonsaiOxygenDisplay").GetComponent<TextMeshPro>();
-        janitorRoomOxygen = 25;
+        janitorRoomOxygen = 25f;
+        janitorRoomPositionInOxygenHierarchy = 0;
         JanitorOxygenDisplay = GameObject.Find("JanitorOxygenDisplay").GetComponent<TextMeshPro>();
-        corridorOxygen = 60;
+        corridorOxygen = 60f;
+        corridorPositionInOxygenHierarchy = 0;
         CorridorOxygenDisplay = GameObject.Find("CorridorOxygenDisplay").GetComponent<TextMeshPro>();
-        melterRoomOxygen = 73;
+        melterRoomOxygen = 73f;
+        melterRoomPositionInOxygenHierarchy = 0;
         MelterOxygenDisplay = GameObject.Find("MelterOxygenDisplay").GetComponent<TextMeshPro>();
-        combinedOxygen = 0;
-        targetOxygenSpreadLevel = 0;
+        combinedOxygen = 0f;
+        targetOxygenSpreadLevel = 0f;
 
-        mainHallLobbyRoomSizeFactorial = 2;
-        mainHallBridgeRoomSizeFactorial = 10; //not used
-        bonsaiRoomSizeFactorial = 8;
-        janitorRoomSizeFactorial = 10;
-        melterRoomSizeFactorial = 6;
-        maintenanceCorridorRoomSizeFactorial = 7;
+        mainHallLobbyRoomSizeFactorial = 2f;
+        mainHallBridgeRoomSizeFactorial = 10f; //not used
+        bonsaiRoomSizeFactorial = 8f;
+        janitorRoomSizeFactorial = 10f;
+        melterRoomSizeFactorial = 6f;
+        maintenanceCorridorRoomSizeFactorial = 7f;
 
         fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
 
@@ -179,6 +203,8 @@ public class OxygenControl : MonoBehaviour {
         yellow = 0f;
         magenta = 0f;
         black = 0f;
+
+        oxygenHierarchy = new int[5];
     }
 
 
@@ -418,24 +444,50 @@ public class OxygenControl : MonoBehaviour {
     //bonsai and some other rooms are connected, remember that rooms can be connected at the same time with others. etc Bonsai+Corridor and Melter+MF
     private void OxygenSpreads(bool bonsaiSpreading, bool janitorSpreading, bool corridorSpreading, bool mfSpreading, bool melterSpreading, float amountOfRooms)
     {
+        //first calculating the order of the currentOxygenPercentages to get the correct targetValues 
+        //setting all positions to zero initially always
+        mfLobbyPositionInOxygenHierarchy = 0;
+        bonsaiRoomPositionInOxygenHierarchy = 0;
+        melterRoomPositionInOxygenHierarchy = 0;
+        corridorPositionInOxygenHierarchy = 0;
+        janitorRoomPositionInOxygenHierarchy = 0;
+
+        //oxygenHierarchy[0] = mfLobbyPositionInOxygenHierarchy;
+        //oxygenHierarchy[1] = bonsaiRoomPositionInOxygenHierarchy;
+        //oxygenHierarchy[2] = melterRoomPositionInOxygenHierarchy;
+        //oxygenHierarchy[3] = corridorPositionInOxygenHierarchy;
+        //oxygenHierarchy[4] = janitorRoomPositionInOxygenHierarchy;
+
+        //checking which place has more air than others the most times       
+        for (int i = 0; i < 5; i++)
+        {
+            if (20f * green > oxygenHierarchy [i])
+            {
+                oxygenHierarchy[0]
+            }
+        }
+
+        Debug.Log(oxygenHierarchy);
+
         //all doors open (highly unlikely case)
         if (bonsaiSpreading && janitorSpreading && corridorSpreading && mfSpreading && melterSpreading)
         {
             if (bonsaiRoomOxygen > 0 || corridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + corridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
+                //checks the current colours in the bonsai light combination, which don't change due to spreading while the oxygenlevels in the rooms do
+                combinedOxygen = 80f * yellow + 70f * black + 100f * magenta + 20f * green + 60f * red;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    ((bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((bonsaiRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedMelter = melterRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + bonsaiRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((melterRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedJanitor = janitorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((janitorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
@@ -486,17 +538,17 @@ public class OxygenControl : MonoBehaviour {
         {
             if (bonsaiRoomOxygen > 0 || corridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + corridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen;
+                combinedOxygen = 80f * yellow + 70f * black + 100f * magenta + 20f * green; 
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    ((bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((bonsaiRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedJanitor = janitorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((janitorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
@@ -538,17 +590,17 @@ public class OxygenControl : MonoBehaviour {
         {
             if (corridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = corridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
+                combinedOxygen = 70f * black + 100f * magenta + 20f * green + 60f * red;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    ((maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedMelter = melterRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((melterRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedJanitor = janitorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((janitorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level           
                 if (janitorRoomOxygen < targetOxygenSpreadLevel)
@@ -590,17 +642,17 @@ public class OxygenControl : MonoBehaviour {
         {
             if (bonsaiRoomOxygen > 0 || corridorOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + corridorOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
+                combinedOxygen = 80f * yellow + 70f * black + 20f * green + 60f * red;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    ((bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((bonsaiRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedMelter = melterRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / (amountOfRooms - 1));              
+                    ((melterRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms);              
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
@@ -644,15 +696,15 @@ public class OxygenControl : MonoBehaviour {
         {
             if (bonsaiRoomOxygen > 0 || corridorOxygen > 0 || janitorRoomOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + corridorOxygen + janitorRoomOxygen;
+                combinedOxygen = 80f * yellow + 70f * black + 100f * magenta; 
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms               
                 oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial /
-                    ((maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));              
+                    ((bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);              
                 oxygenSpreadSpeedJanitor = janitorRoomSizeFactorial /
-                    ((maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((janitorRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
@@ -686,15 +738,15 @@ public class OxygenControl : MonoBehaviour {
         {
             if (corridorOxygen > 0 || janitorRoomOxygen > 0 || mainFacilityLobbyOxygen > 0)
             {
-                combinedOxygen = corridorOxygen + janitorRoomOxygen + mainFacilityLobbyOxygen;
+                combinedOxygen = 70f * black + 100f * magenta + 20f * green; 
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    ((maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / (amountOfRooms - 1));                              
+                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);                              
                 oxygenSpreadSpeedJanitor = janitorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((janitorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial+ janitorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level             
                 if (janitorRoomOxygen < targetOxygenSpreadLevel)
@@ -728,15 +780,15 @@ public class OxygenControl : MonoBehaviour {
         {
             if (bonsaiRoomOxygen > 0 || corridorOxygen > 0 || mainFacilityLobbyOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + corridorOxygen + mainFacilityLobbyOxygen;
+                combinedOxygen = 80f * yellow + 70f * black + 20f * green; 
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    ((bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / (amountOfRooms - 1));              
+                    ((bonsaiRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / amountOfRooms);              
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
@@ -771,15 +823,15 @@ public class OxygenControl : MonoBehaviour {
         {
             if (corridorOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = corridorOxygen + mainFacilityLobbyOxygen + melterRoomOxygen;
+                combinedOxygen = 70f * black + 20f * green + 60f * red;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    ((maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));              
+                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);              
                 oxygenSpreadSpeedMelter = melterRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / (amountOfRooms - 1));              
+                    ((melterRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / amountOfRooms);              
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    ((mainHallLobbyRoomSizeFactorial + melterRoomSizeFactorial) / (amountOfRooms - 1));
+                    ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level               
                 if (corridorOxygen < targetOxygenSpreadLevel)
@@ -813,13 +865,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (corridorOxygen > 0 || mainFacilityLobbyOxygen > 0)
             {
-                combinedOxygen = corridorOxygen + mainFacilityLobbyOxygen;
+                combinedOxygen = 70f * black + 20f * green; 
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    (maintenanceCorridorRoomSizeFactorial / (amountOfRooms - 1));               
+                    (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial / amountOfRooms);               
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    (mainHallLobbyRoomSizeFactorial / (amountOfRooms - 1));
+                    (maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level              
                 if (corridorOxygen < targetOxygenSpreadLevel)
@@ -850,13 +902,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = mainFacilityLobbyOxygen + melterRoomOxygen;
+                combinedOxygen = 20f * green + 60f * red;
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
-                    (melterRoomSizeFactorial / (amountOfRooms - 1));                
+                    (mainHallLobbyRoomSizeFactorial + melterRoomSizeFactorial / amountOfRooms);                
                 oxygenSpreadSpeedMelter = melterRoomSizeFactorial /
-                    (mainHallLobbyRoomSizeFactorial / (amountOfRooms - 1));                
+                    (melterRoomSizeFactorial + mainHallLobbyRoomSizeFactorial / amountOfRooms);                
                 //checks whether increasing or decreasing the oxygen level               
                 if (mainFacilityLobbyOxygen < targetOxygenSpreadLevel)
                 {
@@ -881,13 +933,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (corridorOxygen > 0 || janitorRoomOxygen > 0)
             {
-                combinedOxygen = corridorOxygen + janitorRoomOxygen;
+                combinedOxygen = 70f * black + 100f * magenta; 
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms               
                 oxygenSpreadSpeedJanitor = janitorRoomSizeFactorial /
-                    (maintenanceCorridorRoomSizeFactorial / (amountOfRooms - 1));
+                    (janitorRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    (janitorRoomSizeFactorial / (amountOfRooms - 1));
+                    (maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial / amountOfRooms);
 
                 //checks whether increasing or decreasing the oxygen level             
                 if (janitorRoomOxygen < targetOxygenSpreadLevel)
@@ -913,13 +965,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (bonsaiRoomOxygen > 0 || corridorOxygen > 0)
             {
-                combinedOxygen = bonsaiRoomOxygen + corridorOxygen;
+                combinedOxygen = 80f * yellow + 70f * black; 
                 targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms               
                 oxygenSpreadSpeedBonsai = bonsaiRoomSizeFactorial /
-                    (maintenanceCorridorRoomSizeFactorial / (amountOfRooms - 1));               
+                    (bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial / amountOfRooms);               
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
-                    (bonsaiRoomSizeFactorial / (amountOfRooms - 1));
+                    (maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial / amountOfRooms);
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
                 {

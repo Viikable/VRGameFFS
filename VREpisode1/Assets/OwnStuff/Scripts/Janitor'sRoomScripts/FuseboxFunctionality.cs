@@ -207,6 +207,9 @@ public class FuseboxFunctionality : MonoBehaviour {
         janitorToCorridorDoorOpen = false;
         janitorToCorridorDoorClosed = true;
 
+        corridorToJanitorDoorClosed = true;
+        corridorToJanitorDoorOpen = false;
+
         janitorToCorridorDoorOpening = false;
         corridorToJanitorDoorOpening = false;
 
