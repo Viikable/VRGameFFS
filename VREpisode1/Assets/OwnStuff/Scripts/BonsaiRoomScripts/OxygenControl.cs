@@ -463,7 +463,7 @@ public class OxygenControl : MonoBehaviour {
         {
             if (20f * green > oxygenHierarchy [i])
             {
-                oxygenHierarchy[0]
+                //oxygenHierarchy[0];
             }
         }
 
