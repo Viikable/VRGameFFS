@@ -903,8 +903,7 @@ public class OxygenControl : MonoBehaviour {
         {
             if (corridorOxygen > 0 || mainFacilityLobbyOxygen > 0 || melterRoomOxygen > 0)
             {
-                combinedOxygen = 70f * black + 20f * green + 60f * red;
-                targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
+                combinedOxygen = 70f * black + 20f * green + 60f * red;               
                 //the spreadspeed is the room's factorial divided by the mean of the other connected rooms
                 oxygenSpreadSpeedMFLobby = mainHallLobbyRoomSizeFactorial /
                     ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);              
@@ -913,6 +912,8 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
+
+                targetOxygenSpreadLevel = ;
                 //checks whether increasing or decreasing the oxygen level               
                 if (corridorOxygen < targetOxygenSpreadLevel)
                 {
