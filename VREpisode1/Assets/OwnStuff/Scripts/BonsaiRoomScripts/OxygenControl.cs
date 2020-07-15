@@ -567,9 +567,14 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
-                //20f * green + oxygenSpreadSpeedMFLobby * secondsToSpread == 80f * yellow + oxygenSpreadSpeedBonsai * secondsToSpread;
-                targetOxygenSpreadLevel = combinedOxygen / amountOfRooms;
-
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / bonsaiRoomSizeFactorial * 80f * yellow
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / melterRoomSizeFactorial * 60f * red
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / janitorRoomSizeFactorial * 100f * magenta)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
+                Debug.Log(targetOxygenSpreadLevel + "allopenspread");
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
                 {
@@ -631,6 +636,13 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
 
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / bonsaiRoomSizeFactorial * 80f * yellow
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / janitorRoomSizeFactorial * 100f * magenta)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
+
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
                 {
@@ -682,6 +694,13 @@ public class OxygenControl : MonoBehaviour {
                     ((janitorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
+
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / janitorRoomSizeFactorial * 100f * magenta
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / melterRoomSizeFactorial * 60f * red)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
 
                 //checks whether increasing or decreasing the oxygen level           
                 if (janitorRoomOxygen < targetOxygenSpreadLevel)
@@ -735,6 +754,13 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / bonsaiRoomSizeFactorial * 80f * yellow
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / melterRoomSizeFactorial * 60f * red)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
+
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
                 {
@@ -787,6 +813,12 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
 
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / bonsaiRoomSizeFactorial * 80f * yellow
+                    + (bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (bonsaiRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / janitorRoomSizeFactorial * 100f * magenta)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
+
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
                 {
@@ -828,6 +860,12 @@ public class OxygenControl : MonoBehaviour {
                     ((janitorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial) / amountOfRooms);
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms);
+
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + janitorRoomSizeFactorial) / amountOfRooms / janitorRoomSizeFactorial * 100f * magenta)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
 
                 //checks whether increasing or decreasing the oxygen level             
                 if (janitorRoomOxygen < targetOxygenSpreadLevel)
@@ -871,6 +909,12 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms);
 
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial) / amountOfRooms / bonsaiRoomSizeFactorial * 80f * yellow)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
+
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)
                 {
@@ -912,8 +956,12 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
-
-                targetOxygenSpreadLevel = ;
+                                            //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green 
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
+                    + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / melterRoomSizeFactorial * 60f * black)
+                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
+                Debug.Log(targetOxygenSpreadLevel);
                 //checks whether increasing or decreasing the oxygen level               
                 if (corridorOxygen < targetOxygenSpreadLevel)
                 {

@@ -184,6 +184,9 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     void Start () {
 
+        BridgeTerminal = GameObject.Find("BRIDGE").GetComponentInChildren<BridgeKeyConfiguration>();
+        MelterTerminal = GameObject.Find("MelterTerminal").GetComponent<KeyboardMappings>();
+
         //Maintenance
         MaintenanceCorridorLights = transform.Find("MaintenanceCorridorLights").GetComponent<VRTK_SnapDropZone>();
         BonsaiLights = transform.Find("BonsaiLights").GetComponent<VRTK_SnapDropZone>();
