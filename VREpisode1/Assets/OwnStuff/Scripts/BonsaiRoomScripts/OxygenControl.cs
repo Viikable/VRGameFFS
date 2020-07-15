@@ -170,7 +170,7 @@ public class OxygenControl : MonoBehaviour {
 
         mainFacilityBridgeOxygen = 0f;
         MFBridgeOxygenDisplay = GameObject.Find("MFBridgeOxygenDisplay").GetComponent<TextMeshPro>();
-        mainFacilityLobbyOxygen = 40f;
+        mainFacilityLobbyOxygen = 20f;
         mfLobbyPositionInOxygenHierarchy = 0;
         MFLobbyOxygenDisplay = GameObject.Find("MFLobbyOxygenDisplay").GetComponent<TextMeshPro>();
         bonsaiRoomOxygen = 0f;
@@ -182,7 +182,7 @@ public class OxygenControl : MonoBehaviour {
         corridorOxygen = 0f;
         corridorPositionInOxygenHierarchy = 0;
         CorridorOxygenDisplay = GameObject.Find("CorridorOxygenDisplay").GetComponent<TextMeshPro>();
-        melterRoomOxygen = 60f;
+        melterRoomOxygen = 0f;
         melterRoomPositionInOxygenHierarchy = 0;
         MelterOxygenDisplay = GameObject.Find("MelterOxygenDisplay").GetComponent<TextMeshPro>();
         combinedOxygen = 0f;
@@ -197,8 +197,8 @@ public class OxygenControl : MonoBehaviour {
 
         fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
 
-        green = 2f;
-        red = 1f;
+        green = 1f;
+        red = 0f;
         blue = 0f;
         yellow = 0f;
         magenta = 0f;
@@ -452,12 +452,6 @@ public class OxygenControl : MonoBehaviour {
         corridorPositionInOxygenHierarchy = 0;
         janitorRoomPositionInOxygenHierarchy = 0;
 
-        //oxygenHierarchy[0] = mfLobbyPositionInOxygenHierarchy;
-        //oxygenHierarchy[1] = bonsaiRoomPositionInOxygenHierarchy;
-        //oxygenHierarchy[2] = melterRoomPositionInOxygenHierarchy;
-        //oxygenHierarchy[3] = corridorPositionInOxygenHierarchy;
-        //oxygenHierarchy[4] = janitorRoomPositionInOxygenHierarchy;
-
         //checking which place has more air than others the most times       
         //mfposition
         if (20f * green > 80f * yellow)
@@ -567,13 +561,13 @@ public class OxygenControl : MonoBehaviour {
                 oxygenSpreadSpeedCorridor = maintenanceCorridorRoomSizeFactorial /
                     ((maintenanceCorridorRoomSizeFactorial + mainHallLobbyRoomSizeFactorial + bonsaiRoomSizeFactorial + janitorRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms);
 
-                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms +1)
+                //CALCULATES THE ESTIMATED COMBINED AMOUNT OF OXYGEN BASED ON THE ROOM SIZES AND THEN DIVIDES IT WITH THE ESTIMATE OF (amountOfRooms)
                 targetOxygenSpreadLevel = ((mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / mainHallLobbyRoomSizeFactorial * 20f * green
                     + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / maintenanceCorridorRoomSizeFactorial * 70f * black
                     + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / bonsaiRoomSizeFactorial * 80f * yellow
                     + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / melterRoomSizeFactorial * 60f * red
                     + (mainHallLobbyRoomSizeFactorial + maintenanceCorridorRoomSizeFactorial + bonsaiRoomSizeFactorial + melterRoomSizeFactorial) / amountOfRooms / janitorRoomSizeFactorial * 100f * magenta)
-                    / (amountOfRooms + 1);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
+                    / (amountOfRooms);  //LAST DIVIDER IS AN ESTIMATE WHICH SEEMS TO BE AROUND THE CORRECT LINES
                 Debug.Log(targetOxygenSpreadLevel + "allopenspread");
                 //checks whether increasing or decreasing the oxygen level
                 if (bonsaiRoomOxygen < targetOxygenSpreadLevel)

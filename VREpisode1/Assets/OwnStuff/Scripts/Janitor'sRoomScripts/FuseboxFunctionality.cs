@@ -226,7 +226,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         CorridorDoorToBonsaiSnapZone = GameObject.Find("BonsaiDoorOuterSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
 
         bonsaiToCorridorDoorOpen = false;
+        corridorToBonsaiDoorOpen = false;
+
         bonsaiToCorridorDoorClosed = true;
+        corridorToBonsaiDoorClosed = true;
 
         bonsaiToCorridorDoorOpening = false;
         corridorToBonsaiDoorOpening = false;
