@@ -97,7 +97,13 @@ public class OxygenControl : MonoBehaviour {
     private int corridorPositionInOxygenHierarchy;
 
     [Tooltip("Text field for displaying Corridor oxygen level")]
-    private TextMeshPro CorridorOxygenDisplay;
+    private TextMeshPro CorridorOxygenDisplayMFLobby;
+
+    [Tooltip("Text field for displaying Corridor oxygen level")]
+    private TextMeshPro CorridorOxygenDisplayJanitor;
+
+    [Tooltip("Text field for displaying Corridor oxygen level")]
+    private TextMeshPro CorridorOxygenDisplayBonsai;
 
     [Tooltip("Tells the amount of oxygen in Melter Room.")]
     private float melterRoomOxygen;
@@ -192,7 +198,9 @@ public class OxygenControl : MonoBehaviour {
         JanitorOxygenDisplay = GameObject.Find("JanitorOxygenDisplay").GetComponent<TextMeshPro>();
         corridorOxygen = 0f;
         corridorPositionInOxygenHierarchy = 0;
-        CorridorOxygenDisplay = GameObject.Find("CorridorOxygenDisplay").GetComponent<TextMeshPro>();
+        CorridorOxygenDisplayMFLobby = GameObject.Find("CorridorOxygenDisplayMFLobby").GetComponent<TextMeshPro>();
+        CorridorOxygenDisplayJanitor = GameObject.Find("CorridorOxygenDisplayJanitor").GetComponent<TextMeshPro>();
+        CorridorOxygenDisplayBonsai = GameObject.Find("CorridorOxygenDisplayBonsai").GetComponent<TextMeshPro>();
         melterRoomOxygen = 220f;
         melterRoomPositionInOxygenHierarchy = 0;
         MelterOxygenDisplay = GameObject.Find("MelterOxygenDisplay").GetComponent<TextMeshPro>();
@@ -1177,7 +1185,9 @@ public class OxygenControl : MonoBehaviour {
         BonsaiOxygenDisplay.text = bonsaiRoomOxygen.ToString("#.00");
         MelterOxygenDisplay.text = melterRoomOxygen.ToString("#.00");
         JanitorOxygenDisplay.text = janitorRoomOxygen.ToString("#.00");
-        CorridorOxygenDisplay.text = corridorOxygen.ToString("#.00");
+        CorridorOxygenDisplayMFLobby.text = corridorOxygen.ToString("#.00");
+        CorridorOxygenDisplayJanitor.text = corridorOxygen.ToString("#.00");
+        CorridorOxygenDisplayBonsai.text = corridorOxygen.ToString("#.00");
 
         if (mainFacilityLobbyOxygen <= 25)
         {
@@ -1321,31 +1331,45 @@ public class OxygenControl : MonoBehaviour {
 
         if (corridorOxygen <= 25)
         {
-            CorridorOxygenDisplay.color = Color.red;
+            CorridorOxygenDisplayMFLobby.color = Color.red;
+            CorridorOxygenDisplayJanitor.color = Color.red;
+            CorridorOxygenDisplayBonsai.color = Color.red;
         }
         else if (corridorOxygen > 25 && corridorOxygen < 50)
         {
-            CorridorOxygenDisplay.color = Color.yellow;
+            CorridorOxygenDisplayMFLobby.color = Color.yellow;
+            CorridorOxygenDisplayJanitor.color = Color.yellow;
+            CorridorOxygenDisplayBonsai.color = Color.yellow;
         }
         else if (corridorOxygen >= 50 && corridorOxygen <= 75)
         {
-            CorridorOxygenDisplay.color = Color.green;
+            CorridorOxygenDisplayMFLobby.color = Color.green;
+            CorridorOxygenDisplayJanitor.color = Color.green;
+            CorridorOxygenDisplayBonsai.color = Color.green;
         }
         else if (corridorOxygen > 75 && corridorOxygen <= 125)
         {
-            CorridorOxygenDisplay.color = Color.blue;
+            CorridorOxygenDisplayMFLobby.color = Color.blue;
+            CorridorOxygenDisplayJanitor.color = Color.blue;
+            CorridorOxygenDisplayBonsai.color = Color.blue;
         }
         else if (corridorOxygen > 125 && corridorOxygen <= 175)
         {
-            CorridorOxygenDisplay.color = Color.cyan;
+            CorridorOxygenDisplayMFLobby.color = Color.cyan;
+            CorridorOxygenDisplayJanitor.color = Color.cyan;
+            CorridorOxygenDisplayBonsai.color = Color.cyan;
         }
         else if (corridorOxygen > 175 && corridorOxygen <= 250)
         {
-            CorridorOxygenDisplay.color = Color.white;
+            CorridorOxygenDisplayMFLobby.color = Color.white;
+            CorridorOxygenDisplayJanitor.color = Color.white;
+            CorridorOxygenDisplayBonsai.color = Color.white;
         }
         else if (corridorOxygen > 250)
         {
-            CorridorOxygenDisplay.color = Color.black;
+            CorridorOxygenDisplayMFLobby.color = Color.black;
+            CorridorOxygenDisplayJanitor.color = Color.black;
+            CorridorOxygenDisplayBonsai.color = Color.black;
         }
 
     }
