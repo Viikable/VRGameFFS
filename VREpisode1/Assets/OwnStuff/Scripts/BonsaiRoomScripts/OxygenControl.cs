@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering.PostProcessing;
 
 public class OxygenControl : MonoBehaviour {
+
+    PostProcessVolume GlobalPP;
 
     [Tooltip("Tells how much oxygen there is in the current room as a percentage right now")]
     float currentRoomOxygenPercentage;
@@ -169,6 +172,8 @@ public class OxygenControl : MonoBehaviour {
 
     private void Awake()
     {
+        GlobalPP = GameObject.Find("GlobalPostProcessing").GetComponent<PostProcessVolume>();
+
         defaultOxygenSpreadSpeedFactor = 2;
         currentOxygenLevel = OxygenLevelName.Safe;
 
@@ -1412,7 +1417,7 @@ public class OxygenControl : MonoBehaviour {
 
         if (currentRoomOxygenPercentage > 250f)
         {
-            currentOxygenLevel = OxygenLevelName.SlightOverpressure;
+            currentOxygenLevel = OxygenLevelName.SeriousOverpressure;
             playerOxygen = 120f;
         }
         if (currentRoomOxygenPercentage > 175f && currentRoomOxygenPercentage <= 250f)
@@ -1492,11 +1497,26 @@ public class OxygenControl : MonoBehaviour {
         else if (currentOxygenLevel == OxygenLevelName.Alarming)
         {
             //cough harder and start fading the vision but not completely
+            BoolParameter @true = new BoolParameter();
+            @true.value = true;
+            GlobalPP.profile.AddSettings<Vignette>().enabled = @true;
         }
         else if (currentOxygenLevel == OxygenLevelName.Deadly)
         {
             //cough like the dying and start completely losing vision for longer and longer times, also add motion blur and pixelation effects
-        }      
+        }
+        else if (currentOxygenLevel == OxygenLevelName.SlightOverpressure)
+        {
+            //Some slight effect dizzying?
+        }
+        else if (currentOxygenLevel == OxygenLevelName.MediumOverpressure)
+        {
+            //getting really dizzy
+        }
+        else if (currentOxygenLevel == OxygenLevelName.SeriousOverpressure)
+        {
+            //MAXIMUM HIGH
+        }
     }
 
     //this method check whether any of the rooms are not currently connected and gradually sets their oxygen levels towards their own values defined in the Bonsai Room
