@@ -58,7 +58,13 @@ public class OxygenControl : MonoBehaviour {
     private int mfLobbyPositionInOxygenHierarchy;
 
     [Tooltip("Text field for displaying MFLobby oxygen level")]
-    private TextMeshPro MFLobbyOxygenDisplay;
+    private TextMeshPro MFLobbyOxygenDisplayMelter;
+
+    [Tooltip("Text field for displaying MFLobby oxygen level")]
+    private TextMeshPro MFLobbyOxygenDisplayBridge;
+
+    [Tooltip("Text field for displaying MFLobby oxygen level")]
+    private TextMeshPro MFLobbyOxygenDisplayCorridor;
 
     [Tooltip("Tells the amount of oxygen in MF Bridge.")]
     private float mainFacilityBridgeOxygen;
@@ -146,6 +152,9 @@ public class OxygenControl : MonoBehaviour {
     //these are the four possible oxygen levels in an area
     public enum OxygenLevelName
     {
+        SeriousOverpressure,
+        MediumOverpressure,
+        SlightOverpressure,
         Safe,
         Okay,
         Alarming,
@@ -170,19 +179,21 @@ public class OxygenControl : MonoBehaviour {
 
         mainFacilityBridgeOxygen = 0f;
         MFBridgeOxygenDisplay = GameObject.Find("MFBridgeOxygenDisplay").GetComponent<TextMeshPro>();
-        mainFacilityLobbyOxygen = 20f;
+        mainFacilityLobbyOxygen = 0f;
         mfLobbyPositionInOxygenHierarchy = 0;
-        MFLobbyOxygenDisplay = GameObject.Find("MFLobbyOxygenDisplay").GetComponent<TextMeshPro>();
+        MFLobbyOxygenDisplayMelter = GameObject.Find("MFLobbyOxygenDisplayMelter").GetComponent<TextMeshPro>();
+        MFLobbyOxygenDisplayBridge = GameObject.Find("MFLobbyOxygenDisplayBridge").GetComponent<TextMeshPro>();
+        MFLobbyOxygenDisplayCorridor = GameObject.Find("MFLobbyOxygenDisplayCorridor").GetComponent<TextMeshPro>();
         bonsaiRoomOxygen = 0f;
         bonsaiRoomPositionInOxygenHierarchy = 0;
         BonsaiOxygenDisplay = GameObject.Find("BonsaiOxygenDisplay").GetComponent<TextMeshPro>();
-        janitorRoomOxygen = 0f;
+        janitorRoomOxygen = 45f;
         janitorRoomPositionInOxygenHierarchy = 0;
         JanitorOxygenDisplay = GameObject.Find("JanitorOxygenDisplay").GetComponent<TextMeshPro>();
         corridorOxygen = 0f;
         corridorPositionInOxygenHierarchy = 0;
         CorridorOxygenDisplay = GameObject.Find("CorridorOxygenDisplay").GetComponent<TextMeshPro>();
-        melterRoomOxygen = 0f;
+        melterRoomOxygen = 220f;
         melterRoomPositionInOxygenHierarchy = 0;
         MelterOxygenDisplay = GameObject.Find("MelterOxygenDisplay").GetComponent<TextMeshPro>();
         combinedOxygen = 0f;
@@ -197,11 +208,11 @@ public class OxygenControl : MonoBehaviour {
 
         fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
 
-        green = 1f;
-        red = 0f;
+        green = 0f;
+        red = 3f;
         blue = 0f;
         yellow = 0f;
-        magenta = 0f;
+        magenta = 2f;
         black = 0f;
 
         oxygenHierarchy = new int[5];
@@ -214,7 +225,7 @@ public class OxygenControl : MonoBehaviour {
         if (secondPassed)
         {          
             secondPassed = false;
-            //RefreshUnconnectedRooms();
+            RefreshUnconnectedRooms();
             IsOxygenSpreading();
             DisplayRoomOxygenLevels();
             CheckCurrentRoomOxygenPercentage();
@@ -1159,7 +1170,9 @@ public class OxygenControl : MonoBehaviour {
 
     private void DisplayRoomOxygenLevels()
     {
-        MFLobbyOxygenDisplay.text = mainFacilityLobbyOxygen.ToString("#.00");
+        MFLobbyOxygenDisplayMelter.text = mainFacilityLobbyOxygen.ToString("#.00");
+        MFLobbyOxygenDisplayBridge.text = mainFacilityLobbyOxygen.ToString("#.00");
+        MFLobbyOxygenDisplayCorridor.text = mainFacilityLobbyOxygen.ToString("#.00");
         MFBridgeOxygenDisplay.text = mainFacilityBridgeOxygen.ToString("#.00");
         BonsaiOxygenDisplay.text = bonsaiRoomOxygen.ToString("#.00");
         MelterOxygenDisplay.text = melterRoomOxygen.ToString("#.00");
@@ -1168,20 +1181,29 @@ public class OxygenControl : MonoBehaviour {
 
         if (mainFacilityLobbyOxygen <= 25)
         {
-            MFLobbyOxygenDisplay.color = Color.red;
+            MFLobbyOxygenDisplayMelter.color = Color.red;
+            MFLobbyOxygenDisplayBridge.color = Color.red;
+            MFLobbyOxygenDisplayCorridor.color = Color.red;
         }
         else if (mainFacilityLobbyOxygen > 25 && mainFacilityLobbyOxygen < 50)
         {
-            MFLobbyOxygenDisplay.color = Color.yellow;
+            MFLobbyOxygenDisplayMelter.color = Color.yellow;
+            MFLobbyOxygenDisplayBridge.color = Color.yellow;
+            MFLobbyOxygenDisplayCorridor.color = Color.yellow;
         }
         else if (mainFacilityLobbyOxygen >= 50 && mainFacilityLobbyOxygen <= 75)
         {
-            MFLobbyOxygenDisplay.color = Color.green;
+            MFLobbyOxygenDisplayMelter.color = Color.green;
+            MFLobbyOxygenDisplayBridge.color = Color.green;
+            MFLobbyOxygenDisplayCorridor.color = Color.green;
         }
-        else if (mainFacilityLobbyOxygen > 75)
+        else if (mainFacilityLobbyOxygen > 75 && mainFacilityLobbyOxygen <= 125)
         {
-            MFLobbyOxygenDisplay.color = Color.blue;
+            MFLobbyOxygenDisplayMelter.color = Color.blue;
+            MFLobbyOxygenDisplayBridge.color = Color.blue;
+            MFLobbyOxygenDisplayCorridor.color = Color.blue;
         }
+        //MF lobby max oxygen is 80f
 
         if (mainFacilityBridgeOxygen <= 25)
         {
@@ -1195,9 +1217,21 @@ public class OxygenControl : MonoBehaviour {
         {
             MFBridgeOxygenDisplay.color = Color.green;
         }
-        else if (mainFacilityBridgeOxygen > 75)
+        else if (mainFacilityBridgeOxygen > 75 && mainFacilityBridgeOxygen <= 125)
         {
             MFBridgeOxygenDisplay.color = Color.blue;
+        }
+        else if (mainFacilityBridgeOxygen > 125 && mainFacilityBridgeOxygen <= 175)
+        {
+            MFBridgeOxygenDisplay.color = Color.cyan;
+        }
+        else if (mainFacilityBridgeOxygen > 175 && mainFacilityBridgeOxygen <= 250)
+        {
+            MFBridgeOxygenDisplay.color = Color.white;
+        }
+        else if (mainFacilityBridgeOxygen > 250)
+        {
+            MFBridgeOxygenDisplay.color = Color.black;
         }
 
         if (bonsaiRoomOxygen <= 25)
@@ -1212,10 +1246,23 @@ public class OxygenControl : MonoBehaviour {
         {
             BonsaiOxygenDisplay.color = Color.green;
         }
-        else if (bonsaiRoomOxygen > 75)
+        else if (bonsaiRoomOxygen > 75 && bonsaiRoomOxygen <= 125)
         {
             BonsaiOxygenDisplay.color = Color.blue;
         }
+        else if (bonsaiRoomOxygen > 125 && bonsaiRoomOxygen <= 175)
+        {
+            BonsaiOxygenDisplay.color = Color.cyan;
+        }
+        else if (bonsaiRoomOxygen > 175 && bonsaiRoomOxygen <= 250)
+        {
+            BonsaiOxygenDisplay.color = Color.white;
+        }
+        else if (bonsaiRoomOxygen > 250)
+        {
+            BonsaiOxygenDisplay.color = Color.black;
+        }
+
 
         if (melterRoomOxygen <= 25)
         {
@@ -1229,10 +1276,19 @@ public class OxygenControl : MonoBehaviour {
         {
             MelterOxygenDisplay.color = Color.green;
         }
-        else if (melterRoomOxygen > 75)
+        else if (melterRoomOxygen > 75 && melterRoomOxygen <= 125)
         {
             MelterOxygenDisplay.color = Color.blue;
         }
+        else if (melterRoomOxygen > 125 && melterRoomOxygen <= 175)
+        {
+            MelterOxygenDisplay.color = Color.cyan;
+        }
+        else if (melterRoomOxygen > 175 && melterRoomOxygen <= 250)
+        {
+            MelterOxygenDisplay.color = Color.white;
+        }
+       // max 240f
 
         if (janitorRoomOxygen <= 25)
         {
@@ -1246,9 +1302,21 @@ public class OxygenControl : MonoBehaviour {
         {
             JanitorOxygenDisplay.color = Color.green;
         }
-        else if (janitorRoomOxygen > 75)
+        else if (janitorRoomOxygen > 75 && janitorRoomOxygen <= 125)
         {
             JanitorOxygenDisplay.color = Color.blue;
+        }
+        else if (janitorRoomOxygen > 125 && janitorRoomOxygen <= 175)
+        {
+            JanitorOxygenDisplay.color = Color.cyan;
+        }
+        else if (janitorRoomOxygen > 175 && janitorRoomOxygen <= 250)
+        {
+            JanitorOxygenDisplay.color = Color.white;
+        }
+        else if (janitorRoomOxygen > 250)
+        {
+            JanitorOxygenDisplay.color = Color.black;
         }
 
         if (corridorOxygen <= 25)
@@ -1263,9 +1331,21 @@ public class OxygenControl : MonoBehaviour {
         {
             CorridorOxygenDisplay.color = Color.green;
         }
-        else if (corridorOxygen > 75)
+        else if (corridorOxygen > 75 && corridorOxygen <= 125)
         {
             CorridorOxygenDisplay.color = Color.blue;
+        }
+        else if (corridorOxygen > 125 && corridorOxygen <= 175)
+        {
+            CorridorOxygenDisplay.color = Color.cyan;
+        }
+        else if (corridorOxygen > 175 && corridorOxygen <= 250)
+        {
+            CorridorOxygenDisplay.color = Color.white;
+        }
+        else if (corridorOxygen > 250)
+        {
+            CorridorOxygenDisplay.color = Color.black;
         }
 
     }
@@ -1306,27 +1386,43 @@ public class OxygenControl : MonoBehaviour {
         //to be able to start the indicators when oxygen level changes
         previousOxygenLevel = currentOxygenLevel;
 
-        if (currentRoomOxygenPercentage > 75)
+        if (currentRoomOxygenPercentage > 250f)
+        {
+            currentOxygenLevel = OxygenLevelName.SlightOverpressure;
+            playerOxygen = 120f;
+        }
+        if (currentRoomOxygenPercentage > 175f && currentRoomOxygenPercentage <= 250f)
+        {
+            currentOxygenLevel = OxygenLevelName.MediumOverpressure;
+            playerOxygen = 120f;
+        }
+        else if (currentRoomOxygenPercentage > 125f && currentRoomOxygenPercentage <= 175f)
+        {
+            currentOxygenLevel = OxygenLevelName.SlightOverpressure;
+            playerOxygen = 120f;
+
+        }
+        else if (currentRoomOxygenPercentage > 75f && currentRoomOxygenPercentage <= 125f)
         {
             //resets oxygen level to max if this level is reached
             currentOxygenLevel = OxygenLevelName.Safe;
             playerOxygen = 120f;         
         }
-        else if (currentRoomOxygenPercentage <= 75 && currentRoomOxygenPercentage >= 50)
+        else if (currentRoomOxygenPercentage <= 75f && currentRoomOxygenPercentage >= 50f)
         {
             currentOxygenLevel = OxygenLevelName.Okay;         
             oxygenLevelLowersFactorial = 0.25f;
             oxygenLevelIncreasesFactorial = 0.75f;
             oxygenLevelStaysFactorial = 0f;
         }
-        else if (currentRoomOxygenPercentage < 50 && currentRoomOxygenPercentage > 25)
+        else if (currentRoomOxygenPercentage < 50f && currentRoomOxygenPercentage > 25f)
         {
             currentOxygenLevel = OxygenLevelName.Alarming;           
             oxygenLevelLowersFactorial = 0.5f;
             oxygenLevelIncreasesFactorial = 0.5f;
             oxygenLevelStaysFactorial = 0.25f;
         }
-        else if (currentRoomOxygenPercentage <= 25)
+        else if (currentRoomOxygenPercentage <= 25f)
         {
             currentOxygenLevel = OxygenLevelName.Deadly;            
             oxygenLevelLowersFactorial = 0.75f;
@@ -1337,8 +1433,9 @@ public class OxygenControl : MonoBehaviour {
     // the changing speed of oxygen levels only affects how quickly the OxygenLevelName changes, the individual changing speed does not affect otherwise to the player's remaining oxygen
     private void PlayerOxygenLevelChanges()
     {
-        //player's oxygen changing speed if oxygen percentage in the room is currently changing and not Safe
-        if (previousRoomOxygenPercentage != currentRoomOxygenPercentage && currentOxygenLevel != OxygenLevelName.Safe)
+        //player's oxygen changing speed if oxygen percentage in the room is currently changing and not Safe or overpressured
+        if (previousRoomOxygenPercentage != currentRoomOxygenPercentage && currentOxygenLevel != OxygenLevelName.Safe 
+            && currentOxygenLevel != OxygenLevelName.SlightOverpressure && currentOxygenLevel != OxygenLevelName.MediumOverpressure && currentOxygenLevel != OxygenLevelName.SeriousOverpressure)
         {
             if (currentRoomOxygenPercentage < previousRoomOxygenPercentage)
             {              
@@ -1349,8 +1446,9 @@ public class OxygenControl : MonoBehaviour {
                 playerOxygen -= 1 - oxygenLevelIncreasesFactorial + oxygenLevelStaysFactorial;             
             }
         }
-        //here we check the player's oxygen changing speed if the oxygen percentage in the room is not changing currently and not Safe
-        else if (previousRoomOxygenPercentage == currentRoomOxygenPercentage && currentOxygenLevel != OxygenLevelName.Safe)
+        //here we check the player's oxygen changing speed if the oxygen percentage in the room is not changing currently and not Safe or overpressured
+        else if (previousRoomOxygenPercentage == currentRoomOxygenPercentage && currentOxygenLevel != OxygenLevelName.Safe 
+            && currentOxygenLevel != OxygenLevelName.SlightOverpressure && currentOxygenLevel != OxygenLevelName.MediumOverpressure && currentOxygenLevel != OxygenLevelName.SeriousOverpressure)
         {
             //this causes for example that the oxygen in a Deadly area drains 50% faster than in an Okay area
             playerOxygen -= 1 + oxygenLevelStaysFactorial;
@@ -1374,7 +1472,7 @@ public class OxygenControl : MonoBehaviour {
         else if (currentOxygenLevel == OxygenLevelName.Deadly)
         {
             //cough like the dying and start completely losing vision for longer and longer times, also add motion blur and pixelation effects
-        }
+        }      
     }
 
     //this method check whether any of the rooms are not currently connected and gradually sets their oxygen levels towards their own values defined in the Bonsai Room
@@ -1387,13 +1485,13 @@ public class OxygenControl : MonoBehaviour {
             //this checks that the current oxygen isn't less than the base value
             if (janitorRoomOxygen < 100f * magenta)
             {
-                if (janitorRoomOxygen <= (100f - janitorRoomSizeFactorial))
+                if (janitorRoomOxygen <= (100f * magenta - janitorRoomSizeFactorial))
                 {
                     janitorRoomOxygen += janitorRoomSizeFactorial;
                 }
                 else
                 {
-                    janitorRoomOxygen = 100f;
+                    janitorRoomOxygen = 100f * magenta;
                 }
             }
             else if (janitorRoomOxygen > 100f * magenta)
@@ -1413,13 +1511,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (bonsaiRoomOxygen < 80f * yellow)
             {
-                if (bonsaiRoomOxygen <= (100f - bonsaiRoomSizeFactorial))
+                if (bonsaiRoomOxygen <= (80f * yellow - bonsaiRoomSizeFactorial))
                 {
                     bonsaiRoomOxygen += bonsaiRoomSizeFactorial;
                 }
                 else
                 {
-                    bonsaiRoomOxygen = 100f;
+                    bonsaiRoomOxygen = 80f * yellow;
                 }
             }
             else if (bonsaiRoomOxygen > 80f * yellow)
@@ -1439,13 +1537,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (melterRoomOxygen < 60f * red)
             {
-                if (melterRoomOxygen <= (100f - melterRoomSizeFactorial))
+                if (melterRoomOxygen <= (60f * red - melterRoomSizeFactorial))
                 {
                     melterRoomOxygen += melterRoomSizeFactorial;
                 }
                 else
                 {
-                    melterRoomOxygen = 100f;
+                    melterRoomOxygen = 60f * red;
                 }
             }
             else if (melterRoomOxygen > 60f * red)
@@ -1465,13 +1563,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (mainFacilityLobbyOxygen < 20f * green)
             {
-                if (mainFacilityLobbyOxygen <= (80f - mainHallLobbyRoomSizeFactorial))
+                if (mainFacilityLobbyOxygen <= (20f * green - mainHallLobbyRoomSizeFactorial))
                 {
                     mainFacilityLobbyOxygen += mainHallLobbyRoomSizeFactorial;
                 }
                 else
                 {
-                    mainFacilityLobbyOxygen = 80f;
+                    mainFacilityLobbyOxygen = 20f * green;
                 }
             }
             else if (mainFacilityLobbyOxygen > 20f * green)
@@ -1493,13 +1591,13 @@ public class OxygenControl : MonoBehaviour {
         {
             if (corridorOxygen < 70f * black)
             {
-                if (corridorOxygen <= (100f - maintenanceCorridorRoomSizeFactorial))
+                if (corridorOxygen <= (70f * black - maintenanceCorridorRoomSizeFactorial))
                 {
                     corridorOxygen += maintenanceCorridorRoomSizeFactorial;
                 }
                 else
                 {
-                    corridorOxygen = 100f;
+                    corridorOxygen = 70f * black;
                 }
             }
             else if (corridorOxygen > 70f * black)
