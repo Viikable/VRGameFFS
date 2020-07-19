@@ -7,8 +7,18 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class OxygenControl : MonoBehaviour {
 
+    //Post processing starts
     PostProcessVolume GlobalPP;
 
+    BoolParameter @true = new BoolParameter();
+
+    FloatParameter @float = new FloatParameter();
+
+    private Vignette _Vignette;
+
+    bool postProcessing;
+
+    //Post processing ends
     [Tooltip("Tells how much oxygen there is in the current room as a percentage right now")]
     float currentRoomOxygenPercentage;
 
@@ -174,6 +184,13 @@ public class OxygenControl : MonoBehaviour {
     {
         GlobalPP = GameObject.Find("GlobalPostProcessing").GetComponent<PostProcessVolume>();
 
+        GlobalPP.profile.TryGetSettings(out _Vignette);
+        
+        @true.value = true;
+        @float.value = 0f;
+
+        postProcessing = false;
+
         defaultOxygenSpreadSpeedFactor = 2;
         currentOxygenLevel = OxygenLevelName.Safe;
 
@@ -183,7 +200,7 @@ public class OxygenControl : MonoBehaviour {
         oxygenSpreadSpeedMelter = 0f;       
         oxygenSpreadSpeedMFLobby = 0f;
 
-        playerOxygen = 120f;
+        playerOxygen = 65f;
         currentRoomOxygenPercentage = 100f;
         previousRoomOxygenPercentage = 100f;
         secondPassed = true;
@@ -198,7 +215,7 @@ public class OxygenControl : MonoBehaviour {
         bonsaiRoomOxygen = 0f;
         bonsaiRoomPositionInOxygenHierarchy = 0;
         BonsaiOxygenDisplay = GameObject.Find("BonsaiOxygenDisplay").GetComponent<TextMeshPro>();
-        janitorRoomOxygen = 45f;
+        janitorRoomOxygen = 0f;
         janitorRoomPositionInOxygenHierarchy = 0;
         JanitorOxygenDisplay = GameObject.Find("JanitorOxygenDisplay").GetComponent<TextMeshPro>();
         corridorOxygen = 0f;
@@ -206,7 +223,7 @@ public class OxygenControl : MonoBehaviour {
         CorridorOxygenDisplayMFLobby = GameObject.Find("CorridorOxygenDisplayMFLobby").GetComponent<TextMeshPro>();
         CorridorOxygenDisplayJanitor = GameObject.Find("CorridorOxygenDisplayJanitor").GetComponent<TextMeshPro>();
         CorridorOxygenDisplayBonsai = GameObject.Find("CorridorOxygenDisplayBonsai").GetComponent<TextMeshPro>();
-        melterRoomOxygen = 220f;
+        melterRoomOxygen = 0f;
         melterRoomPositionInOxygenHierarchy = 0;
         MelterOxygenDisplay = GameObject.Find("MelterOxygenDisplay").GetComponent<TextMeshPro>();
         combinedOxygen = 0f;
@@ -222,10 +239,10 @@ public class OxygenControl : MonoBehaviour {
         fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
 
         green = 0f;
-        red = 3f;
+        red = 0f;
         blue = 0f;
         yellow = 0f;
-        magenta = 2f;
+        magenta = 0f;
         black = 0f;
 
         oxygenHierarchy = new int[5];
@@ -234,7 +251,7 @@ public class OxygenControl : MonoBehaviour {
 
     private void Update()
     {
-        //only updates each second 
+        //only updates each second       
         if (secondPassed)
         {          
             secondPassed = false;
@@ -243,7 +260,8 @@ public class OxygenControl : MonoBehaviour {
             DisplayRoomOxygenLevels();
             CheckCurrentRoomOxygenPercentage();
             CheckCurrentOxygenLevelName();
-            PlayerOxygenLevelChanges();            
+            PlayerOxygenLevelChanges();
+            PlayerOxygenLevelSideEffects();
             StartCoroutine("WaitASecond");
         }
     }
@@ -1485,7 +1503,7 @@ public class OxygenControl : MonoBehaviour {
     }
 
     private void OxygenLevelIndicator()
-    {
+    {        
         if (currentOxygenLevel == OxygenLevelName.Safe)
         {
             //do nothing
@@ -1497,9 +1515,7 @@ public class OxygenControl : MonoBehaviour {
         else if (currentOxygenLevel == OxygenLevelName.Alarming)
         {
             //cough harder and start fading the vision but not completely
-            BoolParameter @true = new BoolParameter();
-            @true.value = true;
-            GlobalPP.profile.AddSettings<Vignette>().enabled = @true;
+                   
         }
         else if (currentOxygenLevel == OxygenLevelName.Deadly)
         {
@@ -1516,6 +1532,44 @@ public class OxygenControl : MonoBehaviour {
         else if (currentOxygenLevel == OxygenLevelName.SeriousOverpressure)
         {
             //MAXIMUM HIGH
+        }
+    }
+
+    //creates the side effects for player based on the player's current remaining oxygen
+    private void PlayerOxygenLevelSideEffects()
+    {
+
+        if (playerOxygen >= 30f && playerOxygen <= 60f)
+        {          
+            StartVignette("Alarming");
+        }
+    }
+
+    private void StartVignette(string intensity)
+    {              
+       
+        if (intensity == "Alarming")
+        {
+            //_Vignette.enabled.value = true;
+            //_Vignette.active = true;
+
+            if (_Vignette.intensity.value < 1f && postProcessing)
+            {
+                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, 1f, 0.1f);
+                if (_Vignette.intensity.value == 1f)
+                {
+                    postProcessing = false;
+                }
+            }
+            else
+            {
+                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, 0f, 0.1f);
+                if (_Vignette.intensity.value == 0f)
+                {
+                    postProcessing = true;
+                }
+            }
+            Debug.Log(_Vignette.intensity.value);
         }
     }
 
@@ -1663,5 +1717,18 @@ public class OxygenControl : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1f);
         secondPassed = true;     
     }
-	
+
+    //IEnumerator VignetteIncreases(float speed)
+    //{
+    //    yield return new WaitForSecondsRealtime(speed);       
+    //    @float.value += 0.01f;        
+    //    postProcessing = false;
+    //}
+    //IEnumerator VignetteDecreases(float speed)
+    //{
+    //    yield return new WaitForSecondsRealtime(speed);
+    //    @float.value -= 0.01f;
+    //    postProcessing = false;
+    //}
+
 }
