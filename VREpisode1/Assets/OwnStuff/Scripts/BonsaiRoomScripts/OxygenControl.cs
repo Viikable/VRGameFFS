@@ -18,6 +18,9 @@ public class OxygenControl : MonoBehaviour {
 
     bool postProcessing;
 
+    //for interpolating
+    float t;
+
     //Post processing ends
     [Tooltip("Tells how much oxygen there is in the current room as a percentage right now")]
     float currentRoomOxygenPercentage;
@@ -191,6 +194,8 @@ public class OxygenControl : MonoBehaviour {
 
         postProcessing = false;
 
+        t = 0f;
+
         defaultOxygenSpreadSpeedFactor = 2;
         currentOxygenLevel = OxygenLevelName.Safe;
 
@@ -251,6 +256,7 @@ public class OxygenControl : MonoBehaviour {
 
     private void Update()
     {
+         PlayerOxygenLevelSideEffects();
         //only updates each second       
         if (secondPassed)
         {          
@@ -261,7 +267,6 @@ public class OxygenControl : MonoBehaviour {
             CheckCurrentRoomOxygenPercentage();
             CheckCurrentOxygenLevelName();
             PlayerOxygenLevelChanges();
-            PlayerOxygenLevelSideEffects();
             StartCoroutine("WaitASecond");
         }
     }
@@ -1539,10 +1544,10 @@ public class OxygenControl : MonoBehaviour {
     private void PlayerOxygenLevelSideEffects()
     {
 
-        if (playerOxygen >= 30f && playerOxygen <= 60f)
-        {          
             StartVignette("Alarming");
-        }
+        //if (playerOxygen >= 30f && playerOxygen <= 60f)
+        //{          
+        //}
     }
 
     private void StartVignette(string intensity)
@@ -1551,20 +1556,23 @@ public class OxygenControl : MonoBehaviour {
         if (intensity == "Alarming")
         {
             //_Vignette.enabled.value = true;
-            //_Vignette.active = true;
-
-            if (_Vignette.intensity.value < 1f && postProcessing)
+            //_Vignette.active = true;          
+            if (postProcessing)
             {
-                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, 1f, 0.1f);
-                if (_Vignette.intensity.value == 1f)
+                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, 1.2f, t);
+                t += 0.005f * Time.deltaTime;
+                if (_Vignette.intensity.value >= 1f)
                 {
                     postProcessing = false;
+                    t = 0f;
                 }
             }
-            else
+            else 
             {
-                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, 0f, 0.1f);
-                if (_Vignette.intensity.value == 0f)
+                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, -0.2f, t);
+                Debug.Log(t);
+                t += 0.005f * Time.deltaTime;
+                if (_Vignette.intensity.value <= 0f)
                 {
                     postProcessing = true;
                 }
