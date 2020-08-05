@@ -142,8 +142,9 @@ public class Game_Manager : MonoBehaviour
 
         //WaterComes.AddListener(WaterIsRising);
 
-        if (GameObject.Find("Water") != null)
+        if (GameObject.Find("Water").GetComponentInChildren<ParticleSystem>() != null)
         {
+
             WaterBubbles = GameObject.Find("Water").GetComponentInChildren<ParticleSystem>();
 
             WaterBubbles.Pause();

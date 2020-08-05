@@ -4250,7 +4250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 756, y: -70}
+  m_AnchoredPosition: {x: 742, y: -70}
   m_SizeDelta: {x: 142, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1053288026
@@ -5232,7 +5232,7 @@ GameObject:
   - component: {fileID: 1230182166}
   - component: {fileID: 1230182167}
   m_Layer: 0
-  m_Name: '[VRTK_SDKManager] '
+  m_Name: '[VRTK_SDKManager]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7372,6 +7372,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1755199468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755199470}
+  - component: {fileID: 1755199469}
+  m_Layer: 0
+  m_Name: Water
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1755199469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1755199468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b4ebb1482dbd542a5d97bf3a412793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterRises: 0
+  reachedTopPuzzle: 0
+  boxDetected: 0
+  Splash: {fileID: 0}
+  Drowned: {fileID: 0}
+  DrowningAlertSounds: {fileID: 0}
+  UnderwaterAmbience1: {fileID: 0}
+  UnderwaterAmbience2: {fileID: 0}
+  UnderwaterAmbience3: {fileID: 0}
+  UnderwaterAmbience4: {fileID: 0}
+  headSet: {fileID: 0}
+  headsetbody: {fileID: 0}
+  HeadsetFollower: {fileID: 0}
+--- !u!4 &1755199470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1755199468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.915417, y: 1.8876369, z: 23.582977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761852502
 GameObject:

@@ -115,7 +115,7 @@ namespace VRTK
             isFaded = false;
             isTransitioning = true;
             //!!!!!!!!!!!!!!!!!!!!!!!!!
-            if (WaterTouch.dontLightHands)
+            if (WaterTouch.dontLightHands ||OxygenControl.noHandsLighting)
             {
                 HandsLighting.insideObject = false;      //this makes the hands not glow when entering water
                 WaterTouch.dontLightHands = false;

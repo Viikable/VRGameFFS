@@ -14,6 +14,11 @@ public class OxygenControl : MonoBehaviour {
 
     //FloatParameter @float = new FloatParameter();
 
+    WaterMovement Water;
+
+    //to not light hands when fading the players view
+    public static bool noHandsLighting;
+
     private Vignette _Vignette;
 
     bool fadingIn;
@@ -202,8 +207,15 @@ public class OxygenControl : MonoBehaviour {
             GlobalPP = GameObject.Find("GlobalPostProcessing").GetComponent<PostProcessVolume>();
             GlobalPP.profile.TryGetSettings(out _Vignette);
         }
-              
+        
+        if (GameObject.Find("Water") != null)
+        {
+            Water = GameObject.Find("Water").GetComponent<WaterMovement>();
+        }
+
         fadingIn = true;
+
+        noHandsLighting = false;
 
         changingFadeDirection = false;
 
@@ -211,7 +223,7 @@ public class OxygenControl : MonoBehaviour {
 
         donutMatCol = _DonutMaterial.GetColor("_Color");
 
-        alpha = 0f;
+        alpha = 1f;
 
         t = 0f;
 
@@ -224,7 +236,7 @@ public class OxygenControl : MonoBehaviour {
         oxygenSpreadSpeedMelter = 0f;       
         oxygenSpreadSpeedMFLobby = 0f;
 
-        playerOxygen = 40f;
+        playerOxygen = 120f;
         currentRoomOxygenPercentage = 100f;
         previousRoomOxygenPercentage = 100f;
         secondPassed = true;
@@ -1570,95 +1582,110 @@ public class OxygenControl : MonoBehaviour {
         {
             StartSideEffect("Alarming");         
         }
-        else if (playerOxygen < 30f /*&& playerOxygen > 0f*/)
+        else if (playerOxygen < 30f && playerOxygen > 0f)
         {
             StartSideEffect("Deadly");          
         }
-        //else if (playerOxygen <= 0f)
-        //{
-        //    StartSideEffect("Death");
-        //}
+        else if (playerOxygen <= 0f)
+        {
+            StartSideEffect("Death");
+        }
     }
 
     private void StartSideEffect(string intensity)
     {
-        Debug.Log(alpha);
+        
         if (intensity == "Alarming")
         {
+            //Blink(1.5f);
             if (fadingIn)
             {
-                if (VignetteDonut.transform.localScale.x > 8f)
+                if (VignetteDonut.transform.localScale.x > 6f)
                 {
-                    donutScaleSpeed = new Vector3(0.05f, 0.05f, 0.05f);
+                    donutScaleSpeed = new Vector3(0.05f, 0.0f, 0.05f);
                     VignetteDonut.transform.localScale -= donutScaleSpeed;
-                    if (alpha < 1)
-                    {
-                    alpha += 0.005f;
-                    }
-                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
-                    //WaterMovement.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+                    //if (alpha < 1)
+                    //{
+                    //alpha += 0.003f;
+                    //}
+                    //_DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.003f;
                 }
                 else if (!changingFadeDirection)
                 {
                     changingFadeDirection = true;
-                    StartCoroutine(Vignettepause(2f, false));
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.01f;
+                    noHandsLighting = true;
+                    WaterMovement.fader.Fade(Color.black, 2f);
+                    StartCoroutine(Vignettepause(3f, false));
                 }
             }
             else if (!fadingIn)
             {
-                if (VignetteDonut.transform.localScale.x < 40f)
+                if (VignetteDonut.transform.localScale.x < 35f)
                 {
-                    donutScaleSpeed = new Vector3(0.05f, 0.05f, 0.05f);
+                    donutScaleSpeed = new Vector3(0.05f, 0.0f, 0.05f);
                     VignetteDonut.transform.localScale += donutScaleSpeed;
-                    if (alpha > 0)
-                    {
-                        alpha -= 0.005f;
-                    }
-                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    //if (alpha > 0)
+                    //{
+                    //    alpha -= 0.003f;
+                    //}
+                    //_DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    //Water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.001f;
                 }
                 else if (!changingFadeDirection)
                 {
                     changingFadeDirection = true;
                     StartCoroutine(Vignettepause(4f, true));
                 }
-            }          
+            }
         }
         else if (intensity == "Deadly")
         {
             if (fadingIn)
             {
-                if (VignetteDonut.transform.localScale.x > 3f)
+                if (VignetteDonut.transform.localScale.x > 4f)
                 {
-                    donutScaleSpeed = new Vector3(0.1f, 0.1f, 0.1f);
+                    donutScaleSpeed = new Vector3(0.1f, 0f, 0.1f);
                     VignetteDonut.transform.localScale -= donutScaleSpeed;
-                    if (alpha < 1)
-                    {
-                        alpha += 0.005f;
-                    }
-                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    //if (alpha < 1)
+                    //{
+                    //    alpha += 0.003f;
+                    //}
+                    //_DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.01f;
                 }
                 else if (!changingFadeDirection)
                 {
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.05f;
+                    noHandsLighting = true;
+                    WaterMovement.fader.Fade(Color.black, 1f);
                     changingFadeDirection = true;
-                    StartCoroutine(Vignettepause(4f, false));                   
+                    StartCoroutine(Vignettepause(4.5f, false));
                 }
             }
             else if (!fadingIn)
             {
-                if (VignetteDonut.transform.localScale.x < 30f)
+                if (VignetteDonut.transform.localScale.x < 25f)
                 {
-                    donutScaleSpeed = new Vector3(0.1f, 0.1f, 0.1f);
+                    donutScaleSpeed = new Vector3(0.1f, 0f, 0.1f);
                     VignetteDonut.transform.localScale += donutScaleSpeed;
-                    if (alpha > 0)
-                    {
-                        alpha -= 0.005f;
-                    }
-                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    //if (alpha > 0)
+                    //{
+                    //    alpha -= 0.003f;
+                    //}
+                    //_DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.005f;
                 }
                 else if (!changingFadeDirection)
                 {
                     changingFadeDirection = true;
-                    StartCoroutine(Vignettepause(2f, true));                   
+                    Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.002f;
+                    StartCoroutine(Vignettepause(2f, true));
                 }
             }
         }
@@ -1666,6 +1693,28 @@ public class OxygenControl : MonoBehaviour {
         {
             WaterMovement.fader.Fade(Color.black, 0.1f);
         }
+    }
+
+    private void Blink(float blinkspeed)
+    {
+        donutScaleSpeed = new Vector3(blinkspeed, 0.0f, blinkspeed);
+        if (VignetteDonut.transform.localScale.x > 3f && fadingIn)
+        {
+            VignetteDonut.transform.localScale -= donutScaleSpeed;
+            if (VignetteDonut.transform.localScale.x <= 3f)
+            {
+                fadingIn = false;
+            }
+        }
+        else if (VignetteDonut.transform.localScale.x < 35f && !fadingIn)
+        {
+            VignetteDonut.transform.localScale += donutScaleSpeed;
+            if (VignetteDonut.transform.localScale.x >= 35f)
+            {
+                fadingIn = true;
+            }
+        }
+                      
     }
 
     //this method check whether any of the rooms are not currently connected and gradually sets their oxygen levels towards their own values defined in the Bonsai Room
@@ -1818,5 +1867,7 @@ public class OxygenControl : MonoBehaviour {
         yield return new WaitForSecondsRealtime(waitTime);      
         fadingIn = change;
         changingFadeDirection = false;
+        WaterMovement.fader.Unfade(0.25f);
+        noHandsLighting = false;
     }
 }
