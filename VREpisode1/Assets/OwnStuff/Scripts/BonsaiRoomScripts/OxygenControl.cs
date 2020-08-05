@@ -10,13 +10,25 @@ public class OxygenControl : MonoBehaviour {
     //Post processing starts
     PostProcessVolume GlobalPP;
 
-    BoolParameter @true = new BoolParameter();
+    //BoolParameter @true = new BoolParameter();
 
-    FloatParameter @float = new FloatParameter();
+    //FloatParameter @float = new FloatParameter();
 
     private Vignette _Vignette;
 
-    bool postProcessing;
+    bool fadingIn;
+
+    bool changingFadeDirection;
+
+    public GameObject VignetteDonut;
+
+    public Material _DonutMaterial;
+
+    Vector3 donutScaleSpeed;
+
+    Color donutMatCol;
+
+    float alpha;
 
     //for interpolating
     float t;
@@ -185,14 +197,21 @@ public class OxygenControl : MonoBehaviour {
 
     private void Awake()
     {
-        GlobalPP = GameObject.Find("GlobalPostProcessing").GetComponent<PostProcessVolume>();
+        if (GameObject.Find("GlobalPostProcessing") != null)
+        {
+            GlobalPP = GameObject.Find("GlobalPostProcessing").GetComponent<PostProcessVolume>();
+            GlobalPP.profile.TryGetSettings(out _Vignette);
+        }
+              
+        fadingIn = true;
 
-        GlobalPP.profile.TryGetSettings(out _Vignette);
-        
-        @true.value = true;
-        @float.value = 0f;
+        changingFadeDirection = false;
 
-        postProcessing = false;
+        donutScaleSpeed = new Vector3(0.01f, 0.01f, 0.01f);
+
+        donutMatCol = _DonutMaterial.GetColor("_Color");
+
+        alpha = 0f;
 
         t = 0f;
 
@@ -205,7 +224,7 @@ public class OxygenControl : MonoBehaviour {
         oxygenSpreadSpeedMelter = 0f;       
         oxygenSpreadSpeedMFLobby = 0f;
 
-        playerOxygen = 65f;
+        playerOxygen = 40f;
         currentRoomOxygenPercentage = 100f;
         previousRoomOxygenPercentage = 100f;
         secondPassed = true;
@@ -241,7 +260,10 @@ public class OxygenControl : MonoBehaviour {
         melterRoomSizeFactorial = 6f;
         maintenanceCorridorRoomSizeFactorial = 7f;
 
-        fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
+        if (GameObject.Find("FuseBoxFunctionality") != null)
+        {
+            fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
+        }
 
         green = 0f;
         red = 0f;
@@ -258,7 +280,7 @@ public class OxygenControl : MonoBehaviour {
     {
          PlayerOxygenLevelSideEffects();
         //only updates each second       
-        if (secondPassed)
+        if (secondPassed && fuseBox != null)
         {          
             secondPassed = false;
             RefreshUnconnectedRooms();
@@ -1544,40 +1566,105 @@ public class OxygenControl : MonoBehaviour {
     private void PlayerOxygenLevelSideEffects()
     {
 
-            StartVignette("Alarming");
-        //if (playerOxygen >= 30f && playerOxygen <= 60f)
-        //{          
+        if (playerOxygen >= 30f && playerOxygen <= 60f)
+        {
+            StartSideEffect("Alarming");         
+        }
+        else if (playerOxygen < 30f /*&& playerOxygen > 0f*/)
+        {
+            StartSideEffect("Deadly");          
+        }
+        //else if (playerOxygen <= 0f)
+        //{
+        //    StartSideEffect("Death");
         //}
     }
 
-    private void StartVignette(string intensity)
-    {              
-       
+    private void StartSideEffect(string intensity)
+    {
+        Debug.Log(alpha);
         if (intensity == "Alarming")
         {
-            //_Vignette.enabled.value = true;
-            //_Vignette.active = true;          
-            if (postProcessing)
+            if (fadingIn)
             {
-                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, 1.2f, t);
-                t += 0.005f * Time.deltaTime;
-                if (_Vignette.intensity.value >= 1f)
+                if (VignetteDonut.transform.localScale.x > 8f)
                 {
-                    postProcessing = false;
-                    t = 0f;
+                    donutScaleSpeed = new Vector3(0.05f, 0.05f, 0.05f);
+                    VignetteDonut.transform.localScale -= donutScaleSpeed;
+                    if (alpha < 1)
+                    {
+                    alpha += 0.005f;
+                    }
+                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                    //WaterMovement.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = true;
+                }
+                else if (!changingFadeDirection)
+                {
+                    changingFadeDirection = true;
+                    StartCoroutine(Vignettepause(2f, false));
                 }
             }
-            else 
+            else if (!fadingIn)
             {
-                _Vignette.intensity.value = Mathf.Lerp(_Vignette.intensity.value, -0.2f, t);
-                Debug.Log(t);
-                t += 0.005f * Time.deltaTime;
-                if (_Vignette.intensity.value <= 0f)
+                if (VignetteDonut.transform.localScale.x < 40f)
                 {
-                    postProcessing = true;
+                    donutScaleSpeed = new Vector3(0.05f, 0.05f, 0.05f);
+                    VignetteDonut.transform.localScale += donutScaleSpeed;
+                    if (alpha > 0)
+                    {
+                        alpha -= 0.005f;
+                    }
+                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                }
+                else if (!changingFadeDirection)
+                {
+                    changingFadeDirection = true;
+                    StartCoroutine(Vignettepause(4f, true));
+                }
+            }          
+        }
+        else if (intensity == "Deadly")
+        {
+            if (fadingIn)
+            {
+                if (VignetteDonut.transform.localScale.x > 3f)
+                {
+                    donutScaleSpeed = new Vector3(0.1f, 0.1f, 0.1f);
+                    VignetteDonut.transform.localScale -= donutScaleSpeed;
+                    if (alpha < 1)
+                    {
+                        alpha += 0.005f;
+                    }
+                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                }
+                else if (!changingFadeDirection)
+                {
+                    changingFadeDirection = true;
+                    StartCoroutine(Vignettepause(4f, false));                   
                 }
             }
-            Debug.Log(_Vignette.intensity.value);
+            else if (!fadingIn)
+            {
+                if (VignetteDonut.transform.localScale.x < 30f)
+                {
+                    donutScaleSpeed = new Vector3(0.1f, 0.1f, 0.1f);
+                    VignetteDonut.transform.localScale += donutScaleSpeed;
+                    if (alpha > 0)
+                    {
+                        alpha -= 0.005f;
+                    }
+                    _DonutMaterial.color = new Color(_DonutMaterial.color.r, _DonutMaterial.color.g, _DonutMaterial.color.b, alpha);
+                }
+                else if (!changingFadeDirection)
+                {
+                    changingFadeDirection = true;
+                    StartCoroutine(Vignettepause(2f, true));                   
+                }
+            }
+        }
+        else if (intensity == "Death")
+        {
+            WaterMovement.fader.Fade(Color.black, 0.1f);
         }
     }
 
@@ -1726,17 +1813,10 @@ public class OxygenControl : MonoBehaviour {
         secondPassed = true;     
     }
 
-    //IEnumerator VignetteIncreases(float speed)
-    //{
-    //    yield return new WaitForSecondsRealtime(speed);       
-    //    @float.value += 0.01f;        
-    //    postProcessing = false;
-    //}
-    //IEnumerator VignetteDecreases(float speed)
-    //{
-    //    yield return new WaitForSecondsRealtime(speed);
-    //    @float.value -= 0.01f;
-    //    postProcessing = false;
-    //}
-
+    IEnumerator Vignettepause(float waitTime, bool change)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);      
+        fadingIn = change;
+        changingFadeDirection = false;
+    }
 }
