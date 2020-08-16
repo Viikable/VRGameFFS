@@ -277,12 +277,12 @@ public class OxygenControl : MonoBehaviour {
             fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
         }
 
-        green = 0f;
+        green = 1f;
         red = 0f;
         blue = 0f;
         yellow = 0f;
-        magenta = 0f;
-        black = 0f;
+        magenta = 1f;
+        black = 2f;
 
         oxygenHierarchy = new int[5];
     }

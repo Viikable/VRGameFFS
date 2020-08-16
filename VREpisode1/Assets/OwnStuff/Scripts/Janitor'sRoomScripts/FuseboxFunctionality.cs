@@ -202,6 +202,24 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public AudioSource OuterJanitorDoorCountdown;
 
+    [Header("CorridorAndMFDoorSounds")]
+
+    public AudioSource MF_ToCorridorDoorOpeningSound;
+    public AudioSource MF_ToCorridorDoorOpenSound;
+    public AudioSource MF_ToCorridorDoorClosingSound;
+    public AudioSource MF_ToCorridorDoorClosedSound;
+    public AudioSource MF_ToCorridorDoorAlarmSound;
+
+    public AudioSource MF_ToCorridorDoorCountdown;
+
+    public AudioSource Corridor_ToMFDoorOpeningSound;
+    public AudioSource Corridor_ToMFDoorOpenSound;
+    public AudioSource Corridor_ToMFDoorClosingSound;
+    public AudioSource Corridor_ToMFDoorClosedSound;
+    public AudioSource Corridor_ToMFDoorAlarmSound;
+
+    public AudioSource Corridor_ToMFDoorCountdown;
+
     void Start () {
 
         BridgeTerminal = GameObject.Find("BRIDGE").GetComponentInChildren<BridgeKeyConfiguration>();
@@ -383,6 +401,25 @@ public class FuseboxFunctionality : MonoBehaviour {
         OuterJanitorDoorAlarmSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorAlarmSound").GetComponent<AudioSource>();
 
         OuterJanitorDoorCountdown = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown").GetComponent<AudioSource>();
+
+        //corridorToMF door sounds
+
+        MF_ToCorridorDoorOpeningSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorOpeningSound").GetComponent<AudioSource>();
+        MF_ToCorridorDoorOpenSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorOpenSound").GetComponent<AudioSource>();
+        MF_ToCorridorDoorClosingSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorClosingSound").GetComponent<AudioSource>();
+        MF_ToCorridorDoorClosedSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorClosedSound").GetComponent<AudioSource>();
+        MF_ToCorridorDoorAlarmSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorAlarmSound").GetComponent<AudioSource>();
+
+        MF_ToCorridorDoorCountdown = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown").GetComponent<AudioSource>();
+
+        Corridor_ToMFDoorOpeningSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorOpeningSound").GetComponent<AudioSource>();
+        Corridor_ToMFDoorOpenSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorOpenSound").GetComponent<AudioSource>();
+        Corridor_ToMFDoorClosingSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorClosingSound").GetComponent<AudioSource>();
+        Corridor_ToMFDoorClosedSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorClosedSound").GetComponent<AudioSource>();
+        Corridor_ToMFDoorAlarmSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorAlarmSound").GetComponent<AudioSource>();
+
+        Corridor_ToMFDoorCountdown = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown").GetComponent<AudioSource>();
+
     }
 	
 	
@@ -609,6 +646,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 else if (janitorToCorridorDoorClosingSoon) //aka it is open and no correct key in it
                 {
                     StopCoroutine("DelayedAutomaticCloseInnerJanitor");  //ends the 10 second countdown of door closing
+                    InnerJanitorDoorCountdown.Stop();
                     janitorToCorridorDoorClosingSoon = false;
                 }
                 if (corridorDoorsPowered && !corridorToJanitorDoorOpening && !corridorToJanitorDoorClosing) //probably unnecessary to check for closing and opening here too
@@ -620,6 +658,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     else if (corridorToJanitorDoorClosingSoon)
                     {
                         StopCoroutine("DelayedAutomaticCloseOuterJanitor");
+                        OuterJanitorDoorCountdown.Stop();
                         corridorToJanitorDoorClosingSoon = false;
                     }
                 }
@@ -725,6 +764,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 else if (corridorToJanitorDoorClosingSoon) //aka it is open and no correct key in it
                 {
                     StopCoroutine("DelayedAutomaticCloseOuterJanitor");  //ends the 10 second countdown of door closing
+                    OuterJanitorDoorCountdown.Stop();
                     corridorToJanitorDoorClosingSoon = false;
                 }
                 if (janitorDoorPowered && !janitorToCorridorDoorOpening && !corridorToBonsaiDoorClosing) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
@@ -736,6 +776,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     else if (janitorToCorridorDoorClosingSoon)
                     {
                         StopCoroutine("DelayedAutomaticCloseInnerJanitor");
+                        InnerJanitorDoorCountdown.Stop();
                         janitorToCorridorDoorClosingSoon = false;
                     }
                 }
@@ -1057,18 +1098,18 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseOuterJanitor()
     {
         corridorToJanitorDoorClosingSoon = true;
-        InnerJanitorDoorCountdown.Play();
+        OuterJanitorDoorCountdown.Play();
         yield return new WaitForSecondsRealtime(10f);
         JanitorDoorOuterAnim.SetBool("OPEN", false);
         corridorToJanitorDoorClosing = true;
         corridorToJanitorDoorOpen = false;
         corridorToJanitorDoorClosingSoon = false;
-        InnerJanitorDoorClosingSound.Play();
+        OuterJanitorDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         corridorToJanitorDoorClosing = false;
         corridorToJanitorDoorClosed = true;
-        InnerJanitorDoorClosingSound.Stop();
-        InnerJanitorDoorClosedSound.Play();
+        OuterJanitorDoorClosingSound.Stop();
+        OuterJanitorDoorClosedSound.Play();
     }
 
     IEnumerator OuterJanitorDoorOpening()
@@ -1076,9 +1117,12 @@ public class FuseboxFunctionality : MonoBehaviour {
         JanitorDoorOuterAnim.SetBool("OPEN", true);
         corridorToJanitorDoorOpening = true;
         corridorToJanitorDoorClosed = false;
+        OuterJanitorDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         corridorToJanitorDoorOpening = false;
         corridorToJanitorDoorOpen = true;
+        OuterJanitorDoorOpeningSound.Stop();
+        OuterJanitorDoorOpenSound.Play();
     }
 
     IEnumerator DelayedAutomaticCloseInnerBonsai()
@@ -1130,14 +1174,19 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseCorridorToMF()
     {
         corridorToMFDoorClosingSoon = true;
+        Corridor_ToMFDoorCountdown.Play();
         yield return new WaitForSecondsRealtime(10f);
         CorridorToMFDoorAnim.SetBool("OPENCORRIDORSIDE", false);
         corridorToMFDoorClosing = true;
         corridorToMFDoorOpen = false;
         corridorToMFDoorClosingSoon = false;
+        Corridor_ToMFDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         corridorToMFDoorClosed = true;
         corridorToMFDoorClosing = false;
+        Corridor_ToMFDoorClosingSound.Stop();
+        Corridor_ToMFDoorClosedSound.Play();
+
     }
 
     IEnumerator CorridorToMFDoorOpening()
@@ -1145,9 +1194,12 @@ public class FuseboxFunctionality : MonoBehaviour {
         CorridorToMFDoorAnim.SetBool("OPENCORRIDORSIDE", true);
         corridorToMFDoorOpening = true;
         corridorToMFDoorClosed = false;
+        Corridor_ToMFDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
         corridorToMFDoorOpening = false;
         corridorToMFDoorOpen = true;
+        Corridor_ToMFDoorOpeningSound.Stop();
+        Corridor_ToMFDoorOpenSound.Play();
         //after button press door opens, start counting down for closing
         StartCoroutine("DelayedAutomaticCloseCorridorToMF");
     }
@@ -1155,14 +1207,18 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseMFToCorridor()
     {
         mfToCorridorDoorClosingSoon = true;
+        MF_ToCorridorDoorCountdown.Play();
         yield return new WaitForSecondsRealtime(10f);
         MainFacilityToCorridorDoorAnim.SetBool("OPENMFSIDE", false);
         mfToCorridorDoorClosing = true;
         mfToCorridorDoorOpen = false;
         mfToCorridorDoorClosingSoon = false;
+        MF_ToCorridorDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         mfToCorridorDoorClosed = true;
         mfToCorridorDoorClosing = false;
+        MF_ToCorridorDoorClosingSound.Stop();
+        MF_ToCorridorDoorClosedSound.Play();
     }
 
     IEnumerator MFToCorridorDoorOpening()
@@ -1170,9 +1226,12 @@ public class FuseboxFunctionality : MonoBehaviour {
         MainFacilityToCorridorDoorAnim.SetBool("OPENMFSIDE", true);
         mfToCorridorDoorOpening = true;
         mfToCorridorDoorClosed = false;
+        MF_ToCorridorDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
         mfToCorridorDoorOpening = false;
         mfToCorridorDoorOpen = true;
+        MF_ToCorridorDoorOpeningSound.Stop();
+        MF_ToCorridorDoorOpenSound.Play();
         //after button press door opens, start counting down for closing
         StartCoroutine("DelayedAutomaticCloseMFToCorridor");
     }
