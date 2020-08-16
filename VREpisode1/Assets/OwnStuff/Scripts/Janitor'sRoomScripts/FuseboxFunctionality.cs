@@ -182,6 +182,26 @@ public class FuseboxFunctionality : MonoBehaviour {
     public Animator MainFacilityToMelterDoorAnim;
     public Animator MelterToMFDoorAnim;
 
+    [Header("Sounds")]
+
+    [Header("JanitorSounds")]
+
+    public AudioSource InnerJanitorDoorOpeningSound;
+    public AudioSource InnerJanitorDoorOpenSound;
+    public AudioSource InnerJanitorDoorClosingSound;
+    public AudioSource InnerJanitorDoorClosedSound;
+    public AudioSource InnerJanitorDoorAlarmSound;
+
+    public AudioSource InnerJanitorDoorCountdown;
+
+    public AudioSource OuterJanitorDoorOpeningSound;
+    public AudioSource OuterJanitorDoorOpenSound;
+    public AudioSource OuterJanitorDoorClosingSound;
+    public AudioSource OuterJanitorDoorClosedSound;
+    public AudioSource OuterJanitorDoorAlarmSound;
+
+    public AudioSource OuterJanitorDoorCountdown;
+
     void Start () {
 
         BridgeTerminal = GameObject.Find("BRIDGE").GetComponentInChildren<BridgeKeyConfiguration>();
@@ -343,6 +363,26 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         MainFacilityToMelterDoorAnim = GameObject.Find("MF_DoorToMelter").GetComponent<Animator>();
         MelterToMFDoorAnim = GameObject.Find("MelterDoorTo_MF").GetComponent<Animator>();
+
+        //Sounds
+
+        //janitorSounds
+
+        InnerJanitorDoorOpeningSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorOpeningSound").GetComponent<AudioSource>();
+        InnerJanitorDoorOpenSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorOpenSound").GetComponent<AudioSource>();
+        InnerJanitorDoorClosingSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorClosingSound").GetComponent<AudioSource>();
+        InnerJanitorDoorClosedSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorClosedSound").GetComponent<AudioSource>();
+        InnerJanitorDoorAlarmSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorAlarmSound").GetComponent<AudioSource>();
+
+        InnerJanitorDoorCountdown = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown").GetComponent<AudioSource>();
+
+        OuterJanitorDoorOpeningSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorOpeningSound").GetComponent<AudioSource>();
+        OuterJanitorDoorOpenSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorOpenSound").GetComponent<AudioSource>();
+        OuterJanitorDoorClosingSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorClosingSound").GetComponent<AudioSource>();
+        OuterJanitorDoorClosedSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorClosedSound").GetComponent<AudioSource>();
+        OuterJanitorDoorAlarmSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorAlarmSound").GetComponent<AudioSource>();
+
+        OuterJanitorDoorCountdown = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown").GetComponent<AudioSource>();
     }
 	
 	
@@ -987,14 +1027,18 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseInnerJanitor()
     {
         janitorToCorridorDoorClosingSoon = true;
+        InnerJanitorDoorCountdown.Play();
         yield return new WaitForSecondsRealtime(10f);
         JanitorDoorInnerAnim.SetBool("OPEN", false);
         janitorToCorridorDoorClosing = true;
         janitorToCorridorDoorOpen = false;
         janitorToCorridorDoorClosingSoon = false;
+        InnerJanitorDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         janitorToCorridorDoorClosing = false;
         janitorToCorridorDoorClosed = true;
+        InnerJanitorDoorClosingSound.Stop();
+        InnerJanitorDoorClosedSound.Play();
     }
 
     IEnumerator InnerJanitorDoorOpening()
@@ -1002,22 +1046,29 @@ public class FuseboxFunctionality : MonoBehaviour {
         JanitorDoorInnerAnim.SetBool("OPEN", true);
         janitorToCorridorDoorOpening = true;
         janitorToCorridorDoorClosed = false;
+        InnerJanitorDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         janitorToCorridorDoorOpening = false;
         janitorToCorridorDoorOpen = true;
+        InnerJanitorDoorOpeningSound.Stop();
+        InnerJanitorDoorOpenSound.Play();
     }
 
     IEnumerator DelayedAutomaticCloseOuterJanitor()
     {
         corridorToJanitorDoorClosingSoon = true;
+        InnerJanitorDoorCountdown.Play();
         yield return new WaitForSecondsRealtime(10f);
         JanitorDoorOuterAnim.SetBool("OPEN", false);
         corridorToJanitorDoorClosing = true;
         corridorToJanitorDoorOpen = false;
         corridorToJanitorDoorClosingSoon = false;
+        InnerJanitorDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         corridorToJanitorDoorClosing = false;
         corridorToJanitorDoorClosed = true;
+        InnerJanitorDoorClosingSound.Stop();
+        InnerJanitorDoorClosedSound.Play();
     }
 
     IEnumerator OuterJanitorDoorOpening()
