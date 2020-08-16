@@ -1174,6 +1174,11 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseCorridorToMF()
     {
         corridorToMFDoorClosingSoon = true;
+        //for (int i = 0; i < 10; i++)    //next time separate sounds to 1 intervals
+        //{
+        //    Corridor_ToMFDoorCountdown.Play();
+        //    yield return new WaitForSecondsRealtime(1f);
+        //}
         Corridor_ToMFDoorCountdown.Play();
         yield return new WaitForSecondsRealtime(10f);
         CorridorToMFDoorAnim.SetBool("OPENCORRIDORSIDE", false);
