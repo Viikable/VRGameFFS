@@ -266,7 +266,7 @@ public class Game_Manager : MonoBehaviour
 
         if (locomotionOn)
         {
-            Debug.Log("resettingLocalpos");
+            //Debug.Log("resettingLocalpos");
             CheckGrabbedObjectLocalPositionStays();
         }
 
