@@ -236,7 +236,7 @@ public class OxygenControl : MonoBehaviour {
         oxygenSpreadSpeedMelter = 0f;       
         oxygenSpreadSpeedMFLobby = 0f;
 
-        playerOxygen = 120f;
+        playerOxygen = 65f;
         currentRoomOxygenPercentage = 100f;
         previousRoomOxygenPercentage = 100f;
         secondPassed = true;
@@ -277,12 +277,12 @@ public class OxygenControl : MonoBehaviour {
             fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
         }
 
-        green = 1f;
+        green = 0f;
         red = 0f;
         blue = 0f;
         yellow = 0f;
-        magenta = 1f;
-        black = 2f;
+        magenta = 0f;
+        black = 0f;
 
         oxygenHierarchy = new int[5];
     }
@@ -290,7 +290,7 @@ public class OxygenControl : MonoBehaviour {
 
     private void Update()
     {
-         PlayerOxygenLevelSideEffects();
+         //PlayerOxygenLevelSideEffects();
         //only updates each second       
         if (secondPassed && fuseBox != null)
         {          
@@ -1691,7 +1691,7 @@ public class OxygenControl : MonoBehaviour {
         }
         else if (intensity == "Death")
         {
-            WaterMovement.fader.Fade(Color.black, 0.1f);
+            WaterMovement.fader.Fade(Color.black, 2f);
         }
     }
 

@@ -192,17 +192,6 @@ public class FuseboxFunctionality : MonoBehaviour {
     public AudioSource InnerJanitorDoorClosedSound;
     public AudioSource InnerJanitorDoorAlarmSound;
 
-    //public AudioSource InnerJanitorDoorCountdown1;
-    //public AudioSource InnerJanitorDoorCountdown2;
-    //public AudioSource InnerJanitorDoorCountdown3;
-    //public AudioSource InnerJanitorDoorCountdown4;
-    //public AudioSource InnerJanitorDoorCountdown5;
-    //public AudioSource InnerJanitorDoorCountdown6;
-    //public AudioSource InnerJanitorDoorCountdown7;
-    //public AudioSource InnerJanitorDoorCountdown8;
-    //public AudioSource InnerJanitorDoorCountdown9;
-    //public AudioSource InnerJanitorDoorCountdown10;
-
     public AudioSource[] InnerJanitorDoorCountdown;
     
     //outer
@@ -212,18 +201,28 @@ public class FuseboxFunctionality : MonoBehaviour {
     public AudioSource OuterJanitorDoorClosedSound;
     public AudioSource OuterJanitorDoorAlarmSound;
 
-    //public AudioSource OuterJanitorDoorCountdown1;
-    //public AudioSource OuterJanitorDoorCountdown2;
-    //public AudioSource OuterJanitorDoorCountdown3;
-    //public AudioSource OuterJanitorDoorCountdown4;
-    //public AudioSource OuterJanitorDoorCountdown5;
-    //public AudioSource OuterJanitorDoorCountdown6;
-    //public AudioSource OuterJanitorDoorCountdown7;
-    //public AudioSource OuterJanitorDoorCountdown8;
-    //public AudioSource OuterJanitorDoorCountdown9;
-    //public AudioSource OuterJanitorDoorCountdown10;
-
     public AudioSource[] OuterJanitorDoorCountdown;
+
+
+    [Header("BonsaiSounds")]
+
+    //inner
+    public AudioSource InnerBonsaiDoorOpeningSound;
+    public AudioSource InnerBonsaiDoorOpenSound;
+    public AudioSource InnerBonsaiDoorClosingSound;
+    public AudioSource InnerBonsaiDoorClosedSound;
+    public AudioSource InnerBonsaiDoorAlarmSound;
+
+    public AudioSource[] InnerBonsaiDoorCountdown;
+
+    //outer
+    public AudioSource OuterBonsaiDoorOpeningSound;
+    public AudioSource OuterBonsaiDoorOpenSound;
+    public AudioSource OuterBonsaiDoorClosingSound;
+    public AudioSource OuterBonsaiDoorClosedSound;
+    public AudioSource OuterBonsaiDoorAlarmSound;
+
+    public AudioSource[] OuterBonsaiDoorCountdown;
 
     [Header("CorridorAndMFDoorSounds")]
 
@@ -233,18 +232,7 @@ public class FuseboxFunctionality : MonoBehaviour {
     public AudioSource MF_ToCorridorDoorClosingSound;
     public AudioSource MF_ToCorridorDoorClosedSound;
     public AudioSource MF_ToCorridorDoorAlarmSound;
-
-    //public AudioSource MF_ToCorridorDoorCountdown1;
-    //public AudioSource MF_ToCorridorDoorCountdown2;
-    //public AudioSource MF_ToCorridorDoorCountdown3;
-    //public AudioSource MF_ToCorridorDoorCountdown4;
-    //public AudioSource MF_ToCorridorDoorCountdown5;
-    //public AudioSource MF_ToCorridorDoorCountdown6;
-    //public AudioSource MF_ToCorridorDoorCountdown7;
-    //public AudioSource MF_ToCorridorDoorCountdown8;
-    //public AudioSource MF_ToCorridorDoorCountdown9;
-    //public AudioSource MF_ToCorridorDoorCountdown10;
-
+   
     public AudioSource[] MF_ToCorridorDoorCountdown;
 
     //corrtomf
@@ -254,18 +242,27 @@ public class FuseboxFunctionality : MonoBehaviour {
     public AudioSource Corridor_ToMFDoorClosedSound;
     public AudioSource Corridor_ToMFDoorAlarmSound;
 
-    //public AudioSource Corridor_ToMFDoorCountdown1;
-    //public AudioSource Corridor_ToMFDoorCountdown2;
-    //public AudioSource Corridor_ToMFDoorCountdown3;
-    //public AudioSource Corridor_ToMFDoorCountdown4;
-    //public AudioSource Corridor_ToMFDoorCountdown5;
-    //public AudioSource Corridor_ToMFDoorCountdown6;
-    //public AudioSource Corridor_ToMFDoorCountdown7;
-    //public AudioSource Corridor_ToMFDoorCountdown8;
-    //public AudioSource Corridor_ToMFDoorCountdown9;
-    //public AudioSource Corridor_ToMFDoorCountdown10;
-
     public AudioSource[] Corridor_ToMFDoorCountdown;
+
+    [Header("MelterSounds")]
+
+    //mftomelter
+    public AudioSource MF_ToMelterDoorOpeningSound;
+    public AudioSource MF_ToMelterDoorOpenSound;
+    public AudioSource MF_ToMelterDoorClosingSound;
+    public AudioSource MF_ToMelterDoorClosedSound;
+    public AudioSource MF_ToMelterDoorAlarmSound;
+
+    public AudioSource[] MF_ToMelterDoorCountdown;
+
+    //meltertomf
+    public AudioSource Melter_ToMFDoorOpeningSound;
+    public AudioSource Melter_ToMFDoorOpenSound;
+    public AudioSource Melter_ToMFDoorClosingSound;
+    public AudioSource Melter_ToMFDoorClosedSound;
+    public AudioSource Melter_ToMFDoorAlarmSound;
+
+    public AudioSource[] Melter_ToMFDoorCountdown;
 
     void Start () {
 
@@ -439,17 +436,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         InnerJanitorDoorClosingSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorClosingSound").GetComponent<AudioSource>();
         InnerJanitorDoorClosedSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorClosedSound").GetComponent<AudioSource>();
         InnerJanitorDoorAlarmSound = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorAlarmSound").GetComponent<AudioSource>();
-
-        //InnerJanitorDoorCountdown1 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown1").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown2 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown2").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown3 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown3").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown4 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown4").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown5 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown5").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown6 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown6").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown7 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown7").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown8 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown8").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown9 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown9").GetComponent<AudioSource>();
-        //InnerJanitorDoorCountdown10 = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown10").GetComponent<AudioSource>();
+    
         InnerJanitorDoorCountdown = new AudioSource[10];
         
         for (int i = 0; i < 10; i++)
@@ -465,22 +452,45 @@ public class FuseboxFunctionality : MonoBehaviour {
         OuterJanitorDoorClosingSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorClosingSound").GetComponent<AudioSource>();
         OuterJanitorDoorClosedSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorClosedSound").GetComponent<AudioSource>();
         OuterJanitorDoorAlarmSound = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorAlarmSound").GetComponent<AudioSource>();
-
-        //OuterJanitorDoorCountdown1 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown1").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown2 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown2").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown3 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown3").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown4 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown4").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown5 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown5").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown6 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown6").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown7 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown7").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown8 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown8").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown9 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown9").GetComponent<AudioSource>();
-        //OuterJanitorDoorCountdown10 = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown10").GetComponent<AudioSource>();
+    
         OuterJanitorDoorCountdown = new AudioSource[10];
 
         for (int i = 0; i < 10; i++)
         {
             OuterJanitorDoorCountdown[i] = GameObject.Find("OuterJanitorDoorSounds").transform.Find("JanitorDoorCountDown" + i).GetComponent<AudioSource>();
+        }
+
+        //bonsaidoor
+
+        //inner
+
+        InnerBonsaiDoorOpeningSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorOpeningSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorOpenSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorOpenSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorClosingSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorClosingSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorClosedSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorClosedSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorAlarmSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorAlarmSound").GetComponent<AudioSource>();
+
+        InnerBonsaiDoorCountdown = new AudioSource[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            InnerBonsaiDoorCountdown[i] = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();
+            Debug.Log(i);
+        }
+
+        // outer
+
+        OuterBonsaiDoorOpeningSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorOpeningSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorOpenSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorOpenSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorClosingSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorClosingSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorClosedSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorClosedSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorAlarmSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorAlarmSound").GetComponent<AudioSource>();
+
+        OuterBonsaiDoorCountdown = new AudioSource[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            OuterBonsaiDoorCountdown[i] = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();
         }
 
         //corridorToMF door sounds
@@ -490,17 +500,6 @@ public class FuseboxFunctionality : MonoBehaviour {
         MF_ToCorridorDoorClosingSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorClosingSound").GetComponent<AudioSource>();
         MF_ToCorridorDoorClosedSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorClosedSound").GetComponent<AudioSource>();
         MF_ToCorridorDoorAlarmSound = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorAlarmSound").GetComponent<AudioSource>();
-
-        //MF_ToCorridorDoorCountdown1 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown1").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown2 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown2").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown3 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown3").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown4 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown4").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown5 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown5").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown6 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown6").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown7 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown7").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown8 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown8").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown9 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown9").GetComponent<AudioSource>();
-        //MF_ToCorridorDoorCountdown10 = GameObject.Find("MF_ToCorridorDoorSounds").transform.Find("MF_ToCorridorDoorCountDown10").GetComponent<AudioSource>();
 
         MF_ToCorridorDoorCountdown = new AudioSource[10];
 
@@ -514,26 +513,42 @@ public class FuseboxFunctionality : MonoBehaviour {
         Corridor_ToMFDoorClosingSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorClosingSound").GetComponent<AudioSource>();
         Corridor_ToMFDoorClosedSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorClosedSound").GetComponent<AudioSource>();
         Corridor_ToMFDoorAlarmSound = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorAlarmSound").GetComponent<AudioSource>();
-
-        //Corridor_ToMFDoorCountdown1 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown1").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown2 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown2").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown3 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown3").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown4 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown4").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown5 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown5").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown6 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown6").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown7 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown7").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown8 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown8").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown9 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown9").GetComponent<AudioSource>();
-        //Corridor_ToMFDoorCountdown10 = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown10").GetComponent<AudioSource>();
-
+     
         Corridor_ToMFDoorCountdown = new AudioSource[10];
 
         for (int i = 0; i < 10; i++)
         {
             Corridor_ToMFDoorCountdown[i] = GameObject.Find("Corridor_ToMFDoorSounds").transform.Find("Corridor_ToMFDoorCountDown" + i).GetComponent<AudioSource>();
         }
+
+        //mfToMelter door sounds
+
+        MF_ToMelterDoorOpeningSound = GameObject.Find("MF_ToMelterDoorSounds").transform.Find("MF_ToMelterDoorOpeningSound").GetComponent<AudioSource>();
+        MF_ToMelterDoorOpenSound = GameObject.Find("MF_ToMelterDoorSounds").transform.Find("MF_ToMelterDoorOpenSound").GetComponent<AudioSource>();
+        MF_ToMelterDoorClosingSound = GameObject.Find("MF_ToMelterDoorSounds").transform.Find("MF_ToMelterDoorClosingSound").GetComponent<AudioSource>();
+        MF_ToMelterDoorClosedSound = GameObject.Find("MF_ToMelterDoorSounds").transform.Find("MF_ToMelterDoorClosedSound").GetComponent<AudioSource>();
+        MF_ToMelterDoorAlarmSound = GameObject.Find("MF_ToMelterDoorSounds").transform.Find("MF_ToMelterDoorAlarmSound").GetComponent<AudioSource>();
+
+        MF_ToMelterDoorCountdown = new AudioSource[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            MF_ToMelterDoorCountdown[i] = GameObject.Find("MF_ToMelterDoorSounds").transform.Find("MF_ToMelterDoorCountDown" + i).GetComponent<AudioSource>();
+        }
+
+        Melter_ToMFDoorOpeningSound = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorOpeningSound").GetComponent<AudioSource>();
+        Melter_ToMFDoorOpenSound = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorOpenSound").GetComponent<AudioSource>();
+        Melter_ToMFDoorClosingSound = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorClosingSound").GetComponent<AudioSource>();
+        Melter_ToMFDoorClosedSound = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorClosedSound").GetComponent<AudioSource>();
+        Melter_ToMFDoorAlarmSound = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorAlarmSound").GetComponent<AudioSource>();
+
+        Melter_ToMFDoorCountdown = new AudioSource[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            Melter_ToMFDoorCountdown[i] = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorCountDown" + i).GetComponent<AudioSource>();
+        }
     }
-	
 	
 	void Update ()
     {
@@ -1181,7 +1196,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             InnerJanitorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        yield return new WaitForSecondsRealtime(10f);
+        //yield return new WaitForSecondsRealtime(10f);
         JanitorDoorInnerAnim.SetBool("OPEN", false);
         janitorToCorridorDoorClosing = true;
         janitorToCorridorDoorOpen = false;
@@ -1215,7 +1230,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             OuterJanitorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        yield return new WaitForSecondsRealtime(10f);
+        //yield return new WaitForSecondsRealtime(10f);
         JanitorDoorOuterAnim.SetBool("OPEN", false);
         corridorToJanitorDoorClosing = true;
         corridorToJanitorDoorOpen = false;
@@ -1244,14 +1259,22 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseInnerBonsai()
     {
         bonsaiToCorridorDoorClosingSoon = true;
-        yield return new WaitForSecondsRealtime(10f);
+        for (int i = 0; i < 10; i++)
+        {
+            InnerBonsaiDoorCountdown[i].Play();
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        //yield return new WaitForSecondsRealtime(10f);
         BonsaiDoorInnerAnim.SetBool("OPEN", false);
         bonsaiToCorridorDoorClosing = true;
         bonsaiToCorridorDoorOpen = false;
         bonsaiToCorridorDoorClosingSoon = false;
+        InnerBonsaiDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
         bonsaiToCorridorDoorClosed = true;
         bonsaiToCorridorDoorClosing = false;
+        InnerBonsaiDoorClosingSound.Stop();
+        InnerBonsaiDoorClosedSound.Play();
     }
 
     IEnumerator InnerBonsaiDoorOpening()
@@ -1259,22 +1282,33 @@ public class FuseboxFunctionality : MonoBehaviour {
         BonsaiDoorInnerAnim.SetBool("OPEN", true);
         bonsaiToCorridorDoorOpening = true;
         bonsaiToCorridorDoorClosed = false;
+        InnerBonsaiDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door opening time is 3s atm
         bonsaiToCorridorDoorOpening = false;
         bonsaiToCorridorDoorOpen = true;
+        InnerBonsaiDoorOpeningSound.Stop();
+        InnerBonsaiDoorOpenSound.Play();
     }
 
     IEnumerator DelayedAutomaticCloseOuterBonsai()
     {
         corridorToBonsaiDoorClosingSoon = true;
-        yield return new WaitForSecondsRealtime(10f);
+        for (int i = 0; i < 10; i++)
+        {
+            OuterBonsaiDoorCountdown[i].Play();
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        //yield return new WaitForSecondsRealtime(10f);
         BonsaiDoorOuterAnim.SetBool("OPEN", false);
         corridorToBonsaiDoorClosing = true;
         corridorToBonsaiDoorOpen = false;
         corridorToBonsaiDoorClosingSoon = false;
+        OuterBonsaiDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
         corridorToBonsaiDoorClosed = true;
         corridorToBonsaiDoorClosing = false;
+        OuterBonsaiDoorClosingSound.Stop();
+        OuterBonsaiDoorClosedSound.Play();
     }
 
     IEnumerator OuterBonsaiDoorOpening()
@@ -1282,9 +1316,12 @@ public class FuseboxFunctionality : MonoBehaviour {
         BonsaiDoorOuterAnim.SetBool("OPEN", true);
         corridorToBonsaiDoorOpening = true;
         corridorToBonsaiDoorClosed = false;
+        OuterBonsaiDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door opening time is 3s atm
         corridorToBonsaiDoorOpening = false;
         corridorToBonsaiDoorOpen = true;
+        OuterBonsaiDoorOpeningSound.Stop();
+        OuterBonsaiDoorOpenSound.Play();
     }
 
     IEnumerator DelayedAutomaticCloseCorridorToMF()
@@ -1295,7 +1332,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             Corridor_ToMFDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }       
-        yield return new WaitForSecondsRealtime(10f);
+        //yield return new WaitForSecondsRealtime(10f);
         CorridorToMFDoorAnim.SetBool("OPENCORRIDORSIDE", false);
         corridorToMFDoorClosing = true;
         corridorToMFDoorOpen = false;
@@ -1332,7 +1369,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             MF_ToCorridorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        yield return new WaitForSecondsRealtime(10f);
+        //yield return new WaitForSecondsRealtime(10f);
         MainFacilityToCorridorDoorAnim.SetBool("OPENMFSIDE", false);
         mfToCorridorDoorClosing = true;
         mfToCorridorDoorOpen = false;
@@ -1409,14 +1446,21 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseMFToMelter()
     {
         mfToMelterDoorClosingSoon = true;
-        yield return new WaitForSecondsRealtime(10f);
+        for (int i = 0; i < 10; i++)
+        {
+            MF_ToMelterDoorCountdown[i].Play();
+            yield return new WaitForSecondsRealtime(1f);
+        }       
         MainFacilityToMelterDoorAnim.SetBool("OPENMFSIDE", false);
         mfToMelterDoorClosing = true;
         mfToMelterDoorOpen = false;
         mfToMelterDoorClosingSoon = false;
+        MF_ToMelterDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         mfToMelterDoorClosed = true;
         mfToMelterDoorClosing = false;
+        MF_ToMelterDoorClosingSound.Stop();
+        MF_ToMelterDoorClosedSound.Play();
     }
 
     IEnumerator MFToMelterDoorOpening()
@@ -1424,22 +1468,32 @@ public class FuseboxFunctionality : MonoBehaviour {
         MainFacilityToMelterDoorAnim.SetBool("OPENMFSIDE", true);
         mfToMelterDoorOpening = true;
         mfToMelterDoorClosed = false;
+        MF_ToMelterDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
         mfToMelterDoorOpening = false;
-        mfToMelterDoorOpen = true;      
+        mfToMelterDoorOpen = true;
+        MF_ToMelterDoorOpeningSound.Stop();
+        MF_ToMelterDoorOpenSound.Play();
     }
 
     IEnumerator DelayedAutomaticCloseMelterToMF()
     {
         melterToMFDoorClosingSoon = true;
-        yield return new WaitForSecondsRealtime(10f);
+        for (int i = 0; i < 10; i++)
+        {
+            Melter_ToMFDoorCountdown[i].Play();
+            yield return new WaitForSecondsRealtime(1f);
+        }
         MainFacilityToMelterDoorAnim.SetBool("OPENMELTERSIDE", false);
         melterToMFDoorClosing = true;
         melterToMFDoorOpen = false;
         melterToMFDoorClosingSoon = false;
+        Melter_ToMFDoorClosingSound.Play();
         yield return new WaitForSecondsRealtime(3f);
         melterToMFDoorClosed = true;
         melterToMFDoorClosing = false;
+        Melter_ToMFDoorClosingSound.Stop();
+        Melter_ToMFDoorClosedSound.Play();
     }
 
     IEnumerator MelterToMFDoorOpening()
@@ -1447,8 +1501,11 @@ public class FuseboxFunctionality : MonoBehaviour {
         MainFacilityToMelterDoorAnim.SetBool("OPENMELTERSIDE", true);
         melterToMFDoorOpening = true;
         melterToMFDoorClosed = false;
+        Melter_ToMFDoorOpeningSound.Play();
         yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
         melterToMFDoorOpening = false;
-        melterToMFDoorOpen = true;      
+        melterToMFDoorOpen = true;
+        Melter_ToMFDoorOpeningSound.Stop();
+        Melter_ToMFDoorOpenSound.Play();
     }
 }
