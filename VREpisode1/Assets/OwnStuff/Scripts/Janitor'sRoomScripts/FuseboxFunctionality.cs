@@ -264,6 +264,12 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public AudioSource[] Melter_ToMFDoorCountdown;
 
+    //animation waiting
+    const string animBaseLayer = "Base Layer";
+    int openAnimHash = Animator.StringToHash(animBaseLayer + ".Open");
+    int closeAnimHash = Animator.StringToHash(animBaseLayer + ".Close");
+    int openwhenclosingAnimHash = Animator.StringToHash(animBaseLayer + ".Openwhenclosing");
+
     void Start () {
 
         BridgeTerminal = GameObject.Find("BRIDGE").GetComponentInChildren<BridgeKeyConfiguration>();
@@ -786,6 +792,11 @@ public class FuseboxFunctionality : MonoBehaviour {
                         StopCoroutine("DelayedAutomaticCloseOuterJanitor");                      
                         corridorToJanitorDoorClosingSoon = false;
                     }
+                    else if (corridorToJanitorDoorClosing)
+                    {
+                        corridorToJanitorDoorClosing = false;
+                        StartCoroutine("OuterJanitorDoorOpening");                       
+                    }
                 }
             }
             else if (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
@@ -1196,8 +1207,15 @@ public class FuseboxFunctionality : MonoBehaviour {
             InnerJanitorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        //yield return new WaitForSecondsRealtime(10f);
-        JanitorDoorInnerAnim.SetBool("OPEN", false);
+        if (corridorToJanitorDoorOpen && !JanitorDoorInnerAnim.GetBool("OPENWHENCLOSED"))
+        {
+            JanitorDoorInnerAnim.SetBool("OPEN", false);
+        }
+        else
+        {
+            JanitorDoorInnerAnim.SetBool("OPENWHENCLOSED", false);
+        }
+        
         janitorToCorridorDoorClosing = true;
         janitorToCorridorDoorOpen = false;
         janitorToCorridorDoorClosingSoon = false;
@@ -1211,11 +1229,20 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator InnerJanitorDoorOpening()
     {
-        JanitorDoorInnerAnim.SetBool("OPEN", true);
+        if (janitorToCorridorDoorClosed)
+        {
+            JanitorDoorInnerAnim.SetBool("OPEN", true);
+        }
+        //in case the door is opened while it is already closing, this can occur by player putting a keycard, pressing a button, or by placing themselves or an object between doors
+        else if (janitorToCorridorDoorClosing)
+        {
+            JanitorDoorInnerAnim.SetFloat("Speed", -1f);
+        }      
         janitorToCorridorDoorOpening = true;
         janitorToCorridorDoorClosed = false;
         InnerJanitorDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        float waitTime = JanitorDoorInnerAnim.GetCurrentAnimatorClipInfo(0)[0].clip.length;  //maybe state after all
+        yield return new WaitForSecondsRealtime(waitTime);
         janitorToCorridorDoorOpening = false;
         janitorToCorridorDoorOpen = true;
         InnerJanitorDoorOpeningSound.Stop();
@@ -1230,8 +1257,16 @@ public class FuseboxFunctionality : MonoBehaviour {
             OuterJanitorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        //yield return new WaitForSecondsRealtime(10f);
-        JanitorDoorOuterAnim.SetBool("OPEN", false);
+        
+        if (corridorToJanitorDoorOpen && !JanitorDoorOuterAnim.GetBool("OPENWHENCLOSED"))
+        {
+            JanitorDoorOuterAnim.SetBool("OPEN", false);
+        }
+        else
+        {
+            JanitorDoorOuterAnim.SetBool("OPENWHENCLOSED", false);
+        }
+        
         corridorToJanitorDoorClosing = true;
         corridorToJanitorDoorOpen = false;
         corridorToJanitorDoorClosingSoon = false;
@@ -1245,15 +1280,29 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator OuterJanitorDoorOpening()
     {
-        JanitorDoorOuterAnim.SetBool("OPEN", true);
+        //checks that the door wasn't closed midway last time and if was then closes it through other transition path
+        if (corridorToJanitorDoorClosed)
+        {
+            JanitorDoorOuterAnim.SetBool("OPEN", true);
+        }    
+        //in case the door is opened while it is already closing, this can occur by player putting a keycard, pressing a button, or by placing themselves or an object between doors
+        else if (corridorToJanitorDoorClosing)  
+        {
+            JanitorDoorOuterAnim.SetFloat("Speed", -1f);
+        }
         corridorToJanitorDoorOpening = true;
         corridorToJanitorDoorClosed = false;
         OuterJanitorDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        //checks the current animation clipinfo as an ARRAY and then checks the first item in it and its length
+        float waitTime = JanitorDoorOuterAnim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        yield return new WaitForSecondsRealtime(waitTime);
         corridorToJanitorDoorOpening = false;
         corridorToJanitorDoorOpen = true;
         OuterJanitorDoorOpeningSound.Stop();
         OuterJanitorDoorOpenSound.Play();
+        //this so that if we opened mid closing then we won't try to open again next time
+        JanitorDoorOuterAnim.SetBool("OPENWHENCLOSED", true);
+        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
     }
 
     IEnumerator DelayedAutomaticCloseInnerBonsai()
@@ -1507,5 +1556,40 @@ public class FuseboxFunctionality : MonoBehaviour {
         melterToMFDoorOpen = true;
         Melter_ToMFDoorOpeningSound.Stop();
         Melter_ToMFDoorOpenSound.Play();
+    }
+
+    IEnumerator PlayAndWaitForAnim(Animator targetAnim, string stateName)
+    {
+        //Get hash of animation
+        int animHash = 0;
+        if (stateName == "Jump")
+            animHash = openAnimHash;
+        else if (stateName == "Move")
+            animHash = closeAnimHash;
+        else if (stateName == "Look")
+            animHash = openwhenclosingAnimHash;
+
+        //targetAnim.Play(stateName);
+        targetAnim.CrossFadeInFixedTime(stateName, 0.6f);
+
+        //Wait until we enter the current state
+        while (targetAnim.GetCurrentAnimatorStateInfo(0).fullPathHash != animHash)
+        {
+            yield return null;
+        }
+
+        float counter = 0;
+        float waitTime = targetAnim.GetCurrentAnimatorStateInfo(0).length;
+
+        //Now, Wait until the current state is done playing
+        while (counter < (waitTime))
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        //Done playing. Do something below!
+        Debug.Log("Done Playing");
+
     }
 }
