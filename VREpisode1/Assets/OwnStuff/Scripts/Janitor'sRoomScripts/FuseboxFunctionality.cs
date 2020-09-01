@@ -555,14 +555,40 @@ public class FuseboxFunctionality : MonoBehaviour {
             Melter_ToMFDoorCountdown[i] = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorCountDown" + i).GetComponent<AudioSource>();
         }
     }
-	
+    int i = 0;
 	void Update ()
     {
-        CheckLights();
-        CheckMachinery();
-        CheckDoorsOpenStatus();
-        OpenDoors();
+        //CheckLights();
+        //CheckMachinery();
+        //CheckDoorsOpenStatus();
+        //OpenDoors();
+
+        //for testing
+        
+        if (i == 0)
+        {
+            i = 1;
+            StartCoroutine(Testmethod());
+        }
 	}
+
+    IEnumerator Testmethod()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        Debug.Log("true");
+        JanitorDoorOuterAnim.SetBool("OPEN", true);
+        yield return new WaitForSecondsRealtime(3);
+        JanitorDoorOuterAnim.SetBool("OPEN", false);
+        yield return new WaitForSecondsRealtime(1.5f);
+        JanitorDoorOuterAnim.SetFloat("Speed", -1f);
+        yield return new WaitForSecondsRealtime(3f);       
+        JanitorDoorOuterAnim.SetBool("OPEN", true);     
+        yield return new WaitForSecondsRealtime(3f);      
+        JanitorDoorOuterAnim.SetBool("OPEN", false);
+        yield return new WaitForSecondsRealtime(1.5f);
+        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
+        Debug.Log("finished");
+    }
 
     public void CheckLights()
     {

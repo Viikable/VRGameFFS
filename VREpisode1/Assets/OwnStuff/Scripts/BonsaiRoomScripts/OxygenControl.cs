@@ -1580,6 +1580,7 @@ public class OxygenControl : MonoBehaviour {
 
         if (playerOxygen >= 30f && playerOxygen <= 60f)
         {
+            VignetteDonut.GetComponent<MeshRenderer>().enabled = true;
             StartSideEffect("Alarming");         
         }
         else if (playerOxygen < 30f && playerOxygen > 0f)
@@ -1589,6 +1590,10 @@ public class OxygenControl : MonoBehaviour {
         else if (playerOxygen <= 0f)
         {
             StartSideEffect("Death");
+        }
+        else if (playerOxygen > 60f)
+        {
+            VignetteDonut.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
