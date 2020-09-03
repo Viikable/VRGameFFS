@@ -584,10 +584,11 @@ public class FuseboxFunctionality : MonoBehaviour {
         //after closing reversed
         yield return new WaitForSecondsRealtime(1.5f);
         //starts closing again
+        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         JanitorDoorOuterAnim.SetBool("OPEN", true);     
         yield return new WaitForSecondsRealtime(1.5f);
         //trying to reverse the closing again
-        JanitorDoorOuterAnim.SetFloat("Speed2", -1f);
+        JanitorDoorOuterAnim.SetFloat("Speed", -1f);
         yield return new WaitForSecondsRealtime(1.5f);
         JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         JanitorDoorOuterAnim.SetBool("OPEN", false);
@@ -595,9 +596,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1.5f);
         JanitorDoorOuterAnim.SetFloat("Speed", -1f);
         yield return new WaitForSecondsRealtime(1.5f);
-        JanitorDoorOuterAnim.SetFloat("Speed2", 1f);
+        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         JanitorDoorOuterAnim.SetBool("OPEN", true);
         yield return new WaitForSecondsRealtime(3f);
+        JanitorDoorOuterAnim.SetFloat("Speed", -1f);
         JanitorDoorOuterAnim.SetBool("OPEN", false);
         Debug.Log("finished");
     }
