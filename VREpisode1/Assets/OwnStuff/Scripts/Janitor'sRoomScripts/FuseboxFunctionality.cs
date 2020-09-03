@@ -1265,7 +1265,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             InnerJanitorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        if (janitorToCorridorDoorOpen && janitorInnerDoorInterrupted == 0)
+        if (janitorToCorridorDoorOpen && JanitorDoorInnerAnim.GetInteger("INTERRUPTED") == 0)
         {
             JanitorDoorInnerAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
             JanitorDoorInnerAnim.SetBool("OPEN", false);
