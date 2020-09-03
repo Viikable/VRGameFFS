@@ -279,6 +279,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public static bool mf_ToCorridorDoorInterrupted;
     public static bool melter_ToMFDoorInterrupted;
     public static bool mf_ToMelterDoorInterrupted;
+
+    private float doorAnimationTime;
     //info about the current state of certain animator
     AnimatorStateInfo animState;
 
@@ -578,6 +580,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         melter_ToMFDoorInterrupted = false;
         mf_ToMelterDoorInterrupted = false;
 
+        doorAnimationTime = 3f;
     }
         //testing
         //int i = 0;
@@ -1288,7 +1291,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         janitorToCorridorDoorOpen = false;
         janitorToCorridorDoorClosingSoon = false;
         InnerJanitorDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         janitorToCorridorDoorClosing = false;
         janitorToCorridorDoorClosed = true;
         InnerJanitorDoorClosingSound.Stop();
@@ -1344,7 +1347,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToJanitorDoorOpen = false;
         corridorToJanitorDoorClosingSoon = false;
         OuterJanitorDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         corridorToJanitorDoorClosing = false;
         corridorToJanitorDoorClosed = true;
         OuterJanitorDoorClosingSound.Stop();
@@ -1363,14 +1366,14 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             corridorToJanitorDoorClosing = false;
             JanitorDoorOuterAnim.SetFloat("Speed", -1f);         
-            OuterJanitorDoorClosingSound.Stop();
+            OuterJanitorDoorClosingSound.Stop();            //stopping the sound of door closing as it will open now, also ending the coroutine so the door won't register as closed after a while (as it will be open)
             StopCoroutine(DelayedAutomaticCloseOuterJanitor());
             //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
         }
         corridorToJanitorDoorOpening = true;
         corridorToJanitorDoorClosed = false;
         OuterJanitorDoorOpeningSound.Play();
-        //checks the current animation clipinfo as an ARRAY and then checks the first item in it and its length
+        //checks the current animation stateinfo from the base layer and its length
         float waitTime = JanitorDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSecondsRealtime(waitTime);
         corridorToJanitorDoorOpening = false;
@@ -1396,7 +1399,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiToCorridorDoorOpen = false;
         bonsaiToCorridorDoorClosingSoon = false;
         InnerBonsaiDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         bonsaiToCorridorDoorClosed = true;
         bonsaiToCorridorDoorClosing = false;
         InnerBonsaiDoorClosingSound.Stop();
@@ -1409,7 +1412,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiToCorridorDoorOpening = true;
         bonsaiToCorridorDoorClosed = false;
         InnerBonsaiDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door opening time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door opening time is 3s atm
         bonsaiToCorridorDoorOpening = false;
         bonsaiToCorridorDoorOpen = true;
         InnerBonsaiDoorOpeningSound.Stop();
@@ -1430,7 +1433,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToBonsaiDoorOpen = false;
         corridorToBonsaiDoorClosingSoon = false;
         OuterBonsaiDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         corridorToBonsaiDoorClosed = true;
         corridorToBonsaiDoorClosing = false;
         OuterBonsaiDoorClosingSound.Stop();
@@ -1443,7 +1446,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToBonsaiDoorOpening = true;
         corridorToBonsaiDoorClosed = false;
         OuterBonsaiDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door opening time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door opening time is 3s atm
         corridorToBonsaiDoorOpening = false;
         corridorToBonsaiDoorOpen = true;
         OuterBonsaiDoorOpeningSound.Stop();
@@ -1464,7 +1467,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToMFDoorOpen = false;
         corridorToMFDoorClosingSoon = false;
         Corridor_ToMFDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         corridorToMFDoorClosed = true;
         corridorToMFDoorClosing = false;
         Corridor_ToMFDoorClosingSound.Stop();
@@ -1478,7 +1481,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToMFDoorOpening = true;
         corridorToMFDoorClosed = false;
         Corridor_ToMFDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         corridorToMFDoorOpening = false;
         corridorToMFDoorOpen = true;
         Corridor_ToMFDoorOpeningSound.Stop();
@@ -1501,7 +1504,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToCorridorDoorOpen = false;
         mfToCorridorDoorClosingSoon = false;
         MF_ToCorridorDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         mfToCorridorDoorClosed = true;
         mfToCorridorDoorClosing = false;
         MF_ToCorridorDoorClosingSound.Stop();
@@ -1514,7 +1517,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToCorridorDoorOpening = true;
         mfToCorridorDoorClosed = false;
         MF_ToCorridorDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         mfToCorridorDoorOpening = false;
         mfToCorridorDoorOpen = true;
         MF_ToCorridorDoorOpeningSound.Stop();
@@ -1531,7 +1534,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToBridgeDoorClosing = true;
         mfToBridgeDoorOpen = false;
         mfToBridgeDoorClosingSoon = false;
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         mfToBridgeDoorClosed = true;
         mfToBridgeDoorClosing = false;
     }
@@ -1541,7 +1544,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         MainFacilityToBridgeDoorAnim.SetBool("OPENMFSIDE", true);
         mfToBridgeDoorOpening = true;
         mfToBridgeDoorClosed = false;
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         mfToBridgeDoorOpening = false;
         mfToBridgeDoorOpen = true;     
     }
@@ -1554,7 +1557,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         bridgeToMFDoorClosing = true;
         bridgeToMFDoorOpen = false;
         bridgeToMFDoorClosingSoon = false;
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         bridgeToMFDoorClosed = true;
         bridgeToMFDoorClosing = false;
     }
@@ -1582,7 +1585,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToMelterDoorOpen = false;
         mfToMelterDoorClosingSoon = false;
         MF_ToMelterDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         mfToMelterDoorClosed = true;
         mfToMelterDoorClosing = false;
         MF_ToMelterDoorClosingSound.Stop();
@@ -1595,7 +1598,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToMelterDoorOpening = true;
         mfToMelterDoorClosed = false;
         MF_ToMelterDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         mfToMelterDoorOpening = false;
         mfToMelterDoorOpen = true;
         MF_ToMelterDoorOpeningSound.Stop();
@@ -1615,7 +1618,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         melterToMFDoorOpen = false;
         melterToMFDoorClosingSoon = false;
         Melter_ToMFDoorClosingSound.Play();
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
         melterToMFDoorClosed = true;
         melterToMFDoorClosing = false;
         Melter_ToMFDoorClosingSound.Stop();
@@ -1628,13 +1631,13 @@ public class FuseboxFunctionality : MonoBehaviour {
         melterToMFDoorOpening = true;
         melterToMFDoorClosed = false;
         Melter_ToMFDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         melterToMFDoorOpening = false;
         melterToMFDoorOpen = true;
         Melter_ToMFDoorOpeningSound.Stop();
         Melter_ToMFDoorOpenSound.Play();
     }
-
+    //not used rn
     IEnumerator PlayAndWaitForAnim(Animator targetAnim, string stateName)
     {
         //Get hash of animation
