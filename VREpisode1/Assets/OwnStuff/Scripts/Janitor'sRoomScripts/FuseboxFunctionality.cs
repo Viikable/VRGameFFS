@@ -592,13 +592,13 @@ public class FuseboxFunctionality : MonoBehaviour {
         JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         JanitorDoorOuterAnim.SetBool("OPEN", false);
         //SUCCESPOINT
+        yield return new WaitForSecondsRealtime(1.5f);
+        JanitorDoorOuterAnim.SetFloat("Speed", -1f);
+        yield return new WaitForSecondsRealtime(1.5f);
+        JanitorDoorOuterAnim.SetFloat("Speed2", 1f);
+        JanitorDoorOuterAnim.SetBool("OPEN", true);
         yield return new WaitForSecondsRealtime(3f);
-
-        //JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        //JanitorDoorOuterAnim.SetFloat("Speed2", 1f);
-        //JanitorDoorOuterAnim.SetBool("OPEN", true);
-        yield return new WaitForSecondsRealtime(3f);
-        //JanitorDoorOuterAnim.SetBool("OPEN", false);
+        JanitorDoorOuterAnim.SetBool("OPEN", false);
         Debug.Log("finished");
     }
 
