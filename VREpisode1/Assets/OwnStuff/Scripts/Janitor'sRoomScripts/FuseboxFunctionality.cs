@@ -281,6 +281,13 @@ public class FuseboxFunctionality : MonoBehaviour {
     public static int mf_ToMelterDoorInterrupted;
 
     private float doorAnimationTime;
+
+    //animation timer counters
+    float outerJanitorTimer;
+    float innerJanitorTimer;
+    float outerBonsaiTimer;
+    float innerBonsaiTimer;
+
     //info about the current state of certain animator
     AnimatorStateInfo animState;
 
@@ -462,8 +469,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         for (int i = 0; i < 10; i++)
         {
-            InnerJanitorDoorCountdown[i] = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown" + i).GetComponent<AudioSource>();
-            Debug.Log(i);
+            InnerJanitorDoorCountdown[i] = GameObject.Find("InnerJanitorDoorSounds").transform.Find("JanitorDoorCountDown" + i).GetComponent<AudioSource>();           
         }
 
         // outer
@@ -495,8 +501,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         for (int i = 0; i < 10; i++)
         {
-            InnerBonsaiDoorCountdown[i] = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();
-            Debug.Log(i);
+            InnerBonsaiDoorCountdown[i] = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();         
         }
 
         // outer
@@ -581,6 +586,13 @@ public class FuseboxFunctionality : MonoBehaviour {
         mf_ToMelterDoorInterrupted = 0;
 
         doorAnimationTime = 3f;
+
+        //animationtimercounters
+        outerJanitorTimer = 0f;
+        innerJanitorTimer = 0f;
+        outerBonsaiTimer = 0f;
+        innerBonsaiTimer = 0f;
+
     }
         //testing
         //int i = 0;
@@ -602,34 +614,83 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator Testmethod()
     {
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(4f);
         Debug.Log("true");
+        JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 0);
         JanitorDoorOuterAnim.SetBool("OPEN", true);
-        yield return new WaitForSecondsRealtime(3f);
+        corridorToJanitorDoorOpening = true;
+        corridorToJanitorDoorClosed = false;
+        OuterJanitorDoorOpeningSound.Play();
+        //checks the current animation stateinfo from the base layer and its length      
+        yield return new WaitForSecondsRealtime(doorAnimationTime);
+        corridorToJanitorDoorOpening = false;
+        corridorToJanitorDoorOpen = true;
+        OuterJanitorDoorOpeningSound.Stop();
+        OuterJanitorDoorOpenSound.Play();
+        //this so that if we opened mid closing then we won't try to open again next time      
+        
+
+        yield return new WaitForSecondsRealtime(4f);
+        Debug.Log("midclose");
+        //opening mid close
+        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         JanitorDoorOuterAnim.SetBool("OPEN", false);
+        corridorToJanitorDoorClosing = true;
+        OuterJanitorDoorClosingSound.Play();
+        StartCoroutine(Counter("OuterJanitor"));
         yield return new WaitForSecondsRealtime(1.5f);
-        JanitorDoorOuterAnim.SetFloat("Speed", -1f);      
-        //after closing reversed
-        yield return new WaitForSecondsRealtime(1.5f);
-        //starts closing again
-        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
-        JanitorDoorOuterAnim.SetBool("OPEN", true);     
-        yield return new WaitForSecondsRealtime(1.5f);
-        //trying to reverse the closing again
+        Debug.Log("interrupt");
+        corridorToJanitorDoorClosing = false;
         JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        yield return new WaitForSecondsRealtime(1.5f);
-        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
-        JanitorDoorOuterAnim.SetBool("OPEN", false);
-        //SUCCESPOINT
-        yield return new WaitForSecondsRealtime(1.5f);
-        JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        yield return new WaitForSecondsRealtime(1.5f);
-        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         JanitorDoorOuterAnim.SetBool("OPEN", true);
-        yield return new WaitForSecondsRealtime(3f);
-        JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        JanitorDoorOuterAnim.SetBool("OPEN", false);
-        Debug.Log("finished");
+        if (JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 1);
+        }
+        else if (JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 1)
+        {
+            JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 2);
+        }
+        else if (JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+        {
+            JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 1);
+        }
+        OuterJanitorDoorClosingSound.Stop();            //stopping the sound of door closing as it will open now, also ending the coroutine so the door won't register as closed after a while (as it will be open)
+        StopCoroutine(DelayedAutomaticCloseOuterJanitor());
+        //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press   
+        corridorToJanitorDoorOpening = true;
+        corridorToJanitorDoorClosed = false;
+        OuterJanitorDoorOpeningSound.Play();
+        //checks the current animation stateinfo from the base layer and its length            
+        yield return new WaitForSecondsRealtime(JanitorDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - outerJanitorTimer));
+        Debug.Log("door interrupted");
+        corridorToJanitorDoorOpening = false;
+        corridorToJanitorDoorOpen = true;
+        OuterJanitorDoorOpeningSound.Stop();
+        OuterJanitorDoorOpenSound.Play();
+        //this so that if we opened mid closing then we won't try to open again next time      
+                
+
+        ////after closing reversed
+        //yield return new WaitForSecondsRealtime(1.5f);
+        ////starts closing again
+        //JanitorDoorOuterAnim.SetBool("OPEN", true);
+        //yield return new WaitForSecondsRealtime(1.5f);
+        ////trying to reverse the closing again
+        //JanitorDoorOuterAnim.SetFloat("Speed", -1f);
+        //yield return new WaitForSecondsRealtime(1.5f);
+        //JanitorDoorOuterAnim.SetFloat("Speed", 1f);
+        //JanitorDoorOuterAnim.SetBool("OPEN", false);
+        ////SUCCESPOINT
+        //yield return new WaitForSecondsRealtime(1.5f);
+        //JanitorDoorOuterAnim.SetFloat("Speed", -1f);
+        //yield return new WaitForSecondsRealtime(1.5f);
+        //JanitorDoorOuterAnim.SetFloat("Speed", 1f);
+        //JanitorDoorOuterAnim.SetBool("OPEN", true);
+        //yield return new WaitForSecondsRealtime(3f);
+        //JanitorDoorOuterAnim.SetFloat("Speed", -1f);
+        //JanitorDoorOuterAnim.SetBool("OPEN", false);
+        //Debug.Log("finished");
     }
 
     public void CheckLights()
@@ -878,7 +939,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         //BONSAI DOOR
         if (bonsaiDoorPowered)
         {
-            if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
+            if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
                 && !bonsaiToCorridorDoorClosing && !bonsaiToCorridorDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation            
@@ -905,13 +966,13 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                 }
             }
-            else if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+            else if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
             {
                 //show that the key is wrong to the player
             }       
             if (bonsaiToCorridorDoorOpen && !bonsaiToCorridorDoorClosingSoon
-               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
+               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
             {
                 StartCoroutine("DelayedAutomaticCloseInnerBonsai");
             }
@@ -952,12 +1013,12 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             //corridor to Janitor
             if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1 
-                && !corridorToJanitorDoorClosing && !corridorToJanitorDoorOpening)
+                && !corridorToJanitorDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
-                if (corridorToJanitorDoorClosed)
+                if (corridorToJanitorDoorClosed || corridorToJanitorDoorClosing)
                 {
-                    //Open Janitor door (from the outside)                                                                        
+                    //Open Janitor door (from the outside), or if it was closing, the coroutine will instead interrupt the closing and open it                                                                       
                     StartCoroutine("OuterJanitorDoorOpening");
                 }
                 else if (corridorToJanitorDoorClosingSoon) //aka it is open and no correct key in it
@@ -991,7 +1052,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             //corridor To Bonsai
 
-            if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
+            if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
                 && !corridorToBonsaiDoorClosing && !corridorToBonsaiDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
@@ -1267,20 +1328,21 @@ public class FuseboxFunctionality : MonoBehaviour {
         }
         if (janitorToCorridorDoorOpen && JanitorDoorInnerAnim.GetInteger("INTERRUPTED") == 0)
         {
-            JanitorDoorInnerAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
             JanitorDoorInnerAnim.SetBool("OPEN", false);
+            JanitorDoorInnerAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
         }
         //door was interrupted by player or object and reopened some point during closing animation, in this case the door will open
         else if (janitorToCorridorDoorOpen)
         {
-            JanitorDoorInnerAnim.SetFloat("Speed", -1f);
             JanitorDoorInnerAnim.SetBool("OPEN", true);
-        }
-        
+            JanitorDoorInnerAnim.SetFloat("Speed", 1f);
+        }      
         janitorToCorridorDoorClosing = true;
         janitorToCorridorDoorOpen = false;
         janitorToCorridorDoorClosingSoon = false;
         InnerJanitorDoorClosingSound.Play();
+        innerJanitorTimer = 0f;
+        StartCoroutine(Counter("InnerJanitor"));    //this calculates how long it takes for this animation to finish, this is needed in order to see how long it takes until possible interruption
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         janitorToCorridorDoorClosing = false;
         janitorToCorridorDoorClosed = true;
@@ -1294,6 +1356,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             JanitorDoorInnerAnim.SetInteger("INTERRUPTED", 0);
             JanitorDoorInnerAnim.SetBool("OPEN", true);
+            JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         }
         //in case the door is opened while it is already closing, this can occur by player putting a keycard, pressing a button, or by placing themselves or an object between doors
         //this path is taken when the interrupt parameter is true, which is called from an outside OnTriggerEnter, or opendoors method
@@ -1321,13 +1384,12 @@ public class FuseboxFunctionality : MonoBehaviour {
         janitorToCorridorDoorOpening = true;
         janitorToCorridorDoorClosed = false;
         InnerJanitorDoorOpeningSound.Play();
-        float waitTime = JanitorDoorInnerAnim.GetCurrentAnimatorStateInfo(0).length;  //check the remaining time of the state, this should calculate how far the door is from the open state
+        float waitTime = JanitorDoorInnerAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - innerJanitorTimer);  //check the remaining time of the state, this should calculate how far the door is from the open state
         yield return new WaitForSecondsRealtime(waitTime);
         janitorToCorridorDoorOpening = false;
         janitorToCorridorDoorOpen = true;
         InnerJanitorDoorOpeningSound.Stop();
-        InnerJanitorDoorOpenSound.Play();
-        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
+        InnerJanitorDoorOpenSound.Play();      
     }
 
     IEnumerator DelayedAutomaticCloseOuterJanitor()
@@ -1338,22 +1400,23 @@ public class FuseboxFunctionality : MonoBehaviour {
             OuterJanitorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }       
-        if (corridorToJanitorDoorOpen && janitorOuterDoorInterrupted == 0)
+        if (corridorToJanitorDoorOpen && JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
         {            
-            JanitorDoorOuterAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
             JanitorDoorOuterAnim.SetBool("OPEN", false);
+            JanitorDoorOuterAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
         }
         //door was interrupted by player or object and reopened some point during closing animation, in this case the door will open
         else if (corridorToJanitorDoorOpen)
         {
-            JanitorDoorOuterAnim.SetFloat("Speed", 1f);
             JanitorDoorOuterAnim.SetBool("OPEN", true);
-        }
-
+            JanitorDoorOuterAnim.SetFloat("Speed", 1f);
+        }       
         corridorToJanitorDoorClosing = true;
         corridorToJanitorDoorOpen = false;
         corridorToJanitorDoorClosingSoon = false;
         OuterJanitorDoorClosingSound.Play();
+        outerJanitorTimer = 0f;
+        StartCoroutine(Counter("OuterJanitor"));    //this calculates how long it takes for this animation to finish, this is needed in order to see how long it takes until possible interruption
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         corridorToJanitorDoorClosing = false;
         corridorToJanitorDoorClosed = true;
@@ -1366,6 +1429,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         //checks that the door wasn't closed midway last time and if was then closes it through other transition path
         if (corridorToJanitorDoorClosed)
         {
+            JanitorDoorOuterAnim.SetFloat("Speed", 1f);
             JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 0);
             JanitorDoorOuterAnim.SetBool("OPEN", true);
         }    
@@ -1395,14 +1459,40 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToJanitorDoorClosed = false;
         OuterJanitorDoorOpeningSound.Play();
         //checks the current animation stateinfo from the base layer and its length
-        float waitTime = JanitorDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length;
+        float waitTime = JanitorDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - outerJanitorTimer);
         yield return new WaitForSecondsRealtime(waitTime);
         corridorToJanitorDoorOpening = false;
         corridorToJanitorDoorOpen = true;
         OuterJanitorDoorOpeningSound.Stop();
-        OuterJanitorDoorOpenSound.Play();
-        //this so that if we opened mid closing then we won't try to open again next time      
-        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
+        OuterJanitorDoorOpenSound.Play();                 
+    }
+    //calculates time of closing animation to see when was interrupted
+    IEnumerator Counter(string doorName)
+    {
+        if (doorName == "OuterJanitor")
+        {           
+            if (corridorToJanitorDoorClosing)
+            {
+                outerJanitorTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(Counter("OuterJanitor"));
+            }           
+            yield return null;
+        }
+        else if (doorName == "InnerJanitor")
+        {
+            if (janitorToCorridorDoorClosing)
+            {
+                innerJanitorTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(Counter("InnerJanitor"));
+            }
+            yield return null;
+        }
+        else
+        {
+            yield return null;
+        }
     }
 
     IEnumerator DelayedAutomaticCloseInnerBonsai()
