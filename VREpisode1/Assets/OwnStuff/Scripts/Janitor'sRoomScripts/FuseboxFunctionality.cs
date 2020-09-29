@@ -798,13 +798,13 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             //turn BridgeMachinery on
             BridgeTerminal.ActivateMonitor();
-            Debug.Log("Bridge on");
+            //Debug.Log("Bridge on");
         }
         else
         {
             //turn BridgeMachinery off
             BridgeTerminal.DeactivateMonitor();
-            Debug.Log("Bridge off");
+            //Debug.Log("Bridge off");
         }
 
         if (MelterMachinery.GetCurrentSnappedObject() != null)
@@ -1019,12 +1019,14 @@ public class FuseboxFunctionality : MonoBehaviour {
                 if (corridorToJanitorDoorClosed || corridorToJanitorDoorClosing)
                 {
                     //Open Janitor door (from the outside), or if it was closing, the coroutine will instead interrupt the closing and open it                                                                       
+                    Debug.Log("Sequence 1" + corridorToJanitorDoorClosing);  //first is false
+                    Debug.Log(corridorToJanitorDoorClosed + "wtf");
                     StartCoroutine("OuterJanitorDoorOpening");
                 }
                 else if (corridorToJanitorDoorClosingSoon) //aka it is open and no correct key in it
                 {
                     StopCoroutine("DelayedAutomaticCloseOuterJanitor");  //ends the 10 second countdown of door closing                   
-                    corridorToJanitorDoorClosingSoon = false;
+                    corridorToJanitorDoorClosingSoon = false;                  
                 }
                 if (janitorDoorPowered && !janitorToCorridorDoorOpening) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
                 {
@@ -1362,6 +1364,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         //this path is taken when the interrupt parameter is true, which is called from an outside OnTriggerEnter, or opendoors method
         else if (janitorToCorridorDoorClosing)
         {
+            StopCoroutine("DelayedAutomaticCloseInnerJanitor");
             janitorToCorridorDoorClosing = false;
             JanitorDoorInnerAnim.SetFloat("Speed", -1f);
             JanitorDoorInnerAnim.SetBool("OPEN", true);
@@ -1378,7 +1381,6 @@ public class FuseboxFunctionality : MonoBehaviour {
                 JanitorDoorInnerAnim.SetInteger("INTERRUPTED", 1);
             }
             InnerJanitorDoorClosingSound.Stop();
-            StopCoroutine(DelayedAutomaticCloseInnerJanitor());
             //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
         }      
         janitorToCorridorDoorOpening = true;
@@ -1404,6 +1406,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         {            
             JanitorDoorOuterAnim.SetBool("OPEN", false);
             JanitorDoorOuterAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
+            Debug.Log("Sequence 4");
         }
         //door was interrupted by player or object and reopened some point during closing animation, in this case the door will open
         else if (corridorToJanitorDoorOpen)
@@ -1422,6 +1425,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToJanitorDoorClosed = true;
         OuterJanitorDoorClosingSound.Stop();
         OuterJanitorDoorClosedSound.Play();
+        Debug.Log("doorclosed");
     }
 
     IEnumerator OuterJanitorDoorOpening()
@@ -1432,10 +1436,14 @@ public class FuseboxFunctionality : MonoBehaviour {
             JanitorDoorOuterAnim.SetFloat("Speed", 1f);
             JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 0);
             JanitorDoorOuterAnim.SetBool("OPEN", true);
+            Debug.Log("Sequence 2");
         }    
         //in case the door is opened while it is already closing, this can occur by player putting a keycard, pressing a button, or by placing themselves or an object between doors
         else if (corridorToJanitorDoorClosing)  
         {
+            Debug.Log("Sequence 5");
+            StopCoroutine("DelayedAutomaticCloseOuterJanitor");
+            corridorToJanitorDoorOpening = true;
             corridorToJanitorDoorClosing = false;
             JanitorDoorOuterAnim.SetFloat("Speed", -1f);         
             JanitorDoorOuterAnim.SetBool("OPEN", true);
@@ -1452,7 +1460,6 @@ public class FuseboxFunctionality : MonoBehaviour {
                 JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 1);
             }
             OuterJanitorDoorClosingSound.Stop();            //stopping the sound of door closing as it will open now, also ending the coroutine so the door won't register as closed after a while (as it will be open)
-            StopCoroutine(DelayedAutomaticCloseOuterJanitor());
             //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
         }
         corridorToJanitorDoorOpening = true;
@@ -1464,7 +1471,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToJanitorDoorOpening = false;
         corridorToJanitorDoorOpen = true;
         OuterJanitorDoorOpeningSound.Stop();
-        OuterJanitorDoorOpenSound.Play();                 
+        OuterJanitorDoorOpenSound.Play();
+        Debug.Log(corridorToJanitorDoorClosed + "wat");
     }
     //calculates time of closing animation to see when was interrupted
     IEnumerator Counter(string doorName)
