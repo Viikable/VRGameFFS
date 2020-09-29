@@ -940,10 +940,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (bonsaiDoorPowered)
         {
             if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
-                && !bonsaiToCorridorDoorClosing && !bonsaiToCorridorDoorOpening)
+                && !bonsaiToCorridorDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation            
-                if (bonsaiToCorridorDoorClosed)
+                if (bonsaiToCorridorDoorClosed || bonsaiToCorridorDoorClosing)
                 {
                     //Open Bonsai door (from the inside)                                  
                     StartCoroutine("InnerBonsaiDoorOpening");
@@ -953,9 +953,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StopCoroutine("DelayedAutomaticCloseInnerBonsai");  //ends the 10 second countdown of door closing
                     bonsaiToCorridorDoorClosingSoon = false;
                 }
-                if (corridorDoorsPowered && !corridorToBonsaiDoorOpening && !corridorToBonsaiDoorClosing) //probably unnecessary to check for closing and opening here too
+                if (corridorDoorsPowered && !corridorToBonsaiDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
-                    if (corridorToBonsaiDoorClosed)
+                    if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
                     {
                         StartCoroutine("OuterBonsaiDoorOpening");
                     }
@@ -1019,8 +1019,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 if (corridorToJanitorDoorClosed || corridorToJanitorDoorClosing)
                 {
                     //Open Janitor door (from the outside), or if it was closing, the coroutine will instead interrupt the closing and open it                                                                       
-                    Debug.Log("Sequence 1" + corridorToJanitorDoorClosing);  //first is false
-                    Debug.Log(corridorToJanitorDoorClosed + "wtf");
+                    //Debug.Log("Sequence 1" + corridorToJanitorDoorClosing);  //first is false
+                    //Debug.Log(corridorToJanitorDoorClosed + "wtf");
                     StartCoroutine("OuterJanitorDoorOpening");
                 }
                 else if (corridorToJanitorDoorClosingSoon) //aka it is open and no correct key in it
@@ -1058,7 +1058,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 && !corridorToBonsaiDoorClosing && !corridorToBonsaiDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
-                if (corridorToBonsaiDoorClosed)
+                if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
                 {
                     //Open Bonsai door (from the outside)                                                                        
                     StartCoroutine("OuterBonsaiDoorOpening");
@@ -1068,9 +1068,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StopCoroutine("DelayedAutomaticCloseOuterBonsai");  //ends the 10 second countdown of door closing
                     corridorToBonsaiDoorClosingSoon = false;
                 }
-                if (bonsaiDoorPowered && !bonsaiToCorridorDoorOpening && !corridorToBonsaiDoorClosing) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
+                if (bonsaiDoorPowered && !bonsaiToCorridorDoorOpening) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
                 {
-                    if (bonsaiToCorridorDoorClosed)
+                    if (bonsaiToCorridorDoorClosed || bonsaiToCorridorDoorClosing)
                     {
                         StartCoroutine("InnerBonsaiDoorOpening");
                     }
@@ -1081,13 +1081,13 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                 }
             }
-            else if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+            else if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
             {
                 //show that the key is wrong to the player
             }
             if (corridorToBonsaiDoorOpen && !corridorToBonsaiDoorClosingSoon
-               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
+               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
             {
                 StartCoroutine("DelayedAutomaticCloseOuterBonsai");
             }
@@ -1333,10 +1333,10 @@ public class FuseboxFunctionality : MonoBehaviour {
             JanitorDoorInnerAnim.SetBool("OPEN", false);
             JanitorDoorInnerAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
         }
-        //door was interrupted by player or object and reopened some point during closing animation, in this case the door will open
+        //door was interrupted by player or object and reopened some point during closing animation, in this case the door will close but at different part of the animator
         else if (janitorToCorridorDoorOpen)
         {
-            JanitorDoorInnerAnim.SetBool("OPEN", true);
+            JanitorDoorInnerAnim.SetBool("OPEN", false);
             JanitorDoorInnerAnim.SetFloat("Speed", 1f);
         }      
         janitorToCorridorDoorClosing = true;
@@ -1408,10 +1408,10 @@ public class FuseboxFunctionality : MonoBehaviour {
             JanitorDoorOuterAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
             Debug.Log("Sequence 4");
         }
-        //door was interrupted by player or object and reopened some point during closing animation, in this case the door will open
+        //door was interrupted by player or object and reopened some point during closing animation, in this case the door will close but at different part of the animator
         else if (corridorToJanitorDoorOpen)
         {
-            JanitorDoorOuterAnim.SetBool("OPEN", true);
+            JanitorDoorOuterAnim.SetBool("OPEN", false);   //changed
             JanitorDoorOuterAnim.SetFloat("Speed", 1f);
         }       
         corridorToJanitorDoorClosing = true;
@@ -1433,9 +1433,9 @@ public class FuseboxFunctionality : MonoBehaviour {
         //checks that the door wasn't closed midway last time and if was then closes it through other transition path
         if (corridorToJanitorDoorClosed)
         {
-            JanitorDoorOuterAnim.SetFloat("Speed", 1f);
             JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 0);
             JanitorDoorOuterAnim.SetBool("OPEN", true);
+            JanitorDoorOuterAnim.SetFloat("Speed", 1f);
             Debug.Log("Sequence 2");
         }    
         //in case the door is opened while it is already closing, this can occur by player putting a keycard, pressing a button, or by placing themselves or an object between doors
@@ -1465,9 +1465,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToJanitorDoorOpening = true;
         corridorToJanitorDoorClosed = false;
         OuterJanitorDoorOpeningSound.Play();
-        //checks the current animation stateinfo from the base layer and its length
-        float waitTime = JanitorDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - outerJanitorTimer);
-        yield return new WaitForSecondsRealtime(waitTime);
+        //checks the current animation stateinfo from the base layer and its length     
+        yield return new WaitForSecondsRealtime(JanitorDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - outerJanitorTimer));
         corridorToJanitorDoorOpening = false;
         corridorToJanitorDoorOpen = true;
         OuterJanitorDoorOpeningSound.Stop();
@@ -1497,6 +1496,26 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             yield return null;
         }
+        else if (doorName == "InnerBonsai")
+        {
+            if (bonsaiToCorridorDoorClosing)
+            {
+                innerBonsaiTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(Counter("InnerBonsai"));
+            }
+            yield return null;
+        }
+        else if (doorName == "OuterBonsai")
+        {
+            if (corridorToBonsaiDoorClosing)
+            {
+                outerBonsaiTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(Counter("OuterBonsai"));
+            }
+            yield return null;
+        }
         else
         {
             yield return null;
@@ -1511,26 +1530,62 @@ public class FuseboxFunctionality : MonoBehaviour {
             InnerBonsaiDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        //yield return new WaitForSecondsRealtime(10f);
-        BonsaiDoorInnerAnim.SetBool("OPEN", false);
+        if (bonsaiToCorridorDoorOpen && BonsaiDoorInnerAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            BonsaiDoorInnerAnim.SetBool("OPEN", false);
+            BonsaiDoorInnerAnim.SetFloat("Speed", 1f);
+        }
+        else if (bonsaiToCorridorDoorOpen)
+        {
+            BonsaiDoorInnerAnim.SetBool("OPEN", false);
+            BonsaiDoorInnerAnim.SetFloat("Speed", 1f);
+        }
         bonsaiToCorridorDoorClosing = true;
         bonsaiToCorridorDoorOpen = false;
         bonsaiToCorridorDoorClosingSoon = false;
         InnerBonsaiDoorClosingSound.Play();
+        StartCoroutine(Counter("InnerBonsai"));
         yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         bonsaiToCorridorDoorClosed = true;
         bonsaiToCorridorDoorClosing = false;
         InnerBonsaiDoorClosingSound.Stop();
         InnerBonsaiDoorClosedSound.Play();
     }
-
+    
     IEnumerator InnerBonsaiDoorOpening()
     {
-        BonsaiDoorInnerAnim.SetBool("OPEN", true);
+        if (bonsaiToCorridorDoorClosed)
+        {
+            BonsaiDoorInnerAnim.SetInteger("INTERRUPTED", 0);
+            BonsaiDoorInnerAnim.SetBool("OPEN", true);
+            BonsaiDoorInnerAnim.SetFloat("Speed", 1f);
+        }
+        else if (bonsaiToCorridorDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseInnerBonsai");
+            bonsaiToCorridorDoorClosing = false;
+            BonsaiDoorInnerAnim.SetFloat("Speed", -1f);
+            BonsaiDoorInnerAnim.SetBool("OPEN", true);
+            if (BonsaiDoorInnerAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                BonsaiDoorInnerAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (BonsaiDoorInnerAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                BonsaiDoorInnerAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (BonsaiDoorInnerAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                BonsaiDoorInnerAnim.SetInteger("INTERRUPTED", 1);
+            }
+            InnerBonsaiDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
+
         bonsaiToCorridorDoorOpening = true;
         bonsaiToCorridorDoorClosed = false;
         InnerBonsaiDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(doorAnimationTime); //door opening time is 3s atm
+        yield return new WaitForSecondsRealtime(BonsaiDoorInnerAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - innerBonsaiTimer)); //door opening time is 3s atm
         bonsaiToCorridorDoorOpening = false;
         bonsaiToCorridorDoorOpen = true;
         InnerBonsaiDoorOpeningSound.Stop();
