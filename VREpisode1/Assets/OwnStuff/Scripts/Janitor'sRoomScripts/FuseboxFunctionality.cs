@@ -644,7 +644,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         JanitorDoorOuterAnim.SetBool("OPEN", false);
         corridorToJanitorDoorClosing = true;
         OuterJanitorDoorClosingSound.Play();
-        StartCoroutine(Counter("OuterJanitor"));
+        StartCoroutine(CounterOuters("OuterJanitor"));
         yield return new WaitForSecondsRealtime(1.5f);
         Debug.Log("interrupt");
         corridorToJanitorDoorClosing = false;
@@ -1384,7 +1384,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         janitorToCorridorDoorClosingSoon = false;
         InnerJanitorDoorClosingSound.Play();
         innerJanitorTimer = 0f;
-        StartCoroutine(Counter("InnerJanitor"));    //this calculates how long it takes for this animation to finish, this is needed in order to see how long it takes until possible interruption
+        StartCoroutine(CounterInners("InnerJanitor"));    //this calculates how long it takes for this animation to finish, this is needed in order to see how long it takes until possible interruption
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         janitorToCorridorDoorClosing = false;
         janitorToCorridorDoorClosed = true;
@@ -1458,7 +1458,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToJanitorDoorClosingSoon = false;
         OuterJanitorDoorClosingSound.Play();
         outerJanitorTimer = 0f;
-        StartCoroutine(Counter("OuterJanitor"));    //this calculates how long it takes for this animation to finish, this is needed in order to see how long it takes until possible interruption
+        StartCoroutine(CounterOuters("OuterJanitor"));    //this calculates how long it takes for this animation to finish, this is needed in order to see how long it takes until possible interruption
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         corridorToJanitorDoorClosing = false;
         corridorToJanitorDoorClosed = true;
@@ -1511,7 +1511,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         Debug.Log(corridorToJanitorDoorClosed + "wat");
     }
     //calculates time of closing animation to see when was interrupted
-    IEnumerator Counter(string doorName)
+    IEnumerator CounterOuters(string doorName)
     {
         if (doorName == "OuterJanitor")
         {           
@@ -1519,17 +1519,45 @@ public class FuseboxFunctionality : MonoBehaviour {
             {
                 outerJanitorTimer += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
-                StartCoroutine(Counter("OuterJanitor"));
+                StartCoroutine(CounterOuters("OuterJanitor"));
             }           
             yield return null;
+        }             
+        else if (doorName == "OuterBonsai")
+        {
+            if (corridorToBonsaiDoorClosing)
+            {
+                outerBonsaiTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(CounterOuters("OuterBonsai"));
+            }
+            yield return null;
+        }     
+        else if (doorName == "MFToCorridor")
+        {
+            if (mfToCorridorDoorClosing)
+            {
+                mf_ToCorridorTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(CounterOuters("MFToCorridor"));
+            }
+            yield return null;
         }
-        else if (doorName == "InnerJanitor")
+        else
+        {
+            yield return null;
+        }
+    }
+    // the points of separating these two is that then the double door won't get confused on its countdown
+    IEnumerator CounterInners(string doorName)
+    {
+        if (doorName == "InnerJanitor")
         {
             if (janitorToCorridorDoorClosing)
             {
                 innerJanitorTimer += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
-                StartCoroutine(Counter("InnerJanitor"));
+                StartCoroutine(CounterOuters("InnerJanitor"));
             }
             yield return null;
         }
@@ -1539,17 +1567,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             {
                 innerBonsaiTimer += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
-                StartCoroutine(Counter("InnerBonsai"));
-            }
-            yield return null;
-        }
-        else if (doorName == "OuterBonsai")
-        {
-            if (corridorToBonsaiDoorClosing)
-            {
-                outerBonsaiTimer += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-                StartCoroutine(Counter("OuterBonsai"));
+                StartCoroutine(CounterOuters("InnerBonsai"));
             }
             yield return null;
         }
@@ -1559,17 +1577,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             {
                 corridor_ToMFTimer += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
-                StartCoroutine(Counter("CorridorToMF"));
-            }
-            yield return null;
-        }
-        else if (doorName == "MFToCorridor")
-        {
-            if (mfToCorridorDoorClosing)
-            {
-                mf_ToCorridorTimer += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-                StartCoroutine(Counter("MFToCorridor"));
+                StartCoroutine(CounterOuters("CorridorToMF"));
             }
             yield return null;
         }
@@ -1578,8 +1586,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             yield return null;
         }
     }
-
-    IEnumerator DelayedAutomaticCloseInnerBonsai()
+        IEnumerator DelayedAutomaticCloseInnerBonsai()
     {
         bonsaiToCorridorDoorClosingSoon = true;
         for (int i = 0; i < 10; i++)
@@ -1602,7 +1609,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiToCorridorDoorClosingSoon = false;
         InnerBonsaiDoorClosingSound.Play();
         innerBonsaiTimer = 0f;
-        StartCoroutine(Counter("InnerBonsai"));
+        StartCoroutine(CounterInners("InnerBonsai"));
         yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         bonsaiToCorridorDoorClosed = true;
         bonsaiToCorridorDoorClosing = false;
@@ -1673,7 +1680,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToBonsaiDoorClosingSoon = false;
         OuterBonsaiDoorClosingSound.Play();
         outerBonsaiTimer = 0f;
-        StartCoroutine(Counter("OuterBonsai"));
+        StartCoroutine(CounterOuters("OuterBonsai"));
         yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         corridorToBonsaiDoorClosed = true;
         corridorToBonsaiDoorClosing = false;
@@ -1743,7 +1750,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToMFDoorClosingSoon = false;
         Corridor_ToMFDoorClosingSound.Play();
         corridor_ToMFTimer = 0f;
-        StartCoroutine(Counter("CorridorToMF"));
+        StartCoroutine(CounterInners("CorridorToMF"));
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         corridorToMFDoorClosed = true;
         corridorToMFDoorClosing = false;
@@ -1815,7 +1822,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToCorridorDoorClosingSoon = false;
         MF_ToCorridorDoorClosingSound.Play();
         mf_ToCorridorTimer = 0f;
-        StartCoroutine(Counter("MFToCorridor"));
+        StartCoroutine(CounterOuters("MFToCorridor"));
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         mfToCorridorDoorClosed = true;
         mfToCorridorDoorClosing = false;
