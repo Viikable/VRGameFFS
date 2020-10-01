@@ -19,7 +19,9 @@ public class FuseboxFunctionality : MonoBehaviour {
     public VRTK_SnapDropZone BonsaiLights;
     public VRTK_SnapDropZone JanitorLights;
 
-    GameObject MaintenanceLightsContainer;
+    GameObject BonsaiLightsContainer;
+    GameObject JanitorLightsContainer;
+    GameObject MaintenanceCorridorLightsContainer;
 
     [Header("Door Power settings")]
     public VRTK_SnapDropZone MaintenanceCorridorDoorsFuse;
@@ -173,7 +175,7 @@ public class FuseboxFunctionality : MonoBehaviour {
     public Animator BonsaiDoorInnerAnim;
     public Animator BonsaiDoorOuterAnim;
 
-    public Animator MainFacilityToCorridorDoorAnim;
+    public Animator MFToCorridorDoorAnim;
     public Animator CorridorToMFDoorAnim;
 
     public Animator MainFacilityToBridgeDoorAnim;
@@ -287,6 +289,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     float innerJanitorTimer;
     float outerBonsaiTimer;
     float innerBonsaiTimer;
+    float corridor_ToMFTimer;
+    float mf_ToCorridorTimer;
 
     //info about the current state of certain animator
     AnimatorStateInfo animState;
@@ -308,7 +312,9 @@ public class FuseboxFunctionality : MonoBehaviour {
         BonsaiDoorFuse = transform.Find("BonsaiDoor").GetComponent<VRTK_SnapDropZone>();
         JanitorDoorFuse = transform.Find("JanitorDoor").GetComponent<VRTK_SnapDropZone>();
 
-        MaintenanceLightsContainer = GameObject.Find("MaintenanceLightsContainer");
+        JanitorLightsContainer = GameObject.Find("JanitorLightsContainer");
+        BonsaiLightsContainer = GameObject.Find("BonsaiLightsContainer");
+        MaintenanceCorridorLightsContainer = GameObject.Find("MaintenanceLightsContainer");
 
         corridorDoorsPowered = false;
         bonsaiDoorPowered = false;
@@ -445,7 +451,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         BonsaiDoorInnerAnim = GameObject.Find("InnerBonsaiRoomDoor").GetComponent<Animator>();
         BonsaiDoorOuterAnim = GameObject.Find("OuterBonsaiRoomDoor").GetComponent<Animator>();
 
-        MainFacilityToCorridorDoorAnim = GameObject.Find("MF_ToCorridorDoor").GetComponent<Animator>();
+        MFToCorridorDoorAnim = GameObject.Find("MF_ToCorridorDoor").GetComponent<Animator>();
         CorridorToMFDoorAnim = GameObject.Find("CorridorTo_MFDoor").GetComponent<Animator>();
 
         MainFacilityToBridgeDoorAnim = GameObject.Find("MF_DoorToBridge").GetComponent<Animator>();
@@ -592,7 +598,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         innerJanitorTimer = 0f;
         outerBonsaiTimer = 0f;
         innerBonsaiTimer = 0f;
-
+        corridor_ToMFTimer = 0f;
+        mf_ToCorridorTimer = 0f;
     }
         //testing
         //int i = 0;
@@ -698,7 +705,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (MaintenanceCorridorLights.GetCurrentSnappedObject() != null)
         {
             //turn Maintenancelights on
-            foreach (Light light in MaintenanceLightsContainer.GetComponentsInChildren<Light>())
+            foreach (Light light in MaintenanceCorridorLightsContainer.GetComponentsInChildren<Light>())
             {
                 light.intensity = 2f;
                 light.color = Color.white;
@@ -707,13 +714,48 @@ public class FuseboxFunctionality : MonoBehaviour {
         else
         {
             //turn Maintenancelights off
-            foreach (Light light in MaintenanceLightsContainer.GetComponentsInChildren<Light>())
+            foreach (Light light in MaintenanceCorridorLightsContainer.GetComponentsInChildren<Light>())
             {
                 light.intensity = 1f;
                 light.color = Color.red;
             }
         }
-
+        if (JanitorLights.GetCurrentSnappedObject() != null)
+        {
+            //turn Maintenancelights on
+            foreach (Light light in JanitorLightsContainer.GetComponentsInChildren<Light>())
+            {
+                light.intensity = 2f;
+                light.color = Color.white;
+            }
+        }
+        else
+        {
+            //turn Maintenancelights off
+            foreach (Light light in JanitorLightsContainer.GetComponentsInChildren<Light>())
+            {
+                light.intensity = 1f;
+                light.color = Color.red;
+            }
+        }
+        if (BonsaiLights.GetCurrentSnappedObject() != null)
+        {
+            //turn Maintenancelights on
+            foreach (Light light in BonsaiLightsContainer.GetComponentsInChildren<Light>())
+            {
+                light.intensity = 2f;
+                light.color = Color.white;
+            }
+        }
+        else
+        {
+            //turn Maintenancelights off
+            foreach (Light light in BonsaiLightsContainer.GetComponentsInChildren<Light>())
+            {
+                light.intensity = 1f;
+                light.color = Color.red;
+            }
+        }
         if (MainFacilityLights.GetCurrentSnappedObject() != null)
         {
             //turn MainFacilitylights on
@@ -983,10 +1025,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (corridorDoorsPowered)
         {
             // corridor to MF
-            if (CorridorDoorToMainFacilityButton.AtMaxLimit() && !corridorToMFDoorOpening && !corridorToMFDoorClosing)
+            if (CorridorDoorToMainFacilityButton.AtMaxLimit() && !corridorToMFDoorOpening)
             {
                 //if closed, then open
-                if (corridorToMFDoorClosed)
+                if (corridorToMFDoorClosed || corridorToMFDoorClosing)
                 {
                     StartCoroutine("CorridorToMFDoorOpening");
                 }
@@ -997,10 +1039,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StartCoroutine("DelayedAutomaticCloseCorridorToMF");
                 }
                 //if MF powered
-                if (mainFacilityDoorsPowered && !mfToCorridorDoorClosing && !mfToCorridorDoorOpening)
+                if (mainFacilityDoorsPowered && !mfToCorridorDoorOpening)
                 {
                     //if MF side door is closed, open it
-                    if (mfToCorridorDoorClosed)
+                    if (mfToCorridorDoorClosed || mfToCorridorDoorClosing)
                     {
                         StartCoroutine("MFToCorridorDoorOpening");
                     }
@@ -1018,9 +1060,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (corridorToJanitorDoorClosed || corridorToJanitorDoorClosing)
                 {
-                    //Open Janitor door (from the outside), or if it was closing, the coroutine will instead interrupt the closing and open it                                                                       
-                    //Debug.Log("Sequence 1" + corridorToJanitorDoorClosing);  //first is false
-                    //Debug.Log(corridorToJanitorDoorClosed + "wtf");
+                    //Open Janitor door (from the outside), or if it was closing, the coroutine will instead interrupt the closing and open it                                                                                         
                     StartCoroutine("OuterJanitorDoorOpening");
                 }
                 else if (corridorToJanitorDoorClosingSoon) //aka it is open and no correct key in it
@@ -1055,7 +1095,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             //corridor To Bonsai
 
             if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
-                && !corridorToBonsaiDoorClosing && !corridorToBonsaiDoorOpening)
+                && !corridorToBonsaiDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
@@ -1101,9 +1141,9 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (mainFacilityDoorsPowered)
         {          
             //MF to Corridor
-            if (MainFacilityDoorToCorridorButton.AtMaxLimit() && !mfToCorridorDoorOpening && !mfToCorridorDoorClosing)
+            if (MainFacilityDoorToCorridorButton.AtMaxLimit() && !mfToCorridorDoorOpening)
             {
-                if (mfToCorridorDoorClosed)
+                if (mfToCorridorDoorClosed || mfToCorridorDoorClosing)
                 {
                     StartCoroutine("MFToCorridorDoorOpening");
                 }
@@ -1114,10 +1154,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StartCoroutine("DelayedAutomaticCloseMFToCorridor");
                 }
                 //if corridor powered
-                if (corridorDoorsPowered && !corridorToMFDoorOpening && !corridorToMFDoorClosing)
+                if (corridorDoorsPowered && !corridorToMFDoorOpening)
                 {
                     //if corridor side door is closed, open it
-                    if (corridorToMFDoorClosed)
+                    if (corridorToMFDoorClosed || corridorToMFDoorClosing)
                     {
                         StartCoroutine("CorridorToMFDoorOpening");
                     }
@@ -1405,8 +1445,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (corridorToJanitorDoorOpen && JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
         {            
             JanitorDoorOuterAnim.SetBool("OPEN", false);
-            JanitorDoorOuterAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close
-            Debug.Log("Sequence 4");
+            JanitorDoorOuterAnim.SetFloat("Speed", 1f);     //makes the animator go to normal closing animation, in this case the closing was not interrupted during latest close            
         }
         //door was interrupted by player or object and reopened some point during closing animation, in this case the door will close but at different part of the animator
         else if (corridorToJanitorDoorOpen)
@@ -1435,13 +1474,11 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 0);
             JanitorDoorOuterAnim.SetBool("OPEN", true);
-            JanitorDoorOuterAnim.SetFloat("Speed", 1f);
-            Debug.Log("Sequence 2");
+            JanitorDoorOuterAnim.SetFloat("Speed", 1f);          
         }    
         //in case the door is opened while it is already closing, this can occur by player putting a keycard, pressing a button, or by placing themselves or an object between doors
         else if (corridorToJanitorDoorClosing)  
-        {
-            Debug.Log("Sequence 5");
+        {           
             StopCoroutine("DelayedAutomaticCloseOuterJanitor");
             corridorToJanitorDoorOpening = true;
             corridorToJanitorDoorClosing = false;
@@ -1516,6 +1553,26 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             yield return null;
         }
+        else if (doorName == "CorridorToMF")
+        {
+            if (corridorToMFDoorClosing)
+            {
+                corridor_ToMFTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(Counter("CorridorToMF"));
+            }
+            yield return null;
+        }
+        else if (doorName == "MFToCorridor")
+        {
+            if (mfToCorridorDoorClosing)
+            {
+                mf_ToCorridorTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(Counter("MFToCorridor"));
+            }
+            yield return null;
+        }
         else
         {
             yield return null;
@@ -1544,6 +1601,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiToCorridorDoorOpen = false;
         bonsaiToCorridorDoorClosingSoon = false;
         InnerBonsaiDoorClosingSound.Play();
+        innerBonsaiTimer = 0f;
         StartCoroutine(Counter("InnerBonsai"));
         yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         bonsaiToCorridorDoorClosed = true;
@@ -1600,12 +1658,22 @@ public class FuseboxFunctionality : MonoBehaviour {
             OuterBonsaiDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        //yield return new WaitForSecondsRealtime(10f);
-        BonsaiDoorOuterAnim.SetBool("OPEN", false);
+        if (corridorToBonsaiDoorOpen && BonsaiDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            BonsaiDoorOuterAnim.SetBool("OPEN", false);
+            BonsaiDoorOuterAnim.SetFloat("Speed", 1f);
+        }
+        else if (corridorToBonsaiDoorOpen)
+        {
+            BonsaiDoorOuterAnim.SetBool("OPEN", false);
+            BonsaiDoorOuterAnim.SetFloat("Speed", 1f);
+        }              
         corridorToBonsaiDoorClosing = true;
         corridorToBonsaiDoorOpen = false;
         corridorToBonsaiDoorClosingSoon = false;
         OuterBonsaiDoorClosingSound.Play();
+        outerBonsaiTimer = 0f;
+        StartCoroutine(Counter("OuterBonsai"));
         yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         corridorToBonsaiDoorClosed = true;
         corridorToBonsaiDoorClosing = false;
@@ -1615,11 +1683,37 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator OuterBonsaiDoorOpening()
     {
-        BonsaiDoorOuterAnim.SetBool("OPEN", true);
+        if (corridorToBonsaiDoorClosed)
+        {
+            BonsaiDoorOuterAnim.SetInteger("INTERRUPTED", 0);
+            BonsaiDoorOuterAnim.SetBool("OPEN", true);
+            BonsaiDoorOuterAnim.SetFloat("Speed", 1f);
+        }
+        else if (corridorToBonsaiDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseOuterBonsai");
+            corridorToBonsaiDoorClosing = false;
+            BonsaiDoorOuterAnim.SetFloat("Speed", -1f);
+            BonsaiDoorOuterAnim.SetBool("OPEN", true);
+            if (BonsaiDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                BonsaiDoorOuterAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (BonsaiDoorOuterAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                BonsaiDoorOuterAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (BonsaiDoorOuterAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                BonsaiDoorOuterAnim.SetInteger("INTERRUPTED", 1);
+            }
+            OuterBonsaiDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
         corridorToBonsaiDoorOpening = true;
         corridorToBonsaiDoorClosed = false;
         OuterBonsaiDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(doorAnimationTime); //door opening time is 3s atm
+        yield return new WaitForSecondsRealtime(BonsaiDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - outerBonsaiTimer)); 
         corridorToBonsaiDoorOpening = false;
         corridorToBonsaiDoorOpen = true;
         OuterBonsaiDoorOpeningSound.Stop();
@@ -1633,28 +1727,63 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             Corridor_ToMFDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
-        }       
-        //yield return new WaitForSecondsRealtime(10f);
-        CorridorToMFDoorAnim.SetBool("OPENCORRIDORSIDE", false);
+        }
+        if (corridorToMFDoorOpen && CorridorToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            CorridorToMFDoorAnim.SetBool("OPEN", false);
+            CorridorToMFDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (corridorToMFDoorOpen)
+        {
+            CorridorToMFDoorAnim.SetBool("OPEN", false);
+            CorridorToMFDoorAnim.SetFloat("Speed", 1f);
+        }               
         corridorToMFDoorClosing = true;
         corridorToMFDoorOpen = false;
         corridorToMFDoorClosingSoon = false;
         Corridor_ToMFDoorClosingSound.Play();
+        corridor_ToMFTimer = 0f;
+        StartCoroutine(Counter("CorridorToMF"));
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         corridorToMFDoorClosed = true;
         corridorToMFDoorClosing = false;
         Corridor_ToMFDoorClosingSound.Stop();
         Corridor_ToMFDoorClosedSound.Play();
-
     }
 
     IEnumerator CorridorToMFDoorOpening()
     {
-        CorridorToMFDoorAnim.SetBool("OPENCORRIDORSIDE", true);
+        if (corridorToMFDoorClosed)
+        {
+            CorridorToMFDoorAnim.SetInteger("INTERRUPTED", 0);
+            CorridorToMFDoorAnim.SetBool("OPEN", true);
+            CorridorToMFDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (corridorToMFDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseCorridorToMF");
+            corridorToMFDoorClosing = false;
+            CorridorToMFDoorAnim.SetFloat("Speed", -1f);
+            CorridorToMFDoorAnim.SetBool("OPEN", true);
+            if (CorridorToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                CorridorToMFDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (CorridorToMFDoorAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                CorridorToMFDoorAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (CorridorToMFDoorAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                CorridorToMFDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            Corridor_ToMFDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
         corridorToMFDoorOpening = true;
         corridorToMFDoorClosed = false;
         Corridor_ToMFDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(CorridorToMFDoorAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - corridor_ToMFTimer)); //door closing time is 3s atm
         corridorToMFDoorOpening = false;
         corridorToMFDoorOpen = true;
         Corridor_ToMFDoorOpeningSound.Stop();
@@ -1671,12 +1800,22 @@ public class FuseboxFunctionality : MonoBehaviour {
             MF_ToCorridorDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        //yield return new WaitForSecondsRealtime(10f);
-        MainFacilityToCorridorDoorAnim.SetBool("OPENMFSIDE", false);
+        if (mfToCorridorDoorOpen && MFToCorridorDoorAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            MFToCorridorDoorAnim.SetBool("OPEN", false);
+            MFToCorridorDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (mfToCorridorDoorOpen)
+        {
+            MFToCorridorDoorAnim.SetBool("OPEN", false);
+            MFToCorridorDoorAnim.SetFloat("Speed", 1f);
+        }       
         mfToCorridorDoorClosing = true;
         mfToCorridorDoorOpen = false;
         mfToCorridorDoorClosingSoon = false;
         MF_ToCorridorDoorClosingSound.Play();
+        mf_ToCorridorTimer = 0f;
+        StartCoroutine(Counter("MFToCorridor"));
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         mfToCorridorDoorClosed = true;
         mfToCorridorDoorClosing = false;
@@ -1686,7 +1825,33 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MFToCorridorDoorOpening()
     {
-        MainFacilityToCorridorDoorAnim.SetBool("OPENMFSIDE", true);
+        if (mfToCorridorDoorClosed)
+        {
+            MFToCorridorDoorAnim.SetInteger("INTERRUPTED", 0);
+            MFToCorridorDoorAnim.SetBool("OPEN", true);
+            MFToCorridorDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (mfToCorridorDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseMFToCorridor");
+            mfToCorridorDoorClosing = false;
+            MFToCorridorDoorAnim.SetFloat("Speed", -1f);
+            MFToCorridorDoorAnim.SetBool("OPEN", true);
+            if (MFToCorridorDoorAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                MFToCorridorDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (MFToCorridorDoorAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                MFToCorridorDoorAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (MFToCorridorDoorAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                MFToCorridorDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            MF_ToCorridorDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
         mfToCorridorDoorOpening = true;
         mfToCorridorDoorClosed = false;
         MF_ToCorridorDoorOpeningSound.Play();
