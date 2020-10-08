@@ -178,10 +178,10 @@ public class FuseboxFunctionality : MonoBehaviour {
     public Animator MFToCorridorDoorAnim;
     public Animator CorridorToMFDoorAnim;
 
-    public Animator MainFacilityToBridgeDoorAnim;
+    public Animator MFToBridgeDoorAnim;
     public Animator BridgeToMFDoorAnim;
 
-    public Animator MainFacilityToMelterDoorAnim;
+    public Animator MFToMelterDoorAnim;
     public Animator MelterToMFDoorAnim;
 
     [Header("Sounds")]
@@ -266,6 +266,26 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public AudioSource[] Melter_ToMFDoorCountdown;
 
+    [Header("BridgeSounds")]
+
+    //mftobridge
+    public AudioSource MF_ToBridgeDoorOpeningSound;
+    public AudioSource MF_ToBridgeDoorOpenSound;
+    public AudioSource MF_ToBridgeDoorClosingSound;
+    public AudioSource MF_ToBridgeDoorClosedSound;
+    public AudioSource MF_ToBridgeDoorAlarmSound;
+
+    public AudioSource[] MF_ToBridgeDoorCountdown;
+
+    //bridgetomf
+    public AudioSource Bridge_ToMFDoorOpeningSound;
+    public AudioSource Bridge_ToMFDoorOpenSound;
+    public AudioSource Bridge_ToMFDoorClosingSound;
+    public AudioSource Bridge_ToMFDoorClosedSound;
+    public AudioSource Bridge_ToMFDoorAlarmSound;
+
+    public AudioSource[] Bridge_ToMFDoorCountdown;
+
     //animation waiting
     const string animBaseLayer = "Base Layer";
     int openAnimHash = Animator.StringToHash(animBaseLayer + ".Open");
@@ -291,6 +311,10 @@ public class FuseboxFunctionality : MonoBehaviour {
     float innerBonsaiTimer;
     float corridor_ToMFTimer;
     float mf_ToCorridorTimer;
+    float melter_ToMFTimer;
+    float mf_ToMelterTimer;
+    float bridge_ToMFTimer;
+    float mf_ToBridgeTimer;
 
     //info about the current state of certain animator
     AnimatorStateInfo animState;
@@ -454,10 +478,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         MFToCorridorDoorAnim = GameObject.Find("MF_ToCorridorDoor").GetComponent<Animator>();
         CorridorToMFDoorAnim = GameObject.Find("CorridorTo_MFDoor").GetComponent<Animator>();
 
-        MainFacilityToBridgeDoorAnim = GameObject.Find("MF_DoorToBridge").GetComponent<Animator>();
+        MFToBridgeDoorAnim = GameObject.Find("MF_DoorToBridge").GetComponent<Animator>();
         BridgeToMFDoorAnim = GameObject.Find("Bridge_DoorToMF").GetComponent<Animator>();
 
-        MainFacilityToMelterDoorAnim = GameObject.Find("MF_DoorToMelter").GetComponent<Animator>();
+        MFToMelterDoorAnim = GameObject.Find("MF_DoorToMelter").GetComponent<Animator>();
         MelterToMFDoorAnim = GameObject.Find("MelterDoorTo_MF").GetComponent<Animator>();
 
         //Sounds
@@ -581,6 +605,34 @@ public class FuseboxFunctionality : MonoBehaviour {
             Melter_ToMFDoorCountdown[i] = GameObject.Find("Melter_ToMFDoorSounds").transform.Find("Melter_ToMFDoorCountDown" + i).GetComponent<AudioSource>();
         }
 
+        //bridgetoMF door sounds
+
+        MF_ToBridgeDoorOpeningSound = GameObject.Find("MF_ToBridgeDoorSounds").transform.Find("MF_ToBridgeDoorOpeningSound").GetComponent<AudioSource>();
+        MF_ToBridgeDoorOpenSound = GameObject.Find("MF_ToBridgeDoorSounds").transform.Find("MF_ToBridgeDoorOpenSound").GetComponent<AudioSource>();
+        MF_ToBridgeDoorClosingSound = GameObject.Find("MF_ToBridgeDoorSounds").transform.Find("MF_ToBridgeDoorClosingSound").GetComponent<AudioSource>();
+        MF_ToBridgeDoorClosedSound = GameObject.Find("MF_ToBridgeDoorSounds").transform.Find("MF_ToBridgeDoorClosedSound").GetComponent<AudioSource>();
+        MF_ToBridgeDoorAlarmSound = GameObject.Find("MF_ToBridgeDoorSounds").transform.Find("MF_ToBridgeDoorAlarmSound").GetComponent<AudioSource>();
+
+        MF_ToBridgeDoorCountdown = new AudioSource[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            MF_ToBridgeDoorCountdown[i] = GameObject.Find("MF_ToBridgeDoorSounds").transform.Find("MF_ToBridgeDoorCountDown" + i).GetComponent<AudioSource>();
+        }
+
+        Bridge_ToMFDoorOpeningSound = GameObject.Find("Bridge_ToMFDoorSounds").transform.Find("Bridge_ToMFDoorOpeningSound").GetComponent<AudioSource>();
+        Bridge_ToMFDoorOpenSound = GameObject.Find("Bridge_ToMFDoorSounds").transform.Find("Bridge_ToMFDoorOpenSound").GetComponent<AudioSource>();
+        Bridge_ToMFDoorClosingSound = GameObject.Find("Bridge_ToMFDoorSounds").transform.Find("Bridge_ToMFDoorClosingSound").GetComponent<AudioSource>();
+        Bridge_ToMFDoorClosedSound = GameObject.Find("Bridge_ToMFDoorSounds").transform.Find("Bridge_ToMFDoorClosedSound").GetComponent<AudioSource>();
+        Bridge_ToMFDoorAlarmSound = GameObject.Find("Bridge_ToMFDoorSounds").transform.Find("Bridge_ToMFDoorAlarmSound").GetComponent<AudioSource>();
+
+        Bridge_ToMFDoorCountdown = new AudioSource[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            Bridge_ToMFDoorCountdown[i] = GameObject.Find("Bridge_ToMFDoorSounds").transform.Find("Bridge_ToMFDoorCountDown" + i).GetComponent<AudioSource>();
+        }
+
         //interruption control
         janitorOuterDoorInterrupted = 0;    //0 means no, 1 means once, 2 means twice
         janitorInnerDoorInterrupted = 0;
@@ -600,6 +652,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         innerBonsaiTimer = 0f;
         corridor_ToMFTimer = 0f;
         mf_ToCorridorTimer = 0f;
+        melter_ToMFTimer = 0f;
+        mf_ToMelterTimer = 0f;
+        bridge_ToMFTimer = 0f;
+        mf_ToBridgeTimer = 0f;
     }
         //testing
         //int i = 0;
@@ -1170,10 +1226,10 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             //MF to Bridge
             if (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
-                && !mfToBridgeDoorClosing && !mfToBridgeDoorOpening)
+                && !mfToBridgeDoorOpening)
             {
                 //open the door to Bridge 
-                if (mfToBridgeDoorClosed)
+                if (mfToBridgeDoorClosed || mfToBridgeDoorClosing)
                 {
                     StartCoroutine("MFToBridgeDoorOpening");
                 }
@@ -1182,9 +1238,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StopCoroutine("DelayedAutomaticCloseMFToBridge");
                     mfToCorridorDoorClosingSoon = false;
                 }
-                if (bridgeDoorsPowered && !bridgeToMFDoorOpening && !bridgeToMFDoorClosing) //probably unnecessary to check for closing and opening here too
+                if (bridgeDoorsPowered && !bridgeToMFDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
-                    if (bridgeToMFDoorClosed)
+                    if (bridgeToMFDoorClosed || bridgeToMFDoorClosing)
                     {
                         StartCoroutine("BridgeToMFDoorOpening");
                     }
@@ -1212,10 +1268,10 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             //Melter door MF side
             if (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
-                && !mfToMelterDoorClosing && !mfToMelterDoorOpening)
+                && !mfToMelterDoorOpening)
             {
                 //open the door to melter from MF
-                if (mfToMelterDoorClosed)
+                if (mfToMelterDoorClosed || mfToMelterDoorClosing)
                 {
                     StartCoroutine("MFToMelterDoorOpening");
                 }
@@ -1224,9 +1280,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StopCoroutine("DelayedAutomaticCloseMFToMelter");
                     mfToMelterDoorClosingSoon = false;
                 }
-                if (melterDoorsPowered && !melterToMFDoorOpening && !melterToMFDoorClosing) //probably unnecessary to check for closing and opening here too
+                if (melterDoorsPowered && !melterToMFDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
-                    if (melterToMFDoorClosed)
+                    if (melterToMFDoorClosed || melterToMFDoorClosing)
                     {
                         StartCoroutine("MelterToMFDoorOpening");
                     }
@@ -1266,10 +1322,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (bridgeDoorsPowered)
         {
             if (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
-            && !bridgeToMFDoorClosing && !bridgeToMFDoorOpening)
+            && !bridgeToMFDoorOpening)
             {
                 //open the door from Bridge to MF
-                if (bridgeToMFDoorClosed)
+                if (bridgeToMFDoorClosed || bridgeToMFDoorClosing)
                 {
                     StartCoroutine("BridgeToMFDoorOpening");
                 }
@@ -1278,9 +1334,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StopCoroutine("DelayedAutomaticCloseBridgeToMF");
                     bridgeToMFDoorClosingSoon = false;
                 }
-                if (mainFacilityDoorsPowered && !mfToBridgeDoorOpening && !mfToBridgeDoorClosing) //probably unnecessary to check for closing and opening here too
+                if (mainFacilityDoorsPowered && !mfToBridgeDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
-                    if (mfToBridgeDoorClosed)
+                    if (mfToBridgeDoorClosed || mfToBridgeDoorClosing)
                     {
                         StartCoroutine("MFToBridgeDoorOpening");
                     }
@@ -1317,10 +1373,10 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (melterDoorsPowered)
         {
             if (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
-                && !melterToMFDoorClosing && !melterToMFDoorOpening)
+               && !melterToMFDoorOpening)
             {
                 //open the door to MF from Melter
-                if (melterToMFDoorClosed)
+                if (melterToMFDoorClosed || melterToMFDoorClosing)
                 {
                     StartCoroutine("MelterToMFDoorOpening");
                 }
@@ -1329,9 +1385,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StopCoroutine("DelayedAutomaticCloseMelterToMF");
                     melterToMFDoorClosingSoon = false;
                 }
-                if (mainFacilityDoorsPowered && !mfToMelterDoorOpening && !mfToMelterDoorClosing) //probably unnecessary to check for closing and opening here too
+                if (mainFacilityDoorsPowered && !mfToMelterDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
-                    if (mfToMelterDoorClosed)
+                    if (mfToMelterDoorClosed || mfToMelterDoorClosing)
                     {
                         StartCoroutine("MFToMelterDoorOpening");
                     }
@@ -1543,6 +1599,26 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             yield return null;
         }
+        else if (doorName == "MFToBridge")
+        {
+            if (mfToBridgeDoorClosing)
+            {
+                mf_ToBridgeTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(CounterOuters("MFToBridge"));
+            }
+            yield return null;
+        }
+        else if (doorName == "MFToMelter")
+        {
+            if (mfToMelterDoorClosing)
+            {
+                mf_ToMelterTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(CounterOuters("MFToMelter"));
+            }
+            yield return null;
+        }
         else
         {
             yield return null;
@@ -1581,12 +1657,32 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             yield return null;
         }
+        else if (doorName == "BridgeToMF")
+        {
+            if (bridgeToMFDoorClosing)
+            {
+                bridge_ToMFTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(CounterOuters("BridgeToMF"));
+            }
+            yield return null;
+        }
+        else if (doorName == "MelterToMF")
+        {
+            if (mfToMelterDoorClosing)
+            {
+                mf_ToBridgeTimer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(CounterOuters("MelterToMF"));
+            }
+            yield return null;
+        }
         else
         {
             yield return null;
         }
     }
-        IEnumerator DelayedAutomaticCloseInnerBonsai()
+    IEnumerator DelayedAutomaticCloseInnerBonsai()
     {
         bonsaiToCorridorDoorClosingSoon = true;
         for (int i = 0; i < 10; i++)
@@ -1862,7 +1958,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToCorridorDoorOpening = true;
         mfToCorridorDoorClosed = false;
         MF_ToCorridorDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(MFToCorridorDoorAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - mf_ToCorridorTimer)); //door closing time is 3s atm
         mfToCorridorDoorOpening = false;
         mfToCorridorDoorOpen = true;
         MF_ToCorridorDoorOpeningSound.Stop();
@@ -1874,47 +1970,141 @@ public class FuseboxFunctionality : MonoBehaviour {
     IEnumerator DelayedAutomaticCloseMFToBridge()
     {
         mfToBridgeDoorClosingSoon = true;
-        yield return new WaitForSecondsRealtime(10f);
-        MainFacilityToBridgeDoorAnim.SetBool("OPENMFSIDE", false);
+        for (int i = 0; i < 10; i++)
+        {
+            MF_ToBridgeDoorCountdown[i].Play();
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        if (mfToBridgeDoorOpen && MFToBridgeDoorAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            MFToBridgeDoorAnim.SetBool("OPEN", false);
+            MFToBridgeDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (mfToBridgeDoorOpen)
+        {
+            MFToBridgeDoorAnim.SetBool("OPEN", false);
+            MFToBridgeDoorAnim.SetFloat("Speed", 1f);
+        }      
         mfToBridgeDoorClosing = true;
         mfToBridgeDoorOpen = false;
         mfToBridgeDoorClosingSoon = false;
+        MF_ToBridgeDoorClosingSound.Play();
+        mf_ToBridgeTimer = 0f;
+        StartCoroutine(CounterOuters("MFToBridge"));      
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         mfToBridgeDoorClosed = true;
         mfToBridgeDoorClosing = false;
+        MF_ToBridgeDoorClosingSound.Stop();
+        MF_ToBridgeDoorClosedSound.Play();
     }
 
     IEnumerator MFToBridgeDoorOpening()
     {
-        MainFacilityToBridgeDoorAnim.SetBool("OPENMFSIDE", true);
+        if (mfToBridgeDoorClosed)
+        {
+            MFToBridgeDoorAnim.SetInteger("INTERRUPTED", 0);
+            MFToBridgeDoorAnim.SetBool("OPEN", true);
+            MFToBridgeDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (mfToBridgeDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseMFToBridge");
+            mfToBridgeDoorClosing = false;
+            MFToBridgeDoorAnim.SetFloat("Speed", -1f);
+            MFToBridgeDoorAnim.SetBool("OPEN", true);
+            if (MFToBridgeDoorAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                MFToBridgeDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (MFToBridgeDoorAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                MFToBridgeDoorAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (MFToBridgeDoorAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                MFToBridgeDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            MF_ToBridgeDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
         mfToBridgeDoorOpening = true;
         mfToBridgeDoorClosed = false;
-        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
+        MF_ToBridgeDoorOpeningSound.Play();
+        yield return new WaitForSecondsRealtime(MFToBridgeDoorAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - mf_ToBridgeTimer)); //door closing time is 3s atm
         mfToBridgeDoorOpening = false;
-        mfToBridgeDoorOpen = true;     
+        mfToBridgeDoorOpen = true;
+        MF_ToBridgeDoorOpeningSound.Stop();
+        MF_ToBridgeDoorOpenSound.Play();
     }
 
     IEnumerator DelayedAutomaticCloseBridgeToMF()
     {
         bridgeToMFDoorClosingSoon = true;
-        yield return new WaitForSecondsRealtime(10f);
-        MainFacilityToBridgeDoorAnim.SetBool("OPENBRIDGESIDE", false);
+        for (int i = 0; i < 10; i++)
+        {
+            Bridge_ToMFDoorCountdown[i].Play();
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        if (bridgeToMFDoorOpen && BridgeToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            BridgeToMFDoorAnim.SetBool("OPEN", false);
+            BridgeToMFDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (bridgeToMFDoorOpen)
+        {
+            BridgeToMFDoorAnim.SetBool("OPEN", false);
+            BridgeToMFDoorAnim.SetFloat("Speed", 1f);
+        }
         bridgeToMFDoorClosing = true;
         bridgeToMFDoorOpen = false;
         bridgeToMFDoorClosingSoon = false;
+        Bridge_ToMFDoorClosingSound.Play();
+        bridge_ToMFTimer = 0f;
+        StartCoroutine(CounterInners("BridgeToMF"));
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         bridgeToMFDoorClosed = true;
         bridgeToMFDoorClosing = false;
+        Bridge_ToMFDoorClosingSound.Stop();
+        Bridge_ToMFDoorClosedSound.Play();
     }
 
     IEnumerator BridgeToMFDoorOpening()
     {
-        MainFacilityToBridgeDoorAnim.SetBool("OPENBRIDGESIDE", true);
+        if (bridgeToMFDoorClosed)
+        {
+            BridgeToMFDoorAnim.SetInteger("INTERRUPTED", 0);
+            BridgeToMFDoorAnim.SetBool("OPEN", true);
+            BridgeToMFDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (bridgeToMFDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseBridgeToMF");
+            bridgeToMFDoorClosing = false;
+            BridgeToMFDoorAnim.SetFloat("Speed", -1f);
+            BridgeToMFDoorAnim.SetBool("OPEN", true);
+            if (BridgeToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                BridgeToMFDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (BridgeToMFDoorAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                BridgeToMFDoorAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (BridgeToMFDoorAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                BridgeToMFDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            Bridge_ToMFDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
         bridgeToMFDoorOpening = true;
         bridgeToMFDoorClosed = false;
-        yield return new WaitForSecondsRealtime(3f); //door closing time is 3s atm
+        Bridge_ToMFDoorOpeningSound.Play();
+        yield return new WaitForSecondsRealtime(BridgeToMFDoorAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - bridge_ToMFTimer)); //door closing time is 3s atm
         bridgeToMFDoorOpening = false;
-        bridgeToMFDoorOpen = true;       
+        bridgeToMFDoorOpen = true;
+        Bridge_ToMFDoorOpeningSound.Stop();
+        Bridge_ToMFDoorOpenSound.Play();
     }
 
     IEnumerator DelayedAutomaticCloseMFToMelter()
@@ -1924,12 +2114,23 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             MF_ToMelterDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
-        }       
-        MainFacilityToMelterDoorAnim.SetBool("OPENMFSIDE", false);
+        }
+        if (mfToMelterDoorOpen && MFToMelterDoorAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            MFToMelterDoorAnim.SetBool("OPEN", false);
+            MFToMelterDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (mfToMelterDoorOpen)
+        {
+            MFToMelterDoorAnim.SetBool("OPEN", false);
+            MFToMelterDoorAnim.SetFloat("Speed", 1f);
+        }
         mfToMelterDoorClosing = true;
         mfToMelterDoorOpen = false;
         mfToMelterDoorClosingSoon = false;
         MF_ToMelterDoorClosingSound.Play();
+        mf_ToMelterTimer = 0f;
+        StartCoroutine(CounterOuters("MFToMelter"));
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         mfToMelterDoorClosed = true;
         mfToMelterDoorClosing = false;
@@ -1939,11 +2140,37 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MFToMelterDoorOpening()
     {
-        MainFacilityToMelterDoorAnim.SetBool("OPENMFSIDE", true);
+        if (mfToMelterDoorClosed)
+        {
+            MFToMelterDoorAnim.SetInteger("INTERRUPTED", 0);
+            MFToMelterDoorAnim.SetBool("OPEN", true);
+            MFToMelterDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (mfToMelterDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseMFToMelter");
+            mfToMelterDoorClosing = false;
+            MFToMelterDoorAnim.SetFloat("Speed", -1f);
+            MFToMelterDoorAnim.SetBool("OPEN", true);
+            if (MFToMelterDoorAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                MFToMelterDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (MFToMelterDoorAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                MFToMelterDoorAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (MFToMelterDoorAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                MFToMelterDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            MF_ToMelterDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
         mfToMelterDoorOpening = true;
         mfToMelterDoorClosed = false;
         MF_ToMelterDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(MFToMelterDoorAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - mf_ToMelterTimer)); //door closing time is 3s atm
         mfToMelterDoorOpening = false;
         mfToMelterDoorOpen = true;
         MF_ToMelterDoorOpeningSound.Stop();
@@ -1958,11 +2185,22 @@ public class FuseboxFunctionality : MonoBehaviour {
             Melter_ToMFDoorCountdown[i].Play();
             yield return new WaitForSecondsRealtime(1f);
         }
-        MainFacilityToMelterDoorAnim.SetBool("OPENMELTERSIDE", false);
+        if (melterToMFDoorOpen && MelterToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
+        {
+            MelterToMFDoorAnim.SetBool("OPEN", false);
+            MelterToMFDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (melterToMFDoorOpen)
+        {
+            MelterToMFDoorAnim.SetBool("OPEN", false);
+            MelterToMFDoorAnim.SetFloat("Speed", 1f);
+        }
         melterToMFDoorClosing = true;
         melterToMFDoorOpen = false;
         melterToMFDoorClosingSoon = false;
         Melter_ToMFDoorClosingSound.Play();
+        melter_ToMFTimer = 0f;
+        StartCoroutine(CounterInners("MelterToMF"));
         yield return new WaitForSecondsRealtime(doorAnimationTime);
         melterToMFDoorClosed = true;
         melterToMFDoorClosing = false;
@@ -1972,11 +2210,37 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MelterToMFDoorOpening()
     {
-        MainFacilityToMelterDoorAnim.SetBool("OPENMELTERSIDE", true);
+        if (melterToMFDoorClosed)
+        {
+            MelterToMFDoorAnim.SetInteger("INTERRUPTED", 0);
+            MelterToMFDoorAnim.SetBool("OPEN", true);
+            MelterToMFDoorAnim.SetFloat("Speed", 1f);
+        }
+        else if (melterToMFDoorClosing)
+        {
+            StopCoroutine("DelayedAutomaticCloseMelterToMF");
+            melterToMFDoorClosing = false;
+            MelterToMFDoorAnim.SetFloat("Speed", -1f);
+            MelterToMFDoorAnim.SetBool("OPEN", true);
+            if (MelterToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
+            {
+                MelterToMFDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            else if (MelterToMFDoorAnim.GetInteger("INTERRUPTED") == 1)
+            {
+                MelterToMFDoorAnim.SetInteger("INTERRUPTED", 2);
+            }
+            else if (MelterToMFDoorAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
+            {
+                MelterToMFDoorAnim.SetInteger("INTERRUPTED", 1);
+            }
+            Melter_ToMFDoorClosingSound.Stop();
+            //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press
+        }
         melterToMFDoorOpening = true;
         melterToMFDoorClosed = false;
         Melter_ToMFDoorOpeningSound.Play();
-        yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
+        yield return new WaitForSecondsRealtime(MelterToMFDoorAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - melter_ToMFTimer)); //door closing time is 3s atm
         melterToMFDoorOpening = false;
         melterToMFDoorOpen = true;
         Melter_ToMFDoorOpeningSound.Stop();
