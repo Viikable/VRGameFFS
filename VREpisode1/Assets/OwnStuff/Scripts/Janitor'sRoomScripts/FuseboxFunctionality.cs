@@ -293,14 +293,16 @@ public class FuseboxFunctionality : MonoBehaviour {
     int closeWhenInterruptedAnimHash = Animator.StringToHash(animBaseLayer + ".CloseWhenInterrupted");
 
     //door interruption control
-    public static int janitorOuterDoorInterrupted;
-    public static int janitorInnerDoorInterrupted;
-    public static int bonsaiOuterDoorInterrupted;
-    public static int bonsaiInnerDoorInterrupted;
-    public static int corridor_ToMFDoorInterrupted;
-    public static int mf_ToCorridorDoorInterrupted;
-    public static int melter_ToMFDoorInterrupted;
-    public static int mf_ToMelterDoorInterrupted;
+    public static bool janitorOuterDoorInterrupted;
+    public static bool janitorInnerDoorInterrupted;
+    public static bool bonsaiOuterDoorInterrupted;
+    public static bool bonsaiInnerDoorInterrupted;
+    public static bool corridor_ToMFDoorInterrupted;
+    public static bool mf_ToCorridorDoorInterrupted;
+    public static bool melter_ToMFDoorInterrupted;
+    public static bool mf_ToMelterDoorInterrupted;
+    public static bool bridge_ToMFDoorInterrupted;
+    public static bool mf_ToBridgeDoorInterrupted;
 
     private float doorAnimationTime;
 
@@ -634,14 +636,16 @@ public class FuseboxFunctionality : MonoBehaviour {
         }
 
         //interruption control
-        janitorOuterDoorInterrupted = 0;    //0 means no, 1 means once, 2 means twice
-        janitorInnerDoorInterrupted = 0;
-        bonsaiOuterDoorInterrupted = 0;
-        bonsaiInnerDoorInterrupted = 0;
-        corridor_ToMFDoorInterrupted = 0;
-        mf_ToCorridorDoorInterrupted = 0;
-        melter_ToMFDoorInterrupted = 0;
-        mf_ToMelterDoorInterrupted = 0;
+        janitorOuterDoorInterrupted = false;    
+        janitorInnerDoorInterrupted = false;
+        bonsaiOuterDoorInterrupted = false;
+        bonsaiInnerDoorInterrupted = false;
+        corridor_ToMFDoorInterrupted = false;
+        mf_ToCorridorDoorInterrupted = false;
+        melter_ToMFDoorInterrupted = false;
+        mf_ToMelterDoorInterrupted = false;
+        mf_ToBridgeDoorInterrupted = false;
+        bridge_ToMFDoorInterrupted = false;
 
         doorAnimationTime = 3f;
 
@@ -664,8 +668,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         CheckLights();
         CheckMachinery();
         CheckDoorsPowerStatus();
-        OpenDoors();
-
+        OpenDoors();  
+        
         //for testing
 
         //if (i == 0)
@@ -995,7 +999,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         if (janitorDoorPowered)
         {
-            if (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1
+            if (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1 || janitorInnerDoorInterrupted)
                && !janitorToCorridorDoorOpening)
             {
                 if (janitorToCorridorDoorClosed || janitorToCorridorDoorClosing)  //THIS CHANGE TO ALLL!!!!! 
@@ -1028,7 +1032,8 @@ public class FuseboxFunctionality : MonoBehaviour {
             //check when to close the door (no correct key in either lock)
             if (janitorToCorridorDoorOpen && !janitorToCorridorDoorClosingSoon
                && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
-               && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
+               && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+               && !janitorInnerDoorInterrupted)
             {
                 //waits 10 seconds and then starts closing the door for 3 s
                 StartCoroutine("DelayedAutomaticCloseInnerJanitor");
@@ -1037,7 +1042,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         //BONSAI DOOR
         if (bonsaiDoorPowered)
         {
-            if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
+            if (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3 || bonsaiInnerDoorInterrupted)
                 && !bonsaiToCorridorDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation            
@@ -1070,7 +1075,8 @@ public class FuseboxFunctionality : MonoBehaviour {
             }       
             if (bonsaiToCorridorDoorOpen && !bonsaiToCorridorDoorClosingSoon
                && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
+               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+               && !bonsaiInnerDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseInnerBonsai");
             }
@@ -1081,7 +1087,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (corridorDoorsPowered)
         {
             // corridor to MF
-            if (CorridorDoorToMainFacilityButton.AtMaxLimit() && !corridorToMFDoorOpening)
+            if ((CorridorDoorToMainFacilityButton.AtMaxLimit() || corridor_ToMFDoorInterrupted) && !corridorToMFDoorOpening)
             {
                 //if closed, then open
                 if (corridorToMFDoorClosed || corridorToMFDoorClosing)
@@ -1091,8 +1097,11 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //if open already, then reset door timer
                 else if (corridorToMFDoorClosingSoon)  //the bool doesn't rly do a lot, could remove maybe
                 {
-                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");    //stop earlier timer, start a new one              
-                    StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");    //stop earlier timer, start a new one
+                    if (!corridor_ToMFDoorInterrupted)
+                    {
+                        StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                    }
                 }
                 //if MF powered
                 if (mainFacilityDoorsPowered && !mfToCorridorDoorOpening)
@@ -1104,13 +1113,20 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                     else if (mfToCorridorDoorClosingSoon) //aka it is open 
                     {
-                        StopCoroutine("DelayedAutomaticCloseMFToCorridor");  //ends the 10 second countdown of door closing 
-                        StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+                        StopCoroutine("DelayedAutomaticCloseMFToCorridor");  //ends the 10 second countdown of door closing
+                        if (!mf_ToCorridorDoorInterrupted)
+                        {
+                            StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+                        }
                     }
                 }
             }
+            if (corridorToMFDoorOpen && !corridorToMFDoorClosingSoon && !corridor_ToMFDoorInterrupted)
+            {
+                StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+            }
             //corridor to Janitor
-            if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1 
+            if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1 || janitorOuterDoorInterrupted) 
                 && !corridorToJanitorDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
@@ -1144,13 +1160,14 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             if (corridorToJanitorDoorOpen && !corridorToJanitorDoorClosingSoon
                && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
-               && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1))
+               && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+               && !janitorOuterDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseOuterJanitor");
             }
             //corridor To Bonsai
 
-            if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
+            if (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3 || bonsaiOuterDoorInterrupted)
                 && !corridorToBonsaiDoorOpening)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
@@ -1183,7 +1200,8 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             if (corridorToBonsaiDoorOpen && !corridorToBonsaiDoorClosingSoon
                && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
+               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+               && !bonsaiOuterDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseOuterBonsai");
             }
@@ -1197,7 +1215,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (mainFacilityDoorsPowered)
         {          
             //MF to Corridor
-            if (MainFacilityDoorToCorridorButton.AtMaxLimit() && !mfToCorridorDoorOpening)
+            if ((MainFacilityDoorToCorridorButton.AtMaxLimit() || mf_ToCorridorDoorInterrupted) && !mfToCorridorDoorOpening)
             {
                 if (mfToCorridorDoorClosed || mfToCorridorDoorClosing)
                 {
@@ -1207,7 +1225,15 @@ public class FuseboxFunctionality : MonoBehaviour {
                 else if (mfToCorridorDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToCorridor");
-                    StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+                    // in case object is blocking the door won't start and stop the countdown constantly
+                    if (!mf_ToCorridorDoorInterrupted)
+                    {
+                        StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+                    }
+                    else
+                    {
+                        mfToCorridorDoorClosingSoon = false;
+                    }
                 }
                 //if corridor powered
                 if (corridorDoorsPowered && !corridorToMFDoorOpening)
@@ -1220,10 +1246,22 @@ public class FuseboxFunctionality : MonoBehaviour {
                     else if (corridorToMFDoorClosingSoon) //aka it is open
                     {
                         StopCoroutine("DelayedAutomaticCloseCorridorToMF");  //ends the 10 second countdown of door closing
-                        StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                        if (!corridor_ToMFDoorInterrupted)
+                        {
+                            StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                        }
+                        else
+                        {
+                            corridorToMFDoorClosingSoon = false;
+                        }
                     }
                 }
             }
+            if (mfToCorridorDoorOpen && !mfToCorridorDoorClosingSoon && !mf_ToCorridorDoorInterrupted)
+            {
+                StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+            }
+
             //MF to Bridge
             if (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
                 && !mfToBridgeDoorOpening)
