@@ -1095,12 +1095,16 @@ public class FuseboxFunctionality : MonoBehaviour {
                     StartCoroutine("CorridorToMFDoorOpening");
                 }
                 //if open already, then reset door timer
-                else if (corridorToMFDoorClosingSoon)  //the bool doesn't rly do a lot, could remove maybe
+                else if (corridorToMFDoorClosingSoon)  
                 {
-                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");    //stop earlier timer, start a new one
+                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");    //stop earlier timer, start a new one                  
                     if (!corridor_ToMFDoorInterrupted)
                     {
                         StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                    }
+                    else
+                    {
+                        corridorToMFDoorClosingSoon = false;
                     }
                 }
                 //if MF powered
@@ -1124,6 +1128,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             if (corridorToMFDoorOpen && !corridorToMFDoorClosingSoon && !corridor_ToMFDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+                Debug.Log("wow");
             }
             //corridor to Janitor
             if (((CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) || janitorOuterDoorInterrupted) 
@@ -1213,7 +1218,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         //MainFacilityDoorToCorridor doesn't need a keycard
 
         if (mainFacilityDoorsPowered)
-        {          
+        {
+            Debug.Log("umm3" + mf_ToCorridorDoorInterrupted);
             //MF to Corridor
             if ((MainFacilityDoorToCorridorButton.AtMaxLimit() || mf_ToCorridorDoorInterrupted) && !mfToCorridorDoorOpening)
             {
@@ -1225,6 +1231,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 else if (mfToCorridorDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToCorridor");
+                    Debug.Log("umm" + mf_ToCorridorDoorInterrupted);
                     // in case object is blocking the door won't start and stop the countdown constantly
                     if (!mf_ToCorridorDoorInterrupted)
                     {
@@ -1256,10 +1263,11 @@ public class FuseboxFunctionality : MonoBehaviour {
                         }
                     }
                 }
-            }
+            }         
             if (mfToCorridorDoorOpen && !mfToCorridorDoorClosingSoon && !mf_ToCorridorDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+                Debug.Log("woo");              
             }
 
             //MF to Bridge
@@ -1274,7 +1282,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 else if (mfToBridgeDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToBridge");
-                    mfToCorridorDoorClosingSoon = false;
+                    mfToBridgeDoorClosingSoon = false;
                 }
                 if (bridgeDoorsPowered && !bridgeToMFDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
@@ -1300,10 +1308,10 @@ public class FuseboxFunctionality : MonoBehaviour {
                  && !mf_ToBridgeDoorInterrupted)
             {                      
                  StartCoroutine("DelayedAutomaticCloseMFToBridge");
-                 if (bridgeDoorsPowered && bridgeToMFDoorOpen && !bridgeToMFDoorClosingSoon)
-                 {
-                    StartCoroutine("DelayedAutomaticCloseBridgeToMF");
-                 }
+                 //if (bridgeDoorsPowered && bridgeToMFDoorOpen && !bridgeToMFDoorClosingSoon)
+                 //{
+                 //   StartCoroutine("DelayedAutomaticCloseBridgeToMF");
+                 //}
             }
             //Melter door MF side
             if (((MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) || mf_ToMelterDoorInterrupted)
@@ -1361,7 +1369,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         if (bridgeDoorsPowered)
         {
-            if (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3
+            if (((BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bridge_ToMFDoorInterrupted)
             && !bridgeToMFDoorOpening)
             {
                 //open the door from Bridge to MF
@@ -1398,10 +1406,11 @@ public class FuseboxFunctionality : MonoBehaviour {
                 && !bridge_ToMFDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseBridgeToMF");
-                if (mainFacilityDoorsPowered && mfToBridgeDoorOpen && !mfToBridgeDoorClosingSoon && !mf_ToBridgeDoorInterrupted)
-                {
-                    StartCoroutine("DelayedAutomaticCloseMFToBridge");
-                }
+                //not necessary as this will never be the case, as the elevator won't take the player up or down if the door is blocked as it has to close when the elevator is moving
+                //if (mainFacilityDoorsPowered && mfToBridgeDoorOpen && !mfToBridgeDoorClosingSoon && !mf_ToBridgeDoorInterrupted)
+                //{
+                //    StartCoroutine("DelayedAutomaticCloseMFToBridge");
+                //}
             }          
         }
         else  //doors stay put
@@ -1413,7 +1422,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         if (melterDoorsPowered)
         {
-            if (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2
+            if (((MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) || melter_ToMFDoorInterrupted)
                && !melterToMFDoorOpening)
             {
                 //open the door to MF from Melter
@@ -1446,13 +1455,14 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             if (melterToMFDoorOpen && !melterToMFDoorClosingSoon
                 && (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-                && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2))
+                && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+                && !melter_ToMFDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseMelterToMF");
-                if (mainFacilityDoorsPowered && mfToMelterDoorOpen && !mfToMelterDoorClosingSoon)
-                {
-                    StartCoroutine("DelayedAutomaticCloseMFToMelter");
-                }
+                //if (mainFacilityDoorsPowered && mfToMelterDoorOpen && !mfToMelterDoorClosingSoon)
+                //{
+                //    StartCoroutine("DelayedAutomaticCloseMFToMelter");
+                //}
             }
         }
     }
@@ -1933,7 +1943,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         Corridor_ToMFDoorOpeningSound.Stop();
         Corridor_ToMFDoorOpenSound.Play();
         //after button press door opens, start counting down for closing
-        StartCoroutine("DelayedAutomaticCloseCorridorToMF");
+        //StartCoroutine("DelayedAutomaticCloseCorridorToMF");
     }
 
     IEnumerator DelayedAutomaticCloseMFToCorridor()
@@ -2005,7 +2015,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         MF_ToCorridorDoorOpeningSound.Stop();
         MF_ToCorridorDoorOpenSound.Play();
         //after button press door opens, start counting down for closing
-        StartCoroutine("DelayedAutomaticCloseMFToCorridor");
+        //StartCoroutine("DelayedAutomaticCloseMFToCorridor");
     }
 
     IEnumerator DelayedAutomaticCloseMFToBridge()
@@ -2288,38 +2298,38 @@ public class FuseboxFunctionality : MonoBehaviour {
         Melter_ToMFDoorOpenSound.Play();
     }
     //not used rn
-    IEnumerator PlayAndWaitForAnim(Animator targetAnim, string stateName)
-    {
-        //Get hash of animation
-        int animHash = 0;
-        if (stateName == "Jump")
-            animHash = openAnimHash;
-        else if (stateName == "Move")
-            animHash = closeAnimHash;
-        //else if (stateName == "Look")
-        //    animHash = openWhenInterruptedAnimHash;
+    //IEnumerator PlayAndWaitForAnim(Animator targetAnim, string stateName)
+    //{
+    //    //Get hash of animation
+    //    int animHash = 0;
+    //    if (stateName == "Jump")
+    //        animHash = openAnimHash;
+    //    else if (stateName == "Move")
+    //        animHash = closeAnimHash;
+    //    //else if (stateName == "Look")
+    //    //    animHash = openWhenInterruptedAnimHash;
 
-        //targetAnim.Play(stateName);
-        targetAnim.CrossFadeInFixedTime(stateName, 0.6f);
+    //    //targetAnim.Play(stateName);
+    //    targetAnim.CrossFadeInFixedTime(stateName, 0.6f);
 
-        //Wait until we enter the current state
-        while (targetAnim.GetCurrentAnimatorStateInfo(0).fullPathHash != animHash)
-        {
-            yield return null;
-        }
+    //    //Wait until we enter the current state
+    //    while (targetAnim.GetCurrentAnimatorStateInfo(0).fullPathHash != animHash)
+    //    {
+    //        yield return null;
+    //    }
 
-        float counter = 0;
-        float waitTime = targetAnim.GetCurrentAnimatorStateInfo(0).length;
+    //    float counter = 0;
+    //    float waitTime = targetAnim.GetCurrentAnimatorStateInfo(0).length;
 
-        //Now, Wait until the current state is done playing
-        while (counter < (waitTime))
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
+    //    //Now, Wait until the current state is done playing
+    //    while (counter < (waitTime))
+    //    {
+    //        counter += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        //Done playing. Do something below!
-        Debug.Log("Done Playing");
+    //    //Done playing. Do something below!
+    //    Debug.Log("Done Playing");
 
-    }
+    //}
 }

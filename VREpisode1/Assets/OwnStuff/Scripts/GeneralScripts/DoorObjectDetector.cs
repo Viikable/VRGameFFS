@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorObjectDetector : MonoBehaviour {
+public class DoorObjectDetector : MonoBehaviour
+{
 
     public FuseboxFunctionality fuseBox;
 
@@ -18,9 +19,9 @@ public class DoorObjectDetector : MonoBehaviour {
     private bool briToMFInt;
 
     private void Start()
-    {      
+    {
         fuseBox = GameObject.Find("FuseBoxFunctionality").GetComponent<FuseboxFunctionality>();
-        
+
         janInInt = false;
         janOutInt = false;
         bonsInInt = false;
@@ -37,23 +38,45 @@ public class DoorObjectDetector : MonoBehaviour {
     {
         if (!collider.gameObject.CompareTag("Wall") && collider.gameObject.GetComponent<DoorObjectDetector>() == null && collider.gameObject.GetComponent<BackpackFunctionality>() == null)
         {
-            if (transform.parent.parent.name == "InnerDoorToJanitorRoom" && !fuseBox.janitorToCorridorDoorClosed)
+            if (transform.parent.parent.name == "InnerDoorToJanitorRoom" && !fuseBox.janitorToCorridorDoorClosed && !fuseBox.janitorToCorridorDoorOpening)
             {
-                janInInt = true;
+                FuseboxFunctionality.janitorInnerDoorInterrupted = true;
             }
-            if (transform.parent.parent.name == "OuterDoorToJanitorRoom" && !fuseBox.corridorToJanitorDoorClosed)
+            if (transform.parent.parent.name == "OuterDoorToJanitorRoom" && !fuseBox.corridorToJanitorDoorClosed && !fuseBox.corridorToJanitorDoorOpening)
             {
-                janOutInt = true;
+                FuseboxFunctionality.janitorOuterDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "OuterBonsaiRoomDoor" && !fuseBox.corridorToBonsaiDoorClosed && !fuseBox.corridorToBonsaiDoorOpening)
+            {
+                FuseboxFunctionality.janitorOuterDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "InnerBonsaiRoomDoor" && !fuseBox.bonsaiToCorridorDoorClosed && !fuseBox.bonsaiToCorridorDoorOpening)
+            {
+                FuseboxFunctionality.bonsaiInnerDoorInterrupted = true;
             }
             if (transform.parent.parent.name == "MF_ToCorridorDoor" && !fuseBox.mfToCorridorDoorClosed && !fuseBox.mfToCorridorDoorOpening)  //opening checked elsewhere too
             {
-                mfToCInt = true;
-                Debug.Log("detected");
+                FuseboxFunctionality.mf_ToCorridorDoorInterrupted = true;
             }
             if (transform.parent.parent.name == "Corridor_ToMFDoor" && !fuseBox.corridorToMFDoorClosed && !fuseBox.corridorToMFDoorOpening)
             {
-                cToMFInt = true;
-                Debug.Log("detected1");
+                FuseboxFunctionality.corridor_ToMFDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "Bridge_DoorToMF" && !fuseBox.bridgeToMFDoorClosed && !fuseBox.bridgeToMFDoorOpening)
+            {
+                FuseboxFunctionality.bridge_ToMFDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "MF_DoorToBridge" && !fuseBox.mfToBridgeDoorClosed && !fuseBox.mfToBridgeDoorOpening)
+            {
+                FuseboxFunctionality.mf_ToBridgeDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "MF_DoorToMelter" && !fuseBox.mfToMelterDoorClosed && !fuseBox.mfToMelterDoorOpening)
+            {
+                FuseboxFunctionality.mf_ToMelterDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "MelterDoorTo_MF" && !fuseBox.melterToMFDoorClosed && !fuseBox.melterToMFDoorOpening)
+            {
+                FuseboxFunctionality.melter_ToMFDoorInterrupted = true;
             }
         }
     }
@@ -62,116 +85,46 @@ public class DoorObjectDetector : MonoBehaviour {
     {
         if (!collider.gameObject.CompareTag("Wall") && collider.gameObject.GetComponent<DoorObjectDetector>() == null && collider.gameObject.GetComponent<BackpackFunctionality>() == null)
         {
-            if (transform.parent.parent.name == "InnerDoorToJanitorRoom")
+            if (transform.parent.parent.name == "InnerDoorToJanitorRoom" && !fuseBox.janitorToCorridorDoorClosed && !fuseBox.janitorToCorridorDoorOpening)
             {
-                janInInt = false;
+                FuseboxFunctionality.janitorInnerDoorInterrupted = false;
             }
-            if (transform.parent.parent.name == "OuterDoorToJanitorRoom")
+            if (transform.parent.parent.name == "OuterDoorToJanitorRoom" && !fuseBox.corridorToJanitorDoorClosed && !fuseBox.corridorToJanitorDoorOpening)
             {
-                janOutInt = false;
+                FuseboxFunctionality.janitorOuterDoorInterrupted = false;
             }
-            if (transform.parent.parent.name == "MF_ToCorridorDoor")
+            if (transform.parent.parent.name == "OuterBonsaiRoomDoor" && !fuseBox.corridorToBonsaiDoorClosed && !fuseBox.corridorToBonsaiDoorOpening)
             {
-                mfToCInt = false;
-                Debug.Log("detectedout");
+                FuseboxFunctionality.bonsaiOuterDoorInterrupted = false;
             }
-            if (transform.parent.parent.name == "Corridor_ToMFDoor")
+            if (transform.parent.parent.name == "InnerBonsaiRoomDoor" && !fuseBox.bonsaiToCorridorDoorClosed && !fuseBox.bonsaiToCorridorDoorOpening)
             {
-                cToMFInt = false;
-                Debug.Log("detectedout1");
+                FuseboxFunctionality.bonsaiInnerDoorInterrupted = false;
             }
-        }
-    }
-
-    // Update is called once per frame
-    void Update ()
-    {
-        CheckCollisions();
-	}
-
-
-    private void CheckCollisions()
-    {
-
-        if (janInInt)
-        {
-            FuseboxFunctionality.janitorInnerDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.janitorInnerDoorInterrupted = false;
-        }
-        if (janOutInt)
-        {
-            FuseboxFunctionality.janitorOuterDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.janitorOuterDoorInterrupted = false;
-        }
-        if (bonsInInt)
-        {
-            FuseboxFunctionality.bonsaiInnerDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.bonsaiInnerDoorInterrupted = false;
-        }
-        if (bonsOutInt)
-        {
-            FuseboxFunctionality.bonsaiOuterDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.bonsaiOuterDoorInterrupted = false;
-        }
-        if (mfToCInt)
-        {
-            FuseboxFunctionality.mf_ToCorridorDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.mf_ToCorridorDoorInterrupted = false;
-        }
-        if (cToMFInt)
-        {
-            FuseboxFunctionality.corridor_ToMFDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.corridor_ToMFDoorInterrupted = false;
-        }
-        if (mfToMeltInt)
-        {
-            FuseboxFunctionality.mf_ToMelterDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.mf_ToMelterDoorInterrupted = false;
-        }
-        if (meltToMFInt)
-        {
-            FuseboxFunctionality.melter_ToMFDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.melter_ToMFDoorInterrupted = false;
-        }
-        if (mfToBriInt)
-        {
-            FuseboxFunctionality.mf_ToBridgeDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.mf_ToBridgeDoorInterrupted = false;
-        }
-        if (briToMFInt)
-        {
-            FuseboxFunctionality.bridge_ToMFDoorInterrupted = true;
-        }
-        else
-        {
-            FuseboxFunctionality.bridge_ToMFDoorInterrupted = false;
+            if (transform.parent.parent.name == "MF_ToCorridorDoor" && !fuseBox.mfToCorridorDoorClosed && !fuseBox.mfToCorridorDoorOpening)
+            {
+                FuseboxFunctionality.mf_ToCorridorDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "Corridor_ToMFDoor" && !fuseBox.corridorToMFDoorClosed && !fuseBox.corridorToMFDoorOpening)
+            {
+                FuseboxFunctionality.corridor_ToMFDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "Bridge_DoorToMF" && !fuseBox.bridgeToMFDoorClosed && !fuseBox.bridgeToMFDoorOpening)
+            {
+                FuseboxFunctionality.bridge_ToMFDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "MF_DoorToBridge" && !fuseBox.mfToBridgeDoorClosed && !fuseBox.mfToBridgeDoorOpening)
+            {
+                FuseboxFunctionality.mf_ToBridgeDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "MF_DoorToMelter" && !fuseBox.mfToMelterDoorClosed && !fuseBox.mfToMelterDoorOpening)
+            {
+                FuseboxFunctionality.mf_ToMelterDoorInterrupted = true;
+            }
+            if (transform.parent.parent.name == "MelterDoorTo_MF" && !fuseBox.melterToMFDoorClosed && !fuseBox.melterToMFDoorOpening)
+            {
+                FuseboxFunctionality.melter_ToMFDoorInterrupted = true;
+            }
         }
     }
 }
