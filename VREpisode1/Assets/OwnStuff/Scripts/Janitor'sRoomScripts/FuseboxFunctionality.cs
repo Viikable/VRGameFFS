@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 using VRTK.Controllables.PhysicsBased;
+using TMPro;
 
 public class FuseboxFunctionality : MonoBehaviour {
 
@@ -320,6 +321,11 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     //info about the current state of certain animator
     AnimatorStateInfo animState;
+
+    [Header("DoorCounters")]
+
+    public TextMeshPro MFToCorridorCounter;
+    public TextMeshPro CorridorToMFCounter;
 
     void Start()
     {
@@ -660,9 +666,12 @@ public class FuseboxFunctionality : MonoBehaviour {
         mf_ToMelterTimer = 0f;
         bridge_ToMFTimer = 0f;
         mf_ToBridgeTimer = 0f;
+
+        //doorcounters
+        MFToCorridorCounter = GameObject.Find("MF_ToCorridorCounter").GetComponent<TextMeshPro>();
+        CorridorToMFCounter = GameObject.Find("Corridor_ToMFCounter").GetComponent<TextMeshPro>();
     }
-        //testing
-        //int i = 0;
+        
 	void Update ()
     {
         CheckLights();
@@ -670,94 +679,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         CheckDoorsPowerStatus();
         OpenDoors();  
         
-        //for testing
-
-        //if (i == 0)
-        //{
-        //    i = 1;
-        //    StartCoroutine(Testmethod());
-        //}
-    }
-
-    IEnumerator Testmethod()
-    {
-        yield return new WaitForSecondsRealtime(4f);
-        Debug.Log("true");
-        JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 0);
-        JanitorDoorOuterAnim.SetBool("OPEN", true);
-        corridorToJanitorDoorOpening = true;
-        corridorToJanitorDoorClosed = false;
-        OuterJanitorDoorOpeningSound.Play();
-        //checks the current animation stateinfo from the base layer and its length      
-        yield return new WaitForSecondsRealtime(doorAnimationTime);
-        corridorToJanitorDoorOpening = false;
-        corridorToJanitorDoorOpen = true;
-        OuterJanitorDoorOpeningSound.Stop();
-        OuterJanitorDoorOpenSound.Play();
-        //this so that if we opened mid closing then we won't try to open again next time      
-        
-
-        yield return new WaitForSecondsRealtime(4f);
-        Debug.Log("midclose");
-        //opening mid close
-        JanitorDoorOuterAnim.SetFloat("Speed", 1f);
-        JanitorDoorOuterAnim.SetBool("OPEN", false);
-        corridorToJanitorDoorClosing = true;
-        OuterJanitorDoorClosingSound.Play();
-        StartCoroutine(CounterOuters("OuterJanitor"));
-        yield return new WaitForSecondsRealtime(1.5f);
-        Debug.Log("interrupt");
-        corridorToJanitorDoorClosing = false;
-        JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        JanitorDoorOuterAnim.SetBool("OPEN", true);
-        if (JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
-        {
-            JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 1);
-        }
-        else if (JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 1)
-        {
-            JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 2);
-        }
-        else if (JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 2) //this happens when two interruptions in a row, animator cycle moves to previous
-        {
-            JanitorDoorOuterAnim.SetInteger("INTERRUPTED", 1);
-        }
-        OuterJanitorDoorClosingSound.Stop();            //stopping the sound of door closing as it will open now, also ending the coroutine so the door won't register as closed after a while (as it will be open)
-        StopCoroutine(DelayedAutomaticCloseOuterJanitor());
-        //here we also play either the alarm sound in case the door was stopped by an object or player, or some other sound in case it was key card or button press   
-        corridorToJanitorDoorOpening = true;
-        corridorToJanitorDoorClosed = false;
-        OuterJanitorDoorOpeningSound.Play();
-        //checks the current animation stateinfo from the base layer and its length            
-        yield return new WaitForSecondsRealtime(JanitorDoorOuterAnim.GetCurrentAnimatorStateInfo(0).length - (doorAnimationTime - outerJanitorTimer));
-        Debug.Log("door interrupted");
-        corridorToJanitorDoorOpening = false;
-        corridorToJanitorDoorOpen = true;
-        OuterJanitorDoorOpeningSound.Stop();
-        OuterJanitorDoorOpenSound.Play();
-        //this so that if we opened mid closing then we won't try to open again next time      
-                
-
-        ////after closing reversed
-        //yield return new WaitForSecondsRealtime(1.5f);
-        ////starts closing again
-        //JanitorDoorOuterAnim.SetBool("OPEN", true);
-        //yield return new WaitForSecondsRealtime(1.5f);
-        ////trying to reverse the closing again
-        //JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        //yield return new WaitForSecondsRealtime(1.5f);
-        //JanitorDoorOuterAnim.SetFloat("Speed", 1f);
-        //JanitorDoorOuterAnim.SetBool("OPEN", false);
-        ////SUCCESPOINT
-        //yield return new WaitForSecondsRealtime(1.5f);
-        //JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        //yield return new WaitForSecondsRealtime(1.5f);
-        //JanitorDoorOuterAnim.SetFloat("Speed", 1f);
-        //JanitorDoorOuterAnim.SetBool("OPEN", true);
-        //yield return new WaitForSecondsRealtime(3f);
-        //JanitorDoorOuterAnim.SetFloat("Speed", -1f);
-        //JanitorDoorOuterAnim.SetBool("OPEN", false);
-        //Debug.Log("finished");
+      
     }
 
     public void CheckLights()
@@ -1097,7 +1019,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //if open already, then reset door timer
                 else if (corridorToMFDoorClosingSoon)  
                 {
-                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");    //stop earlier timer, start a new one                  
+                    StopCoroutine("DelayedAutomaticCloseCorridorToMF");    //stop earlier timer, start a new one  
+                    CorridorToMFCounter.text = 10.ToString();
+                    CorridorToMFCounter.color = Color.white;
                     if (!corridor_ToMFDoorInterrupted)
                     {
                         StartCoroutine("DelayedAutomaticCloseCorridorToMF");
@@ -1118,6 +1042,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                     else if (mfToCorridorDoorClosingSoon) //aka it is open 
                     {
                         StopCoroutine("DelayedAutomaticCloseMFToCorridor");  //ends the 10 second countdown of door closing
+                        MFToCorridorCounter.text = 10.ToString();
+                        MFToCorridorCounter.color = Color.white;
                         if (!mf_ToCorridorDoorInterrupted)
                         {
                             StartCoroutine("DelayedAutomaticCloseMFToCorridor");
@@ -1218,8 +1144,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         //MainFacilityDoorToCorridor doesn't need a keycard
 
         if (mainFacilityDoorsPowered)
-        {
-            Debug.Log("umm3" + mf_ToCorridorDoorInterrupted);
+        {        
             //MF to Corridor
             if ((MainFacilityDoorToCorridorButton.AtMaxLimit() || mf_ToCorridorDoorInterrupted) && !mfToCorridorDoorOpening)
             {
@@ -1231,7 +1156,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 else if (mfToCorridorDoorClosingSoon)
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToCorridor");
-                    Debug.Log("umm" + mf_ToCorridorDoorInterrupted);
+                    MFToCorridorCounter.text = 10.ToString();
+                    MFToCorridorCounter.color = Color.white;                  
                     // in case object is blocking the door won't start and stop the countdown constantly
                     if (!mf_ToCorridorDoorInterrupted)
                     {
@@ -1253,6 +1179,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                     else if (corridorToMFDoorClosingSoon) //aka it is open
                     {
                         StopCoroutine("DelayedAutomaticCloseCorridorToMF");  //ends the 10 second countdown of door closing
+                        CorridorToMFCounter.text = 10.ToString();
+                        CorridorToMFCounter.color = Color.white;
                         if (!corridor_ToMFDoorInterrupted)
                         {
                             StartCoroutine("DelayedAutomaticCloseCorridorToMF");
@@ -1266,8 +1194,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }         
             if (mfToCorridorDoorOpen && !mfToCorridorDoorClosingSoon && !mf_ToCorridorDoorInterrupted)
             {
-                StartCoroutine("DelayedAutomaticCloseMFToCorridor");
-                Debug.Log("woo");              
+                StartCoroutine("DelayedAutomaticCloseMFToCorridor");                           
             }
 
             //MF to Bridge
@@ -1880,6 +1807,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)    
         {
             Corridor_ToMFDoorCountdown[i].Play();
+            CorridorToMFCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                CorridorToMFCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                CorridorToMFCounter.color = Color.yellow;
+            }
+            else
+            {
+                CorridorToMFCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (corridorToMFDoorOpen && CorridorToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
@@ -1952,6 +1892,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             MF_ToCorridorDoorCountdown[i].Play();
+            MFToCorridorCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                MFToCorridorCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                MFToCorridorCounter.color = Color.yellow;
+            }
+            else
+            {
+                MFToCorridorCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (mfToCorridorDoorOpen && MFToCorridorDoorAnim.GetInteger("INTERRUPTED") == 0)
