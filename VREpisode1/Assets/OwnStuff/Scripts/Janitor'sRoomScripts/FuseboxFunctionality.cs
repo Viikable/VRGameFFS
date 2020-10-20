@@ -324,8 +324,16 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     [Header("DoorCounters")]
 
+    public TextMeshPro JanitorInnerCounter;
+    public TextMeshPro JanitorOuterCounter;
+    public TextMeshPro BonsaiInnerCounter;
+    public TextMeshPro BonsaiOuterCounter;
     public TextMeshPro MFToCorridorCounter;
     public TextMeshPro CorridorToMFCounter;
+    public TextMeshPro MFToBridgeCounter;
+    public TextMeshPro BridgeToMFCounter;
+    public TextMeshPro MFToMelterCounter;
+    public TextMeshPro MelterToMFCounter;
 
     void Start()
     {
@@ -668,8 +676,16 @@ public class FuseboxFunctionality : MonoBehaviour {
         mf_ToBridgeTimer = 0f;
 
         //doorcounters
+        JanitorInnerCounter = GameObject.Find("JanitorInnerCounter").GetComponent<TextMeshPro>();
+        JanitorOuterCounter = GameObject.Find("JanitorOuterCounter").GetComponent<TextMeshPro>();
+        BonsaiInnerCounter = GameObject.Find("BonsaiInnerCounter").GetComponent<TextMeshPro>();
+        BonsaiOuterCounter = GameObject.Find("BonsaiOuterCounter").GetComponent<TextMeshPro>();
         MFToCorridorCounter = GameObject.Find("MF_ToCorridorCounter").GetComponent<TextMeshPro>();
         CorridorToMFCounter = GameObject.Find("Corridor_ToMFCounter").GetComponent<TextMeshPro>();
+        MFToBridgeCounter = GameObject.Find("MF_ToBridgeCounter").GetComponent<TextMeshPro>();
+        BridgeToMFCounter = GameObject.Find("Bridge_ToMFCounter").GetComponent<TextMeshPro>();
+        MFToMelterCounter = GameObject.Find("MF_ToMelterCounter").GetComponent<TextMeshPro>();
+        MelterToMFCounter = GameObject.Find("Melter_ToMFCounter").GetComponent<TextMeshPro>();
     }
         
 	void Update ()
@@ -931,7 +947,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                 }
                 else if (janitorToCorridorDoorClosingSoon) //aka it is open and no correct key in it
                 {
-                    StopCoroutine("DelayedAutomaticCloseInnerJanitor");  //ends the 10 second countdown of door closing                   
+                    StopCoroutine("DelayedAutomaticCloseInnerJanitor");  //ends the 10 second countdown of door closing
+                    JanitorInnerCounter.text = 10.ToString();
+                    JanitorInnerCounter.color = Color.white;
                     janitorToCorridorDoorClosingSoon = false;
                 }              
                 if (corridorDoorsPowered && !corridorToJanitorDoorOpening) //probably unnecessary to check for closing and opening here too
@@ -940,10 +958,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("OuterJanitorDoorOpening");
                     }
-                    else if (corridorToJanitorDoorClosingSoon)
+                    else if (corridorToJanitorDoorClosingSoon && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1)
                     {
-                        StopCoroutine("DelayedAutomaticCloseOuterJanitor");                      
+                        StopCoroutine("DelayedAutomaticCloseOuterJanitor");
                         corridorToJanitorDoorClosingSoon = false;
+                        JanitorOuterCounter.text = 10.ToString();
+                        JanitorOuterCounter.color = Color.white;
                     }                   
                 }
             }
@@ -977,6 +997,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StopCoroutine("DelayedAutomaticCloseInnerBonsai");  //ends the 10 second countdown of door closing
                     bonsaiToCorridorDoorClosingSoon = false;
+                    BonsaiInnerCounter.text = 10.ToString();
+                    BonsaiInnerCounter.color = Color.white;
                 }
                 if (corridorDoorsPowered && !corridorToBonsaiDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
@@ -984,10 +1006,13 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("OuterBonsaiDoorOpening");
                     }
-                    else if (corridorToBonsaiDoorClosingSoon)
+                    // if the other door which isn't interacted with currently is closing soon (timer is on) and the other side got a key in, will stop the counter, if just interrupted won't
+                    else if (corridorToBonsaiDoorClosingSoon && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3)
                     {
                         StopCoroutine("DelayedAutomaticCloseOuterBonsai");
                         corridorToBonsaiDoorClosingSoon = false;
+                        BonsaiOuterCounter.text = 10.ToString();
+                        BonsaiOuterCounter.color = Color.white;
                     }
                 }
             }
@@ -1048,13 +1073,16 @@ public class FuseboxFunctionality : MonoBehaviour {
                         {
                             StartCoroutine("DelayedAutomaticCloseMFToCorridor");
                         }
+                        else
+                        {
+                            mfToCorridorDoorClosingSoon = false;
+                        }
                     }
                 }
             }
             if (corridorToMFDoorOpen && !corridorToMFDoorClosingSoon && !corridor_ToMFDoorInterrupted)
             {
-                StartCoroutine("DelayedAutomaticCloseCorridorToMF");
-                Debug.Log("wow");
+                StartCoroutine("DelayedAutomaticCloseCorridorToMF");             
             }
             //corridor to Janitor
             if (((CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) || janitorOuterDoorInterrupted) 
@@ -1069,7 +1097,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                 else if (corridorToJanitorDoorClosingSoon) //aka it is open and no correct key in it
                 {
                     StopCoroutine("DelayedAutomaticCloseOuterJanitor");  //ends the 10 second countdown of door closing                   
-                    corridorToJanitorDoorClosingSoon = false;                  
+                    corridorToJanitorDoorClosingSoon = false;
+                    JanitorOuterCounter.text = 10.ToString();
+                    JanitorOuterCounter.color = Color.white;
                 }
                 if (janitorDoorPowered && !janitorToCorridorDoorOpening) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
                 {
@@ -1078,10 +1108,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                         //Open Janitor door (from the inside), or if it was closing, the coroutine will instead interrupt the closing and open it                                                                                   
                         StartCoroutine("InnerJanitorDoorOpening");
                     }
-                    else if (janitorToCorridorDoorClosingSoon)
+                    else if (janitorToCorridorDoorClosingSoon && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1)
                     {
-                        StopCoroutine("DelayedAutomaticCloseInnerJanitor");                      
+                        StopCoroutine("DelayedAutomaticCloseInnerJanitor");
                         janitorToCorridorDoorClosingSoon = false;
+                        JanitorInnerCounter.text = 10.ToString();
+                        JanitorInnerCounter.color = Color.white;
                     }
                 }
             }
@@ -1111,6 +1143,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StopCoroutine("DelayedAutomaticCloseOuterBonsai");  //ends the 10 second countdown of door closing
                     corridorToBonsaiDoorClosingSoon = false;
+                    BonsaiOuterCounter.text = 10.ToString();
+                    BonsaiOuterCounter.color = Color.white;
                 }
                 if (bonsaiDoorPowered && !bonsaiToCorridorDoorOpening) //probably unnecessary to check for closing and opening here too, maybe need to change if want to abrupt closing
                 {
@@ -1118,10 +1152,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("InnerBonsaiDoorOpening");
                     }
-                    else if (bonsaiToCorridorDoorClosingSoon)
+                    else if (bonsaiToCorridorDoorClosingSoon && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3)
                     {
                         StopCoroutine("DelayedAutomaticCloseInnerBonsai");
                         bonsaiToCorridorDoorClosingSoon = false;
+                        BonsaiInnerCounter.text = 10.ToString();
+                        BonsaiInnerCounter.color = Color.white;
                     }
                 }
             }
@@ -1210,6 +1246,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToBridge");
                     mfToBridgeDoorClosingSoon = false;
+                    MFToBridgeCounter.text = 10.ToString();
+                    MFToBridgeCounter.color = Color.white;
                 }
                 if (bridgeDoorsPowered && !bridgeToMFDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
@@ -1217,10 +1255,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("BridgeToMFDoorOpening");
                     }
-                    else if (bridgeToMFDoorClosingSoon)
+                    else if (bridgeToMFDoorClosingSoon)  //bridge is different and will stay open if only one of the doors is jammed
                     {
                         StopCoroutine("DelayedAutomaticCloseBridgeToMF");
                         bridgeToMFDoorClosingSoon = false;
+                        BridgeToMFCounter.text = 10.ToString();
+                        BridgeToMFCounter.color = Color.white;
                     }
                 }
             }
@@ -1234,11 +1274,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                  && (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
                  && !mf_ToBridgeDoorInterrupted)
             {                      
-                 StartCoroutine("DelayedAutomaticCloseMFToBridge");
-                 //if (bridgeDoorsPowered && bridgeToMFDoorOpen && !bridgeToMFDoorClosingSoon)
-                 //{
-                 //   StartCoroutine("DelayedAutomaticCloseBridgeToMF");
-                 //}
+                 StartCoroutine("DelayedAutomaticCloseMFToBridge");               
             }
             //Melter door MF side
             if (((MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) || mf_ToMelterDoorInterrupted)
@@ -1253,6 +1289,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StopCoroutine("DelayedAutomaticCloseMFToMelter");
                     mfToMelterDoorClosingSoon = false;
+                    MFToMelterCounter.text = 10.ToString();
+                    MFToMelterCounter.color = Color.white;
                 }
                 if (melterDoorsPowered && !melterToMFDoorOpening) 
                 {
@@ -1260,10 +1298,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("MelterToMFDoorOpening");
                     }
-                    else if (melterToMFDoorClosingSoon)
+                    else if (melterToMFDoorClosingSoon && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2)
                     {
                         StopCoroutine("DelayedAutomaticCloseMelterToMF");
                         melterToMFDoorClosingSoon = false;
+                        MelterToMFCounter.text = 10.ToString();
+                        MelterToMFCounter.color = Color.white;
                     }
                 }
             }
@@ -1277,11 +1317,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 && (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                 && !mf_ToMelterDoorInterrupted)
             {
-                StartCoroutine("DelayedAutomaticCloseMFToMelter");
-                //if (melterDoorsPowered && melterToMFDoorOpen && !melterToMFDoorClosingSoon)
-                //{
-                //    StartCoroutine("DelayedAutomaticCloseMelterToMF");
-                //}
+                StartCoroutine("DelayedAutomaticCloseMFToMelter");              
             }
         }
         //in case no power doors get stuck to their positions (closed or open) only janitor might get stuck in between thanks to timing
@@ -1308,6 +1344,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StopCoroutine("DelayedAutomaticCloseBridgeToMF");
                     bridgeToMFDoorClosingSoon = false;
+                    BridgeToMFCounter.text = 10.ToString();
+                    BridgeToMFCounter.color = Color.white;
                 }
                 if (mainFacilityDoorsPowered && !mfToBridgeDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
@@ -1315,7 +1353,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("MFToBridgeDoorOpening");
                     }
-                    else if (mfToBridgeDoorClosingSoon)
+                    else if (mfToBridgeDoorClosingSoon)   //Bridge should be different as it is the elevator
                     {
                         StopCoroutine("DelayedAutomaticCloseMFToBridge");
                         mfToBridgeDoorClosingSoon = false;
@@ -1361,6 +1399,8 @@ public class FuseboxFunctionality : MonoBehaviour {
                 {
                     StopCoroutine("DelayedAutomaticCloseMelterToMF");
                     melterToMFDoorClosingSoon = false;
+                    MelterToMFCounter.text = 10.ToString();
+                    MelterToMFCounter.color = Color.white;
                 }
                 if (mainFacilityDoorsPowered && !mfToMelterDoorOpening) //probably unnecessary to check for closing and opening here too
                 {
@@ -1368,10 +1408,12 @@ public class FuseboxFunctionality : MonoBehaviour {
                     {
                         StartCoroutine("MFToMelterDoorOpening");
                     }
-                    else if (mfToMelterDoorClosingSoon)
+                    else if (mfToMelterDoorClosingSoon && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2)
                     {
                         StopCoroutine("DelayedAutomaticCloseMFToMelter");
                         mfToMelterDoorClosingSoon = false;
+                        MFToMelterCounter.text = 10.ToString();
+                        MFToMelterCounter.color = Color.white;
                     }
                 }
             }
@@ -1385,11 +1427,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
                 && !melter_ToMFDoorInterrupted)
             {
-                StartCoroutine("DelayedAutomaticCloseMelterToMF");
-                //if (mainFacilityDoorsPowered && mfToMelterDoorOpen && !mfToMelterDoorClosingSoon)
-                //{
-                //    StartCoroutine("DelayedAutomaticCloseMFToMelter");
-                //}
+                StartCoroutine("DelayedAutomaticCloseMelterToMF");           
             }
         }
     }
@@ -1400,6 +1438,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             InnerJanitorDoorCountdown[i].Play();
+            JanitorInnerCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                JanitorInnerCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                JanitorInnerCounter.color = Color.yellow;
+            }
+            else
+            {
+                JanitorInnerCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (janitorToCorridorDoorOpen && JanitorDoorInnerAnim.GetInteger("INTERRUPTED") == 0)
@@ -1412,7 +1463,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             JanitorDoorInnerAnim.SetBool("OPEN", false);
             JanitorDoorInnerAnim.SetFloat("Speed", 1f);
-        }      
+        }
+        JanitorInnerCounter.text = 0.ToString();
         janitorToCorridorDoorClosing = true;
         janitorToCorridorDoorOpen = false;
         janitorToCorridorDoorClosingSoon = false;
@@ -1428,6 +1480,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator InnerJanitorDoorOpening()
     {
+        JanitorInnerCounter.text = 10.ToString();
+        JanitorInnerCounter.color = Color.white;
         if (janitorToCorridorDoorClosed)
         {
             JanitorDoorInnerAnim.SetInteger("INTERRUPTED", 0);
@@ -1474,6 +1528,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             OuterJanitorDoorCountdown[i].Play();
+            JanitorOuterCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                JanitorOuterCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                JanitorOuterCounter.color = Color.yellow;
+            }
+            else
+            {
+                JanitorOuterCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }       
         if (corridorToJanitorDoorOpen && JanitorDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
@@ -1486,7 +1553,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             JanitorDoorOuterAnim.SetBool("OPEN", false);   //changed
             JanitorDoorOuterAnim.SetFloat("Speed", 1f);
-        }       
+        }
+        JanitorOuterCounter.text = 0.ToString();
         corridorToJanitorDoorClosing = true;
         corridorToJanitorDoorOpen = false;
         corridorToJanitorDoorClosingSoon = false;
@@ -1503,6 +1571,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator OuterJanitorDoorOpening()
     {
+        JanitorOuterCounter.text = 10.ToString();
+        JanitorOuterCounter.color = Color.white;
         //checks that the door wasn't closed midway last time and if was then closes it through other transition path
         if (corridorToJanitorDoorClosed)
         {
@@ -1666,6 +1736,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             InnerBonsaiDoorCountdown[i].Play();
+            BonsaiInnerCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                BonsaiInnerCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                BonsaiInnerCounter.color = Color.yellow;
+            }
+            else
+            {
+                BonsaiInnerCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (bonsaiToCorridorDoorOpen && BonsaiDoorInnerAnim.GetInteger("INTERRUPTED") == 0)
@@ -1678,6 +1761,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             BonsaiDoorInnerAnim.SetBool("OPEN", false);
             BonsaiDoorInnerAnim.SetFloat("Speed", 1f);
         }
+        BonsaiInnerCounter.text = 0.ToString();
         bonsaiToCorridorDoorClosing = true;
         bonsaiToCorridorDoorOpen = false;
         bonsaiToCorridorDoorClosingSoon = false;
@@ -1693,6 +1777,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     
     IEnumerator InnerBonsaiDoorOpening()
     {
+        BonsaiInnerCounter.text = 10.ToString();
+        BonsaiInnerCounter.color = Color.white;
         if (bonsaiToCorridorDoorClosed)
         {
             BonsaiDoorInnerAnim.SetInteger("INTERRUPTED", 0);
@@ -1737,6 +1823,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             OuterBonsaiDoorCountdown[i].Play();
+            BonsaiOuterCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                BonsaiOuterCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                BonsaiOuterCounter.color = Color.yellow;
+            }
+            else
+            {
+                BonsaiOuterCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (corridorToBonsaiDoorOpen && BonsaiDoorOuterAnim.GetInteger("INTERRUPTED") == 0)
@@ -1748,7 +1847,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             BonsaiDoorOuterAnim.SetBool("OPEN", false);
             BonsaiDoorOuterAnim.SetFloat("Speed", 1f);
-        }              
+        }
+        BonsaiOuterCounter.text = 0.ToString();
         corridorToBonsaiDoorClosing = true;
         corridorToBonsaiDoorOpen = false;
         corridorToBonsaiDoorClosingSoon = false;
@@ -1764,6 +1864,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator OuterBonsaiDoorOpening()
     {
+        BonsaiOuterCounter.text = 10.ToString();
+        BonsaiOuterCounter.color = Color.white;
         if (corridorToBonsaiDoorClosed)
         {
             BonsaiDoorOuterAnim.SetInteger("INTERRUPTED", 0);
@@ -1831,7 +1933,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             CorridorToMFDoorAnim.SetBool("OPEN", false);
             CorridorToMFDoorAnim.SetFloat("Speed", 1f);
-        }               
+        }
+        CorridorToMFCounter.text = 0.ToString();
         corridorToMFDoorClosing = true;
         corridorToMFDoorOpen = false;
         corridorToMFDoorClosingSoon = false;
@@ -1847,6 +1950,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator CorridorToMFDoorOpening()
     {
+        CorridorToMFCounter.color = Color.white;
+        CorridorToMFCounter.text = 10.ToString();
         if (corridorToMFDoorClosed)
         {
             CorridorToMFDoorAnim.SetInteger("INTERRUPTED", 0);
@@ -1916,7 +2021,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             MFToCorridorDoorAnim.SetBool("OPEN", false);
             MFToCorridorDoorAnim.SetFloat("Speed", 1f);
-        }       
+        }
+        MFToCorridorCounter.text = 0.ToString();
         mfToCorridorDoorClosing = true;
         mfToCorridorDoorOpen = false;
         mfToCorridorDoorClosingSoon = false;
@@ -1932,6 +2038,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MFToCorridorDoorOpening()
     {
+        MFToCorridorCounter.text = 10.ToString();
+        MFToCorridorCounter.color = Color.white;
         if (mfToCorridorDoorClosed)
         {
             MFToCorridorDoorAnim.SetInteger("INTERRUPTED", 0);
@@ -1977,6 +2085,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             MF_ToBridgeDoorCountdown[i].Play();
+            MFToBridgeCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                MFToBridgeCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                MFToBridgeCounter.color = Color.yellow;
+            }
+            else
+            {
+                MFToBridgeCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (mfToBridgeDoorOpen && MFToBridgeDoorAnim.GetInteger("INTERRUPTED") == 0)
@@ -1988,7 +2109,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         {
             MFToBridgeDoorAnim.SetBool("OPEN", false);
             MFToBridgeDoorAnim.SetFloat("Speed", 1f);
-        }      
+        }
+        MFToBridgeCounter.text = 0.ToString();
         mfToBridgeDoorClosing = true;
         mfToBridgeDoorOpen = false;
         mfToBridgeDoorClosingSoon = false;
@@ -2004,6 +2126,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MFToBridgeDoorOpening()
     {
+        MFToBridgeCounter.text = 10.ToString();
+        MFToBridgeCounter.color = Color.white;
         if (mfToBridgeDoorClosed)
         {
             MFToBridgeDoorAnim.SetInteger("INTERRUPTED", 0);
@@ -2047,6 +2171,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             Bridge_ToMFDoorCountdown[i].Play();
+            BridgeToMFCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                BridgeToMFCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                BridgeToMFCounter.color = Color.yellow;
+            }
+            else
+            {
+                BridgeToMFCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (bridgeToMFDoorOpen && BridgeToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
@@ -2059,6 +2196,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             BridgeToMFDoorAnim.SetBool("OPEN", false);
             BridgeToMFDoorAnim.SetFloat("Speed", 1f);
         }
+        BridgeToMFCounter.text = 0.ToString();
         bridgeToMFDoorClosing = true;
         bridgeToMFDoorOpen = false;
         bridgeToMFDoorClosingSoon = false;
@@ -2074,6 +2212,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator BridgeToMFDoorOpening()
     {
+        BridgeToMFCounter.text = 10.ToString();
+        BridgeToMFCounter.color = Color.white;
         if (bridgeToMFDoorClosed)
         {
             BridgeToMFDoorAnim.SetInteger("INTERRUPTED", 0);
@@ -2117,6 +2257,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             MF_ToMelterDoorCountdown[i].Play();
+            MFToMelterCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                MFToMelterCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                MFToMelterCounter.color = Color.yellow;
+            }
+            else
+            {
+                MFToMelterCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (mfToMelterDoorOpen && MFToMelterDoorAnim.GetInteger("INTERRUPTED") == 0)
@@ -2129,6 +2282,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             MFToMelterDoorAnim.SetBool("OPEN", false);
             MFToMelterDoorAnim.SetFloat("Speed", 1f);
         }
+        MFToMelterCounter.text = 0.ToString();
         mfToMelterDoorClosing = true;
         mfToMelterDoorOpen = false;
         mfToMelterDoorClosingSoon = false;
@@ -2144,6 +2298,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MFToMelterDoorOpening()
     {
+        MFToMelterCounter.text = 10.ToString();
+        MFToMelterCounter.color = Color.white;
         if (mfToMelterDoorClosed)
         {
             MFToMelterDoorAnim.SetInteger("INTERRUPTED", 0);
@@ -2187,6 +2343,19 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             Melter_ToMFDoorCountdown[i].Play();
+            MelterToMFCounter.text = (10 - i).ToString();
+            if (i < 7)
+            {
+                MelterToMFCounter.color = Color.white;
+            }
+            else if (i == 7 || i == 8)
+            {
+                MelterToMFCounter.color = Color.yellow;
+            }
+            else
+            {
+                MelterToMFCounter.color = Color.red;
+            }
             yield return new WaitForSecondsRealtime(1f);
         }
         if (melterToMFDoorOpen && MelterToMFDoorAnim.GetInteger("INTERRUPTED") == 0)
@@ -2199,6 +2368,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             MelterToMFDoorAnim.SetBool("OPEN", false);
             MelterToMFDoorAnim.SetFloat("Speed", 1f);
         }
+        MelterToMFCounter.text = 0.ToString();
         melterToMFDoorClosing = true;
         melterToMFDoorOpen = false;
         melterToMFDoorClosingSoon = false;
@@ -2214,6 +2384,8 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator MelterToMFDoorOpening()
     {
+        MelterToMFCounter.text = 10.ToString();
+        MelterToMFCounter.color = Color.white;
         if (melterToMFDoorClosed)
         {
             MelterToMFDoorAnim.SetInteger("INTERRUPTED", 0);
