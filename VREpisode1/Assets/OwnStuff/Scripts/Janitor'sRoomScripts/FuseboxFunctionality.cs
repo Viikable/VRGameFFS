@@ -938,7 +938,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (janitorDoorPowered)
         {
             if (((JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) || janitorInnerDoorInterrupted)
-               && !janitorToCorridorDoorOpening)
+               /*&& !janitorToCorridorDoorOpening*/)
             {
                 if (janitorToCorridorDoorClosed || janitorToCorridorDoorClosing)  //THIS CHANGE TO ALLL!!!!! 
                 {
@@ -974,7 +974,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             //check when to close the door (no correct key in either lock)
             if (janitorToCorridorDoorOpen && !janitorToCorridorDoorClosingSoon
                && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
-               && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+               && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1 || !corridorDoorsPowered)
                && !janitorInnerDoorInterrupted)
             {
                 //waits 10 seconds and then starts closing the door for 3 s
@@ -985,7 +985,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (bonsaiDoorPowered)
         {
             if (((BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bonsaiInnerDoorInterrupted)
-                && !bonsaiToCorridorDoorOpening)
+                /*&& !bonsaiToCorridorDoorOpening*/)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation            
                 if (bonsaiToCorridorDoorClosed || bonsaiToCorridorDoorClosing)
@@ -1000,7 +1000,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     BonsaiInnerCounter.text = 10.ToString();
                     BonsaiInnerCounter.color = Color.white;
                 }
-                if (corridorDoorsPowered && !corridorToBonsaiDoorOpening && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) //probably unnecessary to check for closing and opening here too
+                if (corridorDoorsPowered && !corridorToBonsaiDoorOpening && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) 
                 {
                     if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
                     {
@@ -1022,7 +1022,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }       
             if (bonsaiToCorridorDoorOpen && !bonsaiToCorridorDoorClosingSoon
                && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+               && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3 || !corridorDoorsPowered)
                && !bonsaiInnerDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseInnerBonsai");
@@ -1034,7 +1034,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (corridorDoorsPowered)
         {
             // corridor to MF
-            if ((CorridorDoorToMainFacilityButton.AtMaxLimit() || corridor_ToMFDoorInterrupted) && !corridorToMFDoorOpening)
+            if ((CorridorDoorToMainFacilityButton.AtMaxLimit() || corridor_ToMFDoorInterrupted) /*&& !corridorToMFDoorOpening*/)
             {
                 //if closed, then open
                 if (corridorToMFDoorClosed || corridorToMFDoorClosing)
@@ -1086,7 +1086,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             //corridor to Janitor
             if (((CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) || janitorOuterDoorInterrupted) 
-                && !corridorToJanitorDoorOpening)
+                /*&& !corridorToJanitorDoorOpening*/)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (corridorToJanitorDoorClosed || corridorToJanitorDoorClosing)
@@ -1123,15 +1123,15 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             if (corridorToJanitorDoorOpen && !corridorToJanitorDoorClosingSoon
                && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
-               && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+               && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1 || !janitorDoorPowered)
                && !janitorOuterDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseOuterJanitor");
             }
             //corridor To Bonsai
 
-            if (((CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bonsaiOuterDoorInterrupted)
-                && !corridorToBonsaiDoorOpening)
+            if ((CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bonsaiOuterDoorInterrupted)
+                /*&& !corridorToBonsaiDoorOpening*/
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
@@ -1167,7 +1167,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             if (corridorToBonsaiDoorOpen && !corridorToBonsaiDoorClosingSoon
                && (CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+               && (BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || BonsaiDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3 || !bonsaiDoorPowered)
                && !bonsaiOuterDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseOuterBonsai");
@@ -1182,7 +1182,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (mainFacilityDoorsPowered)
         {        
             //MF to Corridor
-            if ((MainFacilityDoorToCorridorButton.AtMaxLimit() || mf_ToCorridorDoorInterrupted) && !mfToCorridorDoorOpening)
+            if ((MainFacilityDoorToCorridorButton.AtMaxLimit() || mf_ToCorridorDoorInterrupted) /*&& !mfToCorridorDoorOpening*/)
             {
                 if (mfToCorridorDoorClosed || mfToCorridorDoorClosing)
                 {
@@ -1235,7 +1235,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             //MF to Bridge
             if (((MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || mf_ToBridgeDoorInterrupted)
-                && !mfToBridgeDoorOpening)
+                /*&& !mfToBridgeDoorOpening*/)
             {
                 //open the door to Bridge 
                 if (mfToBridgeDoorClosed || mfToBridgeDoorClosing)
@@ -1271,14 +1271,14 @@ public class FuseboxFunctionality : MonoBehaviour {
             //start automatic closing if open and no key on either side, think about the elevator functionality here!
             if (mfToBridgeDoorOpen && !mfToBridgeDoorClosingSoon
                  && (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3) 
-                 && (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+                 && (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3 || !bridgeDoorsPowered)
                  && !mf_ToBridgeDoorInterrupted)
             {                      
                  StartCoroutine("DelayedAutomaticCloseMFToBridge");               
             }
             //Melter door MF side
             if (((MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) || mf_ToMelterDoorInterrupted)
-                && !mfToMelterDoorOpening)
+                /*&& !mfToMelterDoorOpening*/)
             {
                 //open the door to melter from MF
                 if (mfToMelterDoorClosed || mfToMelterDoorClosing)
@@ -1314,7 +1314,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             if (mfToMelterDoorOpen && !mfToMelterDoorClosingSoon
                 && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-                && (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+                && (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2 || !melterDoorsPowered)
                 && !mf_ToMelterDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseMFToMelter");              
@@ -1333,7 +1333,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (bridgeDoorsPowered)
         {
             if (((BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bridge_ToMFDoorInterrupted)
-            && !bridgeToMFDoorOpening)
+            /*&& !bridgeToMFDoorOpening*/)
             {
                 //open the door from Bridge to MF
                 if (bridgeToMFDoorClosed || bridgeToMFDoorClosing)
@@ -1367,7 +1367,7 @@ public class FuseboxFunctionality : MonoBehaviour {
            
             if (bridgeToMFDoorOpen && !bridgeToMFDoorClosingSoon
                 && (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-                && (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+                && (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3 || !mainFacilityDoorsPowered)
                 && !bridge_ToMFDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseBridgeToMF");
@@ -1388,7 +1388,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (melterDoorsPowered)
         {
             if (((MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) || melter_ToMFDoorInterrupted)
-               && !melterToMFDoorOpening)
+               /*&& !melterToMFDoorOpening*/)
             {
                 //open the door to MF from Melter
                 if (melterToMFDoorClosed || melterToMFDoorClosing)
@@ -1424,7 +1424,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             if (melterToMFDoorOpen && !melterToMFDoorClosingSoon
                 && (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-                && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+                && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2 || !mainFacilityDoorsPowered)
                 && !melter_ToMFDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseMelterToMF");           
