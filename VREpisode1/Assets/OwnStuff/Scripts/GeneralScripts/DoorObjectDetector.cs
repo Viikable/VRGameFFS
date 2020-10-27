@@ -32,6 +32,10 @@ public class DoorObjectDetector : MonoBehaviour
             {
                 FuseboxFunctionality.bonsaiInnerDoorInterrupted = true;
             }
+            if (transform.parent.parent.gameObject == fuseBox.BonsaiControlAnim.gameObject && !fuseBox.bonsaiControlDoorClosed && !fuseBox.bonsaiControlDoorOpening)
+            {
+                FuseboxFunctionality.bonsaiControlDoorInterrupted = true;
+            }
             if (transform.parent.parent.gameObject == fuseBox.MFToCorridorDoorAnim.gameObject && !fuseBox.mfToCorridorDoorClosed && !fuseBox.mfToCorridorDoorOpening)  //opening checked elsewhere too
             {
                 FuseboxFunctionality.mf_ToCorridorDoorInterrupted = true;
@@ -79,6 +83,10 @@ public class DoorObjectDetector : MonoBehaviour
             {
                 FuseboxFunctionality.bonsaiInnerDoorInterrupted = true;
             }
+            if (transform.parent.parent.gameObject == fuseBox.BonsaiControlAnim.gameObject && !fuseBox.bonsaiControlDoorClosed && !fuseBox.bonsaiControlDoorOpening)
+            {
+                FuseboxFunctionality.bonsaiControlDoorInterrupted = true;
+            }
             if (transform.parent.parent.gameObject == fuseBox.MFToCorridorDoorAnim.gameObject && !fuseBox.mfToCorridorDoorClosed && !fuseBox.mfToCorridorDoorOpening)  //opening checked elsewhere too
             {
                 FuseboxFunctionality.mf_ToCorridorDoorInterrupted = true;
@@ -125,6 +133,10 @@ public class DoorObjectDetector : MonoBehaviour
             if (transform.parent.parent.gameObject == fuseBox.BonsaiDoorInnerAnim.gameObject && !fuseBox.bonsaiToCorridorDoorClosed && !fuseBox.bonsaiToCorridorDoorOpening)
             {
                 FuseboxFunctionality.bonsaiInnerDoorInterrupted = false;
+            }
+            if (transform.parent.parent.gameObject == fuseBox.BonsaiControlAnim.gameObject && !fuseBox.bonsaiControlDoorClosed && !fuseBox.bonsaiControlDoorOpening)
+            {
+                FuseboxFunctionality.bonsaiControlDoorInterrupted = false;
             }
             if (transform.parent.parent.gameObject == fuseBox.MFToCorridorDoorAnim.gameObject && !fuseBox.mfToCorridorDoorClosed && !fuseBox.mfToCorridorDoorOpening)
             {
