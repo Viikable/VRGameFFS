@@ -26,7 +26,7 @@ public class DoorObjectDetector : MonoBehaviour
             }
             if (transform.parent.parent.gameObject == fuseBox.BonsaiDoorOuterAnim.gameObject && !fuseBox.corridorToBonsaiDoorClosed && !fuseBox.corridorToBonsaiDoorOpening)
             {
-                FuseboxFunctionality.janitorOuterDoorInterrupted = true;
+                FuseboxFunctionality.bonsaiOuterDoorInterrupted = true;
             }
             if (transform.parent.parent.gameObject == fuseBox.BonsaiDoorInnerAnim.gameObject && !fuseBox.bonsaiToCorridorDoorClosed && !fuseBox.bonsaiToCorridorDoorOpening)
             {
@@ -73,7 +73,7 @@ public class DoorObjectDetector : MonoBehaviour
             }
             if (transform.parent.parent.gameObject == fuseBox.BonsaiDoorOuterAnim.gameObject && !fuseBox.corridorToBonsaiDoorClosed && !fuseBox.corridorToBonsaiDoorOpening)
             {
-                FuseboxFunctionality.janitorOuterDoorInterrupted = true;
+                FuseboxFunctionality.bonsaiOuterDoorInterrupted = true;
             }
             if (transform.parent.parent.gameObject == fuseBox.BonsaiDoorInnerAnim.gameObject && !fuseBox.bonsaiToCorridorDoorClosed && !fuseBox.bonsaiToCorridorDoorOpening)
             {

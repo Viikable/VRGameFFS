@@ -1130,8 +1130,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
             //corridor To Bonsai
 
-            if ((CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bonsaiOuterDoorInterrupted)
-                /*&& !corridorToBonsaiDoorOpening*/
+            if ((CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bonsaiOuterDoorInterrupted)             
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
