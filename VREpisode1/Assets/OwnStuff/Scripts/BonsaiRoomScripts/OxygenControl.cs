@@ -202,11 +202,11 @@ public class OxygenControl : MonoBehaviour {
 
     private void Awake()
     {
-        if (GameObject.Find("GlobalPostProcessing") != null)
-        {
-            GlobalPP = GameObject.Find("GlobalPostProcessing").GetComponent<PostProcessVolume>();
-            GlobalPP.profile.TryGetSettings(out _Vignette);
-        }
+        //if (GameObject.Find("GlobalPostProcessing") != null)
+        //{
+        //    GlobalPP = GameObject.Find("GlobalPostProcessing").GetComponent<PostProcessVolume>();
+        //    GlobalPP.profile.TryGetSettings(out _Vignette);
+        //}
         
         if (GameObject.Find("Water") != null)
         {
@@ -304,7 +304,7 @@ public class OxygenControl : MonoBehaviour {
             StartCoroutine("WaitASecond");
         }
     }
-    //This method will be called from the Bonsai oxygen Machine when setting the new oxygen level
+    //This method will be called from the Bonsai oxygen panel when setting the new oxygen level
     public void SetOxygenLevels(Color[] colours)
     {
         //reset colours when new combination gets set
@@ -314,8 +314,8 @@ public class OxygenControl : MonoBehaviour {
         yellow = 0f;
         magenta = 0f;
         black = 0f;
-
-        for (int i = 0; i < colours.Length; i++)
+        //4 colours in the array as 4 lamps
+        for (int i = 0; i < 4; i++)
         {
             if (colours[i] == Color.green)
             {
@@ -342,34 +342,13 @@ public class OxygenControl : MonoBehaviour {
                 black++;
             }
         }
-        //set oxygen levels based on wavelengths, do we want overpressure?
+        //set oxygen levels based on wavelengths of the light
         mainFacilityLobbyOxygen = 20f * green;
         mainFacilityBridgeOxygen = 100f * blue;
         bonsaiRoomOxygen = 80f * yellow;
         janitorRoomOxygen = 100f * magenta;
         corridorOxygen = 70f * black;
-        melterRoomOxygen = 60f * red;
-        //this part disallows overpressuring rooms, wasting the extra used capacity, it also will not spread
-        if (mainFacilityBridgeOxygen > 100f)
-        {
-            mainFacilityBridgeOxygen = 100f;
-        }
-        if (bonsaiRoomOxygen > 100f)
-        {
-            bonsaiRoomOxygen = 100f;
-        }
-        if (janitorRoomOxygen > 100f)
-        {
-            janitorRoomOxygen = 100f;
-        }
-        if (corridorOxygen > 100f)
-        {
-            corridorOxygen = 100f;
-        }
-        if (melterRoomOxygen > 100f)
-        {
-            melterRoomOxygen = 100f;
-        }
+        melterRoomOxygen = 60f * red;      
     }
 
     //checks whether doors between rooms are currently open,
