@@ -358,7 +358,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public TextMeshPro JanitorOuterCounter;
     public TextMeshPro BonsaiInnerCounter;
     public TextMeshPro BonsaiOuterCounter;
-    public TextMeshPro BonsaiControlCounter;
+    public TextMeshPro BonsaiControlCounterOuter;
+    public TextMeshPro BonsaiControlCounterInner;
     public TextMeshPro MFToCorridorCounter;
     public TextMeshPro CorridorToMFCounter;
     public TextMeshPro MFToBridgeCounter;
@@ -746,7 +747,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         JanitorOuterCounter = GameObject.Find("JanitorOuterCounter").GetComponent<TextMeshPro>();
         BonsaiInnerCounter = GameObject.Find("BonsaiInnerCounter").GetComponent<TextMeshPro>();
         BonsaiOuterCounter = GameObject.Find("BonsaiOuterCounter").GetComponent<TextMeshPro>();
-        BonsaiControlCounter = GameObject.Find("BonsaiControlCounter").GetComponent<TextMeshPro>();
+        BonsaiControlCounterOuter = GameObject.Find("BonsaiControlCounterOuter").GetComponent<TextMeshPro>();
+        BonsaiControlCounterInner = GameObject.Find("BonsaiControlCounterInner").GetComponent<TextMeshPro>();
         MFToCorridorCounter = GameObject.Find("MF_ToCorridorCounter").GetComponent<TextMeshPro>();
         CorridorToMFCounter = GameObject.Find("Corridor_ToMFCounter").GetComponent<TextMeshPro>();
         MFToBridgeCounter = GameObject.Find("MF_ToBridgeCounter").GetComponent<TextMeshPro>();
@@ -1107,15 +1109,17 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (bonsaiControlDoorClosed || bonsaiControlDoorClosing)
                 {
-                    //Open Bonsai door (from the outside)                                                                        
+                    //Open ControlBonsai door                                                                 
                     StartCoroutine("ControlBonsaiDoorOpening");
                 }
                 else if (bonsaiControlDoorClosingSoon) //aka it is open and no correct key in it
                 {
                     StopCoroutine("DelayedAutomaticCloseControlBonsai");  //ends the 10 second countdown of door closing
                     bonsaiControlDoorClosingSoon = false;
-                    BonsaiControlCounter.text = 10.ToString();
-                    BonsaiControlCounter.color = Color.white;
+                    BonsaiControlCounterOuter.text = 10.ToString();
+                    BonsaiControlCounterOuter.color = Color.white;
+                    BonsaiControlCounterInner.text = 10.ToString();
+                    BonsaiControlCounterInner.color = Color.white;
                 }
             }
             else if (BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject() != null && BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
@@ -1131,15 +1135,17 @@ public class FuseboxFunctionality : MonoBehaviour {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (bonsaiControlDoorClosed || bonsaiControlDoorClosing)
                 {
-                    //Open Bonsai door (from the outside)                                                                        
+                    //Open ControlBonsai door                                                                        
                     StartCoroutine("ControlBonsaiDoorOpening");
                 }
                 else if (bonsaiControlDoorClosingSoon) //aka it is open and no correct key in it
                 {
                     StopCoroutine("DelayedAutomaticCloseControlBonsai");  //ends the 10 second countdown of door closing
                     bonsaiControlDoorClosingSoon = false;
-                    BonsaiControlCounter.text = 10.ToString();
-                    BonsaiControlCounter.color = Color.white;
+                    BonsaiControlCounterOuter.text = 10.ToString();
+                    BonsaiControlCounterOuter.color = Color.white;
+                    BonsaiControlCounterInner.text = 10.ToString();
+                    BonsaiControlCounterInner.color = Color.white;
                 }
             }
             else if (BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject() != null && BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
@@ -2029,18 +2035,22 @@ public class FuseboxFunctionality : MonoBehaviour {
         for (int i = 0; i < 10; i++)
         {
             BonsaiControlDoorCountdown[i].Play();
-            BonsaiControlCounter.text = (10 - i).ToString();
+            BonsaiControlCounterOuter.text = (10 - i).ToString();
+            BonsaiControlCounterInner.text = (10 - i).ToString();
             if (i < 7)
             {
-                BonsaiControlCounter.color = Color.white;
+                BonsaiControlCounterOuter.color = Color.white;
+                BonsaiControlCounterInner.color = Color.white;
             }
             else if (i == 7 || i == 8)
             {
-                BonsaiControlCounter.color = Color.yellow;
+                BonsaiControlCounterOuter.color = Color.yellow;
+                BonsaiControlCounterOuter.color = Color.yellow;
             }
             else
             {
-                BonsaiControlCounter.color = Color.red;
+                BonsaiControlCounterOuter.color = Color.red;
+                BonsaiControlCounterOuter.color = Color.yellow;
             }
             yield return new WaitForSecondsRealtime(1f);
         }
@@ -2054,7 +2064,8 @@ public class FuseboxFunctionality : MonoBehaviour {
             BonsaiControlAnim.SetBool("OPEN", false);
             BonsaiControlAnim.SetFloat("Speed", 1f);
         }
-        BonsaiControlCounter.text = 0.ToString();
+        BonsaiControlCounterOuter.text = 0.ToString();
+        BonsaiControlCounterInner.text = 0.ToString();
         bonsaiControlDoorClosing = true;
         bonsaiControlDoorOpen = false;
         bonsaiControlDoorClosingSoon = false;
@@ -2070,8 +2081,10 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     IEnumerator ControlBonsaiDoorOpening()
     {
-        BonsaiControlCounter.text = 10.ToString();
-        BonsaiControlCounter.color = Color.white;
+        BonsaiControlCounterOuter.text = 10.ToString();
+        BonsaiControlCounterOuter.color = Color.white;
+        BonsaiControlCounterInner.text = 10.ToString();
+        BonsaiControlCounterInner.color = Color.white;
         if (bonsaiControlDoorClosed)
         {
             BonsaiControlAnim.SetInteger("INTERRUPTED", 0);
