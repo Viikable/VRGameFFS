@@ -348,7 +348,8 @@ public class OxygenControl : MonoBehaviour {
         bonsaiRoomOxygen = 80f * yellow;
         janitorRoomOxygen = 100f * magenta;
         corridorOxygen = 70f * black;
-        melterRoomOxygen = 60f * red;      
+        melterRoomOxygen = 60f * red;
+        Debug.Log("hai" + mainFacilityLobbyOxygen);
     }
 
     //checks whether doors between rooms are currently open,

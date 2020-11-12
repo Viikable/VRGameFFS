@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 using VRTK.Controllables.PhysicsBased;
+using TMPro;
 
 public class OxygenPanel : MonoBehaviour {
 
@@ -34,6 +35,11 @@ public class OxygenPanel : MonoBehaviour {
     public Light SecondLamp;
     public Light ThirdLamp;
     public Light FourthLamp;
+
+    public TextMeshPro SelectedLampIndicator1;
+    public TextMeshPro SelectedLampIndicator2;
+    public TextMeshPro SelectedLampIndicator3;
+    public TextMeshPro SelectedLampIndicator4;
 
     public Color LampGreen;
     public Color LampMagenta;
@@ -73,6 +79,14 @@ public class OxygenPanel : MonoBehaviour {
         ThirdLamp = GameObject.Find("ThirdLamp").GetComponent<Light>();
         FourthLamp = GameObject.Find("FourthLamp").GetComponent<Light>();
 
+
+        // shows on the panel on the side which lamp is selected currently
+
+        SelectedLampIndicator1 = GameObject.Find("SelectedLampIndicator1").GetComponent<TextMeshPro>();
+        SelectedLampIndicator2 = GameObject.Find("SelectedLampIndicator2").GetComponent<TextMeshPro>();
+        SelectedLampIndicator3 = GameObject.Find("SelectedLampIndicator3").GetComponent<TextMeshPro>();
+        SelectedLampIndicator4 = GameObject.Find("SelectedLampIndicator4").GetComponent<TextMeshPro>();
+
         LampGreen = GameObject.Find("LampGreen").GetComponent<Material>().color;
         LampMagenta = GameObject.Find("LampMagenta").GetComponent<Material>().color;
         LampBlack = GameObject.Find("LampBlack").GetComponent<Material>().color;
@@ -104,6 +118,7 @@ public class OxygenPanel : MonoBehaviour {
                 currentlySelectedLamp++;
             }
             lampJustChanged = true;
+            IndicateLampSelection();
             StartCoroutine(LampChangeWaitTime());
         }
         else if (CounterClockWiseButton.AtMaxLimit() && !lampJustChanged)
@@ -117,7 +132,29 @@ public class OxygenPanel : MonoBehaviour {
                 currentlySelectedLamp--;
             }
             lampJustChanged = true;
+            IndicateLampSelection();
             StartCoroutine(LampChangeWaitTime());
+        }
+    }
+
+    //indicates which lamp's colour will be changed by the next colour input
+    private void IndicateLampSelection()
+    {
+        if (currentlySelectedLamp == 1)
+        {
+            SelectedLampIndicator1.color = Color.red;
+        }
+        else if (currentlySelectedLamp == 2)
+        {
+            SelectedLampIndicator2.color = Color.red;
+        }
+        else if (currentlySelectedLamp == 3)
+        {
+            SelectedLampIndicator3.color = Color.red;
+        }
+        else if (currentlySelectedLamp == 4)
+        {
+            SelectedLampIndicator4.color = Color.red;
         }
     }
 
