@@ -2045,12 +2045,12 @@ public class FuseboxFunctionality : MonoBehaviour {
             else if (i == 7 || i == 8)
             {
                 BonsaiControlCounterOuter.color = Color.yellow;
-                BonsaiControlCounterOuter.color = Color.yellow;
+                BonsaiControlCounterInner.color = Color.yellow;
             }
             else
             {
                 BonsaiControlCounterOuter.color = Color.red;
-                BonsaiControlCounterOuter.color = Color.yellow;
+                BonsaiControlCounterInner.color = Color.red;
             }
             yield return new WaitForSecondsRealtime(1f);
         }
@@ -2070,7 +2070,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiControlDoorOpen = false;
         bonsaiControlDoorClosingSoon = false;
         BonsaiControlDoorClosingSound.Play();
-        outerBonsaiTimer = 0f;
+        bonsaiControlTimer = 0f;
         StartCoroutine(CounterOuters("ControlBonsai"));
         yield return new WaitForSecondsRealtime(doorAnimationTime); //door closing time is 3s atm
         bonsaiControlDoorClosed = true;
