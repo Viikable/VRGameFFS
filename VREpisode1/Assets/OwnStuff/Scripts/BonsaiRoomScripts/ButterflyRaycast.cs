@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButterflyRaycast : MonoBehaviour {
 
-    public float closestDistance;
+    float closestDistance;
     float correctionSpeed;
     //float rotSpeed;
     float moveSpeed;  // USE Levy flight!
@@ -34,7 +34,6 @@ public class ButterflyRaycast : MonoBehaviour {
 	
 	void Update ()
     {
-        MoveRandomly();
         //RotateRandomly();
         RightRayCheck();
         LeftRayCheck();
@@ -48,11 +47,11 @@ public class ButterflyRaycast : MonoBehaviour {
         DiagonalLounas2RayCheck();
         DiagonalKaakko2RayCheck();
         DiagonalKoillinen2RayCheck();
+        MoveRandomly();
     }
 
     private void MoveRandomly()
     {
-
         //if (!rayHit)
         //{
             direction = Random.Range(1, 7);          
