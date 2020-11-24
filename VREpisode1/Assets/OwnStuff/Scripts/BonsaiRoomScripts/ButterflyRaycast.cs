@@ -6,26 +6,36 @@ public class ButterflyRaycast : MonoBehaviour {
 
     public float closestDistance;
     float correctionSpeed;
-    float rotSpeed;
-    float moveSpeed;
+    //float rotSpeed;
+    float moveSpeed;  // USE Levy flight!
+    int levyFactorial;  // amount of repetitions for the movement
+    int levyCounter;  //this calculates an amount of moves after which the next move will be repeated a few times
+    int substitute; //this will save the random value of x so it can be repeated
+    int direction;  // a random int to decide movement direction
+    bool levyFlight; //is the long movement ongoing or not
     public LayerMask activeLayers;
     bool rayHit;
 
 	void Start ()
     {
 
-        closestDistance = 0.5f;
+        closestDistance = 0.35f;
         rayHit = false;
-        correctionSpeed = 0.06f;
-        rotSpeed = 0.2f;
-        moveSpeed = 0.03f;
+        correctionSpeed = 0.04f;
+        //rotSpeed = 0.2f;
+        moveSpeed = 0.02f;
+        levyFactorial = 50;
+        levyCounter = 0;
+        substitute = 0;
+        direction = 1;
+        levyFlight = false;
 	}
 	
 	
 	void Update ()
     {
         MoveRandomly();
-        RotateRandomly();
+        //RotateRandomly();
         RightRayCheck();
         LeftRayCheck();
         UpRayCheck();
@@ -42,11 +52,32 @@ public class ButterflyRaycast : MonoBehaviour {
 
     private void MoveRandomly()
     {
-        int x = Random.Range(1, 4);
-        //int x = 1;
-        if (!rayHit)
-        {
-            switch (x)
+
+        //if (!rayHit)
+        //{
+            direction = Random.Range(1, 7);          
+            if (levyCounter < levyFactorial + direction && !levyFlight)
+            {
+                levyCounter++;
+            }
+            else if (levyCounter >= levyFactorial + direction && !levyFlight)
+            {
+                //initiate long movement in the same random direction
+                levyFlight = true;
+                substitute = direction;
+            }
+            else if (levyCounter < levyFactorial * 2 + direction)
+            {
+                direction = substitute;
+                levyCounter++;
+                Debug.Log("oneDirection");
+            }
+            else
+            {
+                levyCounter = 0;
+                levyFlight = false;
+            }
+            switch (direction)
             {
                 case 1:
                     transform.Translate(Vector3.forward * moveSpeed);
@@ -64,41 +95,50 @@ public class ButterflyRaycast : MonoBehaviour {
                     transform.Translate(Vector3.down * moveSpeed);
                     Debug.Log("downwards");
                     break;
+                case 5:
+                    transform.Translate(Vector3.left * moveSpeed);
+                    Debug.Log("leftwards");
+                    break;
+                case 6:
+                    transform.Translate(Vector3.right * moveSpeed);
+                    Debug.Log("rightwards");
+                    break;
                 default:
                     break;
             }
+            levyFactorial = 0;
         }
-    }
+    //}
 
-    private void RotateRandomly()
-    {
-        int x = Random.Range(1, 4);
-        //int x = 1;
-        //if (!rayHit)
-        //{
-            switch (x)
-            {
-                case 1:
-                    transform.Rotate(Vector3.forward * rotSpeed, Space.Self);
-                    Debug.Log("forwardrot");
-                    break;
-                case 2:
-                    transform.Rotate(Vector3.back * rotSpeed, Space.Self);
-                    Debug.Log("backrot");
-                    break;
-                case 3:
-                    transform.Rotate(Vector3.up * rotSpeed, Space.Self);
-                    Debug.Log("upwardsrot");
-                    break;
-                case 4:
-                    transform.Rotate(Vector3.down * rotSpeed, Space.Self);
-                    Debug.Log("downwardsrot");
-                    break;
-                default:
-                    break;
-            //}
-        }
-    }
+    //private void RotateRandomly()
+    //{
+    //    int x = Random.Range(1, 4);
+    //    //int x = 1;
+    //    //if (!rayHit)
+    //    //{
+    //        switch (x)
+    //        {
+    //            case 1:
+    //                transform.Rotate(Vector3.forward * rotSpeed, Space.Self);
+    //                Debug.Log("forwardrot");
+    //                break;
+    //            case 2:
+    //                transform.Rotate(Vector3.back * rotSpeed, Space.Self);
+    //                Debug.Log("backrot");
+    //                break;
+    //            case 3:
+    //                transform.Rotate(Vector3.up * rotSpeed, Space.Self);
+    //                Debug.Log("upwardsrot");
+    //                break;
+    //            case 4:
+    //                transform.Rotate(Vector3.down * rotSpeed, Space.Self);
+    //                Debug.Log("downwardsrot");
+    //                break;
+    //            default:
+    //                break;
+    //        //}
+    //    }
+    //}
 
     private void RightRayCheck()
     {
