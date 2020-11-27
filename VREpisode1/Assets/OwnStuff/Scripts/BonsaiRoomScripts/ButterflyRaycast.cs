@@ -68,8 +68,7 @@ public class ButterflyRaycast : MonoBehaviour {
             else if (levyCounter < levyFactorial * 2 + direction)
             {
                 direction = substitute;
-                levyCounter++;
-                Debug.Log("oneDirection");
+                levyCounter++;             
             }
             else
             {
@@ -79,28 +78,22 @@ public class ButterflyRaycast : MonoBehaviour {
             switch (direction)
             {
                 case 1:
-                    transform.Translate(Vector3.forward * moveSpeed);
-                    Debug.Log("forward");
+                    transform.Translate(Vector3.forward * moveSpeed);                   
                     break;
                 case 2:
-                    transform.Translate(Vector3.back * moveSpeed);
-                    Debug.Log("back");
+                    transform.Translate(Vector3.back * moveSpeed);                   
                     break;
                 case 3:
-                    transform.Translate(Vector3.up * moveSpeed);
-                    Debug.Log("upwards");
+                    transform.Translate(Vector3.up * moveSpeed);                   
                     break;
                 case 4:
-                    transform.Translate(Vector3.down * moveSpeed);
-                    Debug.Log("downwards");
+                    transform.Translate(Vector3.down * moveSpeed);                  
                     break;
                 case 5:
-                    transform.Translate(Vector3.left * moveSpeed);
-                    Debug.Log("leftwards");
+                    transform.Translate(Vector3.left * moveSpeed);                 
                     break;
                 case 6:
-                    transform.Translate(Vector3.right * moveSpeed);
-                    Debug.Log("rightwards");
+                    transform.Translate(Vector3.right * moveSpeed);                   
                     break;
                 default:
                     break;
@@ -148,8 +141,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(Vector3.left * correctionSpeed);
-            Debug.Log("left");
+            transform.Translate(Vector3.left * correctionSpeed);           
             if (!rayHit)
             {
                 rayHit = true;
@@ -166,8 +158,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(Vector3.right * correctionSpeed);
-            Debug.Log("right");
+            transform.Translate(Vector3.right * correctionSpeed);         
             if (!rayHit)
             {
                 rayHit = true;
@@ -185,8 +176,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(Vector3.down * correctionSpeed);
-            Debug.Log("down");
+            transform.Translate(Vector3.down * correctionSpeed);            
             if (!rayHit)
             {
                 rayHit = true;
@@ -203,8 +193,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(Vector3.up * correctionSpeed);
-            Debug.Log("up");
+            transform.Translate(Vector3.up * correctionSpeed);          
             if (!rayHit)
             {
                 rayHit = true;
@@ -221,8 +210,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(-1, -1, -1) * correctionSpeed);
-            Debug.Log("kaakko");
+            transform.Translate(new Vector3(-1, -1, -1) * correctionSpeed);           
             if (!rayHit)
             {
                 rayHit = true;
@@ -239,8 +227,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(-1, 1, -1) * correctionSpeed);
-            Debug.Log("koillinen");
+            transform.Translate(new Vector3(-1, 1, -1) * correctionSpeed);          
             if (!rayHit)
             {
                 rayHit = true;
@@ -257,8 +244,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(-1, 1, 1) * correctionSpeed);
-            Debug.Log("luode");
+            transform.Translate(new Vector3(-1, 1, 1) * correctionSpeed);          
             if (!rayHit)
             {
                 rayHit = true;
@@ -275,8 +261,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(-1, -1, 1) * correctionSpeed);
-            Debug.Log("lounas");
+            transform.Translate(new Vector3(-1, -1, 1) * correctionSpeed);         
             if (!rayHit)
             {
                 rayHit = true;
@@ -294,8 +279,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(1, -1, -1) * correctionSpeed);
-            Debug.Log("kaakko2");
+            transform.Translate(new Vector3(1, -1, -1) * correctionSpeed);           
             if (!rayHit)
             {
                 rayHit = true;
@@ -312,8 +296,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(1, 1, -1) * correctionSpeed);
-            Debug.Log("koillinen2");
+            transform.Translate(new Vector3(1, 1, -1) * correctionSpeed);           
             if (!rayHit)
             {
                 rayHit = true;
@@ -330,8 +313,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(1, 1, 1) * correctionSpeed);
-            Debug.Log("luode2");
+            transform.Translate(new Vector3(1, 1, 1) * correctionSpeed);        
             if (!rayHit)
             {
                 rayHit = true;
@@ -348,8 +330,7 @@ public class ButterflyRaycast : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, closestDistance, activeLayers))
         {
-            transform.Translate(new Vector3(1, -1, 1) * correctionSpeed);
-            Debug.Log("lounas2");
+            transform.Translate(new Vector3(1, -1, 1) * correctionSpeed);           
             if (!rayHit)
             {
                 rayHit = true;
