@@ -762,9 +762,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         CheckLights();
         CheckMachinery();
         CheckDoorsPowerStatus();
-        OpenDoors();  
-        
-      
+        OpenDoors();         
     }
 
     public void CheckLights()

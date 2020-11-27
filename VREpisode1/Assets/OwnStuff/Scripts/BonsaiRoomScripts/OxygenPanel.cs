@@ -15,7 +15,7 @@ public class OxygenPanel : MonoBehaviour {
 
     public VRTK_PhysicsPusher GreenButton;      //MF
     public VRTK_PhysicsPusher MagentaButton;  //Janitor
-    public VRTK_PhysicsPusher BlackButton;  // Corridor
+    public VRTK_PhysicsPusher CyanButton;  // Corridor
     public VRTK_PhysicsPusher YellowButton;  // Bonsai
     public VRTK_PhysicsPusher RedButton;   // Melter
     public VRTK_PhysicsPusher BlueButton;  // Bridge
@@ -60,7 +60,7 @@ public class OxygenPanel : MonoBehaviour {
 
         GreenButton = GameObject.Find("OxygenPanel/OxygenGreenButton").GetComponentInChildren<VRTK_PhysicsPusher>();
         MagentaButton = GameObject.Find("OxygenPanel/OxygenMagentaButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        BlackButton = GameObject.Find("OxygenPanel/OxygenBlackButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        CyanButton = GameObject.Find("OxygenPanel/OxygenCyanButton").GetComponentInChildren<VRTK_PhysicsPusher>();
         YellowButton = GameObject.Find("OxygenPanel/OxygenYellowButton").GetComponentInChildren<VRTK_PhysicsPusher>();
         RedButton = GameObject.Find("OxygenPanel/OxygenRedButton").GetComponentInChildren<VRTK_PhysicsPusher>();
         BlueButton = GameObject.Find("OxygenPanel/OxygenBlueButton").GetComponentInChildren<VRTK_PhysicsPusher>();
@@ -89,7 +89,7 @@ public class OxygenPanel : MonoBehaviour {
 
         LampGreen = GameObject.Find("LampColours/LampGreen").GetComponent<MeshRenderer>().material.color;
         LampMagenta = GameObject.Find("LampColours/LampMagenta").GetComponent<MeshRenderer>().material.color;
-        LampBlack = GameObject.Find("LampColours/LampBlack").GetComponent<MeshRenderer>().material.color;
+        LampBlack = GameObject.Find("LampColours/LampCyan").GetComponent<MeshRenderer>().material.color;
         LampYellow = GameObject.Find("LampColours/LampYellow").GetComponent<MeshRenderer>().material.color;
         LampRed = GameObject.Find("LampColours/LampRed").GetComponent<MeshRenderer>().material.color;
         LampBlue = GameObject.Find("LampColours/LampBlue").GetComponent<MeshRenderer>().material.color;
@@ -224,27 +224,27 @@ public class OxygenPanel : MonoBehaviour {
             lampJustChanged = true;
             StartCoroutine(LampChangeWaitTime());
         }
-        else if (BlackButton.AtMaxLimit() && !lampJustChanged)
+        else if (CyanButton.AtMaxLimit() && !lampJustChanged)
         {
             if (currentlySelectedLamp == 1)
             {
                 FirstLamp.color = LampBlack;
-                LampColours[0] = Color.black;
+                LampColours[0] = Color.cyan;
             }
             else if (currentlySelectedLamp == 2)
             {
                 SecondLamp.color = LampBlack;
-                LampColours[1] = Color.black;
+                LampColours[1] = Color.cyan;
             }
             else if (currentlySelectedLamp == 3)
             {
                 ThirdLamp.color = LampBlack;
-                LampColours[2] = Color.black;
+                LampColours[2] = Color.cyan;
             }
             else if (currentlySelectedLamp == 4)
             {
                 FourthLamp.color = LampBlack;
-                LampColours[3] = Color.black;
+                LampColours[3] = Color.cyan;
             }
             lampJustChanged = true;
             StartCoroutine(LampChangeWaitTime());
