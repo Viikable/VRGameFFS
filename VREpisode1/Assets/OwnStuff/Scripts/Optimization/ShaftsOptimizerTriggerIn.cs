@@ -23,8 +23,7 @@ public class ShaftsOptimizerTriggerIn : MonoBehaviour {
             OptimizeRendering.insideMelterArea = false;
             OptimizeRendering.renderingChanged = false;
             GasLeak.Play();
-            //because this is after the exit from main hall, we don't know if player has got access to the shaft yet
-            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "JanitorsLodge";
+            //because this is after the exit from main hall, we don't know if player has got access to the shaft yet           
         }
     }
 }

@@ -144,6 +144,7 @@ public class Game_Manager : MonoBehaviour
 
         if (GameObject.Find("Water") != null)
         {
+
             WaterBubbles = GameObject.Find("Water").GetComponentInChildren<ParticleSystem>();
 
             WaterBubbles.Pause();
@@ -265,7 +266,7 @@ public class Game_Manager : MonoBehaviour
 
         if (locomotionOn)
         {
-            Debug.Log("resettingLocalpos");
+            //Debug.Log("resettingLocalpos");
             CheckGrabbedObjectLocalPositionStays();
         }
 
@@ -279,13 +280,13 @@ public class Game_Manager : MonoBehaviour
     {
         foreach (VRTK_InteractableObject inter in FindObjectsOfType<VRTK_InteractableObject>())
         {
-            if (inter.GetComponent<Collider>() != null)
+            if (inter.GetComponent<Collider>() != null && WaterMovement.feet != null)
             {
                 Physics.IgnoreCollision(WaterMovement.feet, inter.GetComponent<Collider>());
                 Physics.IgnoreCollision(WaterMovement.body, inter.GetComponent<Collider>());
                 Physics.IgnoreCollision(WaterMovement.head, inter.GetComponent<Collider>());
             }
-            if (inter.GetComponentsInChildren<Collider>() != null)
+            if (inter.GetComponentsInChildren<Collider>() != null && WaterMovement.feet != null)
             {
                 foreach (Collider col in inter.GetComponentsInChildren<Collider>())
                 {
@@ -321,13 +322,13 @@ public class Game_Manager : MonoBehaviour
                     water.UnderwaterAmbience4.Play();
                     water.WaterRises = true;
                     invoked = false;
-                    ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
+                    ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.SecondShaft;
                 }
             }
             else if (RightGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 RightGrab.ForceRelease();
-                ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
+                ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
                     Destroy(juhaniJoin);
@@ -423,13 +424,13 @@ public class Game_Manager : MonoBehaviour
                     water.UnderwaterAmbience4.Play();
                     water.WaterRises = true;
                     invoked = false;
-                    ResetOutOfFacilityObjectLocation.PlayerResetLocation = "SecondShaft";
+                    ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.SecondShaft;
                 }
             }
             else if (LeftGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
             {
                 LeftGrab.ForceRelease();
-                ResetOutOfFacilityObjectLocation.PlayerResetLocation = "FirstShaft";
+                ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
                     Destroy(juhaniJoin);

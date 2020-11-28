@@ -19,7 +19,7 @@ public class KeyType : MonoBehaviour {
         }
         else if (gameObject.name == "UnactivatedKey")
         {
-            clearanceLevel = 0;
+            clearanceLevel = 0;  
         }
     }
 	

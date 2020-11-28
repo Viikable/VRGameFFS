@@ -317,7 +317,7 @@ namespace VRTK.Controllables.PhysicsBased
                         //OnMinLimitExited(payload);
                     }
                     OnMaxLimitReached(payload);
-                    Debug.Log("max");
+                    //Debug.Log("max");
                 }
                 else if (currentAngle <= minThreshold && !AtMinLimit())
                 {
