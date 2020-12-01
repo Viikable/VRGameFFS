@@ -369,7 +369,6 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     void Start()
     {
-
         BridgeTerminal = GameObject.Find("BRIDGE").GetComponentInChildren<BridgeKeyConfiguration>();
         MelterTerminal = GameObject.Find("MelterTerminal").GetComponent<KeyboardMappings>();
 
@@ -410,8 +409,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         janitorToCorridorDoorClosingSoon = false;
         corridorToJanitorDoorClosingSoon = false;
 
-        BonsaiControlToBonsaiSnapZone = GameObject.Find("BonsaiControlToBonsaiDoorSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
-        BonsaiToControlBonsaiSnapZone = GameObject.Find("BonsaiToControlBonsaiDoorSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        BonsaiControlToBonsaiSnapZone = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiControlToBonsaiDoorSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        BonsaiToControlBonsaiSnapZone = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiToControlBonsaiDoorSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
 
         bonsaiToCorridorDoorOpen = false;
         corridorToBonsaiDoorOpen = false;
@@ -428,9 +427,9 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiToCorridorDoorClosingSoon = false;
         corridorToBonsaiDoorClosingSoon = false;
 
-        CorridorDoorToBonsaiButton = GameObject.Find("CorridorDoorToBonsaiButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        CorridorDoorToBonsaiButton = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/CorridorDoorToBonsai/CorridorDoorToBonsaiButton").GetComponentInChildren<VRTK_PhysicsPusher>();
 
-        BonsaiDoorToCorridorButton = GameObject.Find("BonsaiDoorToCorridorButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        BonsaiDoorToCorridorButton = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiToCorridor/BonsaiDoorToCorridorButton").GetComponentInChildren<VRTK_PhysicsPusher>();
 
         bonsaiControlDoorOpen = false;
 
@@ -534,8 +533,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         JanitorDoorInnerAnim = GameObject.Find("InnerDoorToJanitorRoom").GetComponent<Animator>();
         JanitorDoorOuterAnim = GameObject.Find("OuterDoorToJanitorRoom").GetComponent<Animator>();
 
-        BonsaiDoorInnerAnim = GameObject.Find("InnerBonsaiRoomDoor").GetComponent<Animator>();
-        BonsaiDoorOuterAnim = GameObject.Find("OuterBonsaiRoomDoor").GetComponent<Animator>();
+        BonsaiDoorInnerAnim = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/InnerBonsaiRoomDoor").GetComponent<Animator>();
+        BonsaiDoorOuterAnim = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/OuterBonsaiRoomDoor").GetComponent<Animator>();
 
         MFToCorridorDoorAnim = GameObject.Find("MF_ToCorridorDoor").GetComponent<Animator>();
         CorridorToMFDoorAnim = GameObject.Find("CorridorTo_MFDoor").GetComponent<Animator>();
@@ -587,32 +586,32 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         //inner
 
-        InnerBonsaiDoorOpeningSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorOpeningSound").GetComponent<AudioSource>();
-        InnerBonsaiDoorOpenSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorOpenSound").GetComponent<AudioSource>();
-        InnerBonsaiDoorClosingSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorClosingSound").GetComponent<AudioSource>();
-        InnerBonsaiDoorClosedSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorClosedSound").GetComponent<AudioSource>();
-        InnerBonsaiDoorAlarmSound = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorAlarmSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorOpeningSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/InnerBonsaiDoorSounds").transform.Find("BonsaiDoorOpeningSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorOpenSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/InnerBonsaiDoorSounds").transform.Find("BonsaiDoorOpenSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorClosingSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/InnerBonsaiDoorSounds").transform.Find("BonsaiDoorClosingSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorClosedSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/InnerBonsaiDoorSounds").transform.Find("BonsaiDoorClosedSound").GetComponent<AudioSource>();
+        InnerBonsaiDoorAlarmSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/InnerBonsaiDoorSounds").transform.Find("BonsaiDoorAlarmSound").GetComponent<AudioSource>();
 
         InnerBonsaiDoorCountdown = new AudioSource[10];
 
         for (int i = 0; i < 10; i++)
         {
-            InnerBonsaiDoorCountdown[i] = GameObject.Find("InnerBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();         
+            InnerBonsaiDoorCountdown[i] = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/InnerBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();         
         }
 
         // outer
 
-        OuterBonsaiDoorOpeningSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorOpeningSound").GetComponent<AudioSource>();
-        OuterBonsaiDoorOpenSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorOpenSound").GetComponent<AudioSource>();
-        OuterBonsaiDoorClosingSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorClosingSound").GetComponent<AudioSource>();
-        OuterBonsaiDoorClosedSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorClosedSound").GetComponent<AudioSource>();
-        OuterBonsaiDoorAlarmSound = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorAlarmSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorOpeningSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/OuterBonsaiDoorSounds").transform.Find("BonsaiDoorOpeningSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorOpenSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/OuterBonsaiDoorSounds").transform.Find("BonsaiDoorOpenSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorClosingSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/OuterBonsaiDoorSounds").transform.Find("BonsaiDoorClosingSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorClosedSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/OuterBonsaiDoorSounds").transform.Find("BonsaiDoorClosedSound").GetComponent<AudioSource>();
+        OuterBonsaiDoorAlarmSound = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/OuterBonsaiDoorSounds").transform.Find("BonsaiDoorAlarmSound").GetComponent<AudioSource>();
 
         OuterBonsaiDoorCountdown = new AudioSource[10];
 
         for (int i = 0; i < 10; i++)
         {
-            OuterBonsaiDoorCountdown[i] = GameObject.Find("OuterBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();
+            OuterBonsaiDoorCountdown[i] = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/OuterBonsaiDoorSounds").transform.Find("BonsaiDoorCountDown" + i).GetComponent<AudioSource>();
         }
 
         //control
@@ -745,8 +744,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         //doorcounters
         JanitorInnerCounter = GameObject.Find("JanitorInnerCounter").GetComponent<TextMeshPro>();
         JanitorOuterCounter = GameObject.Find("JanitorOuterCounter").GetComponent<TextMeshPro>();
-        BonsaiInnerCounter = GameObject.Find("BonsaiInnerCounter").GetComponent<TextMeshPro>();
-        BonsaiOuterCounter = GameObject.Find("BonsaiOuterCounter").GetComponent<TextMeshPro>();
+        BonsaiInnerCounter = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiInnerCounter").GetComponent<TextMeshPro>();
+        BonsaiOuterCounter = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiOuterCounter").GetComponent<TextMeshPro>();
         BonsaiControlCounterOuter = GameObject.Find("BonsaiControlCounterOuter").GetComponent<TextMeshPro>();
         BonsaiControlCounterInner = GameObject.Find("BonsaiControlCounterInner").GetComponent<TextMeshPro>();
         MFToCorridorCounter = GameObject.Find("MF_ToCorridorCounter").GetComponent<TextMeshPro>();

@@ -188,7 +188,7 @@ public class OxygenControl : MonoBehaviour {
 
     public float cyan;
 
-    //these are the four possible oxygen levels in an area
+    //these are the seven possible oxygen levels in an area
     public enum OxygenLevelName
     {
         SeriousOverpressure,
@@ -1220,16 +1220,16 @@ public class OxygenControl : MonoBehaviour {
 
     private void DisplayRoomOxygenLevels()
     {
-        MFLobbyOxygenDisplayMelter.text = mainFacilityLobbyOxygen.ToString("#.00");
-        MFLobbyOxygenDisplayBridge.text = mainFacilityLobbyOxygen.ToString("#.00");
-        MFLobbyOxygenDisplayCorridor.text = mainFacilityLobbyOxygen.ToString("#.00");
-        MFBridgeOxygenDisplay.text = mainFacilityBridgeOxygen.ToString("#.00");
-        BonsaiOxygenDisplay.text = bonsaiRoomOxygen.ToString("#.00");
-        MelterOxygenDisplay.text = melterRoomOxygen.ToString("#.00");
-        JanitorOxygenDisplay.text = janitorRoomOxygen.ToString("#.00");
-        CorridorOxygenDisplayMFLobby.text = corridorOxygen.ToString("#.00");
-        CorridorOxygenDisplayJanitor.text = corridorOxygen.ToString("#.00");
-        CorridorOxygenDisplayBonsai.text = corridorOxygen.ToString("#.00");
+        MFLobbyOxygenDisplayMelter.text = mainFacilityLobbyOxygen.ToString("#0.00");
+        MFLobbyOxygenDisplayBridge.text = mainFacilityLobbyOxygen.ToString("#0.00");
+        MFLobbyOxygenDisplayCorridor.text = mainFacilityLobbyOxygen.ToString("#0.00");
+        MFBridgeOxygenDisplay.text = mainFacilityBridgeOxygen.ToString("#0.00");
+        BonsaiOxygenDisplay.text = bonsaiRoomOxygen.ToString("#0.00");
+        MelterOxygenDisplay.text = melterRoomOxygen.ToString("#0.00");
+        JanitorOxygenDisplay.text = janitorRoomOxygen.ToString("#0.00");
+        CorridorOxygenDisplayMFLobby.text = corridorOxygen.ToString("#0.00");
+        CorridorOxygenDisplayJanitor.text = corridorOxygen.ToString("#0.00");
+        CorridorOxygenDisplayBonsai.text = corridorOxygen.ToString("#0.00");
 
         if (mainFacilityLobbyOxygen <= 25)
         {
