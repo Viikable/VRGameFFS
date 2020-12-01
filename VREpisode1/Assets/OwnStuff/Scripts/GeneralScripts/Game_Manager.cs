@@ -47,11 +47,11 @@ public class Game_Manager : MonoBehaviour
     [Tooltip("Toggles between climbable rope and grabbable rope")]
     private bool ropeClimb;
 
-    [Header("Integers")]
-    [SerializeField]
-    private int numberOfTheBroom;
+    //[Header("Integers")]
+    //[SerializeField]
+    //private int numberOfTheBroom;
 
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Toggles between climbable rope and grabbable rope")]
     private int elevatorMoving;
 
@@ -69,9 +69,6 @@ public class Game_Manager : MonoBehaviour
 
     AudioSource LeftWaterPush;
     AudioSource RightWaterPush;
-
-    [SerializeField]
-    private WaterMovement water;
 
     [Header("Gameobjects")]
 
@@ -107,6 +104,9 @@ public class Game_Manager : MonoBehaviour
     public GameObject previousRightGrabbedObject;
 
     [Header("Other")]
+
+    [SerializeField]
+    private WaterMovement water;
 
     public ParticleSystem WaterBubbles;
 
@@ -174,7 +174,7 @@ public class Game_Manager : MonoBehaviour
 
         elevatorMoving = 0;
 
-        numberOfTheBroom = 0;
+        //numberOfTheBroom = 0;
 
         playerPositionChanged = false;
 
