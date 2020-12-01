@@ -58,15 +58,15 @@ public class OxygenPanel : MonoBehaviour {
 
         //buttons
 
-        GreenButton = GameObject.Find("OxygenPanel/OxygenGreenButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        MagentaButton = GameObject.Find("OxygenPanel/OxygenMagentaButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        CyanButton = GameObject.Find("OxygenPanel/OxygenCyanButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        YellowButton = GameObject.Find("OxygenPanel/OxygenYellowButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        RedButton = GameObject.Find("OxygenPanel/OxygenRedButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        BlueButton = GameObject.Find("OxygenPanel/OxygenBlueButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        GreenButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenGreenButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        MagentaButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenMagentaButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        CyanButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenCyanButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        YellowButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenYellowButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        RedButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenRedButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        BlueButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenBlueButton").GetComponentInChildren<VRTK_PhysicsPusher>();
 
-        ClockWiseButton = GameObject.Find("OxygenClockWiseButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        CounterClockWiseButton = GameObject.Find("OxygenCounterClockWiseButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        ClockWiseButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenClockWiseButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        CounterClockWiseButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenCounterClockWiseButton").GetComponentInChildren<VRTK_PhysicsPusher>();
 
         LampColours = new Color[4];
 
@@ -74,25 +74,25 @@ public class OxygenPanel : MonoBehaviour {
 
         //oxygen lamps and colours
 
-        FirstLamp = GameObject.Find("BonsaiLamps/FirstLamp").GetComponent<Light>();
-        SecondLamp = GameObject.Find("BonsaiLamps/SecondLamp").GetComponent<Light>();
-        ThirdLamp = GameObject.Find("BonsaiLamps/ThirdLamp").GetComponent<Light>();
-        FourthLamp = GameObject.Find("BonsaiLamps/FourthLamp").GetComponent<Light>();
+        FirstLamp = GameObject.Find("BONSAI_ROOM/BonsaiLamps/FirstLamp").GetComponent<Light>();
+        SecondLamp = GameObject.Find("BONSAI_ROOM/BonsaiLamps/SecondLamp").GetComponent<Light>();
+        ThirdLamp = GameObject.Find("BONSAI_ROOM/BonsaiLamps/ThirdLamp").GetComponent<Light>();
+        FourthLamp = GameObject.Find("BONSAI_ROOM/BonsaiLamps/FourthLamp").GetComponent<Light>();
 
 
         // shows on the panel on the side which lamp is selected currently
 
-        SelectedLampIndicator1 = GameObject.Find("SelectedLampIndicators/SelectedLampIndicator1").GetComponent<TextMeshPro>();
-        SelectedLampIndicator2 = GameObject.Find("SelectedLampIndicators/SelectedLampIndicator2").GetComponent<TextMeshPro>();
-        SelectedLampIndicator3 = GameObject.Find("SelectedLampIndicators/SelectedLampIndicator3").GetComponent<TextMeshPro>();
-        SelectedLampIndicator4 = GameObject.Find("SelectedLampIndicators/SelectedLampIndicator4").GetComponent<TextMeshPro>();
+        SelectedLampIndicator1 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator1").GetComponent<TextMeshPro>();
+        SelectedLampIndicator2 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator2").GetComponent<TextMeshPro>();
+        SelectedLampIndicator3 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator3").GetComponent<TextMeshPro>();
+        SelectedLampIndicator4 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator4").GetComponent<TextMeshPro>();
 
-        LampGreen = GameObject.Find("LampColours/LampGreen").GetComponent<MeshRenderer>().material.color;
-        LampMagenta = GameObject.Find("LampColours/LampMagenta").GetComponent<MeshRenderer>().material.color;
-        LampBlack = GameObject.Find("LampColours/LampCyan").GetComponent<MeshRenderer>().material.color;
-        LampYellow = GameObject.Find("LampColours/LampYellow").GetComponent<MeshRenderer>().material.color;
-        LampRed = GameObject.Find("LampColours/LampRed").GetComponent<MeshRenderer>().material.color;
-        LampBlue = GameObject.Find("LampColours/LampBlue").GetComponent<MeshRenderer>().material.color;
+        LampGreen = GameObject.Find("BONSAI_ROOM/LampColours/LampGreen").GetComponent<MeshRenderer>().material.color;
+        LampMagenta = GameObject.Find("BONSAI_ROOM/LampColours/LampMagenta").GetComponent<MeshRenderer>().material.color;
+        LampBlack = GameObject.Find("BONSAI_ROOM/LampColours/LampCyan").GetComponent<MeshRenderer>().material.color;
+        LampYellow = GameObject.Find("BONSAI_ROOM/LampColours/LampYellow").GetComponent<MeshRenderer>().material.color;
+        LampRed = GameObject.Find("BONSAI_ROOM/LampColours/LampRed").GetComponent<MeshRenderer>().material.color;
+        LampBlue = GameObject.Find("BONSAI_ROOM/LampColours/LampBlue").GetComponent<MeshRenderer>().material.color;
 
         //booleans
 

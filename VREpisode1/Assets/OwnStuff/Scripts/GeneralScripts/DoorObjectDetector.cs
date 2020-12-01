@@ -206,13 +206,11 @@ public class DoorObjectDetector : MonoBehaviour
         }
         if (fuseBox.mfToCorridorDoorClosed && transform.parent.parent.gameObject == fuseBox.MFToCorridorDoorAnim.gameObject)
         {
-            gameObject.GetComponent<Collider>().enabled = false;
-            Debug.Log("hmm");
+            gameObject.GetComponent<Collider>().enabled = false;          
         }
         else if (transform.parent.parent.gameObject == fuseBox.MFToCorridorDoorAnim.gameObject)
         {
-            gameObject.GetComponent<Collider>().enabled = true;
-            Debug.Log("haha");
+            gameObject.GetComponent<Collider>().enabled = true;          
         }
         if (fuseBox.corridorToMFDoorClosed && transform.parent.parent.gameObject == fuseBox.CorridorToMFDoorAnim.gameObject)
         {
