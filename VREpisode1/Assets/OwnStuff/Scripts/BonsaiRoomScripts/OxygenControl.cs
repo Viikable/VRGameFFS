@@ -501,7 +501,7 @@ public class OxygenControl : MonoBehaviour {
             OxygenSpreads(true, false, true, false, false, 2f);
         }   
     }
-    //NOTE: corridor is spreading as long as one of the doors, janitor, bonsai or mfTOcorridor is open
+    //NOTE: corridor is spreading as long as one of the doors, janitor, bonsai or mfTocorridor is open
     //bonsai and some other rooms are connected, remember that rooms can be connected at the same time with others. etc Bonsai+Corridor and Melter+MF
     private void OxygenSpreads(bool bonsaiSpreading, bool janitorSpreading, bool corridorSpreading, bool mfSpreading, bool melterSpreading, float amountOfRooms)
     {
