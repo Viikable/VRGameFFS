@@ -7,8 +7,8 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class OxygenControl : MonoBehaviour {
 
-    //Post processing starts
-    PostProcessVolume GlobalPP;
+    //not used anymore
+    //PostProcessVolume GlobalPP;
 
     //BoolParameter @true = new BoolParameter();
 
@@ -19,7 +19,7 @@ public class OxygenControl : MonoBehaviour {
     //to not light hands when fading the players view
     public static bool noHandsLighting;
 
-    private Vignette _Vignette;
+    //private Vignette _Vignette;
 
     bool fadingIn;
 
@@ -290,10 +290,10 @@ public class OxygenControl : MonoBehaviour {
 
     private void Update()
     {
-         //PlayerOxygenLevelSideEffects();
+        PlayerOxygenLevelSideEffects();
         //only updates each second       
         if (secondPassed && fuseBox != null)
-        {          
+        {
             secondPassed = false;
             RefreshUnconnectedRooms();
             IsOxygenSpreading();
