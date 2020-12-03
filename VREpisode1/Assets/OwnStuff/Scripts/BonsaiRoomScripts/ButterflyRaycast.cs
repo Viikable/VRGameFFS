@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ButterflyRaycast : MonoBehaviour {
+    //reminder, butterflies die if no oxygen for 10 minutes
 
     float closestDistance;
     float correctionSpeed;

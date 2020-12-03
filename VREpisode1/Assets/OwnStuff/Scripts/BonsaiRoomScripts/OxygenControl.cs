@@ -7,8 +7,8 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class OxygenControl : MonoBehaviour {
 
-    //Post processing starts
-    PostProcessVolume GlobalPP;
+    //not used anymore
+    //PostProcessVolume GlobalPP;
 
     //BoolParameter @true = new BoolParameter();
 
@@ -19,7 +19,7 @@ public class OxygenControl : MonoBehaviour {
     //to not light hands when fading the players view
     public static bool noHandsLighting;
 
-    private Vignette _Vignette;
+    //private Vignette _Vignette;
 
     bool fadingIn;
 
@@ -290,10 +290,10 @@ public class OxygenControl : MonoBehaviour {
 
     private void Update()
     {
-         //PlayerOxygenLevelSideEffects();
+        PlayerOxygenLevelSideEffects();
         //only updates each second       
         if (secondPassed && fuseBox != null)
-        {          
+        {
             secondPassed = false;
             RefreshUnconnectedRooms();
             IsOxygenSpreading();
@@ -501,7 +501,7 @@ public class OxygenControl : MonoBehaviour {
             OxygenSpreads(true, false, true, false, false, 2f);
         }   
     }
-    //NOTE: corridor is spreading as long as one of the doors, janitor, bonsai or mfTOcorridor is open
+    //NOTE: corridor is spreading as long as one of the doors, janitor, bonsai or mfTocorridor is open
     //bonsai and some other rooms are connected, remember that rooms can be connected at the same time with others. etc Bonsai+Corridor and Melter+MF
     private void OxygenSpreads(bool bonsaiSpreading, bool janitorSpreading, bool corridorSpreading, bool mfSpreading, bool melterSpreading, float amountOfRooms)
     {

@@ -36,14 +36,16 @@ public class OxygenPanel : MonoBehaviour {
     public Light ThirdLamp;
     public Light FourthLamp;
 
-    public TextMeshPro SelectedLampIndicator1;
-    public TextMeshPro SelectedLampIndicator2;
-    public TextMeshPro SelectedLampIndicator3;
-    public TextMeshPro SelectedLampIndicator4;
+    public Animator SelectedLampIndicator;
+
+    public Material FirstLampBeam;
+    public Material SecondLampBeam;
+    public Material ThirdLampBeam;
+    public Material FourthLampBeam;
 
     public Color LampGreen;
     public Color LampMagenta;
-    public Color LampBlack;
+    public Color LampCyan;
     public Color LampYellow;
     public Color LampRed;
     public Color LampBlue;
@@ -70,6 +72,12 @@ public class OxygenPanel : MonoBehaviour {
 
         LampColours = new Color[4];
 
+        //initial oxygen state here
+        LampColours[0] = Color.yellow;
+        LampColours[1] = Color.red;
+        LampColours[2] = Color.green;
+        LampColours[3] = Color.blue;
+
         currentlySelectedLamp = 1;
 
         //oxygen lamps and colours
@@ -82,17 +90,25 @@ public class OxygenPanel : MonoBehaviour {
 
         // shows on the panel on the side which lamp is selected currently
 
-        SelectedLampIndicator1 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator1").GetComponent<TextMeshPro>();
-        SelectedLampIndicator2 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator2").GetComponent<TextMeshPro>();
-        SelectedLampIndicator3 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator3").GetComponent<TextMeshPro>();
-        SelectedLampIndicator4 = GameObject.Find("BONSAI_ROOM/SelectedLampIndicators/SelectedLampIndicator4").GetComponent<TextMeshPro>();
+        SelectedLampIndicator = GameObject.Find("BONSAI_ROOM/OxygenPanel/SelectedLampIndicators").GetComponent<Animator>();
+
+        FirstLampBeam = GameObject.Find("BONSAI_ROOM/OxygenPanel/SelectedLampIndicators/FirstLampBeam").GetComponent<MeshRenderer>().material;
+        SecondLampBeam = GameObject.Find("BONSAI_ROOM/OxygenPanel/SelectedLampIndicators/SecondLampBeam").GetComponent<MeshRenderer>().material;
+        ThirdLampBeam = GameObject.Find("BONSAI_ROOM/OxygenPanel/SelectedLampIndicators/ThirdLampBeam").GetComponent<MeshRenderer>().material;
+        FourthLampBeam = GameObject.Find("BONSAI_ROOM/OxygenPanel/SelectedLampIndicators/FourthLampBeam").GetComponent<MeshRenderer>().material;
 
         LampGreen = GameObject.Find("BONSAI_ROOM/LampColours/LampGreen").GetComponent<MeshRenderer>().material.color;
         LampMagenta = GameObject.Find("BONSAI_ROOM/LampColours/LampMagenta").GetComponent<MeshRenderer>().material.color;
-        LampBlack = GameObject.Find("BONSAI_ROOM/LampColours/LampCyan").GetComponent<MeshRenderer>().material.color;
+        LampCyan = GameObject.Find("BONSAI_ROOM/LampColours/LampCyan").GetComponent<MeshRenderer>().material.color;
         LampYellow = GameObject.Find("BONSAI_ROOM/LampColours/LampYellow").GetComponent<MeshRenderer>().material.color;
         LampRed = GameObject.Find("BONSAI_ROOM/LampColours/LampRed").GetComponent<MeshRenderer>().material.color;
         LampBlue = GameObject.Find("BONSAI_ROOM/LampColours/LampBlue").GetComponent<MeshRenderer>().material.color;
+
+        //initialize lamp beams here
+        FirstLampBeam.color = LampYellow;
+        SecondLampBeam.color = LampRed;
+        ThirdLampBeam.color = LampGreen;
+        FourthLampBeam.color = LampMagenta;
 
         //booleans
 
@@ -142,31 +158,19 @@ public class OxygenPanel : MonoBehaviour {
     {
         if (currentlySelectedLamp == 1)
         {
-            SelectedLampIndicator1.color = Color.red;
-            SelectedLampIndicator2.color = Color.white;
-            SelectedLampIndicator3.color = Color.white;
-            SelectedLampIndicator4.color = Color.white;
+            SelectedLampIndicator.SetInteger("LampNumber", 1);           
         }
         else if (currentlySelectedLamp == 2)
         {
-            SelectedLampIndicator2.color = Color.red;
-            SelectedLampIndicator1.color = Color.white;
-            SelectedLampIndicator3.color = Color.white;
-            SelectedLampIndicator4.color = Color.white;
+            SelectedLampIndicator.SetInteger("LampNumber", 2);
         }
         else if (currentlySelectedLamp == 3)
         {
-            SelectedLampIndicator3.color = Color.red;
-            SelectedLampIndicator1.color = Color.white;
-            SelectedLampIndicator2.color = Color.white;
-            SelectedLampIndicator4.color = Color.white;
+            SelectedLampIndicator.SetInteger("LampNumber", 3);
         }
         else if (currentlySelectedLamp == 4)
         {
-            SelectedLampIndicator4.color = Color.red;
-            SelectedLampIndicator1.color = Color.white;
-            SelectedLampIndicator2.color = Color.white;
-            SelectedLampIndicator3.color = Color.white;
+            SelectedLampIndicator.SetInteger("LampNumber", 4);
         }
     }
 
@@ -178,21 +182,25 @@ public class OxygenPanel : MonoBehaviour {
             if(currentlySelectedLamp == 1)
             {
                 FirstLamp.color = LampGreen;
+                FirstLampBeam.color = LampGreen;
                 LampColours[0] = Color.green;
             }
             else if (currentlySelectedLamp == 2)
             {
                 SecondLamp.color = LampGreen;
+                SecondLampBeam.color = LampGreen;
                 LampColours[1] = Color.green;
             }
             else if (currentlySelectedLamp == 3)
             {
                 ThirdLamp.color = LampGreen;
+                ThirdLampBeam.color = LampGreen;
                 LampColours[2] = Color.green;
             }
             else if (currentlySelectedLamp == 4)
             {
                 FourthLamp.color = LampGreen;
+                FourthLampBeam.color = LampGreen;
                 LampColours[3] = Color.green;
             }
             lampJustChanged = true;
@@ -204,21 +212,25 @@ public class OxygenPanel : MonoBehaviour {
             if (currentlySelectedLamp == 1)
             {
                 FirstLamp.color = LampMagenta;
+                FirstLampBeam.color = LampMagenta;
                 LampColours[0] = Color.magenta;
             }
             else if (currentlySelectedLamp == 2)
             {
                 SecondLamp.color = LampMagenta;
+                SecondLampBeam.color = LampMagenta;
                 LampColours[1] = Color.magenta;
             }
             else if (currentlySelectedLamp == 3)
             {
                 ThirdLamp.color = LampMagenta;
+                ThirdLampBeam.color = LampMagenta;
                 LampColours[2] = Color.magenta;
             }
             else if (currentlySelectedLamp == 4)
             {
                 FourthLamp.color = LampMagenta;
+                FourthLampBeam.color = LampMagenta;
                 LampColours[3] = Color.magenta;
             }
             lampJustChanged = true;
@@ -228,22 +240,26 @@ public class OxygenPanel : MonoBehaviour {
         {
             if (currentlySelectedLamp == 1)
             {
-                FirstLamp.color = LampBlack;
+                FirstLamp.color = LampCyan;
+                FirstLampBeam.color = LampCyan;
                 LampColours[0] = Color.cyan;
             }
             else if (currentlySelectedLamp == 2)
             {
-                SecondLamp.color = LampBlack;
+                SecondLamp.color = LampCyan;
+                SecondLampBeam.color = LampCyan;
                 LampColours[1] = Color.cyan;
             }
             else if (currentlySelectedLamp == 3)
             {
-                ThirdLamp.color = LampBlack;
+                ThirdLamp.color = LampCyan;
+                ThirdLampBeam.color = LampCyan;
                 LampColours[2] = Color.cyan;
             }
             else if (currentlySelectedLamp == 4)
             {
-                FourthLamp.color = LampBlack;
+                FourthLamp.color = LampCyan;
+                FourthLampBeam.color = LampCyan;
                 LampColours[3] = Color.cyan;
             }
             lampJustChanged = true;
@@ -254,21 +270,25 @@ public class OxygenPanel : MonoBehaviour {
             if (currentlySelectedLamp == 1)
             {
                 FirstLamp.color = LampYellow;
+                FirstLampBeam.color = LampYellow;
                 LampColours[0] = Color.yellow;
             }
             else if (currentlySelectedLamp == 2)
             {
                 SecondLamp.color = LampYellow;
+                SecondLampBeam.color = LampYellow;
                 LampColours[1] = Color.yellow;
             }
             else if (currentlySelectedLamp == 3)
             {
                 ThirdLamp.color = LampYellow;
+                ThirdLampBeam.color = LampYellow;
                 LampColours[2] = Color.yellow;
             }
             else if (currentlySelectedLamp == 4)
             {
                 FourthLamp.color = LampYellow;
+                FourthLampBeam.color = LampYellow;
                 LampColours[3] = Color.yellow;
             }
             lampJustChanged = true;
@@ -279,21 +299,25 @@ public class OxygenPanel : MonoBehaviour {
             if (currentlySelectedLamp == 1)
             {
                 FirstLamp.color = LampRed;
+                FirstLampBeam.color = LampRed;
                 LampColours[0] = Color.red;
             }
             else if (currentlySelectedLamp == 2)
             {
                 SecondLamp.color = LampRed;
+                SecondLampBeam.color = LampRed;
                 LampColours[1] = Color.red;
             }
             else if (currentlySelectedLamp == 3)
             {
                 ThirdLamp.color = LampRed;
+                ThirdLampBeam.color = LampRed;
                 LampColours[2] = Color.red;
             }
             else if (currentlySelectedLamp == 4)
             {
                 FourthLamp.color = LampRed;
+                FourthLampBeam.color = LampRed;
                 LampColours[3] = Color.red;
             }
             lampJustChanged = true;
@@ -304,21 +328,25 @@ public class OxygenPanel : MonoBehaviour {
             if (currentlySelectedLamp == 1)
             {
                 FirstLamp.color = LampBlue;
+                FirstLampBeam.color = LampBlue;
                 LampColours[0] = Color.blue;
             }
             else if (currentlySelectedLamp == 2)
             {
                 SecondLamp.color = LampBlue;
+                SecondLampBeam.color = LampBlue;
                 LampColours[1] = Color.blue;
             }
             else if (currentlySelectedLamp == 3)
             {
                 ThirdLamp.color = LampBlue;
+                ThirdLampBeam.color = LampBlue;
                 LampColours[2] = Color.blue;
             }
             else if (currentlySelectedLamp == 4)
             {
                 FourthLamp.color = LampBlue;
+                FourthLampBeam.color = LampBlue;
                 LampColours[3] = Color.blue;
             }
             lampJustChanged = true;

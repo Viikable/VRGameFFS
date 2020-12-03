@@ -315,11 +315,11 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public AudioSource[] Bridge_ToMFDoorCountdown;
 
-    //animation waiting
-    const string animBaseLayer = "Base Layer";
-    int openAnimHash = Animator.StringToHash(animBaseLayer + ".Open");
-    int closeAnimHash = Animator.StringToHash(animBaseLayer + ".Close");
-    int closeWhenInterruptedAnimHash = Animator.StringToHash(animBaseLayer + ".CloseWhenInterrupted");
+    //animation waiting, not used right now
+    //const string animBaseLayer = "Base Layer";
+    //int openAnimHash = Animator.StringToHash(animBaseLayer + ".Open");
+    //int closeAnimHash = Animator.StringToHash(animBaseLayer + ".Close");
+    //int closeWhenInterruptedAnimHash = Animator.StringToHash(animBaseLayer + ".CloseWhenInterrupted");
 
     //door interruption control
     public static bool janitorOuterDoorInterrupted;
@@ -350,7 +350,7 @@ public class FuseboxFunctionality : MonoBehaviour {
     float mf_ToBridgeTimer;
 
     //info about the current state of certain animator
-    AnimatorStateInfo animState;
+    //AnimatorStateInfo animState;
 
     [Header("DoorCounters")]
 
@@ -997,10 +997,10 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     private void OpenDoors()
     {
-        // keys stay inside and do nothing if wrong clearance level
+        // keys get ejected from the scanners if wrong clearance level
 
         //Maintenance area 
-
+        //JANITOR ROOM
         if (janitorDoorPowered)
         {
             if (((JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) || janitorInnerDoorInterrupted)
@@ -1161,9 +1161,9 @@ public class FuseboxFunctionality : MonoBehaviour {
                 StartCoroutine("DelayedAutomaticCloseControlBonsai");
             }
         }
+        //CORRIDOR DOORS
         //CorridorDoorToMainFacility doesn't need a keycard, only button press
-        //press starts a countdown of 10s, maybe visible in the door/panel? pressing again resets countdown
-        //door has to be fully closed in order to open
+        //press starts a countdown of 10s, visible in the door, pressing again resets countdown      
         if (corridorDoorsPowered)
         {
             // corridor to MF
