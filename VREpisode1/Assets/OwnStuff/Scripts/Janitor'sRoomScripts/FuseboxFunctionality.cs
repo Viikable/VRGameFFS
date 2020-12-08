@@ -2090,7 +2090,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         }
         else if (bonsaiControlDoorClosing)
         {
-            StopCoroutine("DelayedAutomaticCloseBonsaiControl");
+            StopCoroutine("DelayedAutomaticCloseControlBonsai");
             bonsaiControlDoorClosing = false;
             BonsaiControlAnim.SetFloat("Speed", -1f);
             BonsaiControlAnim.SetBool("OPEN", true);

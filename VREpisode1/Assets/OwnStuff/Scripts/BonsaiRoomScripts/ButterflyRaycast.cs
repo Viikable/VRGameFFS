@@ -55,7 +55,7 @@ public class ButterflyRaycast : MonoBehaviour {
     {
         //if (!rayHit)
         //{
-            direction = Random.Range(1, 7);          
+            direction = Random.Range(1, 6);          
             if (levyCounter < levyFactorial + direction && !levyFlight)
             {
                 levyCounter++;
@@ -88,14 +88,11 @@ public class ButterflyRaycast : MonoBehaviour {
                     transform.Translate(Vector3.up * moveSpeed);                   
                     break;
                 case 4:
-                    transform.Translate(Vector3.down * moveSpeed);                  
-                    break;
+                     transform.Translate(Vector3.left * moveSpeed);
+                     break;
                 case 5:
-                    transform.Translate(Vector3.left * moveSpeed);                 
-                    break;
-                case 6:
-                    transform.Translate(Vector3.right * moveSpeed);                   
-                    break;
+                     transform.Translate(Vector3.right * moveSpeed);
+                     break;              
                 default:
                     break;
             }

@@ -290,7 +290,7 @@ public class OxygenControl : MonoBehaviour {
 
     private void Update()
     {
-        PlayerOxygenLevelSideEffects();
+        //PlayerOxygenLevelSideEffects();
         //only updates each second       
         if (secondPassed && fuseBox != null)
         {
