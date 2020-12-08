@@ -20,11 +20,11 @@ public class ButterflyRaycast : MonoBehaviour {
 	void Start ()
     {
 
-        closestDistance = 0.35f;
+        closestDistance = 0.5f;
         rayHit = false;
-        correctionSpeed = 0.04f;
+        correctionSpeed = 0.02f;
         //rotSpeed = 0.2f;
-        moveSpeed = 0.02f;
+        moveSpeed = 0.01f;
         levyFactorial = 50;
         levyCounter = 0;
         substitute = 0;
@@ -53,36 +53,36 @@ public class ButterflyRaycast : MonoBehaviour {
 
     private void MoveRandomly()
     {
-        //if (!rayHit)
-        //{
-            direction = Random.Range(1, 6);          
-            if (levyCounter < levyFactorial + direction && !levyFlight)
-            {
-                levyCounter++;
-            }
-            else if (levyCounter >= levyFactorial + direction && !levyFlight)
-            {
-                //initiate long movement in the same random direction
-                levyFlight = true;
-                substitute = direction;
-            }
-            else if (levyCounter < levyFactorial * 2 + direction)
-            {
-                direction = substitute;
-                levyCounter++;             
-            }
-            else
-            {
-                levyCounter = 0;
-                levyFlight = false;
-            }
+        if (!rayHit)
+        {
+            direction = Random.Range(1, 7);
+            //if (levyCounter < levyFactorial + direction && !levyFlight)
+            //{
+            //    levyCounter++;
+            //}
+            //else if (levyCounter >= levyFactorial + direction && !levyFlight)
+            //{
+            //    //initiate long movement in the same random direction
+            //    levyFlight = true;
+            //    substitute = direction;
+            //}
+            //else if (levyCounter < levyFactorial * 2 + direction)
+            //{
+            //    direction = substitute;
+            //    levyCounter++;
+            //}
+            //else
+            //{
+            //    levyCounter = 0;
+            //    levyFlight = false;
+            //}
             switch (direction)
             {
                 case 1:
                     transform.Translate(Vector3.forward * moveSpeed);                   
                     break;
                 case 2:
-                    transform.Translate(Vector3.back * moveSpeed);                   
+                    transform.Translate(Vector3.down * moveSpeed);                   
                     break;
                 case 3:
                     transform.Translate(Vector3.up * moveSpeed);                   
@@ -98,7 +98,7 @@ public class ButterflyRaycast : MonoBehaviour {
             }
             levyFactorial = 0;
         }
-    //}
+    }
 
     //private void RotateRandomly()
     //{

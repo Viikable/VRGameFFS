@@ -38,11 +38,11 @@ public class OptimizeRendering : MonoBehaviour
     void Awake()
     {
         insideMelterArea = false;
-        insideMainHall = false;      
+        insideMainHall = true;      
         insideShafts = false;
         insideOctoRoom = false;
         renderingChanged = false;
-        insideBonsaiRoom = true;     //we start here
+        insideBonsaiRoom = false;     //we start here
         counter = 0;
 
         foreach (MelterObject scriptObject in GameObject.FindObjectsOfType<MelterObject>())
