@@ -145,7 +145,7 @@ PlayerSettings:
       depthFormat: 1
       depthBufferSharingEnabled: 0
     oculus:
-      sharedDepthBuffer: 0
+      sharedDepthBuffer: 1
       dashSupport: 0
     enable360StereoCapture: 0
   protectGraphicsMemory: 0
@@ -269,6 +269,7 @@ PlayerSettings:
     m_Enabled: 1
     m_Devices:
     - None
+    - Oculus
     - OpenVR
   - m_BuildTarget: iOS
     m_Enabled: 0
