@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class StairHelper : MonoBehaviour {
     GameObject PlayArea;
@@ -12,10 +12,10 @@ public class StairHelper : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<VRTK_PlayerObject>() != null)
-        {
-            PlayArea.GetComponent<VRTK_BodyPhysics>().stepUpYOffset = 0.8f;
-            Debug.Log("enteredstairs");
-        }
+        //if (other.GetComponent<VRTK_PlayerObject>() != null)
+        //{
+        //    PlayArea.GetComponent<VRTK_BodyPhysics>().stepUpYOffset = 0.8f;
+        //    Debug.Log("enteredstairs");
+        //}
     }   
 }

@@ -5,18 +5,20 @@ namespace VRTK
 {
     public class Rope_Climb_Toggler : MonoBehaviour {
         
-        void Update() {
+        void Update() 
+        {
+            //use the other climbing think
 
-            if (Game_Manager.instance.RopeClimb)
-            {
-                GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript
-                    = GetComponent<GrabAttachMechanics.VRTK_ClimbableGrabAttach>();
-            }
-            else
-            {
-                GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript
-                    = GetComponent<GrabAttachMechanics.VRTK_FixedJointGrabAttach>();
-            }
+            //if (Game_Manager.instance.RopeClimb)
+            //{
+            //    GetComponent<XRGrabInteractable>().grabAttachMechanicScript
+            //        = GetComponent<GrabAttachMechanics.VRTK_ClimbableGrabAttach>();
+            //}
+            //else
+            //{
+            //    GetComponent<XRGrabInteractable>().grabAttachMechanicScript
+            //        = GetComponent<GrabAttachMechanics.VRTK_FixedJointGrabAttach>();
+            //}
 
         }
     }

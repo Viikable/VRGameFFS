@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class MagneticFence : MonoBehaviour
 {
@@ -20,13 +20,13 @@ public class MagneticFence : MonoBehaviour
         //{
         //    gg = true;
         Debug.Log("collided");
-        if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
+        if (Game_Manager.instance.LeftGrab.firstInteractableSelected != null)
         {
-            Game_Manager.instance.LeftGrab.ForceRelease();
+            Game_Manager.instance.LeftGrab.EndManualInteraction();
         }
-        else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null)
+        else if (Game_Manager.instance.RightGrab.firstInteractableSelected != null)
         {
-            Game_Manager.instance.RightGrab.ForceRelease();
+            Game_Manager.instance.RightGrab.EndManualInteraction();
         }
         if (!Electricity.isPlaying)
         {

@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class MiddleHatchOpening : MonoBehaviour
 {
-    VRTK_PhysicsPusher MiddleShaftButton;
+    Button MiddleShaftButton;
     Animator MiddleHatchAnim;
     bool notOpen;
 	
 	void Start ()
     {
-        MiddleShaftButton = GetComponent<VRTK_PhysicsPusher>();
+        MiddleShaftButton = GetComponent<Button>();
         MiddleHatchAnim = GameObject.Find("GateMiddle").GetComponent<Animator>();
         notOpen = true;
 	}
@@ -20,7 +20,7 @@ public class MiddleHatchOpening : MonoBehaviour
 	
 	void Update ()
     {
-		if (MiddleShaftButton.AtMaxLimit() && notOpen)
+		if (MiddleShaftButton.isPressedDown && notOpen)
         {
             notOpen = false;
             MiddleHatchAnim.SetBool("Open", true);

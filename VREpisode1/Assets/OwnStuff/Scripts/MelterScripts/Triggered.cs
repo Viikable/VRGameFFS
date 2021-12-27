@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class Triggered : MonoBehaviour {
 
@@ -10,7 +10,7 @@ public class Triggered : MonoBehaviour {
     {
         if (other.name == "Trigger")
         {
-            this.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;          
+            this.GetComponent<Button>().stayPressed = true;          
         }
     }
 }

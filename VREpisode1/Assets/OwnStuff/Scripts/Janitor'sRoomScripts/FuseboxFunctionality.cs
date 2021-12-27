@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 
 public class FuseboxFunctionality : MonoBehaviour {
@@ -13,29 +12,29 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public KeyboardMappings MelterTerminal;
 
-    public VRTK_SnapDropZone BonsaiOxygenControlMachinery;
+    public XRSocketInteractor BonsaiOxygenControlMachinery;
 
     [Header("MaintenanceArea Lights")]
-    public VRTK_SnapDropZone MaintenanceCorridorLights;
-    public VRTK_SnapDropZone BonsaiLights;
-    public VRTK_SnapDropZone JanitorLights;
+    public XRSocketInteractor MaintenanceCorridorLights;
+    public XRSocketInteractor BonsaiLights;
+    public XRSocketInteractor JanitorLights;
 
     GameObject BonsaiLightsContainer;
     GameObject JanitorLightsContainer;
     GameObject MaintenanceCorridorLightsContainer;
 
     [Header("Door Power settings")]
-    public VRTK_SnapDropZone MaintenanceCorridorDoorsFuse;
-    public VRTK_SnapDropZone BonsaiDoorFuse;
-    public VRTK_SnapDropZone JanitorDoorFuse;
+    public XRSocketInteractor MaintenanceCorridorDoorsFuse;
+    public XRSocketInteractor BonsaiDoorFuse;
+    public XRSocketInteractor JanitorDoorFuse;
 
     public static bool corridorDoorsPowered;
     public static bool bonsaiDoorPowered;
     public static bool janitorDoorPowered;
 
     [Header("Corridor side doors")]
-    public VRTK_SnapDropZone JanitorDoorToCorridorSnapZone;
-    public VRTK_SnapDropZone CorridorDoorToJanitorSnapZone;
+    public XRSocketInteractor JanitorDoorToCorridorSnapZone;
+    public XRSocketInteractor CorridorDoorToJanitorSnapZone;
 
     [Header("Doors between janitor room and corridor open/close states")]
     public bool janitorToCorridorDoorOpen;
@@ -54,8 +53,8 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool corridorToJanitorDoorClosingSoon;
 
     [Header("Bonsai side doors")]
-    public VRTK_SnapDropZone BonsaiControlToBonsaiSnapZone;
-    public VRTK_SnapDropZone BonsaiToControlBonsaiSnapZone;
+    public XRSocketInteractor BonsaiControlToBonsaiSnapZone;
+    public XRSocketInteractor BonsaiToControlBonsaiSnapZone;
 
     [Header("Doors between bonsai room and corridor open/close states")]
     public bool bonsaiToCorridorDoorOpen;
@@ -74,9 +73,9 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool corridorToBonsaiDoorClosingSoon;
 
     //bonsai first door is a button door now too
-    public VRTK_PhysicsPusher CorridorDoorToBonsaiButton;
+    public Button CorridorDoorToBonsaiButton;
 
-    public VRTK_PhysicsPusher BonsaiDoorToCorridorButton;
+    public Button BonsaiDoorToCorridorButton;
 
     [Header("Door which lets the player into bonsai control room open/close states")]
     public bool bonsaiControlDoorOpen;
@@ -90,7 +89,7 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool bonsaiControlDoorClosingSoon;
 
     //actually works with a button
-    public VRTK_PhysicsPusher CorridorDoorToMainFacilityButton;
+    public Button CorridorDoorToMainFacilityButton;
 
     [Header("Doors from corridor to MF open/close states")]
     public bool corridorToMFDoorOpen;
@@ -102,16 +101,16 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool corridorToMFDoorClosingSoon;
 
     [Header("MainFacility")]
-    public VRTK_SnapDropZone MainFacilityLights;
-    public VRTK_SnapDropZone MainFacilityMachinery;
-    public VRTK_SnapDropZone MainFacilityDoorsFuse;
+    public XRSocketInteractor MainFacilityLights;
+    public XRSocketInteractor MainFacilityMachinery;
+    public XRSocketInteractor MainFacilityDoorsFuse;
 
     GameObject MainFacilityLightsContainer;
 
     public static bool mainFacilityDoorsPowered;
 
     //button too
-    public VRTK_PhysicsPusher MainFacilityDoorToCorridorButton;
+    public Button MainFacilityDoorToCorridorButton;
 
     [Header("Doors from MF to corridor open/close states")]
     public bool mfToCorridorDoorOpen;
@@ -122,7 +121,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public bool mfToCorridorDoorClosingSoon;
 
-    public VRTK_SnapDropZone MainFacilityDoorToBridgeSnapZone;
+    public XRSocketInteractor MainFacilityDoorToBridgeSnapZone;
 
     [Header("Doors from MF to Bridge (elevator) open/close states")]
     public bool mfToBridgeDoorOpen;
@@ -133,7 +132,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public bool mfToBridgeDoorClosingSoon;
 
-    public VRTK_SnapDropZone MainFacilityDoorToMelterSnapZone;
+    public XRSocketInteractor MainFacilityDoorToMelterSnapZone;
 
     [Header("Doors from MF to melter open/close states")]
     public bool mfToMelterDoorOpen;
@@ -145,15 +144,15 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool mfToMelterDoorClosingSoon;
 
     [Header("Bridge")]
-    public VRTK_SnapDropZone BridgeLights;
-    public VRTK_SnapDropZone BridgeMachinery;
-    public VRTK_SnapDropZone BridgeDoorsFuse;
+    public XRSocketInteractor BridgeLights;
+    public XRSocketInteractor BridgeMachinery;
+    public XRSocketInteractor BridgeDoorsFuse;
 
     GameObject BridgeLightsContainer;
 
     public static bool bridgeDoorsPowered;
 
-    public VRTK_SnapDropZone BridgeDoorToMainFacilitySnapZone;
+    public XRSocketInteractor BridgeDoorToMainFacilitySnapZone;
 
     [Header("Doors from bridge to MF open/close states")]
     public bool bridgeToMFDoorOpen;
@@ -165,15 +164,15 @@ public class FuseboxFunctionality : MonoBehaviour {
     public bool bridgeToMFDoorClosingSoon;
 
     [Header("Melter")]
-    public VRTK_SnapDropZone MelterLights;
-    public VRTK_SnapDropZone MelterMachinery;
-    public VRTK_SnapDropZone MelterDoorsFuse;
+    public XRSocketInteractor MelterLights;
+    public XRSocketInteractor MelterMachinery;
+    public XRSocketInteractor MelterDoorsFuse;
 
     GameObject MelterLightsContainer;
 
     public static bool melterDoorsPowered;
 
-    public VRTK_SnapDropZone MelterDoorToMainFacilitySnapZone;
+    public XRSocketInteractor MelterDoorToMainFacilitySnapZone;
 
     [Header("Doors from melter to MF open/close states")]
     public bool melterToMFDoorOpen;
@@ -373,15 +372,15 @@ public class FuseboxFunctionality : MonoBehaviour {
         MelterTerminal = GameObject.Find("MelterTerminal").GetComponent<KeyboardMappings>();
 
         //Maintenance
-        MaintenanceCorridorLights = transform.Find("MaintenanceCorridorLights").GetComponent<VRTK_SnapDropZone>();
-        BonsaiLights = transform.Find("BonsaiLights").GetComponent<VRTK_SnapDropZone>();
-        JanitorLights = transform.Find("JanitorLights").GetComponent<VRTK_SnapDropZone>();
+        MaintenanceCorridorLights = transform.Find("MaintenanceCorridorLights").GetComponent<XRSocketInteractor>();
+        BonsaiLights = transform.Find("BonsaiLights").GetComponent<XRSocketInteractor>();
+        JanitorLights = transform.Find("JanitorLights").GetComponent<XRSocketInteractor>();
 
-        BonsaiOxygenControlMachinery = transform.Find("BonsaiMachinery").GetComponent<VRTK_SnapDropZone>();
+        BonsaiOxygenControlMachinery = transform.Find("BonsaiMachinery").GetComponent<XRSocketInteractor>();
 
-        MaintenanceCorridorDoorsFuse = transform.Find("MaintenanceCorridorDoors").GetComponent<VRTK_SnapDropZone>();
-        BonsaiDoorFuse = transform.Find("BonsaiDoor").GetComponent<VRTK_SnapDropZone>();
-        JanitorDoorFuse = transform.Find("JanitorDoor").GetComponent<VRTK_SnapDropZone>();
+        MaintenanceCorridorDoorsFuse = transform.Find("MaintenanceCorridorDoors").GetComponent<XRSocketInteractor>();
+        BonsaiDoorFuse = transform.Find("BonsaiDoor").GetComponent<XRSocketInteractor>();
+        JanitorDoorFuse = transform.Find("JanitorDoor").GetComponent<XRSocketInteractor>();
 
         JanitorLightsContainer = GameObject.Find("JanitorLightsContainer");
         BonsaiLightsContainer = GameObject.Find("BonsaiLightsContainer");
@@ -391,8 +390,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiDoorPowered = false;
         janitorDoorPowered = false;
 
-        JanitorDoorToCorridorSnapZone = GameObject.Find("JanitorDoorInnerSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
-        CorridorDoorToJanitorSnapZone = GameObject.Find("JanitorDoorOuterSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        JanitorDoorToCorridorSnapZone = GameObject.Find("JanitorDoorInnerSnapZone").GetComponentInChildren<XRSocketInteractor>();
+        CorridorDoorToJanitorSnapZone = GameObject.Find("JanitorDoorOuterSnapZone").GetComponentInChildren<XRSocketInteractor>();
 
         janitorToCorridorDoorOpen = false;
         janitorToCorridorDoorClosed = true;
@@ -409,8 +408,8 @@ public class FuseboxFunctionality : MonoBehaviour {
         janitorToCorridorDoorClosingSoon = false;
         corridorToJanitorDoorClosingSoon = false;
 
-        BonsaiControlToBonsaiSnapZone = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiControlToBonsaiDoorSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
-        BonsaiToControlBonsaiSnapZone = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiToControlBonsaiDoorSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        BonsaiControlToBonsaiSnapZone = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiControlToBonsaiDoorSnapZone").GetComponentInChildren<XRSocketInteractor>();
+        BonsaiToControlBonsaiSnapZone = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiToControlBonsaiDoorSnapZone").GetComponentInChildren<XRSocketInteractor>();
 
         bonsaiToCorridorDoorOpen = false;
         corridorToBonsaiDoorOpen = false;
@@ -427,9 +426,9 @@ public class FuseboxFunctionality : MonoBehaviour {
         bonsaiToCorridorDoorClosingSoon = false;
         corridorToBonsaiDoorClosingSoon = false;
 
-        CorridorDoorToBonsaiButton = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/CorridorDoorToBonsai/CorridorDoorToBonsaiButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        CorridorDoorToBonsaiButton = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/CorridorDoorToBonsai/CorridorDoorToBonsaiButton").GetComponentInChildren<Button>();
 
-        BonsaiDoorToCorridorButton = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiToCorridor/BonsaiDoorToCorridorButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        BonsaiDoorToCorridorButton = GameObject.Find("BONSAI_ROOM/BonsaiRoomDoubleDoor/BonsaiToCorridor/BonsaiDoorToCorridorButton").GetComponentInChildren<Button>();
 
         bonsaiControlDoorOpen = false;
 
@@ -441,7 +440,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         bonsaiControlDoorClosingSoon = false;
 
-        CorridorDoorToMainFacilityButton = GameObject.Find("CorridorDoorToMainFacilityButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        CorridorDoorToMainFacilityButton = GameObject.Find("CorridorDoorToMainFacilityButton").GetComponentInChildren<Button>();
 
         corridorToMFDoorOpen = false;
         corridorToMFDoorClosed = true;
@@ -452,15 +451,15 @@ public class FuseboxFunctionality : MonoBehaviour {
         corridorToMFDoorClosingSoon = false;
 
         //Main facility
-        MainFacilityLights = transform.Find("MainFacilityLights").GetComponent<VRTK_SnapDropZone>();
-        MainFacilityMachinery = transform.Find("MainFacilityMachinery").GetComponent<VRTK_SnapDropZone>();
-        MainFacilityDoorsFuse = transform.Find("MainFacilityDoors").GetComponent<VRTK_SnapDropZone>();
+        MainFacilityLights = transform.Find("MainFacilityLights").GetComponent<XRSocketInteractor>();
+        MainFacilityMachinery = transform.Find("MainFacilityMachinery").GetComponent<XRSocketInteractor>();
+        MainFacilityDoorsFuse = transform.Find("MainFacilityDoors").GetComponent<XRSocketInteractor>();
 
         MainFacilityLightsContainer = GameObject.Find("MainFacilityLightsContainer");
 
         mainFacilityDoorsPowered = false;
 
-        MainFacilityDoorToCorridorButton = GameObject.Find("MainFacilityDoorToCorridorButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        MainFacilityDoorToCorridorButton = GameObject.Find("MainFacilityDoorToCorridorButton").GetComponentInChildren<Button>();
 
         mfToCorridorDoorOpen = false;
         mfToCorridorDoorClosed = true;
@@ -470,7 +469,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         mfToCorridorDoorClosingSoon = false;
 
-        MainFacilityDoorToBridgeSnapZone = GameObject.Find("MainFacilityDoorToBridgeSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        MainFacilityDoorToBridgeSnapZone = GameObject.Find("MainFacilityDoorToBridgeSnapZone").GetComponentInChildren<XRSocketInteractor>();
 
         mfToBridgeDoorOpen = false;
         mfToBridgeDoorClosed = true;
@@ -480,7 +479,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
         mfToBridgeDoorClosingSoon = false;
 
-        MainFacilityDoorToMelterSnapZone = GameObject.Find("MainFacilityDoorToMelterSnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        MainFacilityDoorToMelterSnapZone = GameObject.Find("MainFacilityDoorToMelterSnapZone").GetComponentInChildren<XRSocketInteractor>();
 
         mfToMelterDoorOpen = false;
         mfToMelterDoorClosed = true;
@@ -491,15 +490,15 @@ public class FuseboxFunctionality : MonoBehaviour {
         mfToMelterDoorClosingSoon = false;
 
         //Bridge
-        BridgeLights = transform.Find("BridgeLights").GetComponent<VRTK_SnapDropZone>();
-        BridgeMachinery = transform.Find("BridgeMachinery").GetComponent<VRTK_SnapDropZone>();
-        BridgeDoorsFuse = transform.Find("BridgeDoors").GetComponent<VRTK_SnapDropZone>();
+        BridgeLights = transform.Find("BridgeLights").GetComponent<XRSocketInteractor>();
+        BridgeMachinery = transform.Find("BridgeMachinery").GetComponent<XRSocketInteractor>();
+        BridgeDoorsFuse = transform.Find("BridgeDoors").GetComponent<XRSocketInteractor>();
 
         BridgeLightsContainer = GameObject.Find("BridgeLightsContainer");
 
         bridgeDoorsPowered = false;
 
-        BridgeDoorToMainFacilitySnapZone = GameObject.Find("BridgeDoorToMainFacilitySnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        BridgeDoorToMainFacilitySnapZone = GameObject.Find("BridgeDoorToMainFacilitySnapZone").GetComponentInChildren<XRSocketInteractor>();
 
         bridgeToMFDoorOpen = false;
         bridgeToMFDoorClosed = true;
@@ -510,15 +509,15 @@ public class FuseboxFunctionality : MonoBehaviour {
         bridgeToMFDoorClosingSoon = false;
 
         //Melter
-        MelterLights = transform.Find("MelterLights").GetComponent<VRTK_SnapDropZone>();
-        MelterMachinery = transform.Find("MelterMachinery").GetComponent<VRTK_SnapDropZone>();
-        MelterDoorsFuse = transform.Find("MelterDoors").GetComponent<VRTK_SnapDropZone>();
+        MelterLights = transform.Find("MelterLights").GetComponent<XRSocketInteractor>();
+        MelterMachinery = transform.Find("MelterMachinery").GetComponent<XRSocketInteractor>();
+        MelterDoorsFuse = transform.Find("MelterDoors").GetComponent<XRSocketInteractor>();
 
         MelterLightsContainer = GameObject.Find("MelterLightsContainer");
 
         melterDoorsPowered = false;
 
-        MelterDoorToMainFacilitySnapZone = GameObject.Find("MelterDoorToMainFacilitySnapZone").GetComponentInChildren<VRTK_SnapDropZone>();
+        MelterDoorToMainFacilitySnapZone = GameObject.Find("MelterDoorToMainFacilitySnapZone").GetComponentInChildren<XRSocketInteractor>();
 
         melterToMFDoorOpen = false;
         melterToMFDoorClosed = true;
@@ -766,7 +765,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public void CheckLights()
     {
-        if (MaintenanceCorridorLights.GetCurrentSnappedObject() != null)
+        if (MaintenanceCorridorLights.firstInteractableSelected != null)
         {
             //turn Maintenancelights on
             foreach (Light light in MaintenanceCorridorLightsContainer.GetComponentsInChildren<Light>())
@@ -784,7 +783,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 light.color = Color.red;
             }
         }
-        if (JanitorLights.GetCurrentSnappedObject() != null)
+        if (JanitorLights.firstInteractableSelected != null)
         {
             //turn Maintenancelights on
             foreach (Light light in JanitorLightsContainer.GetComponentsInChildren<Light>())
@@ -802,7 +801,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 light.color = Color.red;
             }
         }
-        if (BonsaiLights.GetCurrentSnappedObject() != null)
+        if (BonsaiLights.firstInteractableSelected != null)
         {
             //turn Maintenancelights on
             foreach (Light light in BonsaiLightsContainer.GetComponentsInChildren<Light>())
@@ -820,7 +819,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 light.color = Color.red;
             }
         }
-        if (MainFacilityLights.GetCurrentSnappedObject() != null)
+        if (MainFacilityLights.firstInteractableSelected != null)
         {
             //turn MainFacilitylights on
             foreach (Light light in MainFacilityLightsContainer.GetComponentsInChildren<Light>())
@@ -839,7 +838,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
         }
 
-        if (BridgeLights.GetCurrentSnappedObject() != null)
+        if (BridgeLights.firstInteractableSelected != null)
         {
             //turn Bridgelights on
             foreach (Light light in BridgeLightsContainer.GetComponentsInChildren<Light>())
@@ -858,7 +857,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             }
         }
 
-        if (MelterLights.GetCurrentSnappedObject() != null)
+        if (MelterLights.firstInteractableSelected != null)
         {
             //turn Melterlights on
             foreach (Light light in MelterLightsContainer.GetComponentsInChildren<Light>())
@@ -880,7 +879,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public void CheckMachinery()
     {
-        if (BonsaiOxygenControlMachinery.GetCurrentSnappedObject() != null)
+        if (BonsaiOxygenControlMachinery.firstInteractableSelected != null)
         {
             //turn MaintenanceMachinery on
         }
@@ -889,7 +888,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             //turn MaintenanceMachinery off
         }
 
-        if (MainFacilityMachinery.GetCurrentSnappedObject() != null)
+        if (MainFacilityMachinery.firstInteractableSelected != null)
         {
             //turn MainFacilityMachinery on
             
@@ -900,7 +899,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             
         }
 
-        if (BridgeMachinery.GetCurrentSnappedObject() != null)
+        if (BridgeMachinery.firstInteractableSelected != null)
         {
             //turn BridgeMachinery on
             BridgeTerminal.ActivateMonitor();
@@ -913,7 +912,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             //Debug.Log("Bridge off");
         }
 
-        if (MelterMachinery.GetCurrentSnappedObject() != null)
+        if (MelterMachinery.firstInteractableSelected != null)
         {
             //turn MelterMachinery on
             MelterTerminal.ActivateMonitor();
@@ -927,7 +926,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
     public void CheckDoorsPowerStatus()
     {
-        if (MaintenanceCorridorDoorsFuse.GetCurrentSnappedObject() != null)
+        if (MaintenanceCorridorDoorsFuse.firstInteractableSelected != null)
         {
             //turn MaintenanceDoors on
             corridorDoorsPowered = true;
@@ -938,7 +937,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             corridorDoorsPowered = false;
         }
 
-        if (BonsaiDoorFuse.GetCurrentSnappedObject() != null)
+        if (BonsaiDoorFuse.firstInteractableSelected != null)
         {
             //turn MaintenanceDoors on
             bonsaiDoorPowered = true;
@@ -949,7 +948,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             bonsaiDoorPowered = false;
         }
 
-        if (JanitorDoorFuse.GetCurrentSnappedObject() != null)
+        if (JanitorDoorFuse.firstInteractableSelected != null)
         {
             //turn MaintenanceDoors on
             janitorDoorPowered = true;
@@ -960,7 +959,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             janitorDoorPowered = false;
         }
 
-        if (MainFacilityDoorsFuse.GetCurrentSnappedObject() != null)
+        if (MainFacilityDoorsFuse.firstInteractableSelected != null)
         {
             //turn MainFacilityDoors on
             mainFacilityDoorsPowered = true;
@@ -971,7 +970,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             mainFacilityDoorsPowered = false;
         }
 
-        if (BridgeDoorsFuse.GetCurrentSnappedObject() != null)
+        if (BridgeDoorsFuse.firstInteractableSelected != null)
         {
             //turn BridgeDoors on
             bridgeDoorsPowered = true;
@@ -982,7 +981,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             bridgeDoorsPowered = false;
         }
 
-        if (MelterDoorsFuse.GetCurrentSnappedObject() != null)
+        if (MelterDoorsFuse.firstInteractableSelected != null)
         {
             //turn MelterDoors on
             melterDoorsPowered = true;
@@ -1003,7 +1002,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         //JANITOR ROOM
         if (janitorDoorPowered)
         {
-            if (((JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) || janitorInnerDoorInterrupted)
+            if (((JanitorDoorToCorridorSnapZone.firstInteractableSelected != null && JanitorDoorToCorridorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 1) || janitorInnerDoorInterrupted)
                /*&& !janitorToCorridorDoorOpening*/)
             {
                 if (janitorToCorridorDoorClosed || janitorToCorridorDoorClosing)  //THIS CHANGE TO ALLL!!!!! 
@@ -1018,7 +1017,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     JanitorInnerCounter.color = Color.white;
                     janitorToCorridorDoorClosingSoon = false;
                 }
-                if (corridorDoorsPowered && !corridorToJanitorDoorOpening && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) //probably unnecessary to check for closing and opening here too
+                if (corridorDoorsPowered && !corridorToJanitorDoorOpening && JanitorDoorToCorridorSnapZone.firstInteractableSelected != null && JanitorDoorToCorridorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 1) //probably unnecessary to check for closing and opening here too
                 {
                     if (corridorToJanitorDoorClosed || corridorToJanitorDoorClosing)  //change ienumerator too
                     {
@@ -1033,17 +1032,16 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                 }
             }
-            else if (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() != null && JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+            else if (JanitorDoorToCorridorSnapZone.firstInteractableSelected != null && JanitorDoorToCorridorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 1)
             {
                 //show that the key is wrong to the player, play sound
                 InnerJanitorDoorAlarmSound.Play();
-                JanitorDoorToCorridorSnapZone.ForceUnsnap();
-
+                JanitorDoorToCorridorSnapZone.EndManualInteraction();
             }
             //check when to close the door (no correct key in either lock)
             if (janitorToCorridorDoorOpen && !janitorToCorridorDoorClosingSoon
-               && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
-               && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1 || !corridorDoorsPowered)
+               && (JanitorDoorToCorridorSnapZone.firstInteractableSelected == null || JanitorDoorToCorridorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 1)
+               && (CorridorDoorToJanitorSnapZone.firstInteractableSelected == null || CorridorDoorToJanitorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 1 || !corridorDoorsPowered)
                && !janitorInnerDoorInterrupted)
             {
                 //waits 10 seconds and then starts closing the door for 3 s
@@ -1054,7 +1052,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (bonsaiDoorPowered)
         {
             //bonsai to corridor with button
-            if (BonsaiDoorToCorridorButton.AtMaxLimit() || bonsaiInnerDoorInterrupted)
+            if (BonsaiDoorToCorridorButton.isPressedDown || bonsaiInnerDoorInterrupted)
             {
                 //if closed, then open
                 if (bonsaiToCorridorDoorClosed || bonsaiToCorridorDoorClosing)
@@ -1070,7 +1068,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     bonsaiToCorridorDoorClosingSoon = false;
                 }
                 //if corridor powered
-                if (corridorDoorsPowered && !corridorToBonsaiDoorOpening && BonsaiDoorToCorridorButton.AtMaxLimit())
+                if (corridorDoorsPowered && !corridorToBonsaiDoorOpening && BonsaiDoorToCorridorButton.isPressedDown)
                 {
                     //if corridor side door is closed, open it
                     if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
@@ -1101,7 +1099,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             //control door
             
             //bonsaiToControlBonsai
-            if ((BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject() != null && BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bonsaiControlDoorInterrupted)
+            if ((BonsaiToControlBonsaiSnapZone.firstInteractableSelected != null && BonsaiToControlBonsaiSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 3) || bonsaiControlDoorInterrupted)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (bonsaiControlDoorClosed || bonsaiControlDoorClosing)
@@ -1119,15 +1117,15 @@ public class FuseboxFunctionality : MonoBehaviour {
                     BonsaiControlCounterInner.color = Color.white;
                 }
             }
-            else if (BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject() != null && BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+            else if (BonsaiToControlBonsaiSnapZone.firstInteractableSelected != null && BonsaiToControlBonsaiSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3)
             {
                 //show that the key is wrong to the player
                 BonsaiControlDoorAlarmSound.Play();
-                BonsaiToControlBonsaiSnapZone.ForceUnsnap();
+                BonsaiToControlBonsaiSnapZone.EndManualInteraction();
             }
            
             //controlBonsaiToBonsai
-            if (BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject() != null && BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) /*|| bonsaiControlDoorInterrupted*/ //not necessary as checked in the other above
+            if (BonsaiControlToBonsaiSnapZone.firstInteractableSelected != null && BonsaiControlToBonsaiSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 3) /*|| bonsaiControlDoorInterrupted*/ //not necessary as checked in the other above
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
                 if (bonsaiControlDoorClosed || bonsaiControlDoorClosing)
@@ -1145,17 +1143,17 @@ public class FuseboxFunctionality : MonoBehaviour {
                     BonsaiControlCounterInner.color = Color.white;
                 }
             }
-            else if (BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject() != null && BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+            else if (BonsaiControlToBonsaiSnapZone.firstInteractableSelected != null && BonsaiControlToBonsaiSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3)
             {
                 //show that the key is wrong to the player
                 BonsaiControlDoorAlarmSound.Play();
-                BonsaiControlToBonsaiSnapZone.ForceUnsnap();
+                BonsaiControlToBonsaiSnapZone.EndManualInteraction();
             }
 
             //this is joint for both sides of the door naturally
             if (bonsaiControlDoorOpen && !bonsaiControlDoorClosingSoon && !bonsaiControlDoorInterrupted
-               && (BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject() == null || BonsaiToControlBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-               && (BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject() == null || BonsaiControlToBonsaiSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3))
+               && (BonsaiToControlBonsaiSnapZone.firstInteractableSelected == null || BonsaiToControlBonsaiSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3)
+               && (BonsaiControlToBonsaiSnapZone.firstInteractableSelected == null || BonsaiControlToBonsaiSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3))
 
             {
                 StartCoroutine("DelayedAutomaticCloseControlBonsai");
@@ -1167,7 +1165,7 @@ public class FuseboxFunctionality : MonoBehaviour {
         if (corridorDoorsPowered)
         {
             // corridor to MF
-            if (CorridorDoorToMainFacilityButton.AtMaxLimit() || corridor_ToMFDoorInterrupted)
+            if (CorridorDoorToMainFacilityButton.isPressedDown || corridor_ToMFDoorInterrupted)
             {
                 //if closed, then open
                 if (corridorToMFDoorClosed || corridorToMFDoorClosing)
@@ -1183,7 +1181,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     corridorToMFDoorClosingSoon = false;
                 }
                 //if MF powered
-                if (mainFacilityDoorsPowered && !mfToCorridorDoorOpening && CorridorDoorToMainFacilityButton.AtMaxLimit())
+                if (mainFacilityDoorsPowered && !mfToCorridorDoorOpening && CorridorDoorToMainFacilityButton.isPressedDown)
                 {
                     //if MF side door is closed, open it
                     if (mfToCorridorDoorClosed || mfToCorridorDoorClosing)
@@ -1211,7 +1209,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 StartCoroutine("DelayedAutomaticCloseCorridorToMF");
             }
             //Corridor to Bonsai with button
-            if (CorridorDoorToBonsaiButton.AtMaxLimit() || bonsaiOuterDoorInterrupted)
+            if (CorridorDoorToBonsaiButton.isPressedDown || bonsaiOuterDoorInterrupted)
             {
                 //if closed, then open
                 if (corridorToBonsaiDoorClosed || corridorToBonsaiDoorClosing)
@@ -1227,7 +1225,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     corridorToBonsaiDoorClosingSoon = false;
                 }
                 //if bonsai powered
-                if (bonsaiDoorPowered && !bonsaiToCorridorDoorOpening && CorridorDoorToBonsaiButton.AtMaxLimit())
+                if (bonsaiDoorPowered && !bonsaiToCorridorDoorOpening && CorridorDoorToBonsaiButton.isPressedDown)
                 {
                     //if MF side door is closed, open it
                     if (bonsaiToCorridorDoorClosed || bonsaiToCorridorDoorClosing)
@@ -1248,7 +1246,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 StartCoroutine("DelayedAutomaticCloseOuterBonsai");
             }
             //corridor to Janitor
-            if (((CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) || janitorOuterDoorInterrupted)
+            if (((CorridorDoorToJanitorSnapZone.firstInteractableSelected != null && CorridorDoorToJanitorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 1) || janitorOuterDoorInterrupted)
                 /*&& !corridorToJanitorDoorOpening*/)
             {
                 //in case the player has put another copy of the same key on the other side already, keeping it open, then adding a new key will not re-trigger the opening animation              
@@ -1264,7 +1262,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     JanitorOuterCounter.text = 10.ToString();
                     JanitorOuterCounter.color = Color.white;
                 }
-                if (janitorDoorPowered && !janitorToCorridorDoorOpening && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 1) 
+                if (janitorDoorPowered && !janitorToCorridorDoorOpening && CorridorDoorToJanitorSnapZone.firstInteractableSelected != null && CorridorDoorToJanitorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 1) 
                 {
                     if (janitorToCorridorDoorClosed || janitorToCorridorDoorClosing)
                     {
@@ -1280,15 +1278,15 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                 }
             }
-            else if (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() != null && CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
+            else if (CorridorDoorToJanitorSnapZone.firstInteractableSelected != null && CorridorDoorToJanitorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 1)
             {
                 //show that the key is wrong to the player
                 OuterJanitorDoorAlarmSound.Play();               
-                CorridorDoorToJanitorSnapZone.ForceUnsnap();
+                CorridorDoorToJanitorSnapZone.EndManualInteraction();
             }
             if (corridorToJanitorDoorOpen && !corridorToJanitorDoorClosingSoon
-               && (CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject() == null || CorridorDoorToJanitorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1)
-               && (JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject() == null || JanitorDoorToCorridorSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 1 || !janitorDoorPowered)
+               && (CorridorDoorToJanitorSnapZone.firstInteractableSelected == null || CorridorDoorToJanitorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 1)
+               && (JanitorDoorToCorridorSnapZone.firstInteractableSelected == null || JanitorDoorToCorridorSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 1 || !janitorDoorPowered)
                && !janitorOuterDoorInterrupted)
             {
                 StartCoroutine("DelayedAutomaticCloseOuterJanitor");
@@ -1302,7 +1300,7 @@ public class FuseboxFunctionality : MonoBehaviour {
             if (mainFacilityDoorsPowered)
             {
                 //MF to Corridor
-                if ((MainFacilityDoorToCorridorButton.AtMaxLimit() || mf_ToCorridorDoorInterrupted) /*&& !mfToCorridorDoorOpening*/)
+                if ((MainFacilityDoorToCorridorButton.isPressedDown || mf_ToCorridorDoorInterrupted) /*&& !mfToCorridorDoorOpening*/)
                 {
                     if (mfToCorridorDoorClosed || mfToCorridorDoorClosing)
                     {
@@ -1317,7 +1315,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                         mfToCorridorDoorClosingSoon = false;
                     }
                     //if corridor powered
-                    if (corridorDoorsPowered && !corridorToMFDoorOpening && MainFacilityDoorToCorridorButton.AtMaxLimit())
+                    if (corridorDoorsPowered && !corridorToMFDoorOpening && MainFacilityDoorToCorridorButton.isPressedDown)
                     {
                         //if corridor side door is closed, open it
                         if (corridorToMFDoorClosed || corridorToMFDoorClosing)
@@ -1346,7 +1344,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                 }
 
                 //MF to Bridge
-                if (((MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || mf_ToBridgeDoorInterrupted)
+                if (((MainFacilityDoorToBridgeSnapZone.firstInteractableSelected != null && MainFacilityDoorToBridgeSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 3) || mf_ToBridgeDoorInterrupted)
                     /*&& !mfToBridgeDoorOpening*/)
                 {
                     //open the door to Bridge 
@@ -1363,7 +1361,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                     if (bridgeDoorsPowered && !bridgeToMFDoorOpening) //probably unnecessary to check for closing and opening here too
                     {
-                        if (bridgeToMFDoorClosed || bridgeToMFDoorClosing && MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3)
+                        if (bridgeToMFDoorClosed || bridgeToMFDoorClosing && MainFacilityDoorToBridgeSnapZone.firstInteractableSelected != null && MainFacilityDoorToBridgeSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 3)
                         {
                             StartCoroutine("BridgeToMFDoorOpening");
                         }
@@ -1376,22 +1374,22 @@ public class FuseboxFunctionality : MonoBehaviour {
                         }
                     }
                 }
-                else if (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+                else if (MainFacilityDoorToBridgeSnapZone.firstInteractableSelected != null && MainFacilityDoorToBridgeSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3)
                 {
                     //show that the key is wrong to the player
                     MF_ToBridgeDoorAlarmSound.Play();
-                    MainFacilityDoorToBridgeSnapZone.ForceUnsnap();
+                    MainFacilityDoorToBridgeSnapZone.EndManualInteraction();
                 }
                 //start automatic closing if open and no key on either side, think about the elevator functionality here!
                 if (mfToBridgeDoorOpen && !mfToBridgeDoorClosingSoon
-                     && (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-                     && (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3 || !bridgeDoorsPowered)
+                     && (MainFacilityDoorToBridgeSnapZone.firstInteractableSelected == null || MainFacilityDoorToBridgeSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3)
+                     && (BridgeDoorToMainFacilitySnapZone.firstInteractableSelected == null || BridgeDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3 || !bridgeDoorsPowered)
                      && !mf_ToBridgeDoorInterrupted)
                 {
                     StartCoroutine("DelayedAutomaticCloseMFToBridge");
                 }
                 //Melter door MF side
-                if (((MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) || mf_ToMelterDoorInterrupted)
+                if (((MainFacilityDoorToMelterSnapZone.firstInteractableSelected != null && MainFacilityDoorToMelterSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 2) || mf_ToMelterDoorInterrupted)
                     /*&& !mfToMelterDoorOpening*/)
                 {
                     //open the door to melter from MF
@@ -1406,7 +1404,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                         MFToMelterCounter.text = 10.ToString();
                         MFToMelterCounter.color = Color.white;
                     }
-                    if (melterDoorsPowered && !melterToMFDoorOpening && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2)
+                    if (melterDoorsPowered && !melterToMFDoorOpening && MainFacilityDoorToMelterSnapZone.firstInteractableSelected != null && MainFacilityDoorToMelterSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 2)
                     {
                         if (melterToMFDoorClosed || melterToMFDoorClosing)
                         {
@@ -1421,16 +1419,16 @@ public class FuseboxFunctionality : MonoBehaviour {
                         }
                     }
                 }
-                else if (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() != null && MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+                else if (MainFacilityDoorToMelterSnapZone.firstInteractableSelected != null && MainFacilityDoorToMelterSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 2)
                 {
                     //show that the key is wrong to the player
                     MF_ToMelterDoorAlarmSound.Play();
-                    MainFacilityDoorToMelterSnapZone.ForceUnsnap();
+                    MainFacilityDoorToMelterSnapZone.EndManualInteraction();
                 }
 
                 if (mfToMelterDoorOpen && !mfToMelterDoorClosingSoon
-                    && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-                    && (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2 || !melterDoorsPowered)
+                    && (MainFacilityDoorToMelterSnapZone.firstInteractableSelected == null || MainFacilityDoorToMelterSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 2)
+                    && (MelterDoorToMainFacilitySnapZone.firstInteractableSelected == null || MelterDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 2 || !melterDoorsPowered)
                     && !mf_ToMelterDoorInterrupted)
                 {
                     StartCoroutine("DelayedAutomaticCloseMFToMelter");
@@ -1445,7 +1443,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             if (bridgeDoorsPowered)
             {
-                if (((BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3) || bridge_ToMFDoorInterrupted)
+                if (((BridgeDoorToMainFacilitySnapZone.firstInteractableSelected != null && BridgeDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 3) || bridge_ToMFDoorInterrupted)
                 /*&& !bridgeToMFDoorOpening*/)
                 {
                     //open the door from Bridge to MF
@@ -1462,7 +1460,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                     }
                     if (mainFacilityDoorsPowered && !mfToBridgeDoorOpening) //probably unnecessary to check for closing and opening here too
                     {
-                        if (mfToBridgeDoorClosed || mfToBridgeDoorClosing && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 3)
+                        if (mfToBridgeDoorClosed || mfToBridgeDoorClosing && BridgeDoorToMainFacilitySnapZone.firstInteractableSelected != null && BridgeDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 3)
                         {
                             StartCoroutine("MFToBridgeDoorOpening");
                         }
@@ -1473,16 +1471,16 @@ public class FuseboxFunctionality : MonoBehaviour {
                         }
                     }
                 }
-                else if (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
+                else if (BridgeDoorToMainFacilitySnapZone.firstInteractableSelected != null && BridgeDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3)
                 {
                     //show that the key is wrong to the player
                     Bridge_ToMFDoorAlarmSound.Play();
-                    BridgeDoorToMainFacilitySnapZone.ForceUnsnap();
+                    BridgeDoorToMainFacilitySnapZone.EndManualInteraction();
                 }
 
                 if (bridgeToMFDoorOpen && !bridgeToMFDoorClosingSoon
-                    && (BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || BridgeDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3)
-                    && (MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToBridgeSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 3 || !mainFacilityDoorsPowered)
+                    && (BridgeDoorToMainFacilitySnapZone.firstInteractableSelected == null || BridgeDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3)
+                    && (MainFacilityDoorToBridgeSnapZone.firstInteractableSelected == null || MainFacilityDoorToBridgeSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 3 || !mainFacilityDoorsPowered)
                     && !bridge_ToMFDoorInterrupted)
                 {
                     StartCoroutine("DelayedAutomaticCloseBridgeToMF");                
@@ -1497,7 +1495,7 @@ public class FuseboxFunctionality : MonoBehaviour {
 
             if (melterDoorsPowered)
             {
-                if (((MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) || melter_ToMFDoorInterrupted)
+                if (((MelterDoorToMainFacilitySnapZone.firstInteractableSelected != null && MelterDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 2) || melter_ToMFDoorInterrupted)
                    /*&& !melterToMFDoorOpening*/)
                 {
                     //open the door to MF from Melter
@@ -1512,7 +1510,7 @@ public class FuseboxFunctionality : MonoBehaviour {
                         MelterToMFCounter.text = 10.ToString();
                         MelterToMFCounter.color = Color.white;
                     }
-                    if (mainFacilityDoorsPowered && !mfToMelterDoorOpening && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel == 2) //probably unnecessary to check for closing and opening here too
+                    if (mainFacilityDoorsPowered && !mfToMelterDoorOpening && MelterDoorToMainFacilitySnapZone.firstInteractableSelected != null && MelterDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel == 2) //probably unnecessary to check for closing and opening here too
                     {
                         if (mfToMelterDoorClosed || mfToMelterDoorClosing)
                         {
@@ -1527,16 +1525,16 @@ public class FuseboxFunctionality : MonoBehaviour {
                         }
                     }
                 }
-                else if (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() != null && MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
+                else if (MelterDoorToMainFacilitySnapZone.firstInteractableSelected != null && MelterDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 2)
                 {
                     //show that the key is wrong to the player
                     Melter_ToMFDoorAlarmSound.Play();
-                    MelterDoorToMainFacilitySnapZone.ForceUnsnap();
+                    MelterDoorToMainFacilitySnapZone.EndManualInteraction();
                 }
 
                 if (melterToMFDoorOpen && !melterToMFDoorClosingSoon
-                    && (MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject() == null || MelterDoorToMainFacilitySnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2)
-                    && (MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject() == null || MainFacilityDoorToMelterSnapZone.GetCurrentSnappedObject().GetComponent<KeyType>().clearanceLevel != 2 || !mainFacilityDoorsPowered)
+                    && (MelterDoorToMainFacilitySnapZone.firstInteractableSelected == null || MelterDoorToMainFacilitySnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 2)
+                    && (MainFacilityDoorToMelterSnapZone.firstInteractableSelected == null || MainFacilityDoorToMelterSnapZone.firstInteractableSelected.transform.gameObject.GetComponent<KeyType>().clearanceLevel != 2 || !mainFacilityDoorsPowered)
                     && !melter_ToMFDoorInterrupted)
                 {
                     StartCoroutine("DelayedAutomaticCloseMelterToMF");

@@ -1,15 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
-using VRTK.GrabAttachMechanics;
-using VRTK.SecondaryControllerGrabActions;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SwitchBoxOpening : MonoBehaviour
 {
     Animator SwitchAnim;
-    public VRTK_SnapDropZone SwitchSnap;  
+    private XRSocketInteractor SwitchSnap;
+    //public XRSocketInteractor SwitchSnap;  
     bool notWaited;
     bool metallicBroom;
     int metallicBroomParts;
@@ -21,7 +19,7 @@ public class SwitchBoxOpening : MonoBehaviour
     {
         notWaited = true;
         SwitchAnim = GetComponent<Animator>();
-        SwitchSnap = GameObject.Find("SwitchBoxSnapZone").GetComponent<VRTK_SnapDropZone>();
+        SwitchSnap = GameObject.Find("SwitchBoxSnapZone").GetComponent<XRSocketInteractor>();
         metallicBroom = false;
         metallicBroomParts = 0;
         BroomBreaksSound = GameObject.Find("BroomBreaksSound").GetComponent<AudioSource>();
@@ -31,12 +29,12 @@ public class SwitchBoxOpening : MonoBehaviour
     void Update()
     {
         //Debug.Log(BroomPosition);
-        if (SwitchSnap.GetCurrentSnappedObject() != null)
+        if (SwitchSnap.firstInteractableSelected != null)
         {
-            if (SwitchSnap.GetCurrentSnappedObject().CompareTag("JanitorBroom") && notWaited)
+            if (SwitchSnap.firstInteractableSelected.transform.gameObject.CompareTag("JanitorBroom") && notWaited)
             {
                 Debug.Log("entered");
-                foreach (JanitorBroomTransformer rend in SwitchSnap.GetCurrentSnappedObject().transform.GetChild(0).GetComponentsInChildren<JanitorBroomTransformer>())
+                foreach (JanitorBroomTransformer rend in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<JanitorBroomTransformer>())
                     if (rend.changeBroomColour)
                     {
                         metallicBroomParts++;
@@ -46,13 +44,13 @@ public class SwitchBoxOpening : MonoBehaviour
                             SwitchAnim.SetBool("Crack", true);
                             BroomOpensLockerSound.Play();
                             notWaited = false;
-                            foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
+                            foreach (MeshRenderer child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
                             {
                                 child.enabled = false;
                             }
-                            GameObject.Find("Switch_box").GetComponent<VRTK_PhysicsRotator>().isLocked = false;
-                            GetComponent<VRTK_PhysicsRotator>().angleLimits = new Limits2D(25f, -90f);
-                            foreach (Collider child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<Collider>())
+                            //GameObject.Find("Switch_box").GetComponent<VRTK_PhysicsRotator>().isLocked = false;
+                            //GetComponent<VRTK_PhysicsRotator>().angleLimits = new Limits2D(25f, -90f);
+                            foreach (Collider child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<Collider>())
                             {
                                 child.enabled = false;
                             }
@@ -71,12 +69,12 @@ public class SwitchBoxOpening : MonoBehaviour
                     metallicBroomParts = 0;
                     notWaited = false;
                     SwitchAnim.SetBool("Break", true);                                       
-                    foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
+                    foreach (MeshRenderer child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
                     {
                         child.enabled = false;
                     }
-                    GetComponent<VRTK_PhysicsRotator>().angleLimits = new Limits2D(25f, -90f);
-                    foreach (Collider child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<Collider>())
+                    //GetComponent<VRTK_PhysicsRotator>().angleLimits = new Limits2D(25f, -90f);
+                    foreach (Collider child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<Collider>())
                     {
                         child.enabled = false;
                     }
@@ -90,18 +88,18 @@ public class SwitchBoxOpening : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(2f);
         BroomPosition = transform.TransformPoint(GameObject.Find("BroomInTheJanitorAnimationBroom").transform.localPosition);
-        SwitchSnap.GetCurrentSnappedInteractableObject().transform.position = BroomPosition;
-        SwitchSnap.GetCurrentSnappedInteractableObject().transform.rotation = GameObject.Find("BroomInTheJanitorAnimationBroom").transform.rotation;
-        foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
+        SwitchSnap.firstInteractableSelected.transform.position = BroomPosition;
+        SwitchSnap.firstInteractableSelected.transform.rotation = GameObject.Find("BroomInTheJanitorAnimationBroom").transform.rotation;
+        foreach (MeshRenderer child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
         {
             child.enabled = true;
         }
-        foreach (Collider child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<Collider>())
+        foreach (Collider child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<Collider>())
         {
             child.enabled = true;
         }
         SwitchSnap.enabled = false;
-        GameObject.Find("SwitchContainer").GetComponent<VRTK_PhysicsRotator>().isLocked = false; //unlocks the lever inside, it's locked before so can't pull it through the door
+        //GameObject.Find("SwitchContainer").GetComponent<VRTK_PhysicsRotator>().isLocked = false; //unlocks the lever inside, it's locked before so can't pull it through the door
         Destroy(SwitchSnap);
     }
 
@@ -110,33 +108,29 @@ public class SwitchBoxOpening : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         BroomBreaksSound.Play();
         BroomPosition = transform.TransformPoint(GameObject.Find("BroomInTheJanitorAnimationBroom2").transform.localPosition);
-        SwitchSnap.GetCurrentSnappedInteractableObject().transform.position = BroomPosition;
-        SwitchSnap.GetCurrentSnappedInteractableObject().transform.TransformPoint(GameObject.Find("BroomInTheJanitorAnimationBroom2").transform.localRotation.eulerAngles);
-        foreach (MeshRenderer child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
+        SwitchSnap.firstInteractableSelected.transform.position = BroomPosition;
+        SwitchSnap.firstInteractableSelected.transform.TransformPoint(GameObject.Find("BroomInTheJanitorAnimationBroom2").transform.localRotation.eulerAngles);
+        foreach (MeshRenderer child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
         {
             child.enabled = true;
         }
-        foreach (Collider child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<Collider>())
+        foreach (Collider child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<Collider>())
         {
             child.enabled = true;
         }
-        foreach (Transform child in SwitchSnap.GetCurrentSnappedInteractableObject().transform.GetChild(0).GetComponentsInChildren<Transform>())
+        foreach (Transform child in SwitchSnap.firstInteractableSelected.transform.GetChild(0).GetComponentsInChildren<Transform>())
         {
             child.gameObject.AddComponent<Rigidbody>();         
-            child.gameObject.AddComponent<VRTK_InteractableObject>();
-            child.gameObject.AddComponent<VRTK_FixedJointGrabAttach>();
-            child.gameObject.AddComponent<VRTK_SwapControllerGrabAction>();
-            child.GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = child.gameObject.GetComponent<VRTK_FixedJointGrabAttach>();
-            child.GetComponent<VRTK_InteractableObject>().secondaryGrabActionScript = child.gameObject.GetComponent<VRTK_SwapControllerGrabAction>();
-            child.GetComponent<VRTK_InteractableObject>().holdButtonToGrab = true;
-            child.GetComponent<VRTK_InteractableObject>().isGrabbable = true;
-            child.gameObject.GetComponent<VRTK_FixedJointGrabAttach>().breakForce = 10000;
-            child.gameObject.GetComponent<VRTK_FixedJointGrabAttach>().precisionGrab = true;
+            child.gameObject.AddComponent<XRGrabInteractable>();
+            //child.GetComponent<XRGrabInteractable>().holdButtonToGrab = true;
+            //child.GetComponent<XRGrabInteractable>().isGrabbable = true;
+            //child.gameObject.GetComponent<VRTK_FixedJointGrabAttach>().breakForce = 10000;
+            //child.gameObject.GetComponent<VRTK_FixedJointGrabAttach>().precisionGrab = true;
             child.gameObject.tag = "BrokenBroom";
             child.parent = null;
         }             
         SwitchAnim.SetBool("Break", false);
-        SwitchSnap.ForceUnsnap();
+        SwitchSnap.EndManualInteraction();
         notWaited = true;       
     }
 }

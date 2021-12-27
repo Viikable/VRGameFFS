@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK.Controllables.PhysicsBased;
+
 
 public class WaterDispenserButton : MonoBehaviour {
     [SerializeField]
@@ -18,8 +18,8 @@ public class WaterDispenserButton : MonoBehaviour {
     }
 
     void Update () {
-		if (this.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f 
-            && this.GetComponent<VRTK_PhysicsPusher>().stayPressed && timeNotSet)
+		if (this.GetComponent<Button>().isPressedDown 
+            && this.GetComponent<Button>().stayPressed && timeNotSet)
         {
             Debug.Log("time set");
             time = Time.time;
@@ -29,13 +29,13 @@ public class WaterDispenserButton : MonoBehaviour {
         if (time != 0f && Time.time >= time + 5f && !buttonIsUp)
         {
             Debug.Log("button up");
-            this.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            this.GetComponent<Button>().stayPressed = false;
             buttonIsUp = true;
         }
         if (Time.time >= time + 5.1f && buttonIsUp && !timeNotSet)
         {
             Debug.Log("button can be pressed again");
-            this.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+            this.GetComponent<Button>().stayPressed = true;
             timeNotSet = true;
         }      
 	}

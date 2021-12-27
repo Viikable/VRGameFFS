@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 using TMPro;
 using System;
 using System.Text;
@@ -37,51 +37,51 @@ public class KeyboardMappings : MonoBehaviour {
     public bool caps; 
  
     //ALPHABET
-    protected VRTK_PhysicsPusher A;
-    protected VRTK_PhysicsPusher B;
-    protected VRTK_PhysicsPusher C;
-    protected VRTK_PhysicsPusher D;
-    protected VRTK_PhysicsPusher E;
-    protected VRTK_PhysicsPusher F;
-    protected VRTK_PhysicsPusher G;
-    protected VRTK_PhysicsPusher H;
-    protected VRTK_PhysicsPusher I;
-    protected VRTK_PhysicsPusher J;
-    protected VRTK_PhysicsPusher K;
-    protected VRTK_PhysicsPusher L;
-    protected VRTK_PhysicsPusher M;
-    protected VRTK_PhysicsPusher N;
-    protected VRTK_PhysicsPusher O;
-    protected VRTK_PhysicsPusher P;
-    protected VRTK_PhysicsPusher Q;
-    protected VRTK_PhysicsPusher R;
-    protected VRTK_PhysicsPusher S;
-    protected VRTK_PhysicsPusher T;
-    protected VRTK_PhysicsPusher U;
-    protected VRTK_PhysicsPusher V;
-    protected VRTK_PhysicsPusher W;
-    protected VRTK_PhysicsPusher X;
-    protected VRTK_PhysicsPusher Y;
-    protected VRTK_PhysicsPusher Z;
-    protected VRTK_PhysicsPusher Å;
-    protected VRTK_PhysicsPusher Ä;
-    protected VRTK_PhysicsPusher Ö;
+    protected Button A;
+    protected Button B;
+    protected Button C;
+    protected Button D;
+    protected Button E;
+    protected Button F;
+    protected Button G;
+    protected Button H;
+    protected Button I;
+    protected Button J;
+    protected Button K;
+    protected Button L;
+    protected Button M;
+    protected Button N;
+    protected Button O;
+    protected Button P;
+    protected Button Q;
+    protected Button R;
+    protected Button S;
+    protected Button T;
+    protected Button U;
+    protected Button V;
+    protected Button W;
+    protected Button X;
+    protected Button Y;
+    protected Button Z;
+    protected Button Å;
+    protected Button Ä;
+    protected Button Ö;
 
 
     //Special control buttons
-    protected VRTK_PhysicsPusher BackSpace;
-    protected VRTK_PhysicsPusher Enter;
-    protected VRTK_PhysicsPusher CapsLock;
-    protected VRTK_PhysicsPusher Tab;
-    protected VRTK_PhysicsPusher Space;
-    protected VRTK_PhysicsPusher Shift_Left;
-    protected VRTK_PhysicsPusher Shift_Right;
-    protected VRTK_PhysicsPusher Delete;
-    protected VRTK_PhysicsPusher Escape;
+    protected Button BackSpace;
+    protected Button Enter;
+    protected Button CapsLock;
+    protected Button Tab;
+    protected Button Space;
+    protected Button Shift_Left;
+    protected Button Shift_Right;
+    protected Button Delete;
+    protected Button Escape;
 
     // for scrolling the expanded command list
-    protected VRTK_PhysicsPusher Down;
-    protected VRTK_PhysicsPusher Up;
+    protected Button Down;
+    protected Button Up;
 
 
     protected virtual void Start ()
@@ -103,47 +103,47 @@ public class KeyboardMappings : MonoBehaviour {
         idle = false;
                   
         //ALPHABET
-        A = transform.Find("A_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        B = transform.Find("B_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        C = transform.Find("C_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        D = transform.Find("D_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        E = transform.Find("E_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        F = transform.Find("F_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        G = transform.Find("G_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        H = transform.Find("H_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        I = transform.Find("I_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        J = transform.Find("J_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        K = transform.Find("K_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        L = transform.Find("L_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        M = transform.Find("M_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        N = transform.Find("N_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        O = transform.Find("O_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        P = transform.Find("P_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Q = transform.Find("Q_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        R = transform.Find("R_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        S = transform.Find("S_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        T = transform.Find("T_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        U = transform.Find("U_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        V = transform.Find("V_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        W = transform.Find("W_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        X = transform.Find("X_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Y = transform.Find("Y_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Z = transform.Find("Z_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Å = transform.Find("Å_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Ä = transform.Find("Ä_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Ö = transform.Find("Ö_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        A = transform.Find("A_Container").GetComponentInChildren<Button>();
+        B = transform.Find("B_Container").GetComponentInChildren<Button>();
+        C = transform.Find("C_Container").GetComponentInChildren<Button>();
+        D = transform.Find("D_Container").GetComponentInChildren<Button>();
+        E = transform.Find("E_Container").GetComponentInChildren<Button>();
+        F = transform.Find("F_Container").GetComponentInChildren<Button>();
+        G = transform.Find("G_Container").GetComponentInChildren<Button>();
+        H = transform.Find("H_Container").GetComponentInChildren<Button>();
+        I = transform.Find("I_Container").GetComponentInChildren<Button>();
+        J = transform.Find("J_Container").GetComponentInChildren<Button>();
+        K = transform.Find("K_Container").GetComponentInChildren<Button>();
+        L = transform.Find("L_Container").GetComponentInChildren<Button>();
+        M = transform.Find("M_Container").GetComponentInChildren<Button>();
+        N = transform.Find("N_Container").GetComponentInChildren<Button>();
+        O = transform.Find("O_Container").GetComponentInChildren<Button>();
+        P = transform.Find("P_Container").GetComponentInChildren<Button>();
+        Q = transform.Find("Q_Container").GetComponentInChildren<Button>();
+        R = transform.Find("R_Container").GetComponentInChildren<Button>();
+        S = transform.Find("S_Container").GetComponentInChildren<Button>();
+        T = transform.Find("T_Container").GetComponentInChildren<Button>();
+        U = transform.Find("U_Container").GetComponentInChildren<Button>();
+        V = transform.Find("V_Container").GetComponentInChildren<Button>();
+        W = transform.Find("W_Container").GetComponentInChildren<Button>();
+        X = transform.Find("X_Container").GetComponentInChildren<Button>();
+        Y = transform.Find("Y_Container").GetComponentInChildren<Button>();
+        Z = transform.Find("Z_Container").GetComponentInChildren<Button>();
+        Å = transform.Find("Å_Container").GetComponentInChildren<Button>();
+        Ä = transform.Find("Ä_Container").GetComponentInChildren<Button>();
+        Ö = transform.Find("Ö_Container").GetComponentInChildren<Button>();
 
 
         //CONTROL BUTTONS
-        BackSpace = transform.Find("BACKSPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        CapsLock = transform.Find("CAPSLOCK_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Enter = transform.Find("ENTER_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Space = transform.Find("SPACE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Delete = transform.Find("DELETE_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Escape = transform.Find("ESC_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        BackSpace = transform.Find("BACKSPACE_Container").GetComponentInChildren<Button>();
+        CapsLock = transform.Find("CAPSLOCK_Container").GetComponentInChildren<Button>();
+        Enter = transform.Find("ENTER_Container").GetComponentInChildren<Button>();
+        Space = transform.Find("SPACE_Container").GetComponentInChildren<Button>();
+        Delete = transform.Find("DELETE_Container").GetComponentInChildren<Button>();
+        Escape = transform.Find("ESC_Container").GetComponentInChildren<Button>();
 
-        Down = transform.Find("DOWN_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
-        Up = transform.Find("UP_Container").GetComponentInChildren<VRTK_PhysicsPusher>();
+        Down = transform.Find("DOWN_Container").GetComponentInChildren<Button>();
+        Up = transform.Find("UP_Container").GetComponentInChildren<Button>();
 
         //STARTLINE fixes text lining up correctly
         MonitorScreen.text = "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ";
@@ -177,7 +177,7 @@ public class KeyboardMappings : MonoBehaviour {
     {
         if (!buttonBeingPressed)
         {
-            if (A.AtMaxLimit() )
+            if (A.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -198,7 +198,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (B.AtMaxLimit() )
+            else if (B.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -218,7 +218,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (C.AtMaxLimit() )
+            else if (C.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -238,7 +238,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (D.AtMaxLimit() )
+            else if (D.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -258,7 +258,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (E.AtMaxLimit() )
+            else if (E.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -278,7 +278,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (F.AtMaxLimit() )
+            else if (F.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -298,7 +298,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (G.AtMaxLimit() )
+            else if (G.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -318,7 +318,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (H.AtMaxLimit() )
+            else if (H.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -338,7 +338,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (I.AtMaxLimit() )
+            else if (I.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -358,7 +358,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (J.AtMaxLimit() )
+            else if (J.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -378,7 +378,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (K.AtMaxLimit() )
+            else if (K.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -398,7 +398,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (L.AtMaxLimit() )
+            else if (L.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -418,7 +418,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (M.AtMaxLimit() )
+            else if (M.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -438,7 +438,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (N.AtMaxLimit() )
+            else if (N.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -458,7 +458,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (O.AtMaxLimit() )
+            else if (O.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -478,7 +478,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (P.AtMaxLimit() )
+            else if (P.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -498,7 +498,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (Q.AtMaxLimit() )
+            else if (Q.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -518,7 +518,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (R.AtMaxLimit() )
+            else if (R.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -538,7 +538,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (S.AtMaxLimit() )
+            else if (S.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -558,7 +558,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (T.AtMaxLimit() )
+            else if (T.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -578,7 +578,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (U.AtMaxLimit() )
+            else if (U.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -598,7 +598,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (V.AtMaxLimit() )
+            else if (V.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -618,7 +618,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (W.AtMaxLimit() )
+            else if (W.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -638,7 +638,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (X.AtMaxLimit() )
+            else if (X.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -658,7 +658,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (Y.AtMaxLimit() )
+            else if (Y.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -678,7 +678,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (Z.AtMaxLimit() )
+            else if (Z.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -698,7 +698,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (Å.AtMaxLimit() )
+            else if (Å.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -718,7 +718,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (Ä.AtMaxLimit() )
+            else if (Ä.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -738,7 +738,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (Ö.AtMaxLimit() )
+            else if (Ö.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -759,7 +759,7 @@ public class KeyboardMappings : MonoBehaviour {
                 StartCoroutine("IdleCheck");
             }
             //Special control buttons
-            else if ((BackSpace.AtMaxLimit() || Delete.AtMaxLimit()) )
+            else if ((BackSpace.isPressedDown || Delete.isPressedDown) )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -780,7 +780,7 @@ public class KeyboardMappings : MonoBehaviour {
                 }
                 StartCoroutine("IdleCheck");
             }
-            else if (Space.AtMaxLimit() )
+            else if (Space.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -794,7 +794,7 @@ public class KeyboardMappings : MonoBehaviour {
                 characterCount++;
                 StartCoroutine("IdleCheck");
             }
-            else if (CapsLock.AtMaxLimit() )
+            else if (CapsLock.isPressedDown )
             {
                 //changes keys to capital or not
                 if (caps)
@@ -813,7 +813,7 @@ public class KeyboardMappings : MonoBehaviour {
                 }
                 StartCoroutine("IdleCheck");
             }
-            else if (Enter.AtMaxLimit() )
+            else if (Enter.isPressedDown )
             {
                 StopCoroutine("IdleCheck");
                 StopCoroutine("IdleAnimation");
@@ -827,7 +827,7 @@ public class KeyboardMappings : MonoBehaviour {
                 StartCoroutine("BarDown");
                 StartCoroutine("IdleCheck");
             }
-            else if (Escape.AtMaxLimit() )
+            else if (Escape.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -838,7 +838,7 @@ public class KeyboardMappings : MonoBehaviour {
                 MonitorScreen.text = "MelterPC_1@DESKTOP-MELT EYE128 /e" + Environment.NewLine + "$" + " ".ToString();
                 StartCoroutine("IdleCheck");
             }
-            else if (Down.AtMaxLimit() )
+            else if (Down.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;
@@ -849,7 +849,7 @@ public class KeyboardMappings : MonoBehaviour {
                 bar.value -= 0.1f;
                 StartCoroutine("IdleCheck");
             }
-            else if (Up.AtMaxLimit() )
+            else if (Up.isPressedDown )
             {
                 StopAllCoroutines();
                 buttonBeingPressed = true;

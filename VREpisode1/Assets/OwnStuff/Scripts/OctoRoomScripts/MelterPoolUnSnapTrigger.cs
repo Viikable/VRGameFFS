@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class MelterPoolUnSnapTrigger : MonoBehaviour {
 
-    VRTK_SnapDropZone ResearchPoolSnap;
+    XRSocketInteractor ResearchPoolSnap;
 
-    VRTK_PhysicsPusher MarkerReleaseButton;
+    Button MarkerReleaseButton;
 
     GameObject Marker;
 
@@ -16,10 +16,10 @@ public class MelterPoolUnSnapTrigger : MonoBehaviour {
 
     void Start()
     {
-        ResearchPoolSnap = GetComponent<VRTK_SnapDropZone>();
+        ResearchPoolSnap = GetComponent<XRSocketInteractor>();
         Marker = GameObject.Find("Marker");
 
-        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<VRTK_PhysicsPusher>();
+        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<Button>();
 
         markerCanSnap = true;
 
@@ -29,7 +29,7 @@ public class MelterPoolUnSnapTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Marker") && markerCanSnap)
         {
-            ResearchPoolSnap.ForceSnap(Marker);
+            ResearchPoolSnap.StartManualInteraction(Marker.GetComponent<XRGrabInteractable>());
             if (!OctopusLightCode.MarkerAttachSound.isPlaying)
             {
                 OctopusLightCode.MarkerAttachSound.Play();
@@ -41,11 +41,11 @@ public class MelterPoolUnSnapTrigger : MonoBehaviour {
     private void Update()
     {
 
-        if (ResearchPoolSnap.GetCurrentSnappedObject() != null && ResearchPoolSnap.GetCurrentSnappedObject() ==
-           Marker && MarkerReleaseButton.AtMaxLimit() && MarkerReleaseButton.stayPressed)
+        if (ResearchPoolSnap.firstInteractableSelected != null && ResearchPoolSnap.firstInteractableSelected.Equals(Marker)
+            && MarkerReleaseButton.isPressedDown && MarkerReleaseButton.stayPressed)
         {
             Game_Manager.instance.beingUnSnapped = true;
-            ResearchPoolSnap.ForceUnsnap();
+            ResearchPoolSnap.EndManualInteraction();
             if (markerCanSnap)
             {
                 markerCanSnap = false;

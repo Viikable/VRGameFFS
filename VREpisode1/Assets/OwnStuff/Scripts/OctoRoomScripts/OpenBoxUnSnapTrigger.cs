@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class OpenBoxUnSnapTrigger : MonoBehaviour
 {
-    VRTK_SnapDropZone OpenBoxSnap;
+    XRSocketInteractor OpenBoxSnap;
 
-    VRTK_PhysicsPusher MarkerReleaseButton;
+    Button MarkerReleaseButton;
 
     GameObject Marker;
   
@@ -16,10 +16,10 @@ public class OpenBoxUnSnapTrigger : MonoBehaviour
    
     void Start()
     {
-        OpenBoxSnap = GetComponent<VRTK_SnapDropZone>();
+        OpenBoxSnap = GetComponent<XRSocketInteractor>();
         Marker = GameObject.Find("Marker");
 
-        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<VRTK_PhysicsPusher>();
+        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<Button>();
 
         markerCanSnap = true;
        
@@ -29,7 +29,7 @@ public class OpenBoxUnSnapTrigger : MonoBehaviour
     {       
         if (other.CompareTag("Marker") && markerCanSnap)
         {
-            OpenBoxSnap.ForceSnap(Marker);
+            OpenBoxSnap.StartManualInteraction(Marker.GetComponent<XRGrabInteractable>());
             if (!OctopusLightCode.MarkerAttachSound.isPlaying)
             {
                 OctopusLightCode.MarkerAttachSound.Play();
@@ -41,11 +41,11 @@ public class OpenBoxUnSnapTrigger : MonoBehaviour
     private void Update()
     {
       
-        if (OpenBoxSnap.GetCurrentSnappedObject() != null && OpenBoxSnap.GetCurrentSnappedObject() ==
-           Marker && MarkerReleaseButton.AtMaxLimit() && MarkerReleaseButton.stayPressed)
+        if (OpenBoxSnap.firstInteractableSelected != null && OpenBoxSnap.firstInteractableSelected.Equals(Marker)
+            && MarkerReleaseButton.isPressedDown && MarkerReleaseButton.stayPressed)
         {          
             Game_Manager.instance.beingUnSnapped = true;
-            OpenBoxSnap.ForceUnsnap();
+            OpenBoxSnap.EndManualInteraction();
             if (markerCanSnap)
             {
                 markerCanSnap = false;

@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PliersSnapZone : MonoBehaviour
 {
-    VRTK_SnapDropZone PlierZone;
-    VRTK_SnapDropZone PlierZoneBox;
+    XRSocketInteractor PlierZone;
+    XRSocketInteractor PlierZoneBox;
     GameObject RightController;
     GameObject LeftController;
     GameObject Broom;
@@ -24,7 +24,7 @@ public class PliersSnapZone : MonoBehaviour
 
     protected void Awake()
     {
-        PlierZone = GetComponentInChildren<VRTK_SnapDropZone>();
+        PlierZone = GetComponentInChildren<XRSocketInteractor>();
         RightController = GameObject.Find("RightController");
         LeftController = GameObject.Find("LeftController");
         beingReleased = false;
@@ -42,13 +42,13 @@ public class PliersSnapZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject && !beingReleased)
+        if (Game_Manager.instance.RightGrab.firstInteractableSelected != null && Game_Manager.instance.RightGrab.firstInteractableSelected.Equals(gameObject) && !beingReleased)
         {
-            if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
+            if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<XRGrabInteractable>().isSelected)
             {
-                Broom = other.transform.parent.parent.gameObject;
-                Debug.Log(Broom);
-                PlierZone.ForceSnap(Broom);
+                var broom = other.transform.parent.parent.gameObject.GetComponent<XRGrabInteractable>();
+                PlierZone.StartManualInteraction(broom);
+                //PlierZone.ForceSnap(Broom);
                 foreach (MeshCollider col in Broom.GetComponentsInChildren<MeshCollider>())
                 {
                     col.enabled = false;
@@ -69,13 +69,14 @@ public class PliersSnapZone : MonoBehaviour
                 Debug.Log("plierbroomcollidersright");
             }
         }
-        else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject
+        else if (Game_Manager.instance.LeftGrab.firstInteractableSelected != null && Game_Manager.instance.LeftGrab.firstInteractableSelected.Equals(gameObject)
                 && !beingReleased)
         {
-            if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<VRTK_InteractableObject>().IsGrabbed())
+            if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<XRGrabInteractable>().isSelected)
             {
-                Broom = other.transform.parent.parent.gameObject;
-                PlierZone.ForceSnap(Broom);
+                //this part will be a problem, the IXRInteractable interface needs to be looked at
+                var broom = other.transform.parent.parent.gameObject.GetComponent<XRGrabInteractable>();
+                PlierZone.StartManualInteraction(broom);
                 foreach (MeshCollider col in Broom.GetComponentsInChildren<MeshCollider>())
                 {
                     col.enabled = false;
@@ -99,11 +100,11 @@ public class PliersSnapZone : MonoBehaviour
 
     public void ReleaseBroomRight()
     {
-        if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject && !beingReleased)
+        if (Game_Manager.instance.RightGrab.firstInteractableSelected != null && Game_Manager.instance.RightGrab.firstInteractableSelected.Equals(gameObject) && !beingReleased)
         {
             beingReleased = true;
             Debug.Log("released");
-            PlierZone.ForceUnsnap();
+            PlierZone.EndManualInteraction();
             BroomCollider1.enabled = false;
             BroomCollider2.enabled = false;
             BroomCollider3.enabled = false;
@@ -130,11 +131,11 @@ public class PliersSnapZone : MonoBehaviour
 
     public void ReleaseBroomLeft()
     {
-        if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject && !beingReleased)
+        if (Game_Manager.instance.LeftGrab.firstInteractableSelected != null && Game_Manager.instance.LeftGrab.firstInteractableSelected.Equals(gameObject) && !beingReleased)
         {
             beingReleased = true;
             Debug.Log("releasedleft");
-            PlierZone.ForceUnsnap();
+            PlierZone.EndManualInteraction();
             BroomCollider1.enabled = false;
             BroomCollider2.enabled = false;
             BroomCollider3.enabled = false;
@@ -162,7 +163,7 @@ public class PliersSnapZone : MonoBehaviour
     //private void Update()
     //{
 
-    //    if (PlierZone.GetCurrentSnappedObject() == null || !PlierZone.GetCurrentSnappedObject().CompareTag("JanitorBroom"))
+    //    if (PlierZone.firstInteractableSelected == null || !PlierZone.firstInteractableSelected.transform.gameObject.CompareTag("JanitorBroom"))
     //    {
     //        foreach (MeshCollider col in gameObject.GetComponents<MeshCollider>())
     //        {

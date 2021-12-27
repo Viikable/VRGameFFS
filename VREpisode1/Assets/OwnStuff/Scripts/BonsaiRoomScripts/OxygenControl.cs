@@ -1602,7 +1602,7 @@ public class OxygenControl : MonoBehaviour {
                     changingFadeDirection = true;
                     Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.01f;
                     noHandsLighting = true;
-                    WaterMovement.fader.Fade(Color.black, 2f);
+                    //WaterMovement.fader.Fade(Color.black, 2f);
                     StartCoroutine(Vignettepause(3f, false));
                 }
             }
@@ -1647,7 +1647,7 @@ public class OxygenControl : MonoBehaviour {
                 {
                     Water.headSet.GetComponentInChildren<UnderWaterEffect>()._pixelOffset = 0.05f;
                     noHandsLighting = true;
-                    WaterMovement.fader.Fade(Color.black, 1f);
+                    //WaterMovement.fader.Fade(Color.black, 1f);
                     changingFadeDirection = true;
                     StartCoroutine(Vignettepause(4.5f, false));
                 }
@@ -1676,7 +1676,7 @@ public class OxygenControl : MonoBehaviour {
         }
         else if (intensity == "Death")
         {
-            WaterMovement.fader.Fade(Color.black, 2f);
+            //WaterMovement.fader.Fade(Color.black, 2f);
         }
     }
 
@@ -1852,7 +1852,7 @@ public class OxygenControl : MonoBehaviour {
         yield return new WaitForSecondsRealtime(waitTime);      
         fadingIn = change;
         changingFadeDirection = false;
-        WaterMovement.fader.Unfade(0.25f);
+        //WaterMovement.fader.Unfade(0.25f);
         noHandsLighting = false;
     }
 }

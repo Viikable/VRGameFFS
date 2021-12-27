@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ToxicGasPush : MonoBehaviour {
     bool beingPushed;
@@ -46,10 +46,10 @@ public class ToxicGasPush : MonoBehaviour {
         if (beingPushed && pushedObject != null)
         {
             Debug.Log("pushed");
-            if (pushedObject == PlayerBody && (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null || Game_Manager.instance.RightGrab.GetGrabbedObject() != null))
+            if (pushedObject == PlayerBody && (Game_Manager.instance.LeftGrab.firstInteractableSelected != null || Game_Manager.instance.RightGrab.firstInteractableSelected != null))
             {
-                Game_Manager.instance.LeftGrab.ForceRelease();
-                Game_Manager.instance.RightGrab.ForceRelease();
+                Game_Manager.instance.LeftGrab.EndManualInteraction();
+                Game_Manager.instance.RightGrab.EndManualInteraction();
             }
             if (pushedObject.mass == 100)
             {

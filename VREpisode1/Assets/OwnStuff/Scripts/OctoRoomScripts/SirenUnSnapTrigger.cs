@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class SirenUnSnapTrigger : MonoBehaviour {
 
-    VRTK_SnapDropZone SirenSnap;
+    XRSocketInteractor SirenSnap;
 
-    VRTK_PhysicsPusher MarkerReleaseButton;
+    Button MarkerReleaseButton;
 
     GameObject Marker;
 
@@ -16,10 +16,10 @@ public class SirenUnSnapTrigger : MonoBehaviour {
 
     void Start()
     {
-        SirenSnap = GetComponent<VRTK_SnapDropZone>();
+        SirenSnap = GetComponent<XRSocketInteractor>();
         Marker = GameObject.Find("Marker");
 
-        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<VRTK_PhysicsPusher>();
+        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<Button>();
 
         markerCanSnap = true;
 
@@ -29,7 +29,7 @@ public class SirenUnSnapTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Marker") && markerCanSnap)
         {
-            SirenSnap.ForceSnap(Marker);
+            SirenSnap.StartManualInteraction(Marker.GetComponent<XRGrabInteractable>());
             if (!OctopusLightCode.MarkerAttachSound.isPlaying)
             {
             OctopusLightCode.MarkerAttachSound.Play();
@@ -41,11 +41,11 @@ public class SirenUnSnapTrigger : MonoBehaviour {
     private void Update()
     {
 
-        if (SirenSnap.GetCurrentSnappedObject() != null && SirenSnap.GetCurrentSnappedObject() ==
-           Marker && MarkerReleaseButton.AtMaxLimit() && MarkerReleaseButton.stayPressed)
+        if (SirenSnap.firstInteractableSelected != null && SirenSnap.firstInteractableSelected.Equals(Marker)
+            && MarkerReleaseButton.isPressedDown && MarkerReleaseButton.stayPressed)
         {
             Game_Manager.instance.beingUnSnapped = true;
-            SirenSnap.ForceUnsnap();
+            SirenSnap.EndManualInteraction();
             if (markerCanSnap)
             {
                 markerCanSnap = false;

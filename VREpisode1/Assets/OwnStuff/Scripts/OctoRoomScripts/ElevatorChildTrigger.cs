@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ElevatorChildTrigger : MonoBehaviour {
     GameObject mainSDK;
     GameObject Elevator;
    
-    void Start () {
-        mainSDK = GameObject.Find("[VRTK_SDKManager]");
-        Elevator = GameObject.Find("ELEVATOR2.0");
+    void Start ()
+    {
+        //mainSDK = GameObject.Find("[VRTK_SDKManager]");
+        //Elevator = GameObject.Find("ELEVATOR2.0");
 	}
 	
     private void OnTriggerEnter(Collider other)

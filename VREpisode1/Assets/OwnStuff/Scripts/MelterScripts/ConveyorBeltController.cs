@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK.Controllables.PhysicsBased;
+
 
 public class ConveyorBeltController : MonoBehaviour
 {
@@ -134,38 +134,38 @@ public class ConveyorBeltController : MonoBehaviour
     }
     public void CheckButtonPress()    //to see when the buttons controlling the conveyor belts are pressed down
     {
-        if (!beltsMoving && ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
+        if (!beltsMoving && ConveyorStartButton.GetComponent<Button>().isPressedDown == true)
         {
 
             Debug.Log("pressed1");
             beltsMoving = true;
-            ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-            if (ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
+            ConveyorStartButton.GetComponent<Button>().stayPressed = true;
+            if (ConveyorStopButton.GetComponent<Button>().isPressedDown == true)
             {
                 Debug.Log("pressed1while3");
-                ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                ConveyorStopButton.GetComponent<Button>().stayPressed = false;
             }
         }
-        else if (!beltsPaused && ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
+        else if (!beltsPaused && ConveyorStopButton.GetComponent<Button>().isPressedDown == true)
         {
             if (!beltMovingUp && !beltMovingDown)   //this here means can't stop when moving the belt down or up as it causes counting problems
             {
                 Debug.Log("pressed3");
                 beltsPaused = true;
-                ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
-                if (ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true)
+                ConveyorStopButton.GetComponent<Button>().stayPressed = true;
+                if (ConveyorStartButton.GetComponent<Button>().isPressedDown == true)
                 {
-                    ConveyorStartButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                    ConveyorStartButton.GetComponent<Button>().stayPressed = false;
                     Debug.Log("pressed3while1");
                 }
             }
             else
             {
-                ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                ConveyorStopButton.GetComponent<Button>().stayPressed = false;
                 StartCoroutine("Return");
             }
         }
-        if (ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().AtMaxLimit() == true && ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed)
+        if (ConveyorDownButton.GetComponent<Button>().isPressedDown == true && ConveyorDownButton.GetComponent<Button>().stayPressed)
         {
 
             if (beltsMoving)
@@ -189,7 +189,7 @@ public class ConveyorBeltController : MonoBehaviour
     IEnumerator Return()
     {
         yield return new WaitForSecondsRealtime(1);
-        ConveyorStopButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+        ConveyorStopButton.GetComponent<Button>().stayPressed = true;
     }
 
     public void BeltDownCheck()
@@ -324,7 +324,7 @@ public class ConveyorBeltController : MonoBehaviour
         if (beltHasMovedDown && pressedIt)
         {
             Debug.Log("DOWN");
-            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            ConveyorDownButton.GetComponent<Button>().stayPressed = false;
             animVino.SetBool("Start", true);
             foreach (Collider col in VinoConveyorBelt.GetComponentsInChildren<Collider>())
             {
@@ -344,7 +344,7 @@ public class ConveyorBeltController : MonoBehaviour
         if (beltHasMovedUp && pressedIt2)
         {
             Debug.Log("UP");
-            ConveyorDownButton.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+            ConveyorDownButton.GetComponent<Button>().stayPressed = false;
             anim.SetBool("Start", true);
             foreach (Collider col in MiddleConveyorBelt.GetComponentsInChildren<Collider>())
             {

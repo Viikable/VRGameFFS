@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class OctopusLightCode : MonoBehaviour
 {
-    VRTK_PhysicsPusher RedLight;
-    VRTK_PhysicsPusher GreenLight;
-    VRTK_PhysicsPusher CyanLight;
-    VRTK_PhysicsPusher YellowLight;
-    VRTK_PhysicsPusher OctopusAttention;
-
+    Button RedLight;
+    Button GreenLight;
+    Button CyanLight;
+    Button YellowLight;
+    Button OctopusAttention;
+  
     MeshRenderer RedButtonMeshMaterial;
     MeshRenderer GreenButtonMeshMaterial;
     MeshRenderer CyanButtonMeshMaterial;
@@ -100,23 +99,23 @@ public class OctopusLightCode : MonoBehaviour
     GameObject OpenBox;
 
     [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
-    VRTK_SnapDropZone OpenBoxSnapZone1;
+    XRSocketInteractor OpenBoxSnapZone1;
 
     [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
-    VRTK_SnapDropZone OpenBoxSnapZone2;
+    XRSocketInteractor OpenBoxSnapZone2;
 
     [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
-    VRTK_SnapDropZone OpenBoxSnapZone3;
+    XRSocketInteractor OpenBoxSnapZone3;
 
     [Tooltip("One of the areas where the marker can snap to in the OpenBox object. This area is signaled to the player via a symbol in the OpenBox.")]
-    VRTK_SnapDropZone OpenBoxSnapZone4;
+    XRSocketInteractor OpenBoxSnapZone4;
 
     [SerializeField]
     [Tooltip("A research object that teaches the player verb LOWER")]
     GameObject ResearchPool;
 
     [Tooltip("One of the areas where the marker can snap to in the ResearchPool object.")]
-    VRTK_SnapDropZone PoolSnapZone;
+    XRSocketInteractor PoolSnapZone;
 
     [SerializeField]
     [Tooltip("A research object that teaches the word PLAY")]
@@ -127,32 +126,32 @@ public class OctopusLightCode : MonoBehaviour
     GameObject MagneticFenceContainer;
 
     [Tooltip("One of the areas where the marker can snap to in the Siren object.")]
-    VRTK_SnapDropZone SirenSnapZone;
+    XRSocketInteractor SirenSnapZone;
 
     [SerializeField]
     [Tooltip("A research object that lets the player turn it ON to test how it works")]
     GameObject ConveyorBelt;
 
     [Tooltip("One of the areas where the marker can snap to in the ConveyorBelt object.")]
-    VRTK_SnapDropZone ConveyorSnapZone1;
+    XRSocketInteractor ConveyorSnapZone1;
 
     [Tooltip("One of the areas where the marker can snap to in the ConveyorBelt object.")]
-    VRTK_SnapDropZone ConveyorSnapZone2;
+    XRSocketInteractor ConveyorSnapZone2;
 
     [Tooltip("One of the areas where the marker can snap to somewhere near the Magnetic Fence.")]
-    VRTK_SnapDropZone MagneticFenceSnapZone;
+    XRSocketInteractor MagneticFenceSnapZone;
 
     [Tooltip("Area on the research table where OpenBox can be snapped into")]
-    VRTK_SnapDropZone ResearchSnapZoneOpenBox;
+    XRSocketInteractor ResearchSnapZoneOpenBox;
 
     [Tooltip("Area on the research table where Pool can be snapped into")]
-    VRTK_SnapDropZone ResearchSnapZonePool;
+    XRSocketInteractor ResearchSnapZonePool;
 
     [Tooltip("Area on the research table where ConveyorBelt can be snapped into")]
-    VRTK_SnapDropZone ResearchSnapZoneConveyor;
+    XRSocketInteractor ResearchSnapZoneConveyor;
 
     [Tooltip("Area on the research table where Siren can be snapped into")]
-    VRTK_SnapDropZone ResearchSnapZoneSiren;
+    XRSocketInteractor ResearchSnapZoneSiren;
 
     Animator OpenBoxAnim;
 
@@ -209,19 +208,19 @@ public class OctopusLightCode : MonoBehaviour
         ButtonGreen = GameObject.Find("OctoGreen").GetComponent<MeshRenderer>().material;
         ButtonRed = GameObject.Find("OctoRed").GetComponent<MeshRenderer>().material;
 
-        RedLight = transform.Find("RedLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        RedLight = transform.Find("RedLight").GetChild(0).GetComponent<Button>();
         RedButtonMeshMaterial = transform.Find("RedLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
         RedButtonMeshMaterial.material.EnableKeyword("_EMISSION");
-        GreenLight = transform.Find("GreenLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        GreenLight = transform.Find("GreenLight").GetChild(0).GetComponent<Button>();
         GreenButtonMeshMaterial = transform.Find("GreenLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
         GreenButtonMeshMaterial.material.EnableKeyword("_EMISSION");
-        CyanLight = transform.Find("CyanLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        CyanLight = transform.Find("CyanLight").GetChild(0).GetComponent<Button>();
         CyanButtonMeshMaterial = transform.Find("CyanLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
         CyanButtonMeshMaterial.material.EnableKeyword("_EMISSION");
-        YellowLight = transform.Find("YellowLight").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        YellowLight = transform.Find("YellowLight").GetChild(0).GetComponent<Button>();
         YellowButtonMeshMaterial = transform.Find("YellowLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
         YellowButtonMeshMaterial.material.EnableKeyword("_EMISSION");
-        OctopusAttention = transform.Find("OctopusAttention").GetChild(0).GetComponent<VRTK_PhysicsPusher>();
+        OctopusAttention = transform.Find("OctopusAttention").GetChild(0).GetComponent<Button>();
         OctopusAttentionButtonMeshMaterial = transform.Find("OctopusAttention").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
         OctopusAttentionButtonMeshMaterial.material.EnableKeyword("_EMISSION");
 
@@ -255,27 +254,27 @@ public class OctopusLightCode : MonoBehaviour
 
         MagneticFenceContainer = GameObject.Find("MagneticFenceContainer");
 
-        OpenBoxSnapZone1 = OpenBox.transform.Find("OpenBoxSnapZone1").GetComponent<VRTK_SnapDropZone>();
-        OpenBoxSnapZone2 = OpenBox.transform.Find("OpenBoxSnapZone2").GetComponent<VRTK_SnapDropZone>();
-        OpenBoxSnapZone3 = OpenBox.transform.Find("OpenBoxSnapZone3").GetComponent<VRTK_SnapDropZone>();
-        OpenBoxSnapZone4 = OpenBox.transform.Find("OpenBoxSnapZone4").GetComponent<VRTK_SnapDropZone>();
+        OpenBoxSnapZone1 = OpenBox.transform.Find("OpenBoxSnapZone1").GetComponent<XRSocketInteractor>();
+        OpenBoxSnapZone2 = OpenBox.transform.Find("OpenBoxSnapZone2").GetComponent<XRSocketInteractor>();
+        OpenBoxSnapZone3 = OpenBox.transform.Find("OpenBoxSnapZone3").GetComponent<XRSocketInteractor>();
+        OpenBoxSnapZone4 = OpenBox.transform.Find("OpenBoxSnapZone4").GetComponent<XRSocketInteractor>();
 
-        ConveyorSnapZone1 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone1").GetComponent<VRTK_SnapDropZone>();
-        ConveyorSnapZone2 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone2").GetComponent<VRTK_SnapDropZone>();
+        ConveyorSnapZone1 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone1").GetComponent<XRSocketInteractor>();
+        ConveyorSnapZone2 = ConveyorBelt.transform.Find("ResearchConveyorSnapZone2").GetComponent<XRSocketInteractor>();
 
-        MagneticFenceSnapZone = GameObject.Find("MagneticFenceSnapZone").GetComponent<VRTK_SnapDropZone>();
+        MagneticFenceSnapZone = GameObject.Find("MagneticFenceSnapZone").GetComponent<XRSocketInteractor>();
 
-        PoolSnapZone = ResearchPool.transform.Find("ResearchPoolSnapzone").GetComponent<VRTK_SnapDropZone>();
+        PoolSnapZone = ResearchPool.transform.Find("ResearchPoolSnapzone").GetComponent<XRSocketInteractor>();
 
-        SirenSnapZone = Siren.transform.Find("SirenSnapzone").GetComponent<VRTK_SnapDropZone>();
+        SirenSnapZone = Siren.transform.Find("SirenSnapzone").GetComponent<XRSocketInteractor>();
 
-        ResearchSnapZoneOpenBox = GameObject.Find("ResearchSnapZoneOpenBox").GetComponent<VRTK_SnapDropZone>();
+        ResearchSnapZoneOpenBox = GameObject.Find("ResearchSnapZoneOpenBox").GetComponent<XRSocketInteractor>();
 
-        ResearchSnapZonePool = GameObject.Find("ResearchSnapZonePool").GetComponent<VRTK_SnapDropZone>();
+        ResearchSnapZonePool = GameObject.Find("ResearchSnapZonePool").GetComponent<XRSocketInteractor>();
 
-        ResearchSnapZoneConveyor = GameObject.Find("ResearchSnapZoneConveyor").GetComponent<VRTK_SnapDropZone>();
+        ResearchSnapZoneConveyor = GameObject.Find("ResearchSnapZoneConveyor").GetComponent<XRSocketInteractor>();
 
-        ResearchSnapZoneSiren = GameObject.Find("ResearchSnapZoneSiren").GetComponent<VRTK_SnapDropZone>();
+        ResearchSnapZoneSiren = GameObject.Find("ResearchSnapZoneSiren").GetComponent<XRSocketInteractor>();
 
         OpenBoxAnim = GameObject.Find("OpenBoxAnimated").GetComponent<Animator>();
 
@@ -324,9 +323,9 @@ public class OctopusLightCode : MonoBehaviour
     //Checks what object if any is snapped to the research table snap zone(s) currently
     public void CheckResearchTable()
     {
-        if (ResearchSnapZoneOpenBox.GetCurrentSnappedObject() != null)
+        if (ResearchSnapZoneOpenBox.firstInteractableSelected != null)
         {
-            if (ResearchSnapZoneOpenBox.GetCurrentSnappedObject() == OpenBox)
+            if (ResearchSnapZoneOpenBox.firstInteractableSelected.Equals(OpenBox))
             {
                 currentTableObject = "OpenBox";
                 //so that cannot snap multiple objects at the same time
@@ -335,9 +334,9 @@ public class OctopusLightCode : MonoBehaviour
                 ResearchSnapZoneSiren.GetComponent<Collider>().enabled = false;
             }
         }
-        else if (ResearchSnapZoneConveyor.GetCurrentSnappedObject() != null)
+        else if (ResearchSnapZoneConveyor.firstInteractableSelected != null)
         {
-            if (ResearchSnapZoneConveyor.GetCurrentSnappedObject() == ConveyorBelt)
+            if (ResearchSnapZoneConveyor.firstInteractableSelected.Equals(ConveyorBelt))
             {
                 Debug.Log("Conveyorsnap");
                 currentTableObject = "ConveyorBelt";
@@ -346,9 +345,9 @@ public class OctopusLightCode : MonoBehaviour
                 ResearchSnapZoneSiren.GetComponent<Collider>().enabled = false;
             }
         }
-        else if (ResearchSnapZonePool.GetCurrentSnappedObject() != null)
+        else if (ResearchSnapZonePool.firstInteractableSelected != null)
         {
-            if (ResearchSnapZonePool.GetCurrentSnappedObject() == ResearchPool)
+            if (ResearchSnapZonePool.firstInteractableSelected.Equals(ResearchPool))
             {
                 currentTableObject = "Pool";
                 ResearchSnapZoneConveyor.GetComponent<Collider>().enabled = false;
@@ -356,9 +355,9 @@ public class OctopusLightCode : MonoBehaviour
                 ResearchSnapZoneSiren.GetComponent<Collider>().enabled = false;
             }
         }
-        else if (ResearchSnapZoneSiren.GetCurrentSnappedObject() != null)
+        else if (ResearchSnapZoneSiren.firstInteractableSelected != null)
         {
-            if (ResearchSnapZoneSiren.GetCurrentSnappedObject() == Siren)
+            if (ResearchSnapZoneSiren.firstInteractableSelected.Equals(Siren))
             {
                 currentTableObject = "Siren";
                 ResearchSnapZoneConveyor.GetComponent<Collider>().enabled = false;
@@ -381,7 +380,7 @@ public class OctopusLightCode : MonoBehaviour
             {
                 OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
-                if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+                if (OctopusAttention.isPressedDown && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -395,7 +394,7 @@ public class OctopusLightCode : MonoBehaviour
                 Debug.Log("conveyor");
                 OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
-                if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+                if (OctopusAttention.isPressedDown && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -409,7 +408,7 @@ public class OctopusLightCode : MonoBehaviour
                 Debug.Log("pool");
                 OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
-                if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+                if (OctopusAttention.isPressedDown && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -423,7 +422,7 @@ public class OctopusLightCode : MonoBehaviour
                 Debug.Log("siren");
                 OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 1f);
                 OctopusAttention.stayPressed = true;
-                if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+                if (OctopusAttention.isPressedDown && OctopusAttention.stayPressed)
                 {
                     OctopusAttention.stayPressed = false;
                     OctopusAttentionButtonMeshMaterial.material.SetColor("_EmissionColor", Color.red * 0f);
@@ -545,7 +544,7 @@ public class OctopusLightCode : MonoBehaviour
     //checking what colour combination has been entered
     public void CheckColourCombination()  
     { 
-        if (RedLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)            
+        if (RedLight.isPressedDown && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)            
         {
             //this so that if player starts pressing the buttons after a hologram has showed a code it resets
             if (combinationNumber == 0)
@@ -575,7 +574,7 @@ public class OctopusLightCode : MonoBehaviour
             RedButtonSound.Play();
             StartCoroutine("WaitForPress");
         }
-        if (GreenLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
+        if (GreenLight.isPressedDown && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -604,7 +603,7 @@ public class OctopusLightCode : MonoBehaviour
             GreenButtonSound.Play();
             StartCoroutine("WaitForPress");
         }
-        if (YellowLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
+        if (YellowLight.isPressedDown && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -633,7 +632,7 @@ public class OctopusLightCode : MonoBehaviour
             YellowButtonSound.Play();
             StartCoroutine("WaitForPress");
         }
-        if (CyanLight.AtMaxLimit() && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
+        if (CyanLight.isPressedDown && combinationNumber <= 3 && !codeEntered && !buttonRegistering && !hologramInProgress && !octoAnimInProgress)
         {
             if (combinationNumber == 0)
             {
@@ -696,10 +695,12 @@ public class OctopusLightCode : MonoBehaviour
 
     public void CheckMarkerLocation()      //checks where the marker is snapped currently, if nowhere, resets location to null
     {
-        if (Marker.GetComponent<VRTK_InteractableObject>().IsInSnapDropZone())
+        //as keyword performs a cast, so we check here if there is a selecting interactor typeof XRSocketInteractor, I think
+        var snapInteractor = Marker.GetComponent<XRGrabInteractable>().firstInteractorSelecting;
+        if (snapInteractor as XRSocketInteractor != null) 
         {
-            Debug.Log(Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone());
-            if (ConveyorSnapZone1.GetCurrentSnappedObject() == Marker || ConveyorSnapZone2.GetCurrentSnappedObject() == Marker)
+            //Debug.Log(Marker.GetComponent<XRGrabInteractable>().GetStoredSnapDropZone());
+            if (ConveyorSnapZone1.firstInteractableSelected.Equals(Marker) || ConveyorSnapZone2.firstInteractableSelected.Equals(Marker))
             {
                 Debug.Log("conveyormarker");
                 currentMarkedLocation = "ConveyorBelt";
@@ -707,14 +708,14 @@ public class OctopusLightCode : MonoBehaviour
                 {
                     col.enabled = false;
                 }
-                if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == ConveyorSnapZone1)
+                if (snapInteractor.Equals(ConveyorSnapZone1))
                 {
                     foreach (Collider col in ConveyorMarkerGhostCollider1Container.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
                 }
-                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == ConveyorSnapZone2)
+                else if (snapInteractor.Equals(ConveyorSnapZone2))
                 {
                     foreach (Collider col in ConveyorMarkerGhostCollider2Container.GetComponentsInChildren<Collider>())
                     {
@@ -722,8 +723,8 @@ public class OctopusLightCode : MonoBehaviour
                     }
                 }
             }
-            else if (OpenBoxSnapZone1.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone2.GetCurrentSnappedObject() == Marker
-                || OpenBoxSnapZone3.GetCurrentSnappedObject() == Marker || OpenBoxSnapZone4.GetCurrentSnappedObject() == Marker)
+            else if (OpenBoxSnapZone1.firstInteractableSelected.Equals(Marker) || OpenBoxSnapZone2.firstInteractableSelected.Equals(Marker)
+                || OpenBoxSnapZone3.firstInteractableSelected.Equals(Marker) || OpenBoxSnapZone4.firstInteractableSelected.Equals(Marker))
             {
                 Debug.Log("OpenBoxmarked");
                 currentMarkedLocation = "OpenBox";
@@ -731,28 +732,28 @@ public class OctopusLightCode : MonoBehaviour
                 {
                     col.enabled = false;
                 }
-                if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone1)
+                if (snapInteractor.Equals(OpenBoxSnapZone1))
                 {
                     foreach (Collider col in OpenBoxMarkerGhostColliderContainer1.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
                 }
-                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone2)
+                else if (snapInteractor.Equals(OpenBoxSnapZone2))
                 {
                     foreach (Collider col in OpenBoxMarkerGhostColliderContainer2.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
                 }
-                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone3)
+                else if (snapInteractor.Equals(OpenBoxSnapZone3))
                 {
                     foreach (Collider col in OpenBoxMarkerGhostColliderContainer3.GetComponentsInChildren<Collider>())
                     {
                         col.enabled = true;
                     }
                 }
-                else if (Marker.GetComponent<VRTK_InteractableObject>().GetStoredSnapDropZone() == OpenBoxSnapZone4)
+                else if (snapInteractor.Equals(OpenBoxSnapZone4))
                 {
                     foreach (Collider col in OpenBoxMarkerGhostColliderContainer4.GetComponentsInChildren<Collider>())
                     {
@@ -760,7 +761,7 @@ public class OctopusLightCode : MonoBehaviour
                     }
                 }
             }
-            else if (PoolSnapZone.GetCurrentSnappedObject() == Marker)
+            else if (PoolSnapZone.firstInteractableSelected.Equals(Marker))
             {
                 currentMarkedLocation = "Pool";
                 foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
@@ -772,7 +773,7 @@ public class OctopusLightCode : MonoBehaviour
                     col.enabled = true;
                 }
             }
-            else if (SirenSnapZone.GetCurrentSnappedObject() == Marker)
+            else if (SirenSnapZone.firstInteractableSelected.Equals(Marker))
             {
                 currentMarkedLocation = "Siren";
                 foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
@@ -784,7 +785,7 @@ public class OctopusLightCode : MonoBehaviour
                     col.enabled = true;
                 }
             }
-            else if (MagneticFenceSnapZone.GetCurrentSnappedObject() == Marker)
+            else if (MagneticFenceSnapZone.firstInteractableSelected.Equals(Marker))
             {
                 currentMarkedLocation = "MagneticFence";
                 foreach (Collider col in Marker.GetComponentsInChildren<Collider>())
@@ -843,7 +844,7 @@ public class OctopusLightCode : MonoBehaviour
     //checks whether the code is valid and if it is then possibly starts an action
     public void CheckCodeValidity()
     {
-        if (OctopusAttention.AtMaxLimit() && OctopusAttention.stayPressed)
+        if (OctopusAttention.isPressedDown && OctopusAttention.stayPressed)
         {
             if (!OctopusAttentionButtonSound.isPlaying)
             {

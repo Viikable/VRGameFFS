@@ -1,26 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class OctoDoorButton : MonoBehaviour {
     //can be used for all similar doors, just drag the animator and sounds into the script which is on the button
     public Animator OctoDoorAnim;
-    VRTK_PhysicsPusher OctoDoorbutton;    
+    Button OctoDoorbutton;    
     public AudioSource DoorOpeningSound;
     public AudioSource DoorClosingSound;
     bool doorMoving;
 
     void Start ()
     {
-        OctoDoorbutton = GetComponent<VRTK_PhysicsPusher>();
+        OctoDoorbutton = GetComponent<Button>();
         doorMoving = false;
 	}
 
     void Update()
     {
-        if (OctoDoorbutton.AtMaxLimit() && OctoDoorbutton.stayPressed && OctoDoorAnim.GetBool("Close") && !doorMoving)
+        if (OctoDoorbutton.isPressedDown && OctoDoorbutton.stayPressed && OctoDoorAnim.GetBool("Close") && !doorMoving)
         {
             doorMoving = true;
             OctoDoorAnim.SetBool("Close", false);
@@ -28,7 +28,7 @@ public class OctoDoorButton : MonoBehaviour {
             DoorOpeningSound.Play();
             StartCoroutine("WaitForDoor");
         }
-        else if (OctoDoorbutton.AtMaxLimit() && OctoDoorbutton.stayPressed && OctoDoorAnim.GetBool("Open") && !doorMoving)
+        else if (OctoDoorbutton.isPressedDown && OctoDoorbutton.stayPressed && OctoDoorAnim.GetBool("Open") && !doorMoving)
         {
             doorMoving = true;
             OctoDoorAnim.SetBool("Close", true);

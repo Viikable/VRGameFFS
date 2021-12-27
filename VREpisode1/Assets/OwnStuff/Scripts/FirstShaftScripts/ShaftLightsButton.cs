@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class ShaftLightsButton : MonoBehaviour {
-    VRTK_PhysicsPusher shaftlightButton;
+    Button shaftlightButton;
     GameObject MaintenanceLight;
     Light MaintenanceSpot;
     bool lightOn;
@@ -15,7 +15,7 @@ public class ShaftLightsButton : MonoBehaviour {
     AudioSource ScarySound;
 	
 	void Start () {
-        shaftlightButton = GetComponent<VRTK_PhysicsPusher>();
+        shaftlightButton = GetComponent<Button>();
         MaintenanceLight = GameObject.Find("MaintenanceSpotLight");
         MaintenanceSpot = MaintenanceLight.GetComponent<Light>();
         lightOn = false;
@@ -27,7 +27,7 @@ public class ShaftLightsButton : MonoBehaviour {
 
     void Update()
     {
-        if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && !lightOn && !processing)
+        if (shaftlightButton.isPressedDown && shaftlightButton.stayPressed && !lightOn && !processing)
         {
             processing = true;
             MaintenanceSpot.enabled = true;
@@ -36,7 +36,7 @@ public class ShaftLightsButton : MonoBehaviour {
             StartCoroutine("Wait");
             ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
         }
-        else if (shaftlightButton.AtMaxLimit() && shaftlightButton.stayPressed && lightOn && !processing)
+        else if (shaftlightButton.isPressedDown && shaftlightButton.stayPressed && lightOn && !processing)
         {
             processing = true;
             MaintenanceSpot.enabled = false;
