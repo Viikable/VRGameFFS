@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+[DisallowMultipleComponent]
 public class ElevatorChildTrigger : MonoBehaviour {
     GameObject mainSDK;
     GameObject Elevator;

@@ -5,6 +5,8 @@ using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.UI;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody))]
 public class Button : XRBaseInteractable
 {
     public UnityEvent OnPress = null;

@@ -1,0 +1,1076 @@
+Using pre-set license
+Built from '2021.2/staging' branch; Version is '2021.2.7f1 (6bd9e232123f) revision 7068130'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19042) 64bit Professional' Language: 'fi' Physical Memory: 16348 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+COMMAND LINE ARGUMENTS:
+F:\Taneli\UnityEditors\2021.2.7f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+F:/Taneli/VRGameFFS/VREpisode1
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+59502
+Successfully changed project path to: F:/Taneli/VRGameFFS/VREpisode1
+F:/Taneli/VRGameFFS/VREpisode1
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Refreshing native plugins compatible for Editor in 110.03 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.2.7f1 (6bd9e232123f)
+[Subsystems] Discovering subsystems at path F:/Taneli/UnityEditors/2021.2.7f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path F:/Taneli/VRGameFFS/VREpisode1/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2070 (ID=0x1f07)
+    Vendor:   NVIDIA
+    VRAM:     8031 MB
+    Driver:   30.0.14.9729
+Initialize mono
+Mono path[0] = 'F:/Taneli/UnityEditors/2021.2.7f1/Editor/Data/Managed'
+Mono path[1] = 'F:/Taneli/UnityEditors/2021.2.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'F:/Taneli/UnityEditors/2021.2.7f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56532
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: F:/Taneli/UnityEditors/2021.2.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.025590 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 75.54 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.955 seconds
+Domain Reload Profiling:
+	ReloadAssembly (956ms)
+		BeginReloadAssembly (171ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (639ms)
+			LoadAssemblies (162ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (146ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (43ms)
+			SetupLoadedEditorAssemblies (360ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (28ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (77ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (190ms)
+				ProcessInitializeOnLoadMethodAttributes (63ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.019912 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 68.79 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Package Manager log level set to [2]
+Mono: successfully reloaded assembly
+- Completed reload, in  1.504 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1507ms)
+		BeginReloadAssembly (232ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (7ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (35ms)
+		EndReloadAssembly (1117ms)
+			LoadAssemblies (192ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (206ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (93ms)
+			SetupLoadedEditorAssemblies (602ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (24ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (70ms)
+				BeforeProcessingInitializeOnLoad (156ms)
+				ProcessInitializeOnLoadAttributes (284ms)
+				ProcessInitializeOnLoadMethodAttributes (38ms)
+				AfterProcessingInitializeOnLoad (31ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.14 seconds
+Refreshing native plugins compatible for Editor in 1.95 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2421 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 61 unused Assets / (1.9 MB). Loaded Objects now: 2912.
+Memory consumption went from 124.7 MB to 122.8 MB.
+Total: 4.896200 ms (FindLiveObjects: 0.272100 ms CreateObjectMapping: 0.183300 ms MarkObjects: 3.903800 ms  DeleteObjects: 0.534600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 1012131.952106 seconds.
+  path: Assets/XRI/Settings/Resources/InteractionLayerSettings.asset
+  artifactKey: Guid(930de7961ffbf0649a9f660684022267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/XRI/Settings/Resources/InteractionLayerSettings.asset using Guid(930de7961ffbf0649a9f660684022267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd466def98ad3ec0999d655cb2c28b335') in 0.065975 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1867.309006 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/+_text.mat
+  artifactKey: Guid(8e7591bc7b8d45b4e9d8d4546cd832f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/+_text.mat using Guid(8e7591bc7b8d45b4e9d8d4546cd832f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed9bb231791a211a8cfb144d26b5e900') in 0.784821 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_Door_text.mat
+  artifactKey: Guid(d324704c7e7fd4e83bdba340e1d261d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_Door_text.mat using Guid(d324704c7e7fd4e83bdba340e1d261d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f6876553b53a2693698691fa1aea9ed') in 0.223014 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/9_text.mat
+  artifactKey: Guid(830aeb56eb0f372409bc30a6dc82565e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/9_text.mat using Guid(830aeb56eb0f372409bc30a6dc82565e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d134a2edb9b86c14679fc42ca8020db') in 0.127464 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/0_text.mat
+  artifactKey: Guid(be807641dc43a64458e4576752f671ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/0_text.mat using Guid(be807641dc43a64458e4576752f671ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '905f1f83f12d471e19e49417aed3bc7f') in 0.221162 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000066 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/A_text.mat
+  artifactKey: Guid(0e1a909d2e90a384fbfcee8b0331df8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/A_text.mat using Guid(0e1a909d2e90a384fbfcee8b0331df8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6def76911f433f30b55785ff7fc9ee28') in 0.168426 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/4_text.mat
+  artifactKey: Guid(a7a861db9986cf749985bade4a239b34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/4_text.mat using Guid(a7a861db9986cf749985bade4a239b34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73d615cac524d6950b726cad5ddc2493') in 0.195073 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_DoorFrame_text.mat
+  artifactKey: Guid(8a5faf6a2c5b643bf84c5489dc0dd3c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_DoorFrame_text.mat using Guid(8a5faf6a2c5b643bf84c5489dc0dd3c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a32919cf7fd5dc2b3bdd8587f4a1840c') in 0.177651 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/8_text.mat
+  artifactKey: Guid(0ac749578f49fe649aa96260ff5339a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/8_text.mat using Guid(0ac749578f49fe649aa96260ff5339a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ba09e431f30f31357fc91c1e5fe22e67') in 0.129672 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/,_text.mat
+  artifactKey: Guid(a60decc4c03ff6b479d9d3a469a6a32d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/,_text.mat using Guid(a60decc4c03ff6b479d9d3a469a6a32d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9af46d75aebd9c705c92d8d9cf67d3a1') in 0.191558 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/3_text.mat
+  artifactKey: Guid(bb804327a930bb74f9ab3c3d6d15d0b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/3_text.mat using Guid(bb804327a930bb74f9ab3c3d6d15d0b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ede26ef1125aa420d7276a2fc80417ec') in 0.268768 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/ALT_L_text.mat
+  artifactKey: Guid(71e98ca5b77810643a3d8a8e98c7a0f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/ALT_L_text.mat using Guid(71e98ca5b77810643a3d8a8e98c7a0f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66602ea7b081df3761950fa235101b5f') in 0.303976 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_Roof_text.mat
+  artifactKey: Guid(1ba07921d97ed4926b80decccb169409) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_Roof_text.mat using Guid(1ba07921d97ed4926b80decccb169409) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '138e3af7cb12fb9276fbcb5ec525a895') in 0.109030 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000766 seconds.
+  path: Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Anton SDF - Drop Shadow.mat
+  artifactKey: Guid(749b9069dc4742c5bfa5c74644049926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Anton SDF - Drop Shadow.mat using Guid(749b9069dc4742c5bfa5c74644049926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53afa536f8ed04179f6a97a27deeddcb') in 0.378639 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Anton SDF - Outline.mat
+  artifactKey: Guid(a00013af81304728b2be1f4309ee2433) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Anton SDF - Outline.mat using Guid(a00013af81304728b2be1f4309ee2433) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '848c754c33aa3966bf3ece1b962ae86c') in 0.392045 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_WirePiece_text.mat
+  artifactKey: Guid(379ef0d505aa24623938173cafdfde1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/AirRoom_WirePiece_text.mat using Guid(379ef0d505aa24623938173cafdfde1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae63bcdbf537b4806e3d7873f48162f0') in 0.172853 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Materials/Anchor_1.0_TEXT.mat
+  artifactKey: Guid(1306ad2807a7fac41a2b3b78e5579f89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Materials/Anchor_1.0_TEXT.mat using Guid(1306ad2807a7fac41a2b3b78e5579f89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '335cd427ad46a97b09143936b3ca480c') in 0.171530 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.237975 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/ME_corner terminal SCREEN_TEXT.mat
+  artifactKey: Guid(067217555799543bebabdccd408cb625) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/ME_corner terminal SCREEN_TEXT.mat using Guid(067217555799543bebabdccd408cb625) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9562544f7d2cf28ee83449559699bab0') in 0.226119 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/VR_Melter_TEXT/Materials/Melter1.24_SCREENS_TEXT.mat
+  artifactKey: Guid(8d287e08ac76c3c448a355c34159e348) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/VR_Melter_TEXT/Materials/Melter1.24_SCREENS_TEXT.mat using Guid(8d287e08ac76c3c448a355c34159e348) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed3c4910272bb03f9058cae3ea0f9dcd') in 0.176767 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.002475 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_melterpool_1_TEXT.mat
+  artifactKey: Guid(0c7fdd04cc9b01f4fa105696c0fb72af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_melterpool_1_TEXT.mat using Guid(0c7fdd04cc9b01f4fa105696c0fb72af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6767c68b75e1a3a16fac6e73c844187b') in 0.201247 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/Melter_entr_door_SCREEN_right_TEXT.mat
+  artifactKey: Guid(9e78081003c94584d84f0193aad4d948) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/Melter_entr_door_SCREEN_right_TEXT.mat using Guid(9e78081003c94584d84f0193aad4d948) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '762ae66da8492d701772ffa49d325e21') in 0.257395 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_marker_1.4_TEXT.mat
+  artifactKey: Guid(f9d7be6839c219c4ca939e5a45628c31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_marker_1.4_TEXT.mat using Guid(f9d7be6839c219c4ca939e5a45628c31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bde3b7b40ed51767e8a15d02d7a899d7') in 0.118766 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/OwnStuff/Materials/Samu Testing room4/Screens/Screens.mat
+  artifactKey: Guid(7b3817c49680f4783ac65f1ac2595889) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Materials/Samu Testing room4/Screens/Screens.mat using Guid(7b3817c49680f4783ac65f1ac2595889) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e70a2a35dd33e327fbfa228fc291a886') in 0.906631 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/OwnStuff/Materials/BonsaiRoom/LampRed.mat
+  artifactKey: Guid(a9af60eddfddefb4e9627fb273f02d77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Materials/BonsaiRoom/LampRed.mat using Guid(a9af60eddfddefb4e9627fb273f02d77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3833b79a542fb672f5048a36226bdebf') in 0.082543 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_box_1_TEXT.mat
+  artifactKey: Guid(95a623d4cb2d8524eb5230bee1fdb601) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_box_1_TEXT.mat using Guid(95a623d4cb2d8524eb5230bee1fdb601) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2366236a1a46aa4a29a6f233a69fefa') in 0.104110 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Materials/MS_II_puzzle_piece_sphere_TEXT.mat
+  artifactKey: Guid(0ad5a2d4b5780274699ac5a242050157) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Materials/MS_II_puzzle_piece_sphere_TEXT.mat using Guid(0ad5a2d4b5780274699ac5a242050157) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6799b17198c406b736be9f4c42d06be') in 0.107912 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_box_1_LID_TEXT.mat
+  artifactKey: Guid(8faba4a7fc6244a4f84b7f3b0dc9e138) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_box_1_LID_TEXT.mat using Guid(8faba4a7fc6244a4f84b7f3b0dc9e138) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e886b03e763619e766e398ca8c7ada4c') in 0.111516 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/Melter_entr_door_SCREEN_left_TEXT.mat
+  artifactKey: Guid(8c4919897b8387e4596884bf52f2cece) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/Melter_entr_door_SCREEN_left_TEXT.mat using Guid(8c4919897b8387e4596884bf52f2cece) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62c852b8700eebacb4e5891a29c30ce0') in 0.187534 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_siren_1_TEXT.mat
+  artifactKey: Guid(56515a9d533397f44a891d0182c9f0fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Research_siren_1_TEXT.mat using Guid(56515a9d533397f44a891d0182c9f0fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36823ea1f3a83b4d516233b7f4dc848b') in 0.136066 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/OwnStuff/Materials/OctoRoom/OctoGreen.mat
+  artifactKey: Guid(1c9b1a1ace483a04fb004a6e63cc4317) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Materials/OctoRoom/OctoGreen.mat using Guid(1c9b1a1ace483a04fb004a6e63cc4317) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '240c0eb57e1e8de06bd4446415ddd7b6') in 0.039267 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_Kela_13_wireRed_UV.mat
+  artifactKey: Guid(2e1b41942f7204191950f902242e88a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_Kela_13_wireRed_UV.mat using Guid(2e1b41942f7204191950f902242e88a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '516542797858a1da513f2cdc7415f612') in 0.203099 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 8.971255 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Desk_lamp_1_button_TEXT.mat
+  artifactKey: Guid(3d7bbc45a3295054893eea0481b005ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Desk_lamp_1_button_TEXT.mat using Guid(3d7bbc45a3295054893eea0481b005ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '587860fff233e80b65e454b51f5c2498') in 0.309516 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Desk_lamp_1_TEXT.mat
+  artifactKey: Guid(942a47238cd2a434ba2c1fe355afc76f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Desk_lamp_1_TEXT.mat using Guid(942a47238cd2a434ba2c1fe355afc76f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f97258d9f59eb9c72bf3537551249334') in 0.215519 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/OwnStuff/Materials/BonsaiRoom/LampGreen.mat
+  artifactKey: Guid(763b350d7172b4242be0360fd7f0f620) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Materials/BonsaiRoom/LampGreen.mat using Guid(763b350d7172b4242be0360fd7f0f620) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93992d241024f9bef8bf43dae98b9eda') in 0.170104 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000054 seconds.
+  path: Assets/OwnStuff/Materials/BonsaiRoom/LampYellow.mat
+  artifactKey: Guid(e6c3c0db9e59c624ba737b6487d8c91f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Materials/BonsaiRoom/LampYellow.mat using Guid(e6c3c0db9e59c624ba737b6487d8c91f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b20bd0b725f5ca7a13466d55a8176f1') in 0.071622 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_storage lamps_text.mat
+  artifactKey: Guid(f1846429ba8174c57ac3ea89ac80f00b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_storage lamps_text.mat using Guid(f1846429ba8174c57ac3ea89ac80f00b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7d12cc032fe22d506e32be8397663f9') in 0.134737 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_lamp_text.mat
+  artifactKey: Guid(9128206d9f74440c291031f05d132c26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_lamp_text.mat using Guid(9128206d9f74440c291031f05d132c26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd584be0204fc64456df9866a5903952f') in 0.154364 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 556.405866 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Button_table_1.5_b2_TEXT.mat
+  artifactKey: Guid(c640bbaa6f6b62744b85b4cf043d0bc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Button_table_1.5_b2_TEXT.mat using Guid(c640bbaa6f6b62744b85b4cf043d0bc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fc548eb5be97f45c4dd246fee4568b1') in 0.128378 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Button_table_1.5_b3_TEXT.mat
+  artifactKey: Guid(1fc36e89f3b29c04c89f3cef0c27f987) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Button_table_1.5_b3_TEXT.mat using Guid(1fc36e89f3b29c04c89f3cef0c27f987) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e744f522c3b145ca86fc2142cbdaa003') in 0.148651 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Button_table_1.5_phone_TEXT.mat
+  artifactKey: Guid(6d9beeb62dcbfb54cb94b9e345445414) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Button_table_1.5_phone_TEXT.mat using Guid(6d9beeb62dcbfb54cb94b9e345445414) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6366215f7b844e68694870b13c0983d') in 0.299397 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 796.819292 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_handrails.fbx
+  artifactKey: Guid(de150ce79f4ff44898d779908df0561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_handrails.fbx using Guid(de150ce79f4ff44898d779908df0561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60815b3b5a5061234ee6430a5fdf305c') in 0.353039 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/ELEVATOR2.0.fbx
+  artifactKey: Guid(93d68b01fa029204e86164af13f9af64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/ELEVATOR2.0.fbx using Guid(93d68b01fa029204e86164af13f9af64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57c852df5e43bb375646f2f039258af4') in 0.190020 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/Base_FacilityPrefabs/Computer_1.3_SeparateKeys.fbx
+  artifactKey: Guid(f187c96f26165ae4ab3670f193bbe0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/Base_FacilityPrefabs/Computer_1.3_SeparateKeys.fbx using Guid(f187c96f26165ae4ab3670f193bbe0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '052abd529f82e0334d6e601f23c48767') in 1.867862 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_Stairs.fbx
+  artifactKey: Guid(eaaf2f187418f4d1d9eab9cd264ba7d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_Stairs.fbx using Guid(eaaf2f187418f4d1d9eab9cd264ba7d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0394bec0269ae260ac3220bb31564882') in 0.071890 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/Desk_lamp_1.3.fbx
+  artifactKey: Guid(8cd1a0683cd93c44183e3a91683001b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/Desk_lamp_1.3.fbx using Guid(8cd1a0683cd93c44183e3a91683001b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef3c8324600cc8110cd5909a4d177723') in 0.121974 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/Base_FacilityPrefabs/BF_Corridor_2.14_ENtrance_piece.fbx
+  artifactKey: Guid(07b4ffd27b144aa4fb61fef96d70ce52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/Base_FacilityPrefabs/BF_Corridor_2.14_ENtrance_piece.fbx using Guid(07b4ffd27b144aa4fb61fef96d70ce52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db62b30fc7ddb22fa70e0c20b9cf999c') in 0.091093 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_GatePower.fbx
+  artifactKey: Guid(8f56f56afa69648d4977222e5e3ac32a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_GatePower.fbx using Guid(8f56f56afa69648d4977222e5e3ac32a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3c80949168ee9f27677e205fd4eb3947') in 0.088057 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000093 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_gate.fbx
+  artifactKey: Guid(c67cf44d275b91a4086378c61634aeaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/OctoRoom_2020/Octo_room_2.26_gate.fbx using Guid(c67cf44d275b91a4086378c61634aeaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '967d405ba1bda5bb51a4563d7a8802df') in 0.275718 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/Octo_room_2.8_demo.fbx
+  artifactKey: Guid(98ff4abf321a1a3438ff93d5a9672c0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/OctoRoom_Prefabs/Octo_room_2.8_demo.fbx using Guid(98ff4abf321a1a3438ff93d5a9672c0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d09b006d6cbd31755639b8c8d2d0a38') in 0.902434 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 74.158292 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Computer_13_SeparateKeys_SCREEN_text.mat
+  artifactKey: Guid(de05184b782c3ee40b932ffb86cee47a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Computer_13_SeparateKeys_SCREEN_text.mat using Guid(de05184b782c3ee40b932ffb86cee47a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28404bf3e191c1ccb5d9dbfe4f75db5a') in 0.225034 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Computer_13_SeparateKeys_SCREENGLASS_text.mat
+  artifactKey: Guid(a15efcb1477aa2b488c5731ef2a10310) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Computer_13_SeparateKeys_SCREENGLASS_text.mat using Guid(a15efcb1477aa2b488c5731ef2a10310) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff29a166f4de8067934582cf61ee1183') in 0.179073 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/SmallTree_text.mat
+  artifactKey: Guid(543ae81b4f3834f3bbca2d78511ca687) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/SmallTree_text.mat using Guid(543ae81b4f3834f3bbca2d78511ca687) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24926349b0351213f82bf83ae3ecf857') in 0.235154 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/SmallTree3_text.mat
+  artifactKey: Guid(f20e5fcb3332f49b59cf818384749ba2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/SmallTree3_text.mat using Guid(f20e5fcb3332f49b59cf818384749ba2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f3deaa917c9423d4e6d9161255dbef6') in 0.072206 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/SmallTree_Soil_text.mat
+  artifactKey: Guid(2725499ca350b40aeb83946306716a30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/SmallTree_Soil_text.mat using Guid(2725499ca350b40aeb83946306716a30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f678546223e3661acc3b1021b793cfc') in 0.184030 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 478.883953 seconds.
+  path: Assets/Underwater Shaders/Examples/Materials/Ocean Water Particles.mat
+  artifactKey: Guid(8f3ae266ecdb56149b0325fb3329f08a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Underwater Shaders/Examples/Materials/Ocean Water Particles.mat using Guid(8f3ae266ecdb56149b0325fb3329f08a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cd6b4275fe28ab3f755bf7749011917') in 0.205121 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/FastNoise_CSharp-master/ParticleMaterial.mat
+  artifactKey: Guid(24bd05c3d1e18714eb70190d2cea16ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/FastNoise_CSharp-master/ParticleMaterial.mat using Guid(24bd05c3d1e18714eb70190d2cea16ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '421611d33d4461ba19dfa259b56245dd') in 0.083259 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 645.735452 seconds.
+  path: Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Bangers SDF Glow.mat
+  artifactKey: Guid(d75b8f41e959450c84ac6e967084d3e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Bangers SDF Glow.mat using Guid(d75b8f41e959450c84ac6e967084d3e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '344250194e7f457d32f762420c3e024f') in 0.779201 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_wall_back_TEXT.mat
+  artifactKey: Guid(fd9f5fdf7997a47f4a34af677d6112a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_wall_back_TEXT.mat using Guid(fd9f5fdf7997a47f4a34af677d6112a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f3102e9152a369d78a79126675aeec3') in 0.123116 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/UMotionEditor/InternalResources/Materials/BoneWireMaterial.mat
+  artifactKey: Guid(cfbc1140f1b12a7499429eadf5eab7b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UMotionEditor/InternalResources/Materials/BoneWireMaterial.mat using Guid(cfbc1140f1b12a7499429eadf5eab7b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a2e8cc840e443d3b974e79a29dee8ad') in 0.135166 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_floor_lower_TEXT.mat
+  artifactKey: Guid(66a2c4deafc6948ac9b7f5d14eda0300) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_floor_lower_TEXT.mat using Guid(66a2c4deafc6948ac9b7f5d14eda0300) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfd455a499e02b63899566f465d338ec') in 0.227731 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/ButterflyTEST_Wings_Text.mat
+  artifactKey: Guid(1d2c7ff16a4298248b09046aa8c6f55a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/ButterflyTEST_Wings_Text.mat using Guid(1d2c7ff16a4298248b09046aa8c6f55a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6cc300d55baafa00014d3967cd4d500') in 0.174532 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/BF Corridor/Materials/BF_Corridor_1.2_walls_TEXT.mat
+  artifactKey: Guid(beeb0573922aa410ea4c39bd2188391a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/BF Corridor/Materials/BF_Corridor_1.2_walls_TEXT.mat using Guid(beeb0573922aa410ea4c39bd2188391a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '918026e1d0ab3eef2135682b095e5cdb') in 0.151009 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/DOWN_text.mat
+  artifactKey: Guid(9106f45828c93d149a333601644104e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/DOWN_text.mat using Guid(9106f45828c93d149a333601644104e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4725d004b922131f722cfa371be46f69') in 0.174609 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.667148 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/ME_valomatto_TEXT.mat
+  artifactKey: Guid(5a8c6773ab4214fd69953140fd546f84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Melter entrance textures/Materials/ME_valomatto_TEXT.mat using Guid(5a8c6773ab4214fd69953140fd546f84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92149621a2f4d05db03b0aadd2ce677d') in 0.251984 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/NP_KAUTTAVIIVA_text.mat
+  artifactKey: Guid(7ac3f96e20c27e14e86182913780b765) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/NP_KAUTTAVIIVA_text.mat using Guid(7ac3f96e20c27e14e86182913780b765) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13deccd388804af760dc5af7719276f6') in 0.103846 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/OwnStuff/Materials/Vase1.1.mat
+  artifactKey: Guid(47c9481ea2f5f43ba86417981b2defed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Materials/Vase1.1.mat using Guid(47c9481ea2f5f43ba86417981b2defed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '481239207d1f45cb59287f132a422e00') in 0.139800 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.896317 seconds.
+  path: Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Bangers SDF Logo.mat
+  artifactKey: Guid(f4e195ac1e204eff960149d1cb34e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Bangers SDF Logo.mat using Guid(f4e195ac1e204eff960149d1cb34e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '075530dd37af8b109a5aedf457e05238') in 0.669617 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.198239 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_ceiling panel_TEXT.mat
+  artifactKey: Guid(af12b7eb59bed41bfa191061a241bc88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_ceiling panel_TEXT.mat using Guid(af12b7eb59bed41bfa191061a241bc88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6816fb9f677aeb92f4d827db9f4dbe8') in 0.182843 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/BF Corridor/Materials/BF_Corridor_1.1_Bonsai room_dome_TEXT.mat
+  artifactKey: Guid(1cfc14d6d97014986822ad811667f8c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/BF Corridor/Materials/BF_Corridor_1.1_Bonsai room_dome_TEXT.mat using Guid(1cfc14d6d97014986822ad811667f8c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffe47a3b3666c0a3dcee8779e7583ce5') in 0.143843 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/BF Corridor/Materials/BF_Corridor_1.1_Bonsai room_TEXT.mat
+  artifactKey: Guid(b9f8b9befc43048f5a799c2a4b2b4a14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/BF Corridor/Materials/BF_Corridor_1.1_Bonsai room_TEXT.mat using Guid(b9f8b9befc43048f5a799c2a4b2b4a14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78999b4edc07c639846447b6d1312c86') in 0.165707 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to corridor_door1_TEXT.mat
+  artifactKey: Guid(98fcc8ac9fdb04102985668cbf489da7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to corridor_door1_TEXT.mat using Guid(98fcc8ac9fdb04102985668cbf489da7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14845ef62cff6262c48239aa67fed17b') in 0.347327 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.204955 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to corridor_frame_TEXT.mat
+  artifactKey: Guid(86fccfb79fcea40e39535e2c94c18ded) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to corridor_frame_TEXT.mat using Guid(86fccfb79fcea40e39535e2c94c18ded) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e78386524f4c221e11b3df100b0c1364') in 0.227417 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000054 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_pillars_TEXT.mat
+  artifactKey: Guid(8083f734257644f989d3680ad8241ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_pillars_TEXT.mat using Guid(8083f734257644f989d3680ad8241ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3667f3c62c0ee534a2783529bf143a6') in 0.225407 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_floor_TEXT.mat
+  artifactKey: Guid(2f7260729ed4f42a4b7c0092ae797bc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_floor_TEXT.mat using Guid(2f7260729ed4f42a4b7c0092ae797bc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92fd498037fe944e3102fc90129209a6') in 0.239376 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_Skeleton key_TEXT.mat
+  artifactKey: Guid(1391413f0736f441c9b4c55569c87c01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_Skeleton key_TEXT.mat using Guid(1391413f0736f441c9b4c55569c87c01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfe73f0a48a81a1552100cf35360fcd2') in 0.145859 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to sub_door1_TEXT.mat
+  artifactKey: Guid(6636093bf569f46d18ae54d9d755b646) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to sub_door1_TEXT.mat using Guid(6636093bf569f46d18ae54d9d755b646) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0d662aad38a965f94a0e23b601789b2') in 0.071758 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to sub_frame_TEXT.mat
+  artifactKey: Guid(5ab028a8696ca4dc4bef548ea5f26628) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/BF_door to sub_frame_TEXT.mat using Guid(5ab028a8696ca4dc4bef548ea5f26628) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc34a069880f270a738bb1d9a32dd789') in 0.149058 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_Stones_text.mat
+  artifactKey: Guid(3ffc9f3a3ff8049f7a3361b4e1260f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_Stones_text.mat using Guid(3ffc9f3a3ff8049f7a3361b4e1260f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ec81ebb24b42fe9c486b8cb016ed95d') in 0.324438 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_text.mat
+  artifactKey: Guid(1c49f134604ab496b94a2149ea842344) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_text.mat using Guid(1c49f134604ab496b94a2149ea842344) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b51e11286b75b265146bc553c1d2c07c') in 0.103074 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Materials/Broom_2.0_Bottom_TEXT.mat
+  artifactKey: Guid(46c0729fd4a02604f91956ef8a5dd5db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Materials/Broom_2.0_Bottom_TEXT.mat using Guid(46c0729fd4a02604f91956ef8a5dd5db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38f1ad3868cc07abc618a7a4a48b5304') in 0.172668 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_Holder_text.mat
+  artifactKey: Guid(ecd58912a593d4805a0e05beac2492eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_Holder_text.mat using Guid(ecd58912a593d4805a0e05beac2492eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '079451e1e269b294e8de8411215bc1c7') in 0.152542 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/UMotionEditor/InternalResources/Materials/BoneMaterial.mat
+  artifactKey: Guid(0e664c14e21228443a2dabd67f5bac9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UMotionEditor/InternalResources/Materials/BoneMaterial.mat using Guid(0e664c14e21228443a2dabd67f5bac9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b4f9fb34ad075975de1e55ea595c6df') in 0.130395 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_Soil_text.mat
+  artifactKey: Guid(a0602b89e15fd4caaaf7d3b632c097d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Bonsai_Soil_text.mat using Guid(a0602b89e15fd4caaaf7d3b632c097d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6feaef15e659944da721cb12e169044') in 0.148649 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 564.315928 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/WL_puzzletabla_buttonFrame_text.mat
+  artifactKey: Guid(1f91ea33a122fe34fa0c1c5529592351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/WL_puzzletabla_buttonFrame_text.mat using Guid(1f91ea33a122fe34fa0c1c5529592351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a67df63330b24050c8f59084cedb29d9') in 0.156528 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/WL_puzzletabla_frame_text.mat
+  artifactKey: Guid(50d0624fedc11b14998dfc11facbc1b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/WL_puzzletabla_frame_text.mat using Guid(50d0624fedc11b14998dfc11facbc1b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc6845f8c595bd622862f05985895453') in 0.147807 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Computer_13_SeparateKeys_MAINUNIT_text.mat
+  artifactKey: Guid(7c39ccdf87cf7224f8d93fb2640b38af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Computer_13_SeparateKeys_MAINUNIT_text.mat using Guid(7c39ccdf87cf7224f8d93fb2640b38af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4addabe41a62f8260b4efea5e290aa0f') in 0.128015 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 21.083430 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_väliseinä_text.mat
+  artifactKey: Guid(5815f80a02b80480db4498ec2f0ed906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_väliseinä_text.mat using Guid(5815f80a02b80480db4498ec2f0ed906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '649cf2830f035c8ac41ed8656168b963') in 0.143068 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Underwater Shaders/Examples/Materials/Ocean Plant.mat
+  artifactKey: Guid(05912db5402ee2d4698c09e7fd4b5290) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Underwater Shaders/Examples/Materials/Ocean Plant.mat using Guid(05912db5402ee2d4698c09e7fd4b5290) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23188d6213d5a38f6413a207478e2307') in 0.700835 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Octo_radio_1.7_viisari_TEXT.mat
+  artifactKey: Guid(11aca24cfac8d0741869281033b08c66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/Materials/Octo_radio_1.7_viisari_TEXT.mat using Guid(11aca24cfac8d0741869281033b08c66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e511b66c08ba861b6c96a9a168f561df') in 0.057679 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_floor_up_text.mat
+  artifactKey: Guid(d1c56714834b24ef883d4b3ff663dec0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_floor_up_text.mat using Guid(d1c56714834b24ef883d4b3ff663dec0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a3888c430011d551e0ff3b9f0215b36') in 0.108934 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_2.27_corner_terminal_text.mat
+  artifactKey: Guid(9d4a8c9e69b48449da59174c622383d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_2.27_corner_terminal_text.mat using Guid(9d4a8c9e69b48449da59174c622383d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab66e07a10f60f46a2dfa220a3099a03') in 0.197325 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Underwater Shaders/Examples/Materials/Ocean Boat.mat
+  artifactKey: Guid(a43ed0f247f43c444879bf500b631b9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Underwater Shaders/Examples/Materials/Ocean Boat.mat using Guid(a43ed0f247f43c444879bf500b631b9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '685933700e7b83443b84b3287bd2cfcd') in 0.293382 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_WRF_text.mat
+  artifactKey: Guid(1642d6323c450442080b8a88d983da5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_WRF_text.mat using Guid(1642d6323c450442080b8a88d983da5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '114abe34fa054be79f787ab4c8898d41') in 0.083235 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Underwater Shaders/Examples/Materials/Ocean Fish.mat
+  artifactKey: Guid(c64a6b9c75a15834c8c286ad8446f361) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Underwater Shaders/Examples/Materials/Ocean Fish.mat using Guid(c64a6b9c75a15834c8c286ad8446f361) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1093cfe161149eefa0748fddaeff86c0') in 0.133430 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_flowernest1_text.mat
+  artifactKey: Guid(fa5ec5c9867464c3a86b33a6c239b5fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_flowernest1_text.mat using Guid(fa5ec5c9867464c3a86b33a6c239b5fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '254c5a28961bd923b71a3a7bf2c75391') in 0.126361 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 452.971447 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Materials/Juhani_HEADSET_TEXT.mat
+  artifactKey: Guid(4f4a9896d33170f4aacf8d65c7320d61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Materials/Juhani_HEADSET_TEXT.mat using Guid(4f4a9896d33170f4aacf8d65c7320d61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66b6620a799a3ea3d877d26775116644') in 0.083991 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3190.499855 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/ComputerKeyboardFrame_13_text.mat
+  artifactKey: Guid(3ef6993c0b780714e8d6ae2cefc8215e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/ComputerKeyboardFrame_13_text.mat using Guid(3ef6993c0b780714e8d6ae2cefc8215e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '278e2062bcda0c046f4032770f875012') in 0.339837 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_terminal_NoKey_text.mat
+  artifactKey: Guid(de85469bfc28c478e957270524e44cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoCorridor/Materials/OC_terminal_NoKey_text.mat using Guid(de85469bfc28c478e957270524e44cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d7580c5aeddf092cae222e72ab6b957') in 0.270827 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1403.231236 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Metal crate_TEXT.mat
+  artifactKey: Guid(26eeae329e5af4a99b18f5f44074a0e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Metal crate_TEXT.mat using Guid(26eeae329e5af4a99b18f5f44074a0e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'add5a261c89d8adbec0fcc3be7d40daa') in 0.347985 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/TextMesh Pro/Examples & Extras/Materials/Small Crate_diffuse.mat
+  artifactKey: Guid(22262639920f43d6be32430e4e58350d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro/Examples & Extras/Materials/Small Crate_diffuse.mat using Guid(22262639920f43d6be32430e4e58350d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c505de03916eb18e3787f1b4395e785d') in 0.585416 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 20.331031 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Console_Frame_TEXT.mat
+  artifactKey: Guid(817f851101504a14f86db7645aecd540) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Bonsai Room_2020syksy/Materials/Console_Frame_TEXT.mat using Guid(817f851101504a14f86db7645aecd540) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea2253eadd9e8a5fa597d33f53f5d4fe') in 0.643425 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/OwnStuff/Materials/CubeMaterialTaneli.mat
+  artifactKey: Guid(ebc5fc7aa788cae46a9b61efaffc329d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Materials/CubeMaterialTaneli.mat using Guid(ebc5fc7aa788cae46a9b61efaffc329d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '19cc9292ba9ae053cafa0d5d569785b4') in 0.139438 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000072 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Corridor_entr_door2_TEXT.mat
+  artifactKey: Guid(c4a80cdbe8224704593ad3cb56c7e633) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Corridor_entr_door2_TEXT.mat using Guid(c4a80cdbe8224704593ad3cb56c7e633) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b04d2729a3c7686db36192d9ae2b358') in 0.278368 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/D_text.mat
+  artifactKey: Guid(a88fe9d6544b4fd44b9bd55be07962f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Base Facility/Materials/Materials/D_text.mat using Guid(a88fe9d6544b4fd44b9bd55be07962f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f211b40603bbcba863b36f3938e301c') in 0.263055 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/UMotionEditor/InternalResources/Materials/DashedLineMaterial.mat
+  artifactKey: Guid(07698b24c9a94f44d8b5edcfbb4a5f52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UMotionEditor/InternalResources/Materials/DashedLineMaterial.mat using Guid(07698b24c9a94f44d8b5edcfbb4a5f52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6294f12f9824644b5c9c94b9d405951c') in 0.179878 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/UMotionExamples/Miscellaneous/Materials/CubeMaterial.mat
+  artifactKey: Guid(23bfad94c9596aa4f92dd2c36981dafe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UMotionExamples/Miscellaneous/Materials/CubeMaterial.mat using Guid(23bfad94c9596aa4f92dd2c36981dafe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88883213e2fe0662e9520ea37d0978c1') in 0.157625 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_WALLS_Broken_pipes_TEXT.mat
+  artifactKey: Guid(2482bcd3d570b184cbbd4fd576fe001e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_WALLS_Broken_pipes_TEXT.mat using Guid(2482bcd3d570b184cbbd4fd576fe001e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72e481f7bafd4afa975dcdb885a92181') in 0.472822 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Materials/MS_II_puzzle_piece_sylinteri_TEXT.mat
+  artifactKey: Guid(06d50f1042d477543a1a7ecff50198bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Materials/MS_II_puzzle_piece_sylinteri_TEXT.mat using Guid(06d50f1042d477543a1a7ecff50198bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2316437b7d15a2f77e3d66de97d6f458') in 0.191871 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_wooden box_TEXT.mat
+  artifactKey: Guid(3a75912af8dc9464b9bbdeb119ad91b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_wooden box_TEXT.mat using Guid(3a75912af8dc9464b9bbdeb119ad91b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26b68f5c444b08ab5176f948708f508d') in 0.260181 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Walls_TEXT.mat
+  artifactKey: Guid(a6c12b7578e1c482c99451555c13e530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Walls_TEXT.mat using Guid(a6c12b7578e1c482c99451555c13e530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f091c1a3b66fe5bcd936048761bd94db') in 0.366326 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_ladder_TEXT.mat
+  artifactKey: Guid(d25f3f0a081774f12823df9ef8a961c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_ladder_TEXT.mat using Guid(d25f3f0a081774f12823df9ef8a961c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e64d830c285500006cdafd90d6b95a7a') in 0.162081 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/OwnStuff/GraphicalPrefabs/BonsaiRoom_Prefabs/Bonsai_2020syksy/BR_2.27.2_out.fbx
+  artifactKey: Guid(715d02bc4cf604a86b6d3c520c8bc875) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/GraphicalPrefabs/BonsaiRoom_Prefabs/Bonsai_2020syksy/BR_2.27.2_out.fbx using Guid(715d02bc4cf604a86b6d3c520c8bc875) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f70d0eb011618c48235b0a65807685d') in 2.529147 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 113.132179 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Janitors Lodge/Materials/JL_door 2 MS_TEXT.mat
+  artifactKey: Guid(68bd1c6c6ebde4ed2ab6746bf98b5b23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Janitors Lodge/Materials/JL_door 2 MS_TEXT.mat using Guid(68bd1c6c6ebde4ed2ab6746bf98b5b23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b8989dc3aaade134b2c6f656741aac3') in 0.595217 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_PIPES_TEXT.mat
+  artifactKey: Guid(3da9dbb2a62b247218a1bef61ffe9ec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_PIPES_TEXT.mat using Guid(3da9dbb2a62b247218a1bef61ffe9ec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac07a0615283aefe55dc8e4084150b61') in 0.470359 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000738 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_4.1_Floor_TEXT.mat
+  artifactKey: Guid(7b018c6d0a20e3542820ed3fb352a748) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_4.1_Floor_TEXT.mat using Guid(7b018c6d0a20e3542820ed3fb352a748) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1a1e87b6167ba38e1bb81bb08f9256c') in 0.302799 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Ceiling_TEXT.mat
+  artifactKey: Guid(c23dc076965ec4e89be2c06c91411321) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Ceiling_TEXT.mat using Guid(c23dc076965ec4e89be2c06c91411321) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7e4bdcc286e5473efcea84762301ccd') in 0.325265 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Columns_TEXT.mat
+  artifactKey: Guid(f40a85cc3e150427983091ed305121bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Columns_TEXT.mat using Guid(f40a85cc3e150427983091ed305121bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e510a68358d7a70af207a08f8ec563e') in 0.159408 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000088 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_4.1_Gate_TEXT.mat
+  artifactKey: Guid(e8a7fae8bc854724b94cb7a11bb68ae7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 1/Materials/MS_4.1_Gate_TEXT.mat using Guid(e8a7fae8bc854724b94cb7a11bb68ae7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd6c09ce8ba30ed01ba30ec80e7aeb96') in 0.323405 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Puzzle tabla_DEMO_TEXT.mat
+  artifactKey: Guid(9ccb993722396c648965b46ddb6307ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Maintenance shaft 2/Materials/MS_II_Puzzle tabla_DEMO_TEXT.mat using Guid(9ccb993722396c648965b46ddb6307ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a21666f2ee42458d26c0de28c59c67f1') in 0.285427 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000061 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/Materials/MS_II_puzzle_piece_pyramidi_TEXT.mat
+  artifactKey: Guid(924f9cf0c8e295c41a90f27aec82a628) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/Materials/MS_II_puzzle_piece_pyramidi_TEXT.mat using Guid(924f9cf0c8e295c41a90f27aec82a628) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0476820a8847aae8df3f1425868d87c') in 0.268222 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 217.973518 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_Gatepole2_text.mat
+  artifactKey: Guid(3db7f3d2bc3f5410288e8ebc9278b676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_Gatepole2_text.mat using Guid(3db7f3d2bc3f5410288e8ebc9278b676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11cdaac7188eb7f1c8e72b4056322a93') in 0.478715 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_Gatepole4_text.mat
+  artifactKey: Guid(656dcce04bbe647a68b6945f1fdc3ec2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_Gatepole4_text.mat using Guid(656dcce04bbe647a68b6945f1fdc3ec2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '173f82408ec7b1995a8fba88f3513838') in 0.486771 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_GatePOWER_text.mat
+  artifactKey: Guid(49e14c4670cea4e069fb206e49d2b4eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_GatePOWER_text.mat using Guid(49e14c4670cea4e069fb206e49d2b4eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '410cb46d5e489aed988a215fe9faed5d') in 0.332706 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000076 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_loungefloor_text.mat
+  artifactKey: Guid(c3ed834b0191149eea51a8aaf4d73309) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_loungefloor_text.mat using Guid(c3ed834b0191149eea51a8aaf4d73309) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffe5b8256343f327aa2a57e4d9b55c23') in 0.473220 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_Gatepole3_text.mat
+  artifactKey: Guid(281d8a11405b844e991724310e90b742) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Textures(NOTMANY)/OctoRoom/OctoRoom_2020/Materials/Octo_room_Gatepole3_text.mat using Guid(281d8a11405b844e991724310e90b742) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf2ba083387d8825a79a3c94f9e78699') in 0.349711 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.014736 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 2.28 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.761 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2766ms)
+		BeginReloadAssembly (1196ms)
+			ExecutionOrderSort (1ms)
+			DisableScriptedObjects (376ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (1ms)
+			CreateAndSetChildDomain (330ms)
+		EndReloadAssembly (1331ms)
+			LoadAssemblies (341ms)
+			RebuildTransferFunctionScriptingTraits (1ms)
+			SetupTypeCache (364ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (100ms)
+			SetupLoadedEditorAssemblies (573ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (32ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (6ms)
+				BeforeProcessingInitializeOnLoad (171ms)
+				ProcessInitializeOnLoadAttributes (285ms)
+				ProcessInitializeOnLoadMethodAttributes (37ms)
+				AfterProcessingInitializeOnLoad (39ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (13ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 3.02 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2333 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.9 MB). Loaded Objects now: 2958.
+Memory consumption went from 122.2 MB to 120.3 MB.
+Total: 288.143800 ms (FindLiveObjects: 0.270000 ms CreateObjectMapping: 0.176900 ms MarkObjects: 287.066800 ms  DeleteObjects: 0.628900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.016427 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.51 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.295 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1296ms)
+		BeginReloadAssembly (256ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (47ms)
+		EndReloadAssembly (876ms)
+			LoadAssemblies (176ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (185ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (72ms)
+			SetupLoadedEditorAssemblies (444ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (17ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (126ms)
+				ProcessInitializeOnLoadAttributes (237ms)
+				ProcessInitializeOnLoadMethodAttributes (30ms)
+				AfterProcessingInitializeOnLoad (30ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.86 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2333 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.9 MB). Loaded Objects now: 2961.
+Memory consumption went from 122.2 MB to 120.4 MB.
+Total: 5.427200 ms (FindLiveObjects: 0.283300 ms CreateObjectMapping: 0.183200 ms MarkObjects: 4.480300 ms  DeleteObjects: 0.479100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.016348 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.34 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.414 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1422ms)
+		BeginReloadAssembly (287ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (7ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (33ms)
+		EndReloadAssembly (991ms)
+			LoadAssemblies (212ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (182ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (82ms)
+			SetupLoadedEditorAssemblies (533ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (18ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (3ms)
+				BeforeProcessingInitializeOnLoad (165ms)
+				ProcessInitializeOnLoadAttributes (267ms)
+				ProcessInitializeOnLoadMethodAttributes (47ms)
+				AfterProcessingInitializeOnLoad (32ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.08 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2333 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.9 MB). Loaded Objects now: 2964.
+Memory consumption went from 122.3 MB to 120.4 MB.
+Total: 4.173900 ms (FindLiveObjects: 0.448600 ms CreateObjectMapping: 0.257500 ms MarkObjects: 3.025100 ms  DeleteObjects: 0.441100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 737.796118 seconds.
+  path: Assets/OwnStuff/Scripts/GeneralScripts/ClimbInteractable.cs
+  artifactKey: Guid(c845713d830f3d749890ee6a30a61320) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OwnStuff/Scripts/GeneralScripts/ClimbInteractable.cs using Guid(c845713d830f3d749890ee6a30a61320) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e576f25b5e7d464ce2f3c5c62b773507') in 0.123058 seconds 

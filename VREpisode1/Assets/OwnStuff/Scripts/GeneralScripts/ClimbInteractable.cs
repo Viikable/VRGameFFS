@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody))]
 public class ClimbInteractable : XRBaseInteractable
 { 
     protected override void OnSelectEntered(SelectEnterEventArgs args)

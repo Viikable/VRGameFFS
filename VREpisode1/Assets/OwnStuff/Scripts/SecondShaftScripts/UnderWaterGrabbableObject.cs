@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+[DisallowMultipleComponent]
 public class UnderWaterGrabbableObject : MonoBehaviour {
     //These objects can be grabbed underwater
  
