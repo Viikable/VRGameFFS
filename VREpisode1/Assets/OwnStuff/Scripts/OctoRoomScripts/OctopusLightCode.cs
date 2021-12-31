@@ -209,19 +209,19 @@ public class OctopusLightCode : MonoBehaviour
         ButtonRed = GameObject.Find("OctoRed").GetComponent<MeshRenderer>().material;
 
         RedLight = transform.Find("RedLight").GetChild(0).GetComponent<Button>();
-        RedButtonMeshMaterial = transform.Find("RedLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        RedButtonMeshMaterial = transform.Find("RedLight").GetChild(0).GetComponentInChildren<MeshRenderer>();
         RedButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         GreenLight = transform.Find("GreenLight").GetChild(0).GetComponent<Button>();
-        GreenButtonMeshMaterial = transform.Find("GreenLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        GreenButtonMeshMaterial = transform.Find("GreenLight").GetChild(0).GetComponentInChildren<MeshRenderer>();
         GreenButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         CyanLight = transform.Find("CyanLight").GetChild(0).GetComponent<Button>();
-        CyanButtonMeshMaterial = transform.Find("CyanLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        CyanButtonMeshMaterial = transform.Find("CyanLight").GetChild(0).GetComponentInChildren<MeshRenderer>();
         CyanButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         YellowLight = transform.Find("YellowLight").GetChild(0).GetComponent<Button>();
-        YellowButtonMeshMaterial = transform.Find("YellowLight").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        YellowButtonMeshMaterial = transform.Find("YellowLight").GetChild(0).GetComponentInChildren<MeshRenderer>();
         YellowButtonMeshMaterial.material.EnableKeyword("_EMISSION");
         OctopusAttention = transform.Find("OctopusAttention").GetChild(0).GetComponent<Button>();
-        OctopusAttentionButtonMeshMaterial = transform.Find("OctopusAttention").GetChild(0).GetChild(1).GetComponent<MeshRenderer>();
+        OctopusAttentionButtonMeshMaterial = transform.Find("OctopusAttention").GetChild(0).GetComponentInChildren<MeshRenderer>();
         OctopusAttentionButtonMeshMaterial.material.EnableKeyword("_EMISSION");
 
         combinationNumber = 0;

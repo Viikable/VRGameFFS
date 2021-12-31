@@ -42,7 +42,7 @@ public class PliersSnapZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Game_Manager.instance.RightGrab.firstInteractableSelected != null && Game_Manager.instance.RightGrab.firstInteractableSelected.Equals(gameObject) && !beingReleased)
+        if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.RightDirectInteractor.firstInteractableSelected.Equals(gameObject) && !beingReleased)
         {
             if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<XRGrabInteractable>().isSelected)
             {
@@ -69,7 +69,7 @@ public class PliersSnapZone : MonoBehaviour
                 Debug.Log("plierbroomcollidersright");
             }
         }
-        else if (Game_Manager.instance.LeftGrab.firstInteractableSelected != null && Game_Manager.instance.LeftGrab.firstInteractableSelected.Equals(gameObject)
+        else if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected.Equals(gameObject)
                 && !beingReleased)
         {
             if (other.CompareTag("JanitorBroom") && !other.GetComponentInParent<XRGrabInteractable>().isSelected)
@@ -100,7 +100,7 @@ public class PliersSnapZone : MonoBehaviour
 
     public void ReleaseBroomRight()
     {
-        if (Game_Manager.instance.RightGrab.firstInteractableSelected != null && Game_Manager.instance.RightGrab.firstInteractableSelected.Equals(gameObject) && !beingReleased)
+        if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.RightDirectInteractor.firstInteractableSelected.Equals(gameObject) && !beingReleased)
         {
             beingReleased = true;
             Debug.Log("released");
@@ -131,7 +131,7 @@ public class PliersSnapZone : MonoBehaviour
 
     public void ReleaseBroomLeft()
     {
-        if (Game_Manager.instance.LeftGrab.firstInteractableSelected != null && Game_Manager.instance.LeftGrab.firstInteractableSelected.Equals(gameObject) && !beingReleased)
+        if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected.Equals(gameObject) && !beingReleased)
         {
             beingReleased = true;
             Debug.Log("releasedleft");

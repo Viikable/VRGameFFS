@@ -20,13 +20,13 @@ public class MagneticFence : MonoBehaviour
         //{
         //    gg = true;
         Debug.Log("collided");
-        if (Game_Manager.instance.LeftGrab.firstInteractableSelected != null)
+        if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null)
         {
-            Game_Manager.instance.LeftGrab.EndManualInteraction();
+            Game_Manager.instance.LeftDirectInteractor.EndManualInteraction();
         }
-        else if (Game_Manager.instance.RightGrab.firstInteractableSelected != null)
+        else if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null)
         {
-            Game_Manager.instance.RightGrab.EndManualInteraction();
+            Game_Manager.instance.RightDirectInteractor.EndManualInteraction();
         }
         if (!Electricity.isPlaying)
         {

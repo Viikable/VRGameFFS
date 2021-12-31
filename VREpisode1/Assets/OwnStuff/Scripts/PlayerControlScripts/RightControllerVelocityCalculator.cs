@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.XR.CoreUtils;
 
 public class RightControllerVelocityCalculator : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public class RightControllerVelocityCalculator : MonoBehaviour
         rightHand = transform;
         previousPosition = transform.position;
         previousRotation = transform.rotation;
-        XRRig rig = FindObjectOfType<XRRig>();
-        rightHandRig = rig.transform.Find("CameraOffset/LeftHand/LeftBaseController");
+        XROrigin rig = FindObjectOfType<XROrigin>();
+        rightHandRig = rig.transform.Find("Camera Offset/LeftHand/LeftBaseController");
     }
 
     // Update is called once per frame

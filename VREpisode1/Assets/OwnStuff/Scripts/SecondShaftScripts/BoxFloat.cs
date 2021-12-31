@@ -150,11 +150,11 @@ public class BoxFloat : MonoBehaviour
         else
         {
             //if we are grabbing the box it needs more force to rise up again
-            if (Game_Manager.instance.RightGrab.firstInteractableSelected != null && Game_Manager.instance.RightGrab.firstInteractableSelected.Equals(gameObject))
+            if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.RightDirectInteractor.firstInteractableSelected.Equals(gameObject))
             {
                 boxBody.AddForce(new Vector3(0f, 1f, 0) * 3.75f, ForceMode.Acceleration);
             }
-            else if (Game_Manager.instance.LeftGrab.firstInteractableSelected != null && Game_Manager.instance.LeftGrab.firstInteractableSelected.Equals(gameObject))
+            else if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected.Equals(gameObject))
             {
                 boxBody.AddForce(new Vector3(0f, 1f, 0) * 3.75f, ForceMode.Acceleration);
             }

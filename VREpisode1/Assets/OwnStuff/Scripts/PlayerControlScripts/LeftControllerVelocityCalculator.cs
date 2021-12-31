@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.XR.CoreUtils;
 
 public class LeftControllerVelocityCalculator : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class LeftControllerVelocityCalculator : MonoBehaviour
     Quaternion previousRotation;
     public Vector3 linearVelocity { get; private set; }
     public Vector3 angularVelocity { get; private set; }
-
+    
     Vector3 axis;
 
     float angle;
@@ -23,8 +24,8 @@ public class LeftControllerVelocityCalculator : MonoBehaviour
         leftHand = transform;
         previousPosition = transform.position;
         previousRotation = transform.rotation;
-        XRRig rig = FindObjectOfType<XRRig>();
-        leftHandRig = rig.transform.Find("CameraOffset/LeftHand/LeftBaseController");
+        XROrigin rig = FindObjectOfType<XROrigin>();
+        leftHandRig = rig.transform.Find("Camera Offset/LeftHand/LeftBaseController");
     }
 
     // Update is called once per frame

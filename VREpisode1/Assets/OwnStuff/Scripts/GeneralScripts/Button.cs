@@ -34,7 +34,18 @@ public class Button : XRBaseInteractable
         base.Awake();       
         hoverEntered.AddListener(StartPress);
         hoverExited.AddListener(EndPress);
-        buttonCol = GetComponent<Collider>();
+        if (GetComponent<Collider>() != null)
+        {
+            buttonCol = GetComponent<Collider>();
+        }
+        else if (GetComponentInChildren<Collider>() != null)
+        {
+            buttonCol = GetComponentInChildren<Collider>();
+        }
+        else
+        {
+            buttonCol = transform.GetChild(0).GetComponentInChildren<Collider>();
+        }
         isAtStartPosition = true;
         foreach (Collider col in ignoredCollisions)
         {

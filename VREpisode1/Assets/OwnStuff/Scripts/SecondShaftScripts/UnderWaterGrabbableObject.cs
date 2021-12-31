@@ -24,7 +24,7 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
     {
         damagedByWater = false;
         DamagedSound = GetComponentInChildren<AudioSource>();      
-        GrabbableWater = GameObject.Find("Water/GrabbableWater");
+        GrabbableWater = GameObject.Find("SHAFTS/Water/GrabbableWater");
         lefthandPartsTouchingWaterObject = 0;
         righthandPartsTouchingWaterObject = 0;
         waterGrabbingNotAllowed = false;
@@ -87,11 +87,11 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
         }
         if (waterGrabbingNotAllowed)
         {
-            GrabbableWater.GetComponent<XRGrabInteractable>().enabled = false;
+            GrabbableWater.GetComponent<ClimbInteractable>().enabled = false;
         }
         else
         {
-            GrabbableWater.GetComponent<XRGrabInteractable>().enabled = true;
+            GrabbableWater.GetComponent<ClimbInteractable>().enabled = true;
         }
         //allows both if no hands are near objects, otherwise only one of the hands
         if (lefthandPartsTouchingWaterObject == 0 && righthandPartsTouchingWaterObject == 0)

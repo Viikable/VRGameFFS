@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ToxicGasPush : MonoBehaviour {
     bool beingPushed;
     bool notEnded;
-    public Rigidbody pushedObject;
+    Rigidbody pushedObject;
     public GameObject CameraRig;
     public static Rigidbody PlayerBody;
 
@@ -46,14 +46,14 @@ public class ToxicGasPush : MonoBehaviour {
         if (beingPushed && pushedObject != null)
         {
             Debug.Log("pushed");
-            if (pushedObject == PlayerBody && (Game_Manager.instance.LeftGrab.firstInteractableSelected != null || Game_Manager.instance.RightGrab.firstInteractableSelected != null))
+            if (pushedObject == PlayerBody && (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null || Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null))
             {
-                Game_Manager.instance.LeftGrab.EndManualInteraction();
-                Game_Manager.instance.RightGrab.EndManualInteraction();
+                Game_Manager.instance.LeftDirectInteractor.EndManualInteraction();
+                Game_Manager.instance.RightDirectInteractor.EndManualInteraction();
             }
             if (pushedObject.mass == 100)
             {
-            pushedObject.AddForce(new Vector3(0f, 0f, -200f), ForceMode.Impulse);
+                pushedObject.AddForce(new Vector3(0f, 0f, -200f), ForceMode.Impulse);
             }
             else
             {
