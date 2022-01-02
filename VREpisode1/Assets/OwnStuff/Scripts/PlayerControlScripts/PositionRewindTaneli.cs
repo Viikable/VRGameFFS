@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR;
 using UnityEngine.XR.OpenXR;
+using Unity.XR.CoreUtils;
 
 public class PositionRewindTaneli : MonoBehaviour
 {
     //rewinds player rig to last non-colliding position                                                                 //Taneli Nyyssönen
 
     //public ActionBasedController left;     
-    public XRRig xrRig;
+    public XROrigin xrRig;
     public GameObject Headset;
     [Tooltip("How far to push")]
     public float pushBackDistance = 0.25f;

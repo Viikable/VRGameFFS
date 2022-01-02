@@ -16,8 +16,9 @@ public class Button : XRBaseInteractable
     //determines if button reaches press point, gotta add the stay pressed here later for door usage maybe
     public bool isPressedDown { get; private set; }
     public bool isAtStartPosition { get; private set; }
-    public bool stayPressed { get; set; }
+    public bool stayPressed;
     Collider buttonCol;
+    bool stopHoverInteracting;
 
     [Tooltip("Default is half of the collider length, increase up to total of collider length")]
     [Range(0.0f, 0.5f)]
@@ -78,11 +79,14 @@ public class Button : XRBaseInteractable
             SetYPosition(yMax);
             isAtStartPosition = true;
             isPressedDown = false;
+            Debug.Log("Button " + name + " lifted up");
         }
         //think about this
         else
         {
             hoverInteractor = null;
+            SetYPosition(yMin);
+            stopHoverInteracting = true;
         }
     }
 
@@ -99,7 +103,7 @@ public class Button : XRBaseInteractable
 
     public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
-        if (hoverInteractor)
+        if (hoverInteractor && !stopHoverInteracting)
         {
             float newHandHeight = GetLocalYPosition(hoverInteractor.transform.position);
             float handDifference = previousHandHeight - newHandHeight;
@@ -114,7 +118,7 @@ public class Button : XRBaseInteractable
     //checks world y positions and transfers it to local space
     private float GetLocalYPosition(Vector3 position)
     {
-        Vector3 localPosition = transform.root.InverseTransformPoint(position);      
+        Vector3 localPosition = transform.parent.InverseTransformPoint(position);      
         return localPosition.y;
     }
 
@@ -134,6 +138,7 @@ public class Button : XRBaseInteractable
             OnPress.Invoke();
             isPressedDown = true;
             isAtStartPosition = false;
+            Debug.Log("Button " + name + " Pressed down");
         }
         previousPress = inPosition;
     }

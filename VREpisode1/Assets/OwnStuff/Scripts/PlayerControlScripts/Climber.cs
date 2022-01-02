@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.InputSystem;
+using Unity.XR.CoreUtils;
 
 public class Climber : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Climber : MonoBehaviour
 
     Vector3 groundingVelocity = Vector3.zero;
     public static bool grounded;
-    XRRig XRrig;
+    XROrigin XRrig;
 
     Vector3 controllerSpeed;
     Vector3 controllerAngularSpeed;
@@ -35,7 +36,7 @@ public class Climber : MonoBehaviour
         rightHandcalc = GameObject.Find("RightControllerVelocityCalculator").GetComponent<RightControllerVelocityCalculator>();
         mover = FindObjectOfType<ActionBasedContinuousMoveProvider>();
         snapper = FindObjectOfType<ActionBasedSnapTurnProvider>();
-        XRrig = FindObjectOfType<XRRig>();
+        XRrig = FindObjectOfType<XROrigin>();
         grounded = true;
         posrew = FindObjectOfType<PositionRewindTaneli>();
     }

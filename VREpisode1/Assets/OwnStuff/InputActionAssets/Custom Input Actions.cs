@@ -265,18 +265,7 @@ public partial class @CustomInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8da6ed3a-f621-49fe-8c76-1f6b7d7754d6"",
-                    ""path"": ""<XRController>{LeftHand}/Primary2DAxis"",
-                    ""interactions"": ""Sector(directions=1)"",
-                    ""processors"": """",
-                    ""groups"": ""Noncontinuous Move"",
-                    ""action"": ""Teleport Mode Activate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b8edee81-6779-4aa8-89cd-29b149a8f55e"",
+                    ""id"": ""3a21b06d-4ab2-4a7c-ae1b-8e8a26bfe285"",
                     ""path"": ""<XRController>{LeftHand}/primaryButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -288,7 +277,7 @@ public partial class @CustomInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b8aebee7-fa03-43d4-bfb7-77a3f87452cc"",
-                    ""path"": ""<XRController>{LeftHand}/gripPressed"",
+                    ""path"": ""<XRController>{RightHand}/gripPressed"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Generic XR Controller"",
@@ -298,19 +287,8 @@ public partial class @CustomInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""95fa1419-ca7b-4c8a-8d15-7d46e58d82e3"",
-                    ""path"": ""<XRController>{LeftHand}/Primary2DAxis"",
-                    ""interactions"": ""Sector(directions=-1,sweepBehavior=3)"",
-                    ""processors"": """",
-                    ""groups"": ""Noncontinuous Move"",
-                    ""action"": ""Teleport Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""14a27f53-867e-4d15-92d9-3e36deb55b1b"",
-                    ""path"": ""<XRController>{LeftHand}/primaryButton"",
+                    ""id"": ""b8edee81-6779-4aa8-89cd-29b149a8f55e"",
+                    ""path"": ""<XRController>{LeftHand}/triggerPressed"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Generic XR Controller"",
@@ -778,22 +756,11 @@ public partial class @CustomInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""919c4a6c-22ed-4083-8e14-f30e91ff59fe"",
-                    ""path"": ""<XRController>{RightHand}/Primary2DAxis"",
-                    ""interactions"": ""Sector(directions=-1,sweepBehavior=3)"",
-                    ""processors"": """",
-                    ""groups"": ""Generic XR Controller"",
-                    ""action"": ""Teleport Select"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""f7e6d19f-8306-47c9-8ca9-d3b6137565dc"",
-                    ""path"": ""<XRController>{RightHand}/primaryButton"",
+                    ""path"": ""<XRController>{RightHand}/triggerPressed"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Generic XR Controller"",
+                    ""groups"": ""Generic XR Controller;Continuous Move"",
                     ""action"": ""Teleport Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
