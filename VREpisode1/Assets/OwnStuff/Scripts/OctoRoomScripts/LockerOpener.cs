@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class LockerOpener : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class LockerOpener : MonoBehaviour
     public bool close;
     bool opened;
     bool closed;
-    protected VRTK_PhysicsPusher Button;
+    protected Button Button;
     //this gameobject will be the parent of the button and it should be placed to a hinge's position in order to cause smooth rotation
     public Transform RotatingJoint;
     [Tooltip("Set this to the desired rotation when the locker is in open position")]
@@ -21,7 +21,7 @@ public class LockerOpener : MonoBehaviour
 
     protected virtual void Start()
     {
-        Button = GetComponentInChildren<VRTK_PhysicsPusher>();
+        Button = GetComponentInChildren<Button>();
         open = false;
         close = false;
         RotatingJoint = gameObject.transform;
@@ -32,7 +32,7 @@ public class LockerOpener : MonoBehaviour
     void FixedUpdate()
     {
         //OPENING
-        if (!opened && closed && Button.AtMaxLimit() && Button.stayPressed)
+        if (!opened && closed && Button.isPressedDown && Button.stayPressed)
         {
             open = true;
             closed = false;
@@ -60,7 +60,7 @@ public class LockerOpener : MonoBehaviour
             }
         }
         //CLOSING
-        if (opened && !closed && Button.AtMaxLimit() && Button.stayPressed)
+        if (opened && !closed && Button.isPressedDown && Button.stayPressed)
         {
             close = true;
             opened = false;

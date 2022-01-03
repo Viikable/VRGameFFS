@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class MagneticFenceUnSnapTrigger : MonoBehaviour {
-    VRTK_SnapDropZone MagneticFenceSnap;
+    XRSocketInteractor MagneticFenceSnap;
 
-    VRTK_PhysicsPusher MarkerReleaseButton;
+    Button MarkerReleaseButton;
 
     GameObject Marker;
 
@@ -15,10 +15,10 @@ public class MagneticFenceUnSnapTrigger : MonoBehaviour {
 
     void Start()
     {
-        MagneticFenceSnap = GetComponent<VRTK_SnapDropZone>();
+        MagneticFenceSnap = GetComponent<XRSocketInteractor>();
         Marker = GameObject.Find("Marker");
 
-        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<VRTK_PhysicsPusher>();
+        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<Button>();
 
         markerCanSnap = true;
     }
@@ -27,7 +27,7 @@ public class MagneticFenceUnSnapTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Marker") && markerCanSnap)
         {
-            MagneticFenceSnap.ForceSnap(Marker);
+            MagneticFenceSnap.StartManualInteraction(Marker.GetComponent<XRGrabInteractable>());
             MarkerReleaseButton.stayPressed = true;  //remember to set this true so the release button gets activated again after releasing marker
         }
     }
@@ -35,11 +35,11 @@ public class MagneticFenceUnSnapTrigger : MonoBehaviour {
     private void Update()
     {
 
-        if (MagneticFenceSnap.GetCurrentSnappedObject() != null && MagneticFenceSnap.GetCurrentSnappedObject() ==
-           Marker && MarkerReleaseButton.AtMaxLimit() && MarkerReleaseButton.stayPressed)
+        if (MagneticFenceSnap.firstInteractableSelected != null && MagneticFenceSnap.firstInteractableSelected.Equals(Marker)
+            && MarkerReleaseButton.isPressedDown && MarkerReleaseButton.stayPressed)
         {
             Game_Manager.instance.beingUnSnapped = true;
-            MagneticFenceSnap.ForceUnsnap();
+            MagneticFenceSnap.EndManualInteraction();
             if (markerCanSnap)
             {
                 markerCanSnap = false;

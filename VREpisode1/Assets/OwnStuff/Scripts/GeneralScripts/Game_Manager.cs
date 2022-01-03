@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
-using VRTK.GrabAttachMechanics;
+using Unity.XR.CoreUtils;
+
 
 public class Game_Manager : MonoBehaviour
 {
@@ -12,10 +13,6 @@ public class Game_Manager : MonoBehaviour
 
     //[Tooltip("an event which takes care of water movement starting")]
     //public UnityEngine.Events.UnityEvent WaterComes;
-
-    public VRTK_ControllerEvents leftController;
-
-    public VRTK_ControllerEvents rightController;
 
     [Header("Booleans")]
 
@@ -91,13 +88,9 @@ public class Game_Manager : MonoBehaviour
 
     public GameObject Noose;
 
-    public GameObject RightController;
+    public GameObject RightBaseController;
 
-    public GameObject LeftController;
-
-    public GameObject RightHand;
-
-    public GameObject LeftHand;
+    public GameObject LeftBaseController;
 
     public GameObject previousLeftGrabbedObject;
 
@@ -110,9 +103,9 @@ public class Game_Manager : MonoBehaviour
 
     public ParticleSystem WaterBubbles;
 
-    public VRTK_InteractGrab RightGrab;
+    public XRDirectInteractor RightDirectInteractor;
 
-    public VRTK_InteractGrab LeftGrab;
+    public XRDirectInteractor LeftDirectInteractor;
 
     public static Game_Manager instance = null;
 
@@ -194,13 +187,13 @@ public class Game_Manager : MonoBehaviour
 
             JuhaniHead = GameObject.Find("JuhaniHead");
 
-            JuhaniHand1 = GameObject.Find("JuhaniHand1");
+            //JuhaniHand1 = GameObject.Find("JuhaniHand1");
 
-            JuhaniHand2 = GameObject.Find("JuhaniHand2");
+            //JuhaniHand2 = GameObject.Find("JuhaniHand2");
 
-            JuhaniLeg1 = GameObject.Find("JuhaniLeg1");
+            //JuhaniLeg1 = GameObject.Find("JuhaniLeg1");
 
-            JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
+            //JuhaniLeg2 = GameObject.Find("JuhaniLeg2");
         }
 
         Noose = GameObject.Find("NOOSE");
@@ -212,104 +205,105 @@ public class Game_Manager : MonoBehaviour
 
         WaterBreakingSound = GetComponent<AudioSource>();
 
-        RightController = GameObject.Find("RightController");
+        XROrigin rig = FindObjectOfType<XROrigin>();
+        Debug.Log(rig.gameObject);
+        
+        RightBaseController = rig.transform.Find("Camera Offset/RightHand/RightBaseController").gameObject;
+        Debug.Log(RightBaseController);
+        LeftBaseController = rig.transform.Find("Camera Offset/LeftHand/LeftBaseController").gameObject;
 
-        LeftController = GameObject.Find("LeftController");
+        RightDirectInteractor = RightBaseController.GetComponent<XRDirectInteractor>();
 
-        RightHand = RightController.transform.GetChild(0).gameObject;
-
-        LeftHand = LeftController.transform.GetChild(0).gameObject;
-
-        RightGrab = RightController.GetComponent<VRTK_InteractGrab>();
-
-        LeftGrab = LeftController.GetComponent<VRTK_InteractGrab>();
+        LeftDirectInteractor = LeftBaseController.GetComponent<XRDirectInteractor>();
 
         notIgnoredYet = true;
 
-        GrabAttachPointLeft = LeftGrab.transform.GetChild(0).GetChild(1).transform;
+        //GrabAttachPointLeft = LeftGrab.transform.GetChild(0).GetChild(1).transform;
 
-        GrabAttachPointRight = RightGrab.transform.GetChild(0).GetChild(1).transform;
+        //GrabAttachPointRight = RightGrab.transform.GetChild(0).GetChild(1).transform;
     }
 
 
     /// <summary>
     /// /ENABLED FUNCTIONALITY OF EVENTS
     /// </summary>
+    /// this all needs to be changed to use input actions
     protected void OnEnable()
     {
-        if (LeftController != null)
-        {
-            leftController.TouchpadPressed += LocomotionOn;
-            leftController.TouchpadReleased += LocomotionOff;
-        }
+        //if (LeftController != null)
+        //{
+        //    leftController.TouchpadPressed += LocomotionOn;
+        //    leftController.TouchpadReleased += LocomotionOff;
+        //}
 
-        if (RightController != null)
-        {
-            rightController.TouchpadPressed += LocomotionOn;
-            rightController.TouchpadReleased += LocomotionOff;
-        }
-        if (LeftGrab != null)
-        {
-            LeftGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingLeft;
-            LeftGrab.ControllerUngrabInteractableObject += RegisterObjectDropLeft;
-        }
-        if (RightGrab != null)
-        {
-            RightGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingRight;
-            RightGrab.ControllerUngrabInteractableObject += RegisterObjectDropRight;
-        }
+        //if (RightController != null)
+        //{
+        //    rightController.TouchpadPressed += LocomotionOn;
+        //    rightController.TouchpadReleased += LocomotionOff;
+        //}
+        //if (LeftGrab != null)
+        //{
+        //    LeftGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingLeft;
+        //    LeftGrab.ControllerUngrabInteractableObject += RegisterObjectDropLeft;
+        //}
+        //if (RightGrab != null)
+        //{
+        //    RightGrab.ControllerGrabInteractableObject += RegisterGrabbedObjectLocalPositionWhenGrabbingRight;
+        //    RightGrab.ControllerUngrabInteractableObject += RegisterObjectDropRight;
+        //}
     }
     //OTHER METHODS THAN GETTERS AND SETTERS OR ANIMATION STARTERS HERE!
     private void FixedUpdate()
     {
-        CheckGrabbedObjects();
+        //CheckGrabbedObjects();
 
-        if (locomotionOn)
-        {
-            //Debug.Log("resettingLocalpos");
-            CheckGrabbedObjectLocalPositionStays();
-        }
+        //if (locomotionOn)
+        //{
+        //    //Debug.Log("resettingLocalpos");
+        //    CheckGrabbedObjectLocalPositionStays();
+        //}
 
-        if (Time.time >= 0.75f && notIgnoredYet)
-        {
-            notIgnoredYet = false;
-            IgnoreObjectCollisionsWithPlayer();
-        }
+        //if (Time.time >= 0.75f && notIgnoredYet)
+        //{
+        //    notIgnoredYet = false;
+        //    IgnoreObjectCollisionsWithPlayer();
+        //}
     }
     private void IgnoreObjectCollisionsWithPlayer()
     {
-        foreach (VRTK_InteractableObject inter in FindObjectsOfType<VRTK_InteractableObject>())
-        {
-            if (inter.GetComponent<Collider>() != null && WaterMovement.feet != null)
-            {
-                Physics.IgnoreCollision(WaterMovement.feet, inter.GetComponent<Collider>());
-                Physics.IgnoreCollision(WaterMovement.body, inter.GetComponent<Collider>());
-                Physics.IgnoreCollision(WaterMovement.head, inter.GetComponent<Collider>());
-            }
-            if (inter.GetComponentsInChildren<Collider>() != null && WaterMovement.feet != null)
-            {
-                foreach (Collider col in inter.GetComponentsInChildren<Collider>())
-                {
-                    Physics.IgnoreCollision(WaterMovement.feet, col);                    //testing reasons
-                    Physics.IgnoreCollision(WaterMovement.body, col);
-                    Physics.IgnoreCollision(WaterMovement.head, col);
-                    //Debug.Log(col.gameObject.name);
-                }
-            }
-        }
+        //foreach (XRGrabInteractable inter in FindObjectsOfType<XRGrabInteractable>())
+        //{
+        //    if (inter.GetComponent<Collider>() != null && WaterMovement.feet != null)
+        //    {
+        //        Physics.IgnoreCollision(WaterMovement.feet, inter.GetComponent<Collider>());
+        //        Physics.IgnoreCollision(WaterMovement.body, inter.GetComponent<Collider>());
+        //        Physics.IgnoreCollision(WaterMovement.head, inter.GetComponent<Collider>());
+        //    }
+        //    if (inter.GetComponentsInChildren<Collider>() != null && WaterMovement.feet != null)
+        //    {
+        //        foreach (Collider col in inter.GetComponentsInChildren<Collider>())
+        //        {
+        //            Physics.IgnoreCollision(WaterMovement.feet, col);                    //testing reasons
+        //            Physics.IgnoreCollision(WaterMovement.body, col);
+        //            Physics.IgnoreCollision(WaterMovement.head, col);
+        //            //Debug.Log(col.gameObject.name);
+        //        }
+        //    }
+        //}
     }
 
     private void WaterIsRising()
     {
         water.WaterRises = true;
     }
+    //this is useless, move the functionality to object based events and call from there methods here or somewhere else
     public void CheckGrabbedObjects()
     {
         //RIGHT HAND GRABBED OBJECTS
-        if (RightGrab.GetGrabbedObject() != null)
+        if (RightDirectInteractor.firstInteractableSelected != null)
         {
-            previousRightGrabbedObject = RightGrab.GetGrabbedObject();
-            if (RightGrab.GetGrabbedObject() == Lantern)
+            previousRightGrabbedObject = RightDirectInteractor.firstInteractableSelected.transform.gameObject;
+            if (RightDirectInteractor.firstInteractableSelected.Equals(Lantern))
             {
                 lanternIsGrabbedFirstTime = true;
                 if (invoked)
@@ -325,9 +319,9 @@ public class Game_Manager : MonoBehaviour
                     ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.SecondShaft;
                 }
             }
-            else if (RightGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
+            else if (RightDirectInteractor.firstInteractableSelected.Equals( JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null))
             {
-                RightGrab.ForceRelease();
+                RightDirectInteractor.EndManualInteraction();
                 ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
@@ -352,7 +346,7 @@ public class Game_Manager : MonoBehaviour
                     Juhanirigidpart.angularDrag = 1.5f;
                 }
             }
-            else if (RightGrab.GetGrabbedObject() == GrabbableWater)
+            else if (RightDirectInteractor.firstInteractableSelected.Equals(GrabbableWater))
             {
                 if (!RightWaterPush.isPlaying)
                 {
@@ -360,58 +354,58 @@ public class Game_Manager : MonoBehaviour
                 }
                 StartCoroutine(WaitForSecondsRealtimeRight());
             }
-            else if (RightGrab.GetGrabbedObject().CompareTag("FloatingObject"))
+            else if (RightDirectInteractor.firstInteractableSelected.transform.gameObject.CompareTag("FloatingObject"))
             {
                 //the floating object goes down but less if other hand was already grabbing it
-                if (previousLeftGrabbedObject != RightGrab.GetGrabbedObject())
+                if (previousLeftGrabbedObject != RightDirectInteractor.firstInteractableSelected.transform.gameObject)
                 {
-                    if (RightGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
+                    if (RightDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>() != null)
                     {
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        RightDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
                     }
-                    else if (RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
+                    else if (RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
                     }
-                    else if (RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
+                    else if (RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
                     }
                 }
                 else
                 {
-                    if (RightGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
+                    if (RightDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>() != null)
                     {
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        RightDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
                     }
-                    else if (RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
+                    else if (RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        RightGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
                     }
-                    else if (RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
+                    else if (RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //RightGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        RightGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //RightGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        RightDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
                     }
                 }
             }
         }
         //LEFT HAND GRABBED OBJECTS
-        if (LeftGrab.GetGrabbedObject() != null)
+        if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject != null)
         {
-            previousLeftGrabbedObject = LeftGrab.GetGrabbedObject();
-            if (LeftGrab.GetGrabbedObject() == Lantern)
+            previousLeftGrabbedObject = LeftDirectInteractor.firstInteractableSelected.transform.gameObject;
+            if (LeftDirectInteractor.firstInteractableSelected.Equals(Lantern))
             {
                 lanternIsGrabbedFirstTime = true;
                 if (invoked)
@@ -427,9 +421,9 @@ public class Game_Manager : MonoBehaviour
                     ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.SecondShaft;
                 }
             }
-            else if (LeftGrab.GetGrabbedObject() == JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null)
+            else if (LeftDirectInteractor.firstInteractableSelected.Equals( JuhaniBody && JuhaniHead.GetComponent<ConfigurableJoint>() != null))
             {
-                LeftGrab.ForceRelease();
+                LeftDirectInteractor.EndManualInteraction();
                 ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.FirstShaft;
                 foreach (ConfigurableJoint juhaniJoin in JuhaniHead.GetComponents<ConfigurableJoint>())
                 {
@@ -454,7 +448,7 @@ public class Game_Manager : MonoBehaviour
                     Juhanirigidpart.angularDrag = 1.5f;
                 }
             }
-            else if (LeftGrab.GetGrabbedObject() == GrabbableWater)
+            else if (LeftDirectInteractor.firstInteractableSelected.Equals( GrabbableWater))
             {
                 if (!LeftWaterPush.isPlaying)
                 {
@@ -462,48 +456,48 @@ public class Game_Manager : MonoBehaviour
                 }
                 StartCoroutine(WaitForSecondsRealtimeLeft());
             }
-            else if (LeftGrab.GetGrabbedObject().CompareTag("FloatingObject"))
+            else if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject.CompareTag("FloatingObject"))
             {
-                if (previousRightGrabbedObject != LeftGrab.GetGrabbedObject())
+                if (previousRightGrabbedObject != LeftDirectInteractor.firstInteractableSelected.transform.gameObject)
                 {
-                    if (LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
+                    if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>() != null)
                     {
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        LeftDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
                     }
-                    else if (LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
+                    else if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
                     }
-                    else if (LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
+                    else if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 3.5f, ForceMode.Impulse);
                     }
                 }
                 else
                 {
-                    if (LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>() != null)
+                    if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>() != null)
                     {
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        LeftDirectInteractor.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
                     }
-                    else if (LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>() != null)
+                    else if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        LeftGrab.GetGrabbedObject().transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
                     }
-                    else if (LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>() != null)
+                    else if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>() != null)
                     {
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-                        //LeftGrab.GetGrabbedObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-                        LeftGrab.GetGrabbedObject().transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                        //LeftGrab.firstInteractableSelected.transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+                        LeftDirectInteractor.firstInteractableSelected.transform.gameObject.transform.parent.parent.GetComponent<Rigidbody>().AddForce(Vector3.down * 1.5f, ForceMode.Impulse);
                     }
                 }
             }
@@ -522,10 +516,10 @@ public class Game_Manager : MonoBehaviour
     }
     IEnumerator ReleaseOrNotRight()
     {
-        if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject() == GrabbableWater)
+        if (RightDirectInteractor.firstInteractableSelected.transform.gameObject != null && RightDirectInteractor.firstInteractableSelected.Equals(GrabbableWater))
         {
             Debug.Log("ReleasedWater");
-            RightGrab.ForceRelease();          
+            RightDirectInteractor.EndManualInteraction();          
             ToxicGasPush.PlayerBody.AddForce(Vector3.down * 7.5f, ForceMode.Impulse);
         }
         else
@@ -536,10 +530,10 @@ public class Game_Manager : MonoBehaviour
     }
     IEnumerator ReleaseOrNotLeft()
     {
-        if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject() == GrabbableWater)
+        if (LeftDirectInteractor.firstInteractableSelected.transform.gameObject != null && LeftDirectInteractor.firstInteractableSelected.Equals(GrabbableWater))
         {
             ToxicGasPush.PlayerBody.AddForce(Vector3.down * 7.5f, ForceMode.Impulse);
-            LeftGrab.ForceRelease();           
+            LeftDirectInteractor.EndManualInteraction();           
         }
         else
         {
@@ -547,72 +541,8 @@ public class Game_Manager : MonoBehaviour
             yield return null;
         }      
     }
-
-    public void CheckGrabbedObjectLocalPositionStays()
-    {
-        if (RightGrab.GetGrabbedObject() != null && RightGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript == RightGrab.GetGrabbedObject().GetComponent<VRTK_ChildOfControllerGrabAttach>())
-        {
-            if (currentGrabbedObjectLocalPosition != GrabAttachPointRight.localPosition)
-            {               
-                GrabAttachPointRight.localPosition = currentGrabbedObjectLocalPosition;
-            }
-        }
-        else if (LeftGrab.GetGrabbedObject() != null && LeftGrab.GetGrabbedObject().GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript == LeftGrab.GetGrabbedObject().GetComponent<VRTK_ChildOfControllerGrabAttach>())
-        {
-            if (currentGrabbedObjectLocalPosition != GrabAttachPointLeft.localPosition)
-            {
-                GrabAttachPointLeft.localPosition = currentGrabbedObjectLocalPosition;
-            }
-        }
-    }
-
     //get grabbed object position
-    protected virtual void RegisterGrabbedObjectLocalPositionWhenGrabbingRight(object sender, ObjectInteractEventArgs e)
-    {
-        if (objectNotGrabbedYetRight)
-        {
-            currentGrabbedObjectLocalPosition = GrabAttachPointRight.localPosition;
-            //Debug.Log(GrabAttachPointRight.localPosition);
-            objectNotGrabbedYetRight = false;
-
-            //currentGrabbedObjectLocalPosition = RightGrab.GetGrabbedObject().transform.
-            //    Find("[VRTK][AUTOGEN][RightController][Original][Controller][AttachPoint]").transform.position;
-        }
-    }
-
-    protected virtual void RegisterGrabbedObjectLocalPositionWhenGrabbingLeft(object sender, ObjectInteractEventArgs e)
-    {
-        if (objectNotGrabbedYetLeft)
-        {
-            currentGrabbedObjectLocalPosition = GrabAttachPointLeft.localPosition;
-            //Debug.Log(GrabAttachPointLeft.localPosition);
-            objectNotGrabbedYetLeft = false;
-
-            //currentGrabbedObjectLocalPosition = LeftGrab.GetGrabbedObject().transform.
-            //    Find("[VRTK][AUTOGEN][LeftController][Original][Controller][AttachPoint]").transform.position;
-        }
-    }
-
-    protected virtual void RegisterObjectDropRight(object sender, ObjectInteractEventArgs e)
-    {
-        objectNotGrabbedYetRight = true;
-    }
-
-    protected virtual void RegisterObjectDropLeft(object sender, ObjectInteractEventArgs e)
-    {
-        objectNotGrabbedYetLeft = true;
-    }
-
-    public void LocomotionOn(object sender, ControllerInteractionEventArgs e)
-    {
-        locomotionOn = true;
-    }
-
-    protected virtual void LocomotionOff(object sender, ControllerInteractionEventArgs e)
-    {
-        locomotionOn = false;
-    }
-
+   
     //GETTERS AND SETTERS PART BELOW HERE!
 
     public int ElevatorMoving

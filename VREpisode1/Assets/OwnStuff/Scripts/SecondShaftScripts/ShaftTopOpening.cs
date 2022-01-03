@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ShaftTopOpening : MonoBehaviour
 {
-    VRTK_SnapDropZone ShaftTopZone;
+    XRSocketInteractor ShaftTopZone;
     Animator TopShaftHatch;
     bool notOpen;
     SkeletonKey SecondShaftKeyCard;
@@ -14,7 +14,7 @@ public class ShaftTopOpening : MonoBehaviour
 
     void Start()
     {
-        ShaftTopZone = GetComponent<VRTK_SnapDropZone>();
+        ShaftTopZone = GetComponent<XRSocketInteractor>();
         TopShaftHatch = GameObject.Find("GateShaftEnd").GetComponent<Animator>();
         notOpen = true;
         SecondShaftKeyCard = GameObject.Find("ShaftKey").GetComponent<SkeletonKey>();
@@ -23,7 +23,7 @@ public class ShaftTopOpening : MonoBehaviour
 
     void Update()
     {
-        if (ShaftTopZone.GetCurrentSnappedObject() != null && notOpen)
+        if (ShaftTopZone.firstInteractableSelected != null && notOpen)
         {
             if (!SecondShaftKeyCard.IsDamagedByWater())
             {

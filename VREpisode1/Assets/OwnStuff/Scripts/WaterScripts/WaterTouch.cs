@@ -32,7 +32,7 @@ public class WaterTouch : MonoBehaviour
             WaterMovement.headIsUnderWater = true;
             //Debug.Log(WaterMovement.timeWhenGotUnderwater);
             dontLightHands = true; //this causes hands to not light up when head goes under water, but it won't prevent them lighting up when inside wall in water etc.
-            WaterMovement.fader.Fade(Color.black, 150f);
+            ////WaterMovement.fader.Fade(Color.black, 150f);
         }
     }
 }

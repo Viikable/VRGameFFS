@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.GrabAttachMechanics;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class BoxFloat : MonoBehaviour
 {
@@ -139,7 +138,9 @@ public class BoxFloat : MonoBehaviour
     {
         GetComponent<Rigidbody>().useGravity = false;
 
-        GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
+        //make climbable here
+
+        //GetComponent<XRGrabInteractable>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
 
         if (!tooDeep)
         {                       
@@ -149,11 +150,11 @@ public class BoxFloat : MonoBehaviour
         else
         {
             //if we are grabbing the box it needs more force to rise up again
-            if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject)
+            if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.RightDirectInteractor.firstInteractableSelected.Equals(gameObject))
             {
                 boxBody.AddForce(new Vector3(0f, 1f, 0) * 3.75f, ForceMode.Acceleration);
             }
-            else if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject)
+            else if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected.Equals(gameObject))
             {
                 boxBody.AddForce(new Vector3(0f, 1f, 0) * 3.75f, ForceMode.Acceleration);
             }

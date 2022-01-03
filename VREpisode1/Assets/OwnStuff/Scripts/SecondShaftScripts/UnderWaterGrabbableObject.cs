@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
+[DisallowMultipleComponent]
 public class UnderWaterGrabbableObject : MonoBehaviour {
     //These objects can be grabbed underwater
  
@@ -23,7 +24,7 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
     {
         damagedByWater = false;
         DamagedSound = GetComponentInChildren<AudioSource>();      
-        GrabbableWater = GameObject.Find("Water/GrabbableWater");
+        GrabbableWater = GameObject.Find("SHAFTS/Water/GrabbableWater");
         lefthandPartsTouchingWaterObject = 0;
         righthandPartsTouchingWaterObject = 0;
         waterGrabbingNotAllowed = false;
@@ -86,25 +87,25 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
         }
         if (waterGrabbingNotAllowed)
         {
-            GrabbableWater.GetComponent<VRTK_InteractableObject>().enabled = false;
+            GrabbableWater.GetComponent<ClimbInteractable>().enabled = false;
         }
         else
         {
-            GrabbableWater.GetComponent<VRTK_InteractableObject>().enabled = true;
+            GrabbableWater.GetComponent<ClimbInteractable>().enabled = true;
         }
         //allows both if no hands are near objects, otherwise only one of the hands
         if (lefthandPartsTouchingWaterObject == 0 && righthandPartsTouchingWaterObject == 0)
         {
-            GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.Both;         
+            //GrabbableWater.GetComponent<XRGrabInteractable>().allowedGrabControllers = XRGrabInteractable.AllowedController.Both;         
         }
         else if (lefthandPartsTouchingWaterObject >= 1 && righthandPartsTouchingWaterObject == 0)
         {
-            GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.RightOnly;
+            //GrabbableWater.GetComponent<XRGrabInteractable>().allowedGrabControllers = XRGrabInteractable.AllowedController.RightOnly;
             //Debug.Log("Rightonly");
         }
         else if (righthandPartsTouchingWaterObject >= 1  && lefthandPartsTouchingWaterObject == 0)
         {
-            GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.LeftOnly;
+            //GrabbableWater.GetComponent<XRGrabInteractable>().allowedGrabControllers = XRGrabInteractable.AllowedController.LeftOnly;
             //Debug.Log("Leftonly");
         }
     }

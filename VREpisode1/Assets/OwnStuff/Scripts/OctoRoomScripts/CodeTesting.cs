@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 public class CodeTesting : MonoBehaviour {
 
-    VRTK_PhysicsPusher TestingButton;
+    Button TestingButton;
     MeshRenderer testingRenderer;
     int currentMaterial;
     bool colorSwitching;
@@ -18,7 +18,7 @@ public class CodeTesting : MonoBehaviour {
 
 
     void Start () {
-        TestingButton = GetComponent<VRTK_PhysicsPusher>();
+        TestingButton = GetComponent<Button>();
         testingRenderer = transform.Find("TestingCube").GetComponent<MeshRenderer>();
         currentMaterial = 0;
         colorSwitching = false;
@@ -28,7 +28,7 @@ public class CodeTesting : MonoBehaviour {
 	void Update ()
     {
 
-		if (TestingButton.AtMaxLimit() && !colorSwitching)
+		if (TestingButton.isPressedDown && !colorSwitching)
         {
             if (currentMaterial == 0)
             {

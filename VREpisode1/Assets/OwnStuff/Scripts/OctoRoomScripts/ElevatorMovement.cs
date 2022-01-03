@@ -2,9 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
-
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ElevatorMovement : MonoBehaviour
     {
@@ -53,32 +51,32 @@ public class ElevatorMovement : MonoBehaviour
 
     public void CheckButtonPress()
     {
-        if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f 
-            && ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed && Game_Manager.instance.ElevatorMoving == 0)
+        if (ElevatorButton1.GetComponent<Button>().isPressedDown 
+            && ElevatorButton1.GetComponent<Button>().stayPressed && Game_Manager.instance.ElevatorMoving == 0)
         {
             if (canGoUp)
             {
                 Game_Manager.instance.ElevatorMoving = 2;        //moves UP
-                ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+                ElevatorButton1.GetComponent<Button>().stayPressed = true;
             }
-            if (ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f )
+            if (ElevatorButton2.GetComponent<Button>().isPressedDown)
             {
-                ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                ElevatorButton2.GetComponent<Button>().stayPressed = false;
                 Debug.Log("elevator1when2");
             }
         }
-        if (ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f
-            && ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed && Game_Manager.instance.ElevatorMoving == 0)
+        if (ElevatorButton2.GetComponent<Button>().isPressedDown
+            && ElevatorButton2.GetComponent<Button>().stayPressed && Game_Manager.instance.ElevatorMoving == 0)
         {
             if (canMoveDown)
             {
                 Game_Manager.instance.ElevatorMoving = 1;      //moves DOWN
                 Debug.Log("elevator2");
-                ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+                ElevatorButton2.GetComponent<Button>().stayPressed = true;
             }
-            if (ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().GetNormalizedValue() == 1f )
+            if (ElevatorButton1.GetComponent<Button>().isPressedDown)
             {
-                ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = false;
+                ElevatorButton1.GetComponent<Button>().stayPressed = false;
             }
          }           
     }
@@ -186,7 +184,7 @@ public class ElevatorMovement : MonoBehaviour
                 Debug.Log("stopped");
                 if (canMoveDown)
                 {
-                    ElevatorButton1.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+                    ElevatorButton1.GetComponent<Button>().stayPressed = true;
                     Debug.Log("Backdoor opens");                  
                     elevAnim.SetBool("BackClose", false);
                     elevAnim.SetBool("BackOpen", true);
@@ -195,7 +193,7 @@ public class ElevatorMovement : MonoBehaviour
                 }
                 else if (canGoUp)
                 {
-                    ElevatorButton2.GetComponent<VRTK_PhysicsPusher>().stayPressed = true;
+                    ElevatorButton2.GetComponent<Button>().stayPressed = true;
                     Debug.Log("Front door opens");                   
                     elevAnim.SetBool("Close", false);
                     elevAnim.SetBool("Open", true);

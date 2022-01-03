@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ClimbableHeadAppears : MonoBehaviour {
-    VRTK_SnapDropZone WallCrack;
+    XRSocketInteractor WallCrack;
     GameObject JuhaniMouthCollider;
     GameObject JuhaniHeadCollider1;
     GameObject JuhaniHeadCollider2;
@@ -16,7 +16,7 @@ public class ClimbableHeadAppears : MonoBehaviour {
     bool notDone;
 
     void Start () {
-        WallCrack = GetComponent<VRTK_SnapDropZone>();
+        WallCrack = GetComponent<XRSocketInteractor>();
         JuhaniHeadCollider1 = GameObject.Find("JuhaniClimbableHeadCollider1");
         JuhaniHeadCollider2 = GameObject.Find("JuhaniClimbableHeadCollider2");
         JuhaniMouthCollider = GameObject.Find("JuhaniUnClimbableMouthCollider");
@@ -29,7 +29,7 @@ public class ClimbableHeadAppears : MonoBehaviour {
     }
     void Update()
     {
-        if (WallCrack.GetCurrentSnappedObject() != null && notDone)
+        if (WallCrack.firstInteractableSelected != null && notDone)
         {
             JuhaniHeadCollider1.GetComponent<Collider>().enabled = true;
             JuhaniHeadCollider2.GetComponent<Collider>().enabled = true;
@@ -42,7 +42,7 @@ public class ClimbableHeadAppears : MonoBehaviour {
     IEnumerator WaitForHead()
     {
         yield return new WaitForSecondsRealtime(0.25f);
-        Destroy(WallCrack.GetCurrentSnappedObject());
+        Destroy(WallCrack.firstInteractableSelected.transform.gameObject);
         ToxicGas.Stop();
         foreach (Collider col in ToxicGasLeak.GetComponentsInChildren<Collider>())
         {

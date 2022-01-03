@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 
 public class OxygenPanel : MonoBehaviour {
@@ -13,15 +12,15 @@ public class OxygenPanel : MonoBehaviour {
 
     [Header("Oxygen lamp buttons")]
 
-    public VRTK_PhysicsPusher GreenButton;      //MF
-    public VRTK_PhysicsPusher MagentaButton;  //Janitor
-    public VRTK_PhysicsPusher CyanButton;  // Corridor
-    public VRTK_PhysicsPusher YellowButton;  // Bonsai
-    public VRTK_PhysicsPusher RedButton;   // Melter
-    public VRTK_PhysicsPusher BlueButton;  // Bridge
+    public Button GreenButton;      //MF
+    public Button MagentaButton;  //Janitor
+    public Button CyanButton;  // Corridor
+    public Button YellowButton;  // Bonsai
+    public Button RedButton;   // Melter
+    public Button BlueButton;  // Bridge
 
-    public VRTK_PhysicsPusher ClockWiseButton;       //these rotate the selection of lamps
-    public VRTK_PhysicsPusher CounterClockWiseButton;
+    public Button ClockWiseButton;       //these rotate the selection of lamps
+    public Button CounterClockWiseButton;
 
     private Color[] LampColours;
 
@@ -60,15 +59,15 @@ public class OxygenPanel : MonoBehaviour {
 
         //buttons
 
-        GreenButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenGreenButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        MagentaButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenMagentaButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        CyanButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenCyanButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        YellowButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenYellowButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        RedButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenRedButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        BlueButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenBlueButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        GreenButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenGreenButton").GetComponentInChildren<Button>();
+        MagentaButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenMagentaButton").GetComponentInChildren<Button>();
+        CyanButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenCyanButton").GetComponentInChildren<Button>();
+        YellowButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenYellowButton").GetComponentInChildren<Button>();
+        RedButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenRedButton").GetComponentInChildren<Button>();
+        BlueButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenBlueButton").GetComponentInChildren<Button>();
 
-        ClockWiseButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenClockWiseButton").GetComponentInChildren<VRTK_PhysicsPusher>();
-        CounterClockWiseButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenCounterClockWiseButton").GetComponentInChildren<VRTK_PhysicsPusher>();
+        ClockWiseButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenClockWiseButton").GetComponentInChildren<Button>();
+        CounterClockWiseButton = GameObject.Find("BONSAI_ROOM/OxygenPanel/OxygenCounterClockWiseButton").GetComponentInChildren<Button>();
 
         LampColours = new Color[4];
 
@@ -123,7 +122,7 @@ public class OxygenPanel : MonoBehaviour {
 
     private void CheckForSelectedLamp()
     {
-        if (ClockWiseButton.AtMaxLimit() && !lampJustChanged)
+        if (ClockWiseButton.isPressedDown && !lampJustChanged)
         {
             if (currentlySelectedLamp == 4)
             {
@@ -137,7 +136,7 @@ public class OxygenPanel : MonoBehaviour {
             IndicateLampSelection();
             StartCoroutine(LampChangeWaitTime());
         }
-        else if (CounterClockWiseButton.AtMaxLimit() && !lampJustChanged)
+        else if (CounterClockWiseButton.isPressedDown && !lampJustChanged)
         {
             if (currentlySelectedLamp == 1)
             {
@@ -177,7 +176,7 @@ public class OxygenPanel : MonoBehaviour {
     private void CheckForLampColours()
     {
         //green
-        if (GreenButton.AtMaxLimit() && !lampJustChanged)
+        if (GreenButton.isPressedDown && !lampJustChanged)
         {
             if(currentlySelectedLamp == 1)
             {
@@ -207,7 +206,7 @@ public class OxygenPanel : MonoBehaviour {
             StartCoroutine(LampChangeWaitTime());
         }
         //magenta
-        else if (MagentaButton.AtMaxLimit() && !lampJustChanged)
+        else if (MagentaButton.isPressedDown && !lampJustChanged)
         {
             if (currentlySelectedLamp == 1)
             {
@@ -236,7 +235,7 @@ public class OxygenPanel : MonoBehaviour {
             lampJustChanged = true;
             StartCoroutine(LampChangeWaitTime());
         }
-        else if (CyanButton.AtMaxLimit() && !lampJustChanged)
+        else if (CyanButton.isPressedDown && !lampJustChanged)
         {
             if (currentlySelectedLamp == 1)
             {
@@ -265,7 +264,7 @@ public class OxygenPanel : MonoBehaviour {
             lampJustChanged = true;
             StartCoroutine(LampChangeWaitTime());
         }
-        else if (YellowButton.AtMaxLimit() && !lampJustChanged)
+        else if (YellowButton.isPressedDown && !lampJustChanged)
         {
             if (currentlySelectedLamp == 1)
             {
@@ -294,7 +293,7 @@ public class OxygenPanel : MonoBehaviour {
             lampJustChanged = true;
             StartCoroutine(LampChangeWaitTime());
         }
-        else if (RedButton.AtMaxLimit() && !lampJustChanged)
+        else if (RedButton.isPressedDown && !lampJustChanged)
         {
             if (currentlySelectedLamp == 1)
             {
@@ -323,7 +322,7 @@ public class OxygenPanel : MonoBehaviour {
             lampJustChanged = true;
             StartCoroutine(LampChangeWaitTime());
         }
-        else if (BlueButton.AtMaxLimit() && !lampJustChanged)
+        else if (BlueButton.isPressedDown && !lampJustChanged)
         {
             if (currentlySelectedLamp == 1)
             {

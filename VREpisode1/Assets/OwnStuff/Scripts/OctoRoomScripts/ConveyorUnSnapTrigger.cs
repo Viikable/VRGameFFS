@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class ConveyorUnSnapTrigger : MonoBehaviour {
 
-    VRTK_SnapDropZone ResearchConveyorSnap;
+    XRSocketInteractor ResearchConveyorSnap;
 
-    VRTK_PhysicsPusher MarkerReleaseButton;
+    Button MarkerReleaseButton;
 
     GameObject Marker;
 
@@ -16,10 +16,10 @@ public class ConveyorUnSnapTrigger : MonoBehaviour {
 
     void Start()
     {
-        ResearchConveyorSnap = GetComponent<VRTK_SnapDropZone>();
+        ResearchConveyorSnap = GetComponent<XRSocketInteractor>();
         Marker = GameObject.Find("Marker");
 
-        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<VRTK_PhysicsPusher>();
+        MarkerReleaseButton = GameObject.Find("MarkerReleaseButton").GetComponent<Button>();
 
         markerCanSnap = true;
 
@@ -29,7 +29,7 @@ public class ConveyorUnSnapTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Marker") && markerCanSnap)
         {
-            ResearchConveyorSnap.ForceSnap(Marker);
+            ResearchConveyorSnap.StartManualInteraction(Marker.GetComponent<XRGrabInteractable>());
             if (!OctopusLightCode.MarkerAttachSound.isPlaying)
             {
                 OctopusLightCode.MarkerAttachSound.Play();
@@ -41,11 +41,11 @@ public class ConveyorUnSnapTrigger : MonoBehaviour {
     private void Update()
     {
 
-        if (ResearchConveyorSnap.GetCurrentSnappedObject() != null && ResearchConveyorSnap.GetCurrentSnappedObject() ==
-           Marker && MarkerReleaseButton.AtMaxLimit() && MarkerReleaseButton.stayPressed)
+        if (ResearchConveyorSnap.firstInteractableSelected != null && ResearchConveyorSnap.firstInteractableSelected.Equals(Marker)
+            && MarkerReleaseButton.isPressedDown && MarkerReleaseButton.stayPressed)
         {
             Game_Manager.instance.beingUnSnapped = true;
-            ResearchConveyorSnap.ForceUnsnap();
+            ResearchConveyorSnap.EndManualInteraction();
             if (markerCanSnap)
             {
                 markerCanSnap = false;

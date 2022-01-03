@@ -1,25 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
-using VRTK.Controllables.PhysicsBased;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class LampButton : MonoBehaviour {
 
-    VRTK_PhysicsPusher Lampbutton;
+    Button Lampbutton;
     public Light LampLight;
     bool clicked;
 	
 	void Start ()
     {
-        Lampbutton = GetComponent<VRTK_PhysicsPusher>();
+        Lampbutton = GetComponent<Button>();
         clicked = false;
 	}
 	
 	
 	void Update ()
     {		
-        if (Lampbutton.AtMaxLimit() && !clicked)
+        if (Lampbutton.isPressedDown && !clicked)
         {
             if (!LampLight.enabled)
             {
@@ -31,7 +30,7 @@ public class LampButton : MonoBehaviour {
             }
             clicked = true;
         }
-        else if (Lampbutton.AtMinLimit() && clicked)
+        else if (Lampbutton.isAtStartPosition && clicked)
         {
             clicked = false;
         }

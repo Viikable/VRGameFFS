@@ -26,15 +26,15 @@ public class HandsLighting : MonoBehaviour
     {
         if (insideObject && WaterMovement.notDrownedYet)
         {
-            if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null || Game_Manager.instance.LeftGrab.GetGrabbedObject() != null)
+            if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null || Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null)
             {
-                if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && !Game_Manager.instance.RightGrab.GetGrabbedObject().CompareTag("Rope"))
+                if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null && !Game_Manager.instance.RightDirectInteractor.firstInteractableSelected.transform.gameObject.CompareTag("Rope"))
                 {
-                    Game_Manager.instance.RightGrab.ForceRelease();
+                    Game_Manager.instance.RightDirectInteractor.EndManualInteraction();
                 }
-                if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && !Game_Manager.instance.LeftGrab.GetGrabbedObject().CompareTag("Rope"))
+                if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null && !Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected.transform.gameObject.CompareTag("Rope"))
                 {
-                    Game_Manager.instance.LeftGrab.ForceRelease();
+                    Game_Manager.instance.LeftDirectInteractor.EndManualInteraction();
                 }
             }
             LeftHandMat.SetColor("_EmissionColor", Color.green * 50f);

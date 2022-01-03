@@ -40,9 +40,9 @@ public class OptimizeRendering : MonoBehaviour
         insideMelterArea = false;
         insideMainHall = false;      
         insideShafts = false;
-        insideOctoRoom = false;
+        insideOctoRoom = true;
         renderingChanged = false;
-        insideBonsaiRoom = true;     //we start here
+        insideBonsaiRoom = false;     //we start here
         counter = 0;
 
         foreach (MelterObject scriptObject in GameObject.FindObjectsOfType<MelterObject>())

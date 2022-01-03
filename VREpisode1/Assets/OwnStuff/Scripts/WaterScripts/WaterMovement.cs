@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class WaterMovement : MonoBehaviour
 {
-    public static VRTK_HeadsetFade fader;  //this is used to create drowning effect when the headset slowly gets darker
+    //public static VRTK_HeadsetFade fader;  //this is used to create drowning effect when the headset slowly gets darker
 
     [SerializeField]
     [Tooltip("Is the water rising right now")]
@@ -82,20 +82,20 @@ public class WaterMovement : MonoBehaviour
         {
             floatingBox = GameObject.Find("FloatingBox").GetComponent<BoxFloat>();
         }
-        LeftController = GameObject.Find("LeftController");
-        RightController = GameObject.Find("RightController");
+        //LeftController = GameObject.Find("LeftController");
+        //RightController = GameObject.Find("RightController");
         touchedWater = false;
         oxygenTimer = 60f;
         waterRises = false;
         headIsUnderWater = false;
         reachedTopPuzzle = false;
         notDrownedYet = true;     
-        headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
+        //headSet = GameObject.Find("[VRTK_SDKManager]").transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         headsetbody = null;
         feet = null;
         head = null;
         ropeCheck = true;
-        fader = GameObject.Find("PlayArea").GetComponent<VRTK_HeadsetFade>();
+        //fader = GameObject.Find("PlayArea").GetComponent<VRTK_HeadsetFade>();
         if (transform.Find("UnderwaterAmbience1") != null)
         {
         UnderwaterAmbience1 = transform.Find("UnderwaterAmbience1").GetComponent<AudioSource>();
@@ -113,36 +113,36 @@ public class WaterMovement : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
         //for testing purposes disabled when in test scenes
         if (UnderwaterAmbience1 != null)
         {
-            if (Time.time >= 0.25f && GameObject.Find("SteamVR") != null && VRTK_SDKManager.GetLoadedSDKSetup() == GameObject.Find("SteamVR").GetComponent<VRTK_SDKSetup>())   //this because the first check gives error as the colliders are created at runtime + don't wanna use this in the simulator
-            {
-                if (feet == null && head == null)   //to prevent error when system button is pressed
-                {
-                    feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
-                    Debug.Log(feet);
-                    body = headSet.transform.GetChild(3).GetComponent<Collider>();
-                    Debug.Log(body);
-                    if (HeadsetFollower.activeSelf)
-                    {
-                        head = headSet.transform.GetChild(2).GetChild(4).GetComponent<Collider>();    //finds the collider child for head
-                        Debug.Log(head);
-                    }
-                    else
-                    {
-                        head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();
-                        Debug.Log(head);
-                    }
-                }
-                headsetbody = headSet.GetComponent<Rigidbody>();
-            }
+            //if (Time.time >= 0.25f) 
+            //{
+            //    if (feet == null && head == null)   //to prevent error when system button is pressed
+            //    {
+            //        feet = headSet.transform.GetChild(3).GetChild(0).GetComponent<Collider>();   //finds the collider child for feet
+            //        Debug.Log(feet);
+            //        body = headSet.transform.GetChild(3).GetComponent<Collider>();
+            //        Debug.Log(body);
+            //        if (HeadsetFollower.activeSelf)
+            //        {
+            //            head = headSet.transform.GetChild(2).GetChild(4).GetComponent<Collider>();    //finds the collider child for head
+            //            Debug.Log(head);
+            //        }
+            //        else
+            //        {
+            //            head = headSet.transform.GetChild(2).GetChild(3).GetComponent<Collider>();
+            //            Debug.Log(head);
+            //        }
+            //    }
+            //    headsetbody = headSet.GetComponent<Rigidbody>();
+            //}
 
             if (touchedWater)
             {
-                GameObject.Find("PlayArea").GetComponent<VRTK_BodyPhysics>().fallRestriction = VRTK_BodyPhysics.FallingRestrictors.AlwaysRestrict;
+                //GameObject.Find("PlayArea").GetComponent<VRTK_BodyPhysics>().fallRestriction = VRTK_BodyPhysics.FallingRestrictors.AlwaysRestrict;
                 if (oxygenTimer < Time.time - timeWhenGotUnderwater + oxygenTimer * 3 / 4 && headIsUnderWater)
                 {
                     //Debug.Log("3/4 oxygen left");
@@ -185,15 +185,15 @@ public class WaterMovement : MonoBehaviour
                 if (oxygenTimer < Time.time - timeWhenGotUnderwater && headIsUnderWater && notDrownedYet)
                 {
                     DrowningAlertSounds.Stop();
-                    fader.Fade(Color.black, 1.5f);
+                    //fader.Fade(Color.black, 1.5f);
                     notDrownedYet = false;
                     Drowned.Play();
                     Debug.Log("drowned");
                     //Debug.Log(Time.time);
-                    LeftController.GetComponent<VRTK_InteractGrab>().enabled = false;
-                    LeftController.GetComponent<VRTK_ControllerEvents>().enabled = false;
-                    RightController.GetComponent<VRTK_InteractGrab>().enabled = false;
-                    RightController.GetComponent<VRTK_ControllerEvents>().enabled = false;
+                    //LeftController.GetComponent<VRTK_InteractGrab>().enabled = false;
+                    //LeftController.GetComponent<VRTK_ControllerEvents>().enabled = false;
+                    //RightController.GetComponent<VRTK_InteractGrab>().enabled = false;
+                    //RightController.GetComponent<VRTK_ControllerEvents>().enabled = false;
                     //head.GetComponent<Rigidbody>().isKinematic = false;
                     //player dies here, lose control, sink to bottom, fade to black
                 }
@@ -222,7 +222,7 @@ public class WaterMovement : MonoBehaviour
             else if (headsetbody != null)
             {
                 Physics.gravity.Set(0, -9.81f, 0);
-                GameObject.Find("PlayArea").GetComponent<VRTK_BodyPhysics>().fallRestriction = VRTK_BodyPhysics.FallingRestrictors.EitherController;
+                //GameObject.Find("PlayArea").GetComponent<VRTK_BodyPhysics>().fallRestriction = VRTK_BodyPhysics.FallingRestrictors.EitherController;
                 //headsetbody.useGravity = true;
                 //Debug.Log("gravity");
             }

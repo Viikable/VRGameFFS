@@ -26,7 +26,7 @@ public class WaterTouchHigh : MonoBehaviour
             }
             Debug.Log("head exited water");
             water.headSet.GetComponentInChildren<UnderWaterEffect>().enabled = false;
-            WaterMovement.fader.Unfade(0.25f);
+            //WaterMovement.fader.Unfade(0.25f);
             WaterMovement.headIsUnderWater = false;
             //test
             //ToxicGasPush.PlayerBody.isKinematic = true;

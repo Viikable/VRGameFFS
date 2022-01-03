@@ -14,13 +14,13 @@ public class BoxDragging : MonoBehaviour {
     {
         if (collision.collider == WaterMovement.head || collision.collider == WaterMovement.feet || collision.collider == WaterMovement.body)
         {
-            if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject)
+            if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected.Equals(gameObject))
             {
-                Game_Manager.instance.LeftGrab.ForceRelease();
+                Game_Manager.instance.LeftDirectInteractor.EndManualInteraction();
             }
-            else if (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject)
+            else if (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.RightDirectInteractor.firstInteractableSelected.Equals(gameObject))
             {
-                Game_Manager.instance.RightGrab.ForceRelease();
+                Game_Manager.instance.RightDirectInteractor.EndManualInteraction();
             }
         }
     }
@@ -31,15 +31,15 @@ public class BoxDragging : MonoBehaviour {
 
     public void CheckIfBoxBeingMoved()
     {
-        if (Game_Manager.instance.LeftGrab.GetGrabbedObject() != null && Game_Manager.instance.LeftGrab.GetGrabbedObject() == gameObject 
-            || (Game_Manager.instance.RightGrab.GetGrabbedObject() != null && Game_Manager.instance.RightGrab.GetGrabbedObject() == gameObject))
+        if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected.Equals(gameObject) 
+            || (Game_Manager.instance.RightDirectInteractor.firstInteractableSelected != null && Game_Manager.instance.RightDirectInteractor.firstInteractableSelected.Equals(gameObject)))
         {
             if (!DraggingSound.isPlaying)
             {
                 DraggingSound.Play();
             }
         }
-        if (Game_Manager.instance.LeftGrab.GetGrabbedObject() == null && Game_Manager.instance.RightGrab.GetGrabbedObject() == null)
+        if (Game_Manager.instance.LeftDirectInteractor.firstInteractableSelected == null && Game_Manager.instance.RightDirectInteractor.firstInteractableSelected == null)
         {
             DraggingSound.Stop();
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class CollisionSound : MonoBehaviour {
 
@@ -15,7 +15,7 @@ public class CollisionSound : MonoBehaviour {
 
     public virtual void OnCollisionEnter(Collision collision)
     {
-        if (!collisionSound.isPlaying && !gameObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+        if (!collisionSound.isPlaying && !gameObject.GetComponent<XRGrabInteractable>().isSelected)
         {
             if (collision.relativeVelocity.magnitude - 1.5f >= 0.1f)
             {
@@ -31,7 +31,7 @@ public class CollisionSound : MonoBehaviour {
             }
             collisionSound.Play();
         }
-        else if (!collisionSound.isPlaying && gameObject.GetComponent<VRTK_InteractableObject>().IsGrabbed())
+        else if (!collisionSound.isPlaying && gameObject.GetComponent<XRGrabInteractable>().isSelected)
         {
             collisionSound.Play();
         }

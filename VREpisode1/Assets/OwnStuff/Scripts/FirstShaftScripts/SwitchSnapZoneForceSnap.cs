@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SwitchSnapZoneForceSnap : MonoBehaviour {
-    VRTK_SnapDropZone SwitchZone;
+    XRSocketInteractor SwitchZone;
 
 	
 	void Start () {

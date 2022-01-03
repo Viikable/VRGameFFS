@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ResetOutOfFacilityObjectLocation : MonoBehaviour {
     //this class handles object location resetting if they go outside of the game walls and hit the seabed
@@ -51,14 +51,14 @@ public class ResetOutOfFacilityObjectLocation : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<VRTK_InteractableObject>() != null)
+        if (other.GetComponent<XRGrabInteractable>() != null)
         {
             if (other.GetComponent<LocationReset>() != null)
             {
             other.GetComponent<LocationReset>().ResetLocation();
             }
         }
-        else if (other.transform.parent.GetComponent<VRTK_InteractableObject>() != null && other.transform.parent.GetComponent<LocationReset>() != null)
+        else if (other.transform.parent.GetComponent<XRGrabInteractable>() != null && other.transform.parent.GetComponent<LocationReset>() != null)
         {
             other.transform.parent.GetComponent<LocationReset>().ResetLocation();
         }

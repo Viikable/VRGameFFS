@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRTK.Controllables.PhysicsBased;
+
 
 public class MetalHitsTheFan : MonoBehaviour {
     AudioSource MetalSounds1;

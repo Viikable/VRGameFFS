@@ -9,13 +9,13 @@ public class FogEffect : MonoBehaviour {
     public float _depthStart;
     public float _depthDistance;
 
-    // Use this for initialization
-    void Start () {
+    void Start () 
+    {
         GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
         _mat.SetColor("_FogColor", _fogColor);
         _mat.SetFloat("_DepthStart", _depthStart);
         _mat.SetFloat("_DepthDistance", _depthDistance);
