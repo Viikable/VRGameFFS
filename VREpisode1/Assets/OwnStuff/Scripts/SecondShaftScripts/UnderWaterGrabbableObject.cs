@@ -100,12 +100,12 @@ public class UnderWaterGrabbableObject : MonoBehaviour {
         else if (lefthandPartsTouchingWaterObject >= 1 && righthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.RightOnly;
-            Debug.Log("Rightonly");
+            //Debug.Log("Rightonly");
         }
         else if (righthandPartsTouchingWaterObject >= 1  && lefthandPartsTouchingWaterObject == 0)
         {
             GrabbableWater.GetComponent<VRTK_InteractableObject>().allowedGrabControllers = VRTK_InteractableObject.AllowedController.LeftOnly;
-            Debug.Log("Leftonly");
+            //Debug.Log("Leftonly");
         }
     }
 }

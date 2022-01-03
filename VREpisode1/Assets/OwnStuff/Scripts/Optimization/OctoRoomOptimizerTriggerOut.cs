@@ -18,7 +18,7 @@ public class OctoRoomOptimizerTriggerOut : MonoBehaviour {
         {
             OptimizeRendering.insideOctoRoom = false;                    
             OptimizeRendering.renderingChanged = false;
-            ResetOutOfFacilityObjectLocation.PlayerResetLocation = "LastShaft";
+            ResetOutOfFacilityObjectLocation.playerLocation = ResetOutOfFacilityObjectLocation.PlayerCurrentLocation.LastShaft;
         }
     }
 }

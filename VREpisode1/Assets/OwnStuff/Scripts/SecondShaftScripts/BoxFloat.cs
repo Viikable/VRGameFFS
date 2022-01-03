@@ -13,8 +13,8 @@ public class BoxFloat : MonoBehaviour
     
     float rotationSpeed;
 
-    [Tooltip("This float randomizes the x and z force to the box to make floating more realistic")]
-    float waveRandomizer;
+    //[Tooltip("This float randomizes the x and z force to the box to make floating more realistic")]
+    //float waveRandomizer;
 
     //the amount of 90 degree rotations currently on the box, for example 540 degree rotation has 6x90 degree rotations in it
     float totalRotationsX;
@@ -78,8 +78,7 @@ public class BoxFloat : MonoBehaviour
 
         rotationSpeed = 16f;
 
-        waveRandomizer = Random.Range(-1f, 1f);
-
+        //waveRandomizer = Random.Range(-1f, 1f);
 
         totalRotationsX = 0;
         totalRotationsY = 0;
@@ -143,9 +142,7 @@ public class BoxFloat : MonoBehaviour
         GetComponent<VRTK_InteractableObject>().grabAttachMechanicScript = GetComponent<VRTK_ClimbableGrabAttach>();
 
         if (!tooDeep)
-        {
-
-            //GetComponent<Rigidbody>().AddForce(Vector3.up * 1500 * Time.deltaTime);                
+        {                       
             transform.Translate(Vector3.up * 0.2f * Time.fixedDeltaTime, Space.World);
             boxBody.AddForce(new Vector3(0f, -1f, 0) * 0.75f, ForceMode.Acceleration);
         }
@@ -169,7 +166,7 @@ public class BoxFloat : MonoBehaviour
     //check whether any axis rotation is not "straight" and fixes it
     public void RotationFixer()
     {
-        var step = rotationSpeed * Time.deltaTime;
+        var step = rotationSpeed * Time.fixedDeltaTime;
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         if (transform.rotation.eulerAngles.x % 90 != 0 && transform.rotation.eulerAngles.x != 0)
         {
@@ -323,7 +320,7 @@ public class BoxFloat : MonoBehaviour
                 }
             }
         }
-        if (futureXRotation == -90)
+        else if (futureXRotation == -90)
         {
             if (futureYRotation == 0)
             {
@@ -371,7 +368,7 @@ public class BoxFloat : MonoBehaviour
                 }
             }
         }
-        if (futureXRotation == 0)
+        else if (futureXRotation == 0)
         {
             if (futureYRotation == 0)
             {

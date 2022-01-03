@@ -17,13 +17,18 @@ public class OptimizeRendering : MonoBehaviour
     [Tooltip("If inside OctoRoom then doesn't render other areas")]
     public static bool insideOctoRoom;
 
-    public static GameObject[] MelterObjects = new GameObject[1000];
+    [Tooltip("If inside OctoRoom then doesn't render other areas")]
+    public static bool insideBonsaiRoom;
 
-    public static GameObject[] MainHallObjects = new GameObject[1000];
+    public static GameObject[] MelterObjects = new GameObject[500];
 
-    public static GameObject[] ShaftsObjects = new GameObject[1000];
+    public static GameObject[] MainHallObjects = new GameObject[500];
 
-    public static GameObject[] OctoRoomObjects = new GameObject[1000];
+    public static GameObject[] ShaftsObjects = new GameObject[500];
+
+    public static GameObject[] OctoRoomObjects = new GameObject[500];
+
+    public static GameObject[] BonsaiRoomObjects = new GameObject[500];
 
     public static bool renderingChanged;
 
@@ -33,10 +38,11 @@ public class OptimizeRendering : MonoBehaviour
     void Awake()
     {
         insideMelterArea = false;
-        insideMainHall = false;       //we start here
-        insideShafts = true;
+        insideMainHall = false;      
+        insideShafts = false;
         insideOctoRoom = false;
         renderingChanged = false;
+        insideBonsaiRoom = true;     //we start here
         counter = 0;
 
         foreach (MelterObject scriptObject in GameObject.FindObjectsOfType<MelterObject>())
@@ -60,6 +66,12 @@ public class OptimizeRendering : MonoBehaviour
         foreach (OctoRoomObject scriptObject in GameObject.FindObjectsOfType<OctoRoomObject>())
         {
             OctoRoomObjects[counter] = scriptObject.gameObject;
+            counter++;
+        }
+        counter = 0;
+        foreach (BonsaiRoomObject scriptObject in GameObject.FindObjectsOfType<BonsaiRoomObject>())
+        {
+            BonsaiRoomObjects[counter] = scriptObject.gameObject;
             counter++;
         }
     }
@@ -297,6 +309,26 @@ public class OptimizeRendering : MonoBehaviour
                         //        childCollider.enabled = false;
                         //    }
                         //}
+                    }
+                }
+            }
+            if (insideBonsaiRoom)
+            {
+                foreach (GameObject BonsaiRoomObject in BonsaiRoomObjects)
+                {
+                    if (BonsaiRoomObject != null && BonsaiRoomObject.GetComponent<MeshRenderer>() != null)
+                    {
+                        BonsaiRoomObject.GetComponent<MeshRenderer>().enabled = true;                       
+                    }
+                }
+            }
+            else
+            {
+                foreach (GameObject BonsaiRoomObject in BonsaiRoomObjects)
+                {
+                    if (BonsaiRoomObject != null && BonsaiRoomObject.GetComponent<MeshRenderer>() != null)
+                    {
+                        BonsaiRoomObject.GetComponent<MeshRenderer>().enabled = false;
                     }
                 }
             }

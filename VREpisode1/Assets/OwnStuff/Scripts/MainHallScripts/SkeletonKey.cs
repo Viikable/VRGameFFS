@@ -4,7 +4,7 @@ using UnityEngine;
 using VRTK;
 
 public class SkeletonKey : UnderWaterGrabbableObject
-{    
+{
     //the same as in FloatingObject, just testing
     protected override void Start()
     {

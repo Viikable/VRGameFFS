@@ -145,8 +145,7 @@
         private void Update()        //this enables the hands without need of button two pressing after 0.75s of starting the game
         {
             if (!startToggledHandsOn && Time.time >= 0.75f)
-            {
-                Debug.Log("hmm");
+            {            
                 startToggledHandsOn = true;
                 state = true;
                 ToggleVisibility();
