@@ -30,9 +30,10 @@ public class Button : XRBaseInteractable
 
     private float previousHandHeight = 0.0f;
     private XRBaseInteractor hoverInteractor = null;
+    Rigidbody thisBody;
     protected override void Awake()
     {
-        base.Awake();       
+        base.Awake();
         hoverEntered.AddListener(StartPress);
         hoverExited.AddListener(EndPress);
         if (GetComponent<Collider>() != null)
@@ -52,8 +53,16 @@ public class Button : XRBaseInteractable
         {
             Physics.IgnoreCollision(col, buttonCol);
         }
+        thisBody = GetComponent<Rigidbody>();
+        //if (thisBody != null)
+        //{
+        //    thisBody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("this one needs a rigidbody" + name);
+        //}
     }
-
     protected override void OnDestroy()
     {
         base.OnDestroy();
